@@ -67,7 +67,7 @@ Canonical evidence lives under `data/`. Source and claim records may be split in
 
 Important factual claims can therefore be traced as:
 
-**Claim → source/version → exact locator → relevant finding → qualification → article location → reviewer → review status**
+**Claim → source/version → exact locator → relevant finding → qualification → article location → reviewer/process → independent review status**
 
 The generated evidence page gives each claim a stable anchor and links back to the articles using it. Generated article pages also show the claim records currently attached to that article.
 
@@ -79,11 +79,11 @@ Generated article pages distinguish:
 
 - **publication state** — Draft, Research draft, Editorial review in progress, Reviewed for publication, etc.;
 - **Last updated** date;
-- **evidence review state** for connected claims.
+- **independent evidence-review state** for connected claims.
 
 A date does not mean every factual statement has been independently approved.
 
-The current launch-critical claims deliberately remain marked as pending editorial review. That is disclosure of the project’s current release process, not a claim that human review is intrinsically superior to other assurance methods.
+The current launch-critical claims deliberately remain marked as pending independent review. **Independent review is actor-neutral:** it may be performed by a human, AI system, automated method, or hybrid process, provided the review is sufficiently separate from the originating authoring step and applies the same evidence standard.
 
 ## Publication layer
 
@@ -113,7 +113,7 @@ python scripts/build_site.py
 python scripts/check_publication.py
 ```
 
-The regression tests and checker reject known structural defects including empty evidence values, invalid claim locations, completed review states without reviewer/date records, broken fragments, deployment-escaping links, and reserved article slugs.
+The regression tests and checker reject known structural defects including empty evidence values, invalid claim locations, completed independent-review states without reviewer/date records, broken fragments, deployment-escaping links, and reserved article slugs.
 
 A green preview gate means the draft **builds and is structurally consistent**. It does not establish factual truth or publication approval.
 
@@ -123,11 +123,11 @@ The manual [`release-gate.yml`](.github/workflows/release-gate.yml) additionally
 
 Under the current release policy it blocks release when:
 
-- a launch-critical claim has not completed the declared editorial review;
+- a launch-critical claim has not completed independent review;
 - the review record is incomplete; or
 - a core article has not been marked ready for publication.
 
-This is a project publication control, not a guarantee of truth.
+The independent reviewer/process may be human, AI, automated, or hybrid. This is a project publication control, not a guarantee of truth.
 
 ## Repository structure
 
@@ -167,7 +167,7 @@ See [`content/corrections.md`](content/corrections.md) and [`CONTRIBUTING.md`](C
 
 ## Current status
 
-**Pre-public-launch / pilot.** The reading route, evidence model, claim backlinks, static build, structural regression tests, and distinct preview/release gates are in place. Launch-critical factual claims still require the repository’s declared editorial approval; accessibility review, external-link/date review, licensing, hosting, and public-release decisions remain open.
+**Pre-public-launch / pilot.** The reading route, evidence model, claim backlinks, static build, structural regression tests, and distinct preview/release gates are in place. Launch-critical factual claims still require the repository’s declared independent review; accessibility review, external-link/date review, licensing, hosting, and public-release decisions remain open.
 
 ## Licence
 
