@@ -134,6 +134,17 @@ articles:
     reviewed: 2026-09-14
     status: research_draft
 
+  - id: ai-business-capability-judgement
+    title: AI can do business work too
+    source: content/ai-business-capability-and-judgement.md
+    slug: ai-business-capability-and-judgement
+    section: deeper
+    order: 145
+    summary: Separating analysis and judgement capability from authority and accountability, including live customer interaction, persuasion, report analysis, and embodied AI.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: research_draft
+
   - id: company-actors-instruments
     title: Company actors are not the same as company instruments
     source: content/company-actors-vs-instruments.md
