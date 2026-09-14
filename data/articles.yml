@@ -101,6 +101,28 @@ articles:
     reviewed: 2026-09-14
     status: draft
 
+  - id: product-ideas-vs-discovery
+    title: Product ideas are not product discovery
+    source: content/product-ideas-vs-product-discovery.md
+    slug: product-ideas-vs-product-discovery
+    section: deeper
+    order: 135
+    summary: Why broad ideation is useful but product opportunities still need user, workflow, feasibility, delivery and business evidence.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: research_draft
+
+  - id: model-capability-product-strategy
+    title: A model capability is not a product strategy
+    source: content/model-capability-vs-product-strategy.md
+    slug: model-capability-vs-product-strategy
+    section: deeper
+    order: 137
+    summary: Separating technology scouting from customer need, product design, solution architecture, delivery and business viability.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: research_draft
+
   - id: architecture-economics
     title: Engineering choices can be business decisions
     source: content/architecture-economics-and-product-decisions.md
