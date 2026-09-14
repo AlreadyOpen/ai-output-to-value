@@ -23,13 +23,15 @@ When possible, include:
 
 ## Review status
 
-The project separates automated publication checks from editorial evidence review.
+The project separates automated publication checks from independent evidence review.
 
 Automated checks can confirm that source IDs exist, claim records contain required fields, structured data parses, and local links resolve.
 
-They **cannot** establish that a paper, policy, vendor page, or dataset truly supports a published sentence. That remains an editorial review task.
+They **cannot by themselves** establish that a paper, policy, vendor page, or dataset truly supports a published sentence. That requires an evidence review process appropriate to the claim.
 
-Claim records in `data/claims.yml` therefore include a reviewer, review date, and human-review status.
+Claim records in the canonical `data/claims*.yml` registries therefore include a reviewer/process, review date, and independent-review status.
+
+The reviewer/process may be human, AI, automated, or hybrid. The standard is the same: inspect the evidence directly, test whether the claim follows within scope, preserve material qualifications, and keep the review sufficiently separate from the originating authoring process.
 
 ## Maintainer
 
