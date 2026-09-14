@@ -59,7 +59,7 @@ AI can help create all of this. The point is not that substance must be written 
 
 That may require:
 
-- someone or something capable of evaluating whether the result is fit for its intended use;
+- a human, model, automated check, or hybrid process capable of evaluating whether the result is fit for its intended use;
 - clear ownership of review and approval;
 - the ability to explain important design and business decisions;
 - a process for fixing defects;
@@ -91,7 +91,7 @@ When someone says, “The agent already built it,” ask:
 3. **Which assumptions have been checked against the client's actual requirements and environment?**
 4. **Who or what can approve and support the result after delivery?**
 
-These questions do not imply that more review is always the answer. They identify where additional assurance is worth its cost and where it is not.
+These questions do not imply that more human review is always the answer. They identify where additional assurance—automated, model-based, specialist, human, or hybrid—is worth its cost and where it is not.
 
 ## Prototype, client deliverable, and professional service are different claims
 
@@ -109,9 +109,13 @@ Sometimes it can.
 
 For a small, low-risk, well-specified job, a free agent plus proportionate verification may produce a perfectly acceptable client result. Tool cost and technical complexity are not proxies for quality.
 
-> **A tool being capable of performing much of the production work does not automatically mean the organisation has supplied the judgement, context, verification, accountability, and service needed for the whole job.**
+> **A tool being capable of performing much of the production work does not automatically mean the organisation has supplied the context, decision capability, verification, authority, accountability, and service needed for the whole job.**
 
 That is true whether the tool costs $0, $20, $100, or an enterprise contract.
+
+Judgement itself should not be treated as uniquely human. AI systems can perform substantial evaluative work. The separate questions are whether that judgement is reliable enough for the task, whether the system is authorised to act, and where accountability and recourse sit.
+
+See [`ai-business-capability-and-judgement.md`](ai-business-capability-and-judgement.md).
 
 ## Do not confuse cheap production with a complete business model
 
