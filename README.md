@@ -6,15 +6,13 @@
 
 ## Umbrella initiative
 
-**AlreadyOpen** is the umbrella initiative for this project:
+This project is part of **AlreadyOpen**: https://github.com/AlreadyOpen
 
-- https://github.com/AlreadyOpen
-
-`AI Output to Value` is one publication within that broader initiative. The repository currently remains at `helenkwok/ai-output-to-value`; any later transfer to `AlreadyOpen/ai-output-to-value` is a repository-location decision, not a change to the project's scope or identity.
+The repository currently remains at `helenkwok/ai-output-to-value`. A future transfer to `AlreadyOpen/ai-output-to-value` is an organisational/release decision; the publication builder already treats repository and umbrella URLs as configuration values.
 
 ## Start here
 
-If you are a business reader, do **not** read the repository front-to-back.
+For a first-time business reader:
 
 1. **[Start here — five-minute guide](START-HERE.md)**
 2. **[A strong frame is not the same as a finished job](content/frame-vs-finished-work.md)**
@@ -24,7 +22,7 @@ If you are a business reader, do **not** read the repository front-to-back.
 
 For a meeting, use the **[one-page meeting brief](content/meeting-brief.md)**.
 
-Deeper analyses cover product discovery, model capability versus strategy, architecture and unit economics, AI business-facing capability and judgement, open-source economics, organisational capability, agents, authority, representation, and changing interaction channels. See [`docs/reading-path.md`](docs/reading-path.md).
+Deeper analyses cover product discovery, model strategy, architecture and unit economics, AI business-facing capability and judgement, open-source economics, organisational capability, agents, authority, representation, and changing interaction channels. See [`docs/reading-path.md`](docs/reading-path.md).
 
 ## The practical question
 
@@ -38,106 +36,67 @@ This project uses a decision framework:
 
 **Access → Output → Deliverable → Capability → Outcome → Value**
 
-These are **six different claims**, not mandatory lifecycle stages. A disposable prototype can create a valuable learning outcome without becoming an operational service.
+These are six different claims, not mandatory lifecycle stages.
 
 ## Four distinctions that matter
 
 ### Tool capability ≠ job substance ≠ delivery capability
-
-A capable agent may generate most of the visible artefact or perform much of a workflow. That does not automatically establish that the result reflects the actual job or that the supplier can repeatedly verify, operate, support, maintain, and stand behind it.
+A capable agent may generate most of the visible artefact or perform much of a workflow. That does not automatically establish that the result reflects the actual job or that the supplier can repeatedly evaluate, operate, support, maintain, and stand behind it.
 
 ### Vibe coding, AI-assisted work, responsible practice, and slop are different dimensions
-
-- **Vibe coding** describes a way of working.
-- **AI-assisted work** means AI contributed to producing or performing the work.
-- **Responsible AI-assisted practice** adds proportionate evaluation, ownership, and controls for the intended use.
-- **AI slop / workslop** describes a quality problem.
-
-They can overlap. Authorship or workflow does not determine fitness for purpose by itself.
+AI involvement describes how work was produced. Fitness for purpose is a separate assessment.
 
 ### Judgement ≠ authority ≠ accountability
-
-AI systems can analyse evidence, compare options, plan, recommend, communicate, persuade, and make bounded decisions. Those are capabilities to evaluate for the task; they are not inherently human-only.
-
-A human decision-maker is not automatically correct because they are human or senior. An AI system is not automatically correct because it is fast or capable. **Human-in-the-loop is a control pattern, not a quality certificate.**
+AI systems can analyse evidence, compare options, plan, recommend, communicate, persuade, and make bounded decisions. A human decision-maker is not automatically correct because they are human or senior. An AI system is not automatically correct because it is fast or capable.
 
 > **Apply the same standard to human, AI and hybrid work: assess the complete process and its results, not the identity of the producer.**
 
 ### Reduced labour ≠ reduced elapsed time ≠ realised financial value
-
-AI may genuinely improve all three. The project keeps the units separate so a gain in one metric is not silently reported as a gain in another.
+AI may genuinely improve all three, but a gain in one metric should not silently become a claim about another.
 
 ## Evidence model
 
-This project is intended to be more than an “awesome links” list.
+Canonical evidence lives under `data/`. Source and claim records may be split into topic-specific registries, but the builder and checker use the same loader in [`scripts/publication_data.py`](scripts/publication_data.py).
 
-Canonical evidence lives under `data/`. Source and claim records may be split into topic-specific registries, but the builder and checker use the same shared loader in [`scripts/publication_data.py`](scripts/publication_data.py).
+Important factual claims can be traced as:
 
-Important factual claims can therefore be traced as:
+**Claim → source/version → exact locator → relevant finding → qualification → article location → reviewer/process → independent review status → review record**
 
-**Claim → source/version → exact locator → relevant finding → qualification → article location → reviewer/process → independent review status**
+Independent review is actor-neutral. A completed review may be performed by a human, AI system, automated method, specialist toolchain, or hybrid process if it is sufficiently separate from the originating authoring step, directly checks the evidence, applies the stated criteria, and leaves an auditable record.
 
-The generated evidence page gives each claim a stable anchor and links back to the articles using it. Generated article pages also show the claim records currently attached to that article.
+A completed claim review must record the claim revision, source versions checked, review method, finding, and disposition. This does not require exposing private reasoning.
 
 See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
-## Publication status is explicit
+## Working preview versus reviewed release
 
-Generated article pages distinguish:
+The repository now has two publication modes.
 
-- **publication state** — Draft, Research draft, Editorial review in progress, Reviewed for publication, etc.;
-- **Last updated** date;
-- **independent evidence-review state** for connected claims.
+### Working preview
 
-A date does not mean every factual statement has been independently approved.
+The normal publication gate builds the full guide plus deeper and advanced working material. It validates structure, types, dates, classifications, evidence links, locators, fragments, and deployment-local links.
 
-The current launch-critical claims deliberately remain marked as pending independent review. **Independent review is actor-neutral:** it may be performed by a human, AI system, automated method, or hybrid process, provided the review is sufficiently separate from the originating authoring step and applies the same evidence standard.
+A green preview means the working publication is structurally consistent. It does **not** mean every factual claim or article has been approved for release.
 
-## Publication layer
+### Reviewed release artifact
 
-Markdown and YAML remain the maintained source. [`scripts/build_site.py`](scripts/build_site.py) generates static HTML into `site/`:
+Each article declares a `release_scope`:
 
-- styled article pages;
-- article index and reading routes;
-- bidirectional claim/evidence navigation;
-- reader-facing review/status labels;
-- mobile navigation;
-- print-friendly layouts;
-- links back to the source version used for the build.
+- `guide` — boss-facing release pages;
+- `policy` — evidence/correction policy included with the guide;
+- `working` — deeper or advanced research excluded from the reviewed release artifact.
 
-No client-side application framework is required.
+The manual release workflow builds with `PUBLICATION_MODE=release`, so working pages are physically excluded rather than merely labelled differently.
 
-The builder accepts `PUBLICATION_REPO_URL` and `PUBLICATION_UMBRELLA_URL`, so the publication can keep stable project/umbrella links if the repository is later transferred without hardcoding a personal owner into the publishing logic.
+The release gate checks that launch-critical claims have completed independent review with inspectable records, guide pages are marked ready, policy pages are release-ready, expected release pages exist, and working pages did not enter the artifact.
 
-## Two different gates
+This records the project's declared controls for a specific revision; it is not a guarantee of truth.
 
-A green build should not be mistaken for publication approval.
+## Publication controls
 
-### Preview / structural gate
+The preview gate runs regression tests, builds the site, and executes [`scripts/check_publication.py`](scripts/check_publication.py). Tests cover malformed evidence, missing criticality, wrong types, invalid dates/statuses/sections, missing locators/fragments, deployment-root escapes, root-relative links, and reserved slugs.
 
-The normal [`publication-gate.yml`](.github/workflows/publication-gate.yml) runs:
-
-```bash
-python -m unittest discover -s tests -p 'test_*.py'
-python scripts/build_site.py
-python scripts/check_publication.py
-```
-
-The regression tests and checker reject known structural defects including empty evidence values, invalid claim locations, completed independent-review states without reviewer/date records, broken fragments, deployment-escaping links, and reserved article slugs.
-
-A green preview gate means the draft **builds and is structurally consistent**. It does not establish factual truth or publication approval.
-
-### Release approval gate
-
-The manual [`release-gate.yml`](.github/workflows/release-gate.yml) additionally runs [`scripts/check_release.py`](scripts/check_release.py).
-
-Under the current release policy it blocks release when:
-
-- a launch-critical claim has not completed independent review;
-- the review record is incomplete; or
-- a core article has not been marked ready for publication.
-
-The independent reviewer/process may be human, AI, automated, or hybrid. This is a project publication control, not a guarantee of truth.
+The manual release gate additionally runs [`scripts/check_release.py`](scripts/check_release.py), with direct regression tests for its approval and artifact-scope rules.
 
 ## Repository structure
 
@@ -147,7 +106,7 @@ The independent reviewer/process may be human, AI, automated, or hybrid. This is
 ├── README.md
 ├── content/                         # Core guide + deeper analyses + practical material
 ├── data/
-│   ├── articles.yml                 # Publication manifest
+│   ├── articles.yml                 # Publication manifest and release scope
 │   ├── sources*.yml                 # Canonical source registries
 │   └── claims*.yml                  # Canonical claim registries
 ├── research/                        # Working notes / pointers, not a second registry
@@ -156,28 +115,36 @@ The independent reviewer/process may be human, AI, automated, or hybrid. This is
 │   ├── positioning.md
 │   └── reading-path.md
 ├── scripts/
-│   ├── publication_data.py          # Shared evidence-loading contract
+│   ├── publication_data.py
 │   ├── build_site.py
-│   ├── check_publication.py         # Preview / structural checks
-│   └── check_release.py             # Release-policy checks
+│   ├── check_publication.py
+│   └── check_release.py
 ├── tests/
-│   └── test_publication_checks.py   # Negative regression fixtures
+│   ├── test_publication_checks.py
+│   └── test_release_checks.py
 └── .github/workflows/
     ├── publication-gate.yml
     └── release-gate.yml
 ```
 
-`site/` is generated during the publication build.
+## Corrections and responsibility
 
-## Corrections and editorial responsibility
-
-The initial maintainer is **Helen Kwok**. Evidence-based corrections and counterexamples are welcome.
-
-See [`content/corrections.md`](content/corrections.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+The initial maintainer is **Helen Kwok**. Evidence-based corrections and counterexamples are welcome. See [`content/corrections.md`](content/corrections.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Current status
 
-**Pre-public-launch / pilot.** The reading route, evidence model, claim backlinks, static build, structural regression tests, and distinct preview/release gates are in place. Launch-critical factual claims still require the repository’s declared independent review; accessibility review, external-link/date review, licensing, hosting, and public-release decisions remain open.
+**Pre-public-launch / labelled pilot.** The core reading route, actor-neutral evidence model, preview/release split, stricter validators, release-scope artifact, and regression tests are in place.
+
+Still open before the first reviewed public release:
+
+- complete independent review records for launch-critical claims;
+- rendered accessibility/usability and print testing of the actual release pages;
+- external-link/source-date review;
+- metadata/social-preview assets;
+- code/content licensing;
+- hosting/deployment choice;
+- timing of transfer to `AlreadyOpen/ai-output-to-value`;
+- the explicit decision to make the repository/publication public.
 
 ## Licence
 
