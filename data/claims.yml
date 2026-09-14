@@ -1,0 +1,141 @@
+# Claim-level traceability for factual claims used in public-facing material.
+#
+# The source registers describe whole sources. This file records the narrower
+# relationship between a published claim and the exact part of a source that
+# supports it.
+#
+# `reviewer` records who performed the source check. The initial entries below
+# were checked with AI assistance on 2026-09-14 and intentionally retain
+# `human_review_status: pending` rather than implying an independent human
+# review that has not yet happened.
+
+claims:
+  - id: replit-plan-positioning-2026-09
+    claim_text: Replit positions Starter as a plan for exploring what is possible and Pro as a plan for commercial and professional builds.
+    status: supported
+    launch_critical: true
+    evidence:
+      - source_id: replit-pricing-and-product-positioning
+        locator: Replit home/product page, pricing-plan section headed "Start Small. Scale Fast. Designed for Every Stage"; Starter and Replit Pro plan cards.
+        relevant_finding: The Starter card says "For exploring what’s possible" and the Pro card says "For commercial and professional builds".
+        qualification: This is vendor product positioning, not evidence that a free-plan result is unsuitable for clients or that a paid plan certifies professional quality.
+    published_in:
+      - file: content/tool-access-vs-client-readiness.md
+        locator: "## A concrete example: Replit"
+      - file: content/executive-guide.md
+        locator: "### Replit is a useful concrete example"
+      - file: index.html
+        locator: "#evidence"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: replit-agent-probabilistic-warning-2026-09
+    claim_text: Replit warns that Agent behaviour is probabilistic and may occasionally produce mistakes.
+    status: supported
+    launch_critical: true
+    evidence:
+      - source_id: replit-pricing-and-product-positioning
+        locator: Replit pricing page, note immediately below the plan cards and before the frequently asked questions.
+        relevant_finding: Replit states that Agent is powered by large language models and that probabilistic behaviour means it may occasionally make mistakes.
+        qualification: The warning establishes fallibility, not a measured error rate or the quality of any specific generated project.
+    published_in:
+      - file: content/tool-access-vs-client-readiness.md
+        locator: "## A concrete example: Replit"
+      - file: content/executive-guide.md
+        locator: "### Replit is a useful concrete example"
+      - file: index.html
+        locator: "#evidence"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: dora-ai-amplifier-2025
+    claim_text: DORA's 2025 research characterises AI primarily as an amplifier of an organisation's existing strengths and weaknesses and says the greatest returns depend on the underlying organisational system rather than the tools alone.
+    status: supported
+    launch_critical: true
+    evidence:
+      - source_id: dora-2025
+        locator: DORA Research 2025 overview page, introductory paragraph beneath "Download the 2025 DORA Report".
+        relevant_finding: The overview describes AI's primary role as an amplifier and links the greatest returns to strategic focus on the underlying organisational system.
+        qualification: DORA is industry research run by Google Cloud. This framing should not be converted into a universal staffing rule or guaranteed ROI for a particular company.
+    published_in:
+      - file: index.html
+        locator: "#evidence"
+      - file: content/ai-does-not-eliminate-technical-capability.md
+        locator: DORA discussion
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: nber-generative-ai-customer-support-2023
+    claim_text: In a study of 5,179 customer-support agents, access to a generative-AI assistant increased issues resolved per hour by 14% on average, with larger effects for novice and lower-skilled workers and minimal effects for experienced and highly skilled workers.
+    status: supported
+    launch_critical: true
+    evidence:
+      - source_id: brynjolfsson-li-raymond-generative-ai-at-work
+        locator: NBER Working Paper 31161, abstract; revision dated November 2023.
+        relevant_finding: The abstract reports a 14% average increase in issues resolved per hour and heterogeneous effects across workers.
+        qualification: This is a specific customer-support intervention. It is not a universal productivity multiplier for software development, consulting, management, or knowledge work generally.
+    published_in:
+      - file: index.html
+        locator: "#evidence"
+      - file: data/sources.yml
+        locator: source record brynjolfsson-li-raymond-generative-ai-at-work
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: uk-ai-playbook-human-control-lifecycle-2025
+    claim_text: The UK Government AI Playbook calls for meaningful human control at appropriate stages, full AI lifecycle management, appropriate skills and expertise, testing, monitoring, and clear accountability.
+    status: supported
+    launch_critical: true
+    evidence:
+      - source_id: uk-government-ai-playbook
+        locator: Principles 4, 5 and 9; sections "Accountability and responsibility" and "Governance".
+        relevant_finding: The playbook describes meaningful human control, lifecycle support and maintenance, testing and monitoring, skills and expertise, and explicit responsibilities across the AI lifecycle.
+        qualification: This is UK public-sector guidance. It is useful governance guidance but not empirical proof that the same controls create financial value in every private-sector use case.
+    published_in:
+      - file: index.html
+        locator: "#evidence"
+      - file: data/sources.yml
+        locator: source record uk-government-ai-playbook
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: linux-kernel-gplv2-free-software
+    claim_text: The Linux kernel is Free Software released under GNU GPL version 2.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: linux-kernel-free-software-faq
+        locator: kernel.org FAQ, question "Is Linux Kernel Free Software?"
+        relevant_finding: The official kernel FAQ identifies the Linux kernel as Free Software released under GNU GPL version 2.
+        qualification: This does not imply that every Linux distribution, support contract, firmware component, operating environment, or organisational capability has zero cost.
+    published_in:
+      - file: content/ai-does-not-eliminate-technical-capability.md
+        locator: Linux/free-software discussion
+      - file: content/source-code-open-source-and-ai.md
+        locator: Linux/open-source discussion
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: oss-zero-price-not-zero-economic-value
+    claim_text: Research on widely used open-source software provides evidence that zero licence price does not imply zero economic value or zero replacement cost.
+    status: qualified
+    launch_critical: false
+    evidence:
+      - source_id: hbs-value-open-source-software-2024
+        locator: Harvard Business School AI Institute summary, discussion of supply-side and demand-side estimates in "Revealing Value — The Economic Power of Open Source Software".
+        relevant_finding: The study reports model-based estimates of development/replacement value far above the acquisition price of the software.
+        qualification: The estimates are model-based and are not a market capitalisation, a valuation of Linux specifically, or proof that every open-source project has high economic value.
+    published_in:
+      - file: content/source-code-open-source-and-ai.md
+        locator: open-source economics discussion
+      - file: content/ai-does-not-eliminate-technical-capability.md
+        locator: Linux/free-software discussion
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
