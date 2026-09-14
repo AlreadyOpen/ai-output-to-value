@@ -8,6 +8,8 @@ The same discipline should apply across the company:
 
 That does not mean every role should be assessed in exactly the same way. A shareholder, director, CEO, manager, engineer, salesperson, and AI agent occupy different legal and economic positions.
 
+It also does not mean that **judgement** should be reserved as a protected human category. AI systems can analyse evidence, compare alternatives, plan, recommend, communicate, persuade, and make bounded decisions. Human decision-makers can also be excellent or poor. The question is which decision process performs adequately for the task and where authority, accountability, and recourse sit.
+
 ## Use a periodically reviewed capability map
 
 Contribution, authority, cost, replaceability, scarcity, risk, and option value are not permanent properties of a job title. They change with technology, customer needs, regulation, company strategy, product maturity, labour markets, incidents, and available suppliers or agents.
@@ -35,7 +37,7 @@ Useful review triggers include:
 - a product moving from prototype to production;
 - a customer segment demanding stronger assurance;
 - accumulated technical debt increasing the value of deep system knowledge;
-- agents taking over routine reporting or coordination work;
+- agents taking over reporting, analysis, communication, or coordination work;
 - new laws or contracts changing who may authorise a decision.
 
 The practical principle is:
@@ -48,12 +50,12 @@ This connects to the strategic-management idea of **dynamic capabilities**: orga
 
 | Layer | Primary role | Typical value contribution | What AI may change |
 | --- | --- | --- | --- |
-| **Shareholders** | Ownership, capital at risk, voting and certain governance rights | Capital, risk-bearing, ownership decisions, sometimes networks or strategic support | Research, monitoring, and information processing can be agent-assisted. Ownership rights are not equivalent to an employee job. |
-| **Directors / board** | Governance and oversight | Strategy oversight, monitoring management, major decisions, risk oversight, accountability, succession and capital allocation | Agents can prepare analysis, surface risks, compare scenarios, and track execution. Current legal duties generally remain with human officeholders. |
-| **C-level executives** | Enterprise-level management | Strategy execution, resource allocation, organisational design, major commitments, stakeholder decisions | Analysis, forecasting, reporting, planning, coordination, and some negotiations can be automated or agent-assisted. |
-| **Managers** | Coordination and local decision-making | Prioritisation, context, escalation, coaching, conflict resolution, trade-offs, resource coordination | Status collection, routine reporting, scheduling, documentation, and approval routing may become more automated. |
-| **Specialists / technical staff** | Domain and operational capability | Engineering, design, legal analysis, finance, security, sales, operations, research, and other specialist work | Agents can automate substantial task-level work, while the organisation still needs the underlying capability to specify, validate, recover, and improve. |
-| **AI agents** | Delegated operational action | Research, drafting, coding, monitoring, execution, coordination, and other scoped work | Scope can expand as identity, permissions, tools, verification, and organisational controls improve. |
+| **Shareholders** | Ownership, capital at risk, voting and certain governance rights | Capital, risk-bearing, ownership decisions, sometimes networks or strategic support | Research, monitoring, analysis, and information processing can be agent-assisted. Ownership rights are not equivalent to an employee job. |
+| **Directors / board** | Governance and oversight | Strategy oversight, monitoring management, major decisions, risk oversight, accountability, succession and capital allocation | Agents can prepare analysis, compare scenarios, challenge assumptions, monitor execution, and support decision-making. Current legal duties may still require human officeholders depending on jurisdiction. |
+| **C-level executives** | Enterprise-level management | Strategy execution, resource allocation, organisational design, major commitments, stakeholder decisions | Analysis, forecasting, reporting, planning, communication, option comparison, and some negotiations can be automated or agent-assisted. |
+| **Managers** | Coordination and local decision-making | Prioritisation, context, escalation, coaching, conflict resolution, trade-offs, resource coordination | Status collection, reporting, scheduling, documentation, analysis, decision preparation, and approval routing may become more automated. |
+| **Specialists / technical staff** | Domain and operational capability | Engineering, design, legal analysis, finance, security, sales, operations, research, and other specialist work | Agents can automate substantial task-level work, while the organisation still needs the capability to specify, evaluate, recover, and improve the resulting system. |
+| **AI agents** | Delegated operational and evaluative action | Research, analysis, drafting, coding, monitoring, planning, communication, customer interaction, coordination, recommendation, and other scoped work | Scope can expand as model capability, identity, permissions, tools, evaluation, and organisational controls improve. |
 | **Infrastructure and instruments** | Enable actors to act | Cloud services, databases, cards, APIs, credentials, communication channels | More capabilities become programmable and directly usable by agents. |
 
 The purpose of this table is **not** to rank humans against AI. It is to stop organisational status from becoming a substitute for evidence of value.
@@ -76,9 +78,17 @@ Corporate-governance frameworks give boards real responsibilities. The G20/OECD 
 
 These duties should not be trivialised as "just another job AI can do tomorrow".
 
-But a legally necessary role is still open to questions about how effectively and efficiently it is performed.
+But legal necessity and decision quality are different questions.
 
-If agents reduce the cost of information gathering, scenario analysis, monitoring, and reporting, the value of directors and executives may shift further toward **judgement, challenge, accountability, capital allocation, conflict management, and decisions under uncertainty**.
+An AI system may be able to perform substantial analysis, scenario comparison, monitoring, challenge, or decision support even where current law or governance rules still assign formal responsibility to a human officeholder. Conversely, a human holding legal authority is not automatically making a good decision merely because the authority is human.
+
+So the value of directors and executives should not be defined as **the part involving judgement that AI cannot do**. Instead ask:
+
+- Which decisions or oversight functions are required?
+- Which analytical and evaluative components can agents perform well?
+- Which powers can legally or organisationally be delegated?
+- Which responsibilities and recourse still attach to named officeholders or the legal entity?
+- Which human relationships or independent challenges actually improve outcomes?
 
 ## C-level titles are not business outcomes
 
@@ -91,24 +101,29 @@ Questions worth asking include:
 - Were important risks understood before they became crises?
 - Did strategy become executable rather than remain presentation material?
 - Did the executive create durable capability, or mainly supervise activity?
-- Which recurring analytical or coordination tasks can now be delegated?
-- Where does personal judgement remain especially valuable?
+- Which recurring analytical, communication, or coordination tasks can now be delegated?
+- Which decisions can be evaluated more reliably by AI, by people, or by a hybrid process?
+- Where does formal authority or personal relationship remain important even if analysis can be automated?
 
-> **Do not confuse visible activity, title, meeting attendance, or presentation volume with value.**
+> **Do not confuse title, confidence, meeting attendance, or presentation volume with decision quality or value.**
 
-## Apply the same review to management, technical work, and operations
+Human executives can succeed or fail. AI systems can also succeed or fail. The relevant comparison is between decision processes and outcomes, not between an idealised human and a fallible machine.
+
+## Apply the same review to management, technical work, sales, and operations
 
 Many management roles contain a mixture of high-value and automatable work.
 
-High-value management work may include resolving conflicting objectives, understanding undocumented context, coaching, handling sensitive personnel issues, negotiating trade-offs, setting priorities, escalating exceptional risks, and taking responsibility for decisions.
+Activities such as resolving conflicting objectives, understanding undocumented context, coaching, handling sensitive personnel issues, negotiating trade-offs, setting priorities, and escalating exceptional risks can be valuable. But they should not be declared permanently human-only by definition. As AI capability changes, parts of analysis, planning, negotiation support, customer communication, and decision preparation may also become automatable or agent-led.
 
-Routine coordination work such as status collection, scheduling, progress summaries, reminders, documentation, and repetitive routing may be increasingly automated.
+Routine coordination work such as status collection, scheduling, progress summaries, reminders, documentation, and repetitive routing may be even easier to automate.
 
-The same mixed picture applies to technical and specialist work: implementation can become cheaper while architecture, validation, security, recovery, domain judgement, and system knowledge remain valuable or become more leveraged.
+The same mixed picture applies to technical and specialist work: implementation can become cheaper while architecture, validation, security, recovery, domain knowledge, and system understanding remain valuable—or themselves become increasingly agent-assisted.
+
+Sales and customer-facing work should be assessed the same way. Proposals, presentations, enquiry handling, objection response, account research, follow-up, and parts of negotiation can be AI-assisted or automated. Human presence should remain where it measurably improves the outcome or where authority, relationship, law, or contract requires it.
 
 The point is not that one layer should shrink before another. It is:
 
-> **Apply the same capability review across governance, management, technical work, and operations.**
+> **Apply the same capability review across governance, management, technical work, sales, and operations.**
 
 ## Organisational AI can make more authority programmable
 
@@ -125,28 +140,31 @@ The broader organisational point remains: more operational authority can become 
 For any role, team, agent, or supplier, ask:
 
 1. **What decision, capability, or outcome does this function provide?**
-2. **Is the contribution legal/governance, financial/capital, operational, relational, technical, or informational?**
+2. **Is the contribution legal/governance, financial/capital, operational, relational, technical, analytical, or informational?**
 3. **What part is routine and automatable?**
-4. **What part depends on judgement, trust, authority, expertise, or accountability?**
-5. **Can an agent or alternative supplier perform it reliably today?**
-6. **Who or what verifies the substitute?**
+4. **What part requires evaluation, trust, authority, expertise, relationship, or accountability—and which of those are actually human-specific in this context?**
+5. **Can an agent or alternative supplier perform the task reliably today?**
+6. **How should the result be evaluated: automated checks, another model, a specialist, a human approver, or a combination?**
 7. **What happens in abnormal conditions?**
 8. **What knowledge or option value disappears if the function is removed?**
 9. **What is the total cost, including coordination overhead and dependencies?**
 10. **What measurable outcomes improve because the function exists?**
-11. **How have these answers changed since the last review?**
+11. **Where do legal authority, accountability, and recourse sit?**
+12. **How have these answers changed since the last review?**
 
 ## The principle
 
 > **AI should not be used to question only the value of people who produce visible technical artefacts. It should prompt a more rigorous, periodically updated examination of capability across the whole organisation.**
 
-Some technical roles may shrink. Some management roles may shrink. Some executive responsibilities may be augmented. Some specialists may become much more leveraged. New agent-governance functions may emerge.
+Some technical roles may shrink. Some management roles may shrink. Some executive responsibilities may be augmented or automated. Some specialists may become much more leveraged. New agent-governance functions may emerge.
 
 Those are scenarios, not guaranteed forecasts for every organisation.
 
-The target is not "fewer humans". The target is:
+The target is not "fewer humans" or "more AI". The target is:
 
 > **a company structure in which authority, cost, capability, accountability, and value remain aligned as conditions change.**
+
+See [`ai-business-capability-and-judgement.md`](ai-business-capability-and-judgement.md) for the fuller distinction between analysis, judgement, authority, and accountability.
 
 ## Sources
 
@@ -155,5 +173,7 @@ The target is not "fewer humans". The target is:
 - Cloudflare, *Cloudflare Gives AI Agents an Identity and a Wallet*, 4 August 2026, plus Cloudflare Wallets availability documentation.
 - California Management Review / UC Berkeley Haas, dynamic capabilities.
 - OECD and IMF research on AI exposure, complementarity, and changing task structures.
+- OpenAI, current realtime and Responses API documentation, for examples of live conversational and tool-using system capabilities.
+- Brynjolfsson, Li and Raymond, *Generative AI at Work*, for a specific customer-support AI-assistance study.
 
-The capability-review framework in this article is **editorial synthesis**. The cited sources support governance roles, dynamic organisational capability, and selected technology developments; they do not constitute a standard for valuing individual people or roles.
+The capability-review framework in this article is **editorial synthesis**. The cited sources support governance roles, dynamic organisational capability, selected technology developments, and specific AI-assisted outcomes; they do not constitute a standard for valuing individual people or roles.
