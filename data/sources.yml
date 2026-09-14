@@ -151,3 +151,55 @@ sources:
     scope: Practitioner account of a client-facing technical deliverable generated with AI and handed to colleagues for review after a commitment was made.
     limitations: Unverified account. It does not establish whether the guide was technically wrong or whether the client migration failed. Commenters also disagree about the best way to handle the internal escalation.
     reviewed: 2026-09-14
+
+  - id: asic-company-separate-legal-entity
+    title: Starting a small business company
+    publisher: Australian Securities and Investments Commission
+    url: https://asic.gov.au/for-business/small-business/starting-a-small-business-company/
+    evidence_type: official_guidance
+    supports:
+      - company_is_a_separate_legal_entity
+      - company_can_incur_debt_sue_and_be_sued
+      - directors_and_officeholders_manage_company_affairs
+    scope: Australian official guidance on the legal status and governance of companies.
+    limitations: Australia-specific company-law guidance. Do not generalise detailed director, liability, or governance rules to other jurisdictions.
+    reviewed: 2026-09-14
+
+  - id: cloudflare-agent-identity-wallet-press-release
+    title: Cloudflare Gives AI Agents an Identity and a Wallet
+    publisher: Cloudflare
+    url: https://www.cloudflare.com/press/press-releases/2026/cloudflare-gives-ai-agents-an-identity-and-a-wallet/
+    evidence_type: vendor_announcement
+    supports:
+      - agents_can_have_stable_technical_identity
+      - agent_identity_can_link_to_authorizing_human_or_organization
+      - delegated_wallets_can_have_spending_and_merchant_limits
+    scope: Cloudflare's August 2026 announcement of Wallets and cloudflare.pay for agent identity and delegated payments.
+    limitations: Product announcement and forward-looking statements. Stable identity and payment capability do not establish legal personhood or independent legal liability for an AI agent.
+    reviewed: 2026-09-14
+
+  - id: cloudflare-wallets-docs
+    title: Cloudflare Wallets documentation
+    publisher: Cloudflare
+    url: https://developers.cloudflare.com/wallets/
+    evidence_type: vendor_product_documentation
+    supports:
+      - account_wallets_are_designed_for_human_account_owners
+      - virtual_wallets_are_designed_for_agents
+      - owners_can_delegate_agent_spending_authority
+    scope: Product documentation distinguishing Account Wallets from Virtual Wallets and describing delegated spend permissions for agents.
+    limitations: Technical product documentation. It describes infrastructure and permissions, not the legal ownership of funds, corporate authority, or liability in any jurisdiction.
+    reviewed: 2026-09-14
+
+  - id: cloudflare-agentic-payments
+    title: Agentic Payments
+    publisher: Cloudflare
+    url: https://developers.cloudflare.com/agents/tools/payments/
+    evidence_type: vendor_product_documentation
+    supports:
+      - agents_can_pay_for_resources_programmatically
+      - payment_flows_can_return_credentials_and_receipts
+      - machine_to_machine_commerce_can_operate_without_precreated_service_accounts
+    scope: Cloudflare Agents SDK documentation for x402 and Machine Payments Protocol HTTP 402 payment flows.
+    limitations: Technical capability does not establish legal authority, contractual capacity, or legal personhood. Those remain separate questions.
+    reviewed: 2026-09-14
