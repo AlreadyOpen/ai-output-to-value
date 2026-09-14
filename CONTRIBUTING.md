@@ -55,7 +55,7 @@ The `supports` list is a discovery aid. It does not by itself prove that a parti
 
 ## Claim-level traceability
 
-Important factual claims—especially quantitative claims, legal or governance claims, current vendor/product claims, and claims used on the home page—should also be registered in [`data/claims.yml`](data/claims.yml).
+Important factual claims—especially quantitative claims, legal or governance claims, current vendor/product claims, and claims used on the home page—should also be registered in the canonical `data/claims*.yml` files.
 
 A typical claim record looks like:
 
@@ -72,12 +72,12 @@ A typical claim record looks like:
   published_in:
     - file: index.html
       locator: "#evidence"
-  reviewer: Name or transparent review role
+  reviewer: Transparent reviewer or review process
   reviewed: 2026-09-14
-  human_review_status: pending
+  independent_review_status: pending
 ```
 
-Do not claim a human reviewer checked a source if the check was AI-assisted only. Record that transparently and leave human review pending until it actually occurs.
+Do not mark independent review as completed merely because the same authoring process checked its own work. **Independence is a property of the review process, not the identity of the reviewer.** An independent review may be performed by a human, AI system, automated method, or hybrid process if it is sufficiently separate from the originating work and applies the stated evidence criteria. Record the reviewer/process transparently.
 
 See [`docs/evidence-policy.md`](docs/evidence-policy.md) for evidence classes, claim statuses, and editorial rules.
 
@@ -106,7 +106,7 @@ The acceptance standard is the same regardless of the tool used:
 - remove fabricated citations, details, or statistics;
 - be prepared to explain and revise what you submit.
 
-The contributor is responsible for the submitted change.
+The submitting actor or maintainer remains responsible for the change under the repository's governance process.
 
 ## Editorial style
 
