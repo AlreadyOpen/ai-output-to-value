@@ -54,9 +54,7 @@ For contributors, reviewers, researchers, and readers who want to inspect the ev
 1. [`docs/evidence-policy.md`](evidence-policy.md) — evidence classes, claim statuses, scope, anecdotes, and corrections.
 2. [`data/claims.yml`](../data/claims.yml) — claim-level traceability.
 3. [`data/sources.yml`](../data/sources.yml) — the canonical source register.
-4. [`data/product-discovery-sources.yml`](../data/product-discovery-sources.yml) — user-needs, discovery, and multidisciplinary-product evidence.
-5. [`data/architecture-economics-sources.yml`](../data/architecture-economics-sources.yml) — model-routing, workflow economics, and cross-functional architecture evidence.
-6. [`content/corrections.md`](../content/corrections.md) — correction and editorial-review route.
+4. [`content/corrections.md`](../content/corrections.md) — correction and editorial-review route.
 
 The publication build renders the Markdown and YAML into normal HTML pages. Raw source files remain available for inspection.
 
