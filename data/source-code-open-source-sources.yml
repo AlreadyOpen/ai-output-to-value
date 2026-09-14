@@ -1,7 +1,20 @@
 # Evidence extension for content/source-code-open-source-and-ai.md
+# and content/ai-does-not-eliminate-technical-capability.md
 # These entries should eventually be merged into data/sources.yml.
 
 sources:
+  - id: linux-kernel-free-software-faq
+    title: Frequently asked questions — Is Linux Kernel Free Software?
+    publisher: kernel.org
+    url: https://www.kernel.org/faq.html
+    evidence_type: primary_project_documentation
+    supports:
+      - linux_kernel_is_free_software_under_gplv2
+      - zero_purchase_price_does_not_define_operational_value
+    scope: Official kernel.org FAQ confirming that the Linux kernel is released under GNU GPL version 2 and is Free Software.
+    limitations: Licensing status does not mean every Linux distribution, firmware component, support arrangement, or surrounding product has zero cost.
+    reviewed: 2026-09-14
+
   - id: hbs-value-open-source-software-2024
     title: Revealing Value — The Economic Power of Open Source Software
     publisher: Harvard Business School AI Institute
@@ -63,4 +76,30 @@ sources:
       - copying_or_forking_source_is_not_equivalent_to_sustaining_a_substitute
     scope: Linux Foundation summary of a 2026 survey and economic model of more than 500 IT leaders, including estimates for contribution ROI, workaround costs, and private-fork maintenance effort.
     limitations: Survey and model results published by an organisation that advocates for open-source collaboration. Preserve methodology and context; do not universalise the reported ROI or cost figures.
+    reviewed: 2026-09-14
+
+  - id: dora-state-ai-assisted-software-development-2025
+    title: State of AI-assisted Software Development 2025
+    publisher: DORA / Google Cloud
+    url: https://dora.dev/research/2025/dora-report/
+    evidence_type: industry_research
+    supports:
+      - ai_is_an_amplifier_of_existing_organizational_strengths_and_weaknesses
+      - organizational_systems_matter_to_ai_returns
+      - tool_adoption_alone_does_not_establish_delivery_capability
+    scope: DORA research on AI-assisted software development, organizational performance, and the capabilities surrounding effective AI adoption.
+    limitations: Industry research and statistical modelling; findings should not be interpreted as a guarantee of outcomes for a particular company or as proof that every technical role must remain unchanged.
+    reviewed: 2026-09-14
+
+  - id: dora-platform-engineering-ai-angle-2025
+    title: DORA capability — Platform engineering
+    publisher: DORA / Google Cloud
+    url: https://dora.dev/capabilities/platform-engineering/
+    evidence_type: industry_guidance_based_on_research
+    supports:
+      - individual_ai_productivity_can_be_lost_to_downstream_bottlenecks
+      - testing_security_and_deployment_capabilities_remain_material
+      - platform_quality_changes_the_organizational_effect_of_ai_adoption
+    scope: DORA guidance connecting 2025 research to platform quality, testing, security, deployment, governance, and AI-assisted delivery.
+    limitations: Capability guidance rather than a controlled experiment. Use to frame system-level risks, not to quantify a universal staffing requirement.
     reviewed: 2026-09-14
