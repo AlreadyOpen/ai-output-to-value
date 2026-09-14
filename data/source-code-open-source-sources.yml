@@ -1,0 +1,66 @@
+# Evidence extension for content/source-code-open-source-and-ai.md
+# These entries should eventually be merged into data/sources.yml.
+
+sources:
+  - id: hbs-value-open-source-software-2024
+    title: Revealing Value — The Economic Power of Open Source Software
+    publisher: Harvard Business School AI Institute
+    url: https://aiinstitute.hbs.edu/revealing-value-the-economic-power-of-open-source-software/
+    evidence_type: research_summary
+    supports:
+      - open_source_zero_price_does_not_imply_zero_economic_value
+      - open_source_replacement_value_can_be_far_larger_than_observed_development_cost
+      - open_source_value_is_highly_concentrated_in_widely_used_projects_and_contributors
+    scope: HBS summary of the working paper The Value of Open Source Software by Hoffmann, Nagle, and Zhou. The study estimates a supply-side value of approximately US$4.15 billion for commonly used OSS in its dataset and a demand-side value of approximately US$8.8 trillion using firm-level replacement assumptions.
+    limitations: These are model-based estimates, not market capitalisation or a valuation of Linux specifically. Results depend on the datasets and replacement-cost methodology used by the authors.
+    reviewed: 2026-09-14
+
+  - id: linux-foundation-kernel-development-2017
+    title: The Linux Foundation Releases Annual Kernel Development Report
+    publisher: Linux Foundation
+    url: https://www.linuxfoundation.org/press/press-release/linux-foundation-releases-annual-kernel-development-report
+    evidence_type: foundation_report_summary
+    supports:
+      - linux_kernel_is_a_large_multi_company_collaborative_project
+      - mature_open_source_value_includes_sustained_contribution_and_release_processes
+    scope: Linux Foundation summary reporting roughly 15,600 developers from more than 1,400 companies contributing to the Linux kernel since Git-based tracking began, as of the report period.
+    limitations: Historical snapshot from 2017; contributor counts should not be presented as current 2026 totals. Useful for demonstrating scale and institutional breadth rather than today's exact project statistics.
+    reviewed: 2026-09-14
+
+  - id: linux-kernel-maintainer-responsibilities
+    title: Feature and driver maintainers
+    publisher: Linux kernel documentation
+    url: https://www.kernel.org/doc/html/latest/maintainer/feature-and-driver-maintainers.html
+    evidence_type: primary_project_documentation
+    supports:
+      - maintenance_is_an_active_role_beyond_authorship
+      - review_bug_response_and_public_coordination_are_part_of_project_value
+      - trust_and_understanding_are_explicit_parts_of_linux_maintainership
+    scope: Current Linux kernel documentation describing maintainer responsibilities, open development, maintainer selection, and non-compliance.
+    limitations: Linux-specific governance and maintainer practice; other open-source projects may use very different organisational models.
+    reviewed: 2026-09-14
+
+  - id: linux-foundation-open-source-funding-2024
+    title: 2024 Open Source Software Funding Report
+    publisher: Linux Foundation Research
+    url: https://www.linuxfoundation.org/research/open-source-funding-2024
+    evidence_type: industry_research
+    supports:
+      - organisations_invest_material_resources_in_open_source_despite_zero_licence_price
+      - labour_is_a_major_component_of_open_source_investment
+    scope: Survey and analysis conducted with GitHub and Harvard researchers. Linux Foundation reports estimated annual organisational investment of US$7.7 billion in open source, with most value coming from labour.
+    limitations: Survey/model estimate with acknowledged measurement difficulty. Do not treat as a complete global accounting of all open-source investment.
+    reviewed: 2026-09-14
+
+  - id: linux-foundation-open-source-roi-2026
+    title: ROI for Open Source Software Contribution — announcement and summary
+    publisher: Linux Foundation
+    url: https://www.linuxfoundation.org/press/new-linux-foundation-report-shows-active-open-source-contribution-delivers-2-5x-roi-while-passive-consumption-increases-costly-technical-debt
+    evidence_type: industry_research_summary
+    supports:
+      - private_forks_and_internal_workarounds_can_create_material_maintenance_costs
+      - open_source_contribution_can_have_operational_and_financial_benefits
+      - copying_or_forking_source_is_not_equivalent_to_sustaining_a_substitute
+    scope: Linux Foundation summary of a 2026 survey and economic model of more than 500 IT leaders, including estimates for contribution ROI, workaround costs, and private-fork maintenance effort.
+    limitations: Survey and model results published by an organisation that advocates for open-source collaboration. Preserve methodology and context; do not universalise the reported ROI or cost figures.
+    reviewed: 2026-09-14
