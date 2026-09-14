@@ -42,7 +42,7 @@ Examples include:
 - quality or acceptance rate;
 - latency and throughput;
 - failure and escalation behaviour;
-- human-review requirements;
+- review and assurance requirements;
 - support burden;
 - vendor dependency and portability;
 - privacy, security, or regulatory constraints;
@@ -57,7 +57,7 @@ The price of one model does not determine the cost of an AI-enabled service.
 
 A useful approximation is:
 
-**Cost per customer outcome = planning + generation/execution + tool use + retries + context + verification + infrastructure + human intervention + failure handling + support**
+**Cost per customer outcome = planning + generation/execution + tool use + retries + context + verification + infrastructure + additional automated or human intervention + failure handling + support**
 
 Different architectures can change every term.
 
@@ -67,8 +67,9 @@ For example, a workflow might use:
 2. a lower-cost model for most requests and a stronger model only when needed;
 3. a cascade in which an inexpensive model attempts the task first and difficult cases escalate;
 4. a router that predicts which model should handle each request;
-5. a strong model for planning or difficult judgement while lower-cost models, deterministic software, or tools execute routine steps;
-6. no large language model at all for stages that can be handled more reliably by conventional software.
+5. a strong model for planning or difficult evaluation while lower-cost models, deterministic software, or tools execute easier steps;
+6. a model for customer-facing communication while deterministic policy tools constrain pricing or permissions;
+7. no large language model at all for stages that conventional software can handle more reliably.
 
 There is no universal winner. The point is that **architecture determines how much expensive capability is actually consumed and what additional verification or recovery work is created**.
 
@@ -107,15 +108,15 @@ Sources:
 
 One plausible architecture is:
 
-**higher-capability model → planning / decomposition / difficult judgement**
+**higher-capability model → planning / decomposition / difficult evaluation**
 
 followed by:
 
-**lower-cost models or deterministic tools → routine execution**
+**lower-cost models or deterministic tools → easier or more repetitive execution**
 
 This can be attractive when the expensive reasoning step is infrequent and the execution steps are easier to verify.
 
-But it should not be treated as an automatic best practice.
+But it should not be treated as an automatic best practice, nor should “difficult judgement” be assumed to require a human rather than a stronger or differently specialised model.
 
 Questions include:
 
@@ -125,6 +126,8 @@ Questions include:
 - How much latency does orchestration add?
 - What happens when the plan is wrong?
 - Can deterministic software replace some model calls entirely?
+- Can another model or automated evaluator verify the result effectively?
+- Where does specialist or human review add measurable value or required authority?
 - Is verification cheap enough to preserve the expected saving?
 - Does the workload contain enough repeated structure for routing or cascading to help?
 
@@ -138,18 +141,18 @@ Consider a hypothetical AI-enabled service.
 
 Engineering discovers three possible architectures:
 
-| Architecture | Accepted task rate | Median latency | Estimated cost per completed task | Human review | Notes |
+| Architecture | Accepted task rate | Median latency | Estimated cost per completed task | Additional review / escalation | Notes |
 | --- | ---: | ---: | ---: | ---: | --- |
 | A — strongest model everywhere | 97% | 24 s | $4.20 | 3% | Simple architecture, high model cost |
 | B — route routine work to cheaper model | 95% | 15 s | $0.85 | 5% | Lower cost, routing needed |
 | C — cheaper model only | 86% | 8 s | $0.18 | 18% | Cheap inference, high downstream burden |
 
-These numbers are illustrative, not benchmark claims.
+These numbers are illustrative, not benchmark claims. The review/escalation step could be another model, deterministic validation, a specialist, a human approver, or a hybrid process depending on the failure mode.
 
 Engineering can determine how each option works. But choosing among them may depend on questions outside engineering:
 
 - Is 95% acceptable for the customer promise?
-- Is a 5% review rate operationally sustainable?
+- Is a 5% escalation rate operationally sustainable?
 - Does lower latency matter enough to affect adoption?
 - What price will the customer pay?
 - What support commitment is included?
@@ -175,7 +178,7 @@ But if the engineering discussion changes any of the following, the consequences
 - what quality level is realistically achievable;
 - what the workflow costs to deliver;
 - how long it takes;
-- how much human review is required;
+- how much additional assurance or escalation is required;
 - which risks remain;
 - what customer promise can responsibly be made.
 
@@ -247,7 +250,7 @@ The objective is to make **trade-offs visible before commitments are made**.
 A cheap model can create an expensive workflow if it causes:
 
 - more retries;
-- more human review;
+- more review or escalation;
 - more corrections;
 - more failed downstream actions;
 - more support incidents;
@@ -273,7 +276,7 @@ This keeps optimisation connected to value rather than model prestige.
 
 1. **What customer outcome are we trying to produce?**
 2. **What quality threshold is actually required?**
-3. **Which steps need the strongest available reasoning, and which do not?**
+3. **Which steps need the strongest available reasoning or evaluation, and which do not?**
 4. **Which steps should use deterministic software rather than an LLM?**
 5. **What architecture options have been compared?**
 6. **What is the end-to-end cost per acceptable outcome?**
@@ -286,7 +289,7 @@ This keeps optimisation connected to value rather than model prestige.
 
 AI compresses the distance between technical architecture and business economics.
 
-When model calls are a material variable cost, routing, cascading, tool use, verification, and human escalation can directly determine margin and service quality.
+When model calls are a material variable cost, routing, cascading, tool use, verification, escalation, and human or automated intervention can directly determine margin and service quality.
 
 That does not make every architecture review an executive meeting.
 
@@ -297,3 +300,5 @@ It means the organisation needs a reliable translation layer between engineering
 And the most compact version is:
 
 > **Economics lives in the architecture.**
+
+See [`ai-business-capability-and-judgement.md`](ai-business-capability-and-judgement.md) for the related distinction between judgement capability, authority, accountability, and assurance.
