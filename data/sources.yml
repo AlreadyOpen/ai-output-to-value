@@ -29,6 +29,19 @@ sources:
     limitations: Vendor-authored guidance; should not be treated as independent outcome research.
     reviewed: 2026-09-14
 
+  - id: replit-pricing-and-product-positioning
+    title: Replit pricing and plan positioning
+    publisher: Replit
+    url: https://replit.com/pricing
+    evidence_type: vendor_product_documentation
+    supports:
+      - starter_plan_is_positioned_for_exploration
+      - commercial_and_professional_builds_are_positioned_separately
+      - agent_outputs_are_probabilistic_and_may_contain_mistakes
+    scope: Current Replit plan descriptions and product warning. Replit describes Starter as a way to explore what is possible, while its product page positions Pro for commercial and professional builds; its pricing page warns that Agent can make mistakes because model behaviour is probabilistic.
+    limitations: Vendor product positioning is not independent evidence about the quality of any specific Replit-built project. A paid plan does not certify client readiness, and a free plan does not prove that a result is unsuitable for commercial use.
+    reviewed: 2026-09-14
+
   - id: dora-roi-ai-assisted-software-development
     title: The ROI of AI-assisted software development
     publisher: Google Cloud / DORA
