@@ -1,238 +1,149 @@
 # AI Output to Value
 
-**An open guide to AI-assisted work, quality, accountability, and business value.**
-
-AI tools can produce drafts, code, research, designs, reports, and prototypes quickly. Some free or inexpensive agents can generate remarkably complete applications. That does not automatically make those outputs verified deliverables, client-ready services, repeatable organisational capabilities, or profitable products.
-
-This project helps decision-makers separate those ideas.
+**An open, evidence-led guide to AI-assisted work, client readiness, accountability, and business value.**
 
 > **Access is not capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
 
-## Why this project exists
+## Start here
 
-Business conversations about generative AI often collapse several different things into one bucket:
+If you are a business reader, do **not** read the repository front-to-back.
 
-- buying an API key or software subscription;
-- gaining access to a capable free or inexpensive agent;
-- experimenting through prompt-driven or “vibe” workflows;
-- professional AI-assisted work with review and domain expertise;
-- low-value or misleading output sometimes called AI slop or workslop;
-- a working prototype;
-- a client-ready deliverable;
-- an organisational capability to deliver and support the work;
-- measurable business value.
+1. **[Start here — five-minute guide](START-HERE.md)**
+2. **[Tool access vs client readiness](content/tool-access-vs-client-readiness.md)**
+3. **[Executive guide](content/executive-guide.md)**
 
-These are not synonyms and they should not be evaluated the same way.
+That is the primary reading path.
 
-A particularly important failure mode is the belief that **because an agent can generate most of the visible artefact, the organisation already has sufficient substance to sell the job to a client**. Sometimes the generated result really is sufficient. Sometimes it is not. The point is that readiness must be established for the intended job rather than inferred from the apparent completeness of the output.
+The repository also contains deeper analyses on open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational value. They support the broader framework but are **not prerequisites** for understanding the main argument. See [`docs/reading-path.md`](docs/reading-path.md).
 
-The goal of **AI Output to Value** is not to argue that AI is good or bad. It is to make the remaining work, evidence, ownership, risk, client-specific substance, and economics visible so that leaders can make better decisions.
+## The practical question
 
-## The core model
+Generative AI can produce remarkably complete software, reports, research, designs, automations, and other work at very low marginal cost.
 
-The project uses a simple progression:
+The project asks a narrower management question:
 
-**Access → Output → Deliverable → Capability → Outcome → Value**
-
-| Stage | What it means | What it does *not* prove |
-| --- | --- | --- |
-| **Access** | The organisation has a model, API, subscription, agent, or tool. | That the organisation knows how to use it effectively for a particular job. |
-| **Output** | The system produced code, text, analysis, media, or another artefact. | That the output is correct, useful, complete, or grounded in the client’s actual requirements. |
-| **Deliverable** | The output has been made fit for a defined purpose and acceptance criteria. | That the organisation can operate, maintain, or repeatedly deliver it. |
-| **Capability** | People, process, tooling, knowledge, ownership, and support exist to use it repeatedly. | That it produces a valuable business outcome. |
-| **Outcome** | Something useful changed: time, quality, service, throughput, risk, revenue, etc. | That the gain exceeds the full cost of achieving it. |
-| **Value** | The outcome is worth its total cost and trade-offs. | That the same approach will generalise to every task. |
-
-This progression is deliberately not a maturity score. Some tasks should stop at a prototype. Some low-risk tasks need only lightweight checking. Higher-risk or client-facing work needs stronger evidence and accountability.
-
-## A capable agent is not automatically a capable supplier
-
-A useful distinction is:
-
-1. **Tool capability** — can the AI produce the artefact?
-2. **Job substance** — does the result contain what this particular client actually needs?
-3. **Delivery capability** — can the supplier verify, explain, operate, support, and stand behind the result?
-
-AI can contribute to all three. The mistake is assuming that evidence of the first is automatically evidence of the other two.
-
-This matters because generative tools can make visible output arrive very early. A weakly specified project may already have a polished interface, realistic copy, routes, a database, and a deployment before important assumptions have been checked. That is real progress, but appearance is a weak readiness test.
-
-Replit provides a useful current example in its own product positioning. As of September 2026, Replit describes its **Starter** plan as being for **exploring what is possible**, while its product page positions **Pro** for **commercial and professional builds**. Replit also warns that Agent is probabilistic and may make mistakes. This does not mean that free-plan work cannot be client-ready, nor that a paid plan makes a project professional. It shows that **tool access and professional delivery are different claims even in the vendor’s own framing**.
-
-See [`content/tool-access-vs-client-readiness.md`](content/tool-access-vs-client-readiness.md).
-
-## Faster code does not create a new Linux
-
-AI can compress parts of the development, production, and maintenance cycle. It can draft code, tests, documentation, patches, migrations, and fixes much faster than traditional workflows in many settings.
-
-That does **not** mean mature software value collapses to the cost of generating source code.
+> **We bought or gained access to AI. What have we actually achieved, what remains, and what evidence connects the output to business value?**
 
 A useful progression is:
 
-**Source tree → maintained project → adopted ecosystem → dependable infrastructure**
+**Access → Output → Deliverable → Capability → Outcome → Value**
 
-Linux illustrates the distinction. The kernel is not valuable only because source code exists. Its value also comes from decades of bug fixes, compatibility work, hardware support, review, release discipline, maintainers, corporate participation, downstream distributions, users, standards, and accumulated trust.
+| Stage | Question |
+| --- | --- |
+| **Access** | Do we have the model, agent, API, subscription, or tool? |
+| **Output** | Did it generate something useful-looking or functional? |
+| **Deliverable** | Is it fit for the intended purpose and acceptance criteria? |
+| **Capability** | Can the organisation repeatedly verify, operate, support, maintain, and improve it? |
+| **Outcome** | What actually changed? |
+| **Value** | Was that outcome worth the full cost, risk, and trade-offs? |
 
-Open source makes the same economic point from another direction: **zero licence price is not zero value**. Harvard research on widely used open-source software estimates very large replacement and demand-side value relative to the cost of producing the shared code once. The exact figures depend on the study's methodology, but the business lesson is robust: the price of acquiring source code does not tell you the value of the ecosystem that depends on it.
+The model is not a maturity score. A prototype may intentionally stop early. Assurance should match the consequence of being wrong.
 
-As AI lowers the marginal cost of producing code, value may become more concentrated in:
+## Three distinctions that matter
 
-- specifications and problem selection;
-- trusted tests and benchmarks;
-- maintainer judgement;
-- review and governance;
-- compatibility and standards;
-- security response;
-- provenance;
-- distribution and adoption;
-- operating knowledge;
-- sustainable maintenance;
-- reputation and trust.
+### Tool capability ≠ job substance ≠ delivery capability
 
-> **AI can make a fork cheap. It does not make a replacement ecosystem cheap.**
+A capable agent may generate most of the visible artefact. That does not automatically establish that the result reflects the actual client's requirements or that the supplier can verify, operate, support, maintain, and stand behind it.
 
-See [`content/source-code-open-source-and-ai.md`](content/source-code-open-source-and-ai.md) and [`data/source-code-open-source-sources.yml`](data/source-code-open-source-sources.yml).
+### Vibe coding ≠ AI-assisted work ≠ AI slop
 
-## Representation is a channel, not the value
+- **Vibe coding** describes a way of working.
+- **AI-assisted work** describes AI involvement in the workflow.
+- **AI slop / workslop** describes a quality problem.
 
-A boss, director, employee, consultant, or other human can represent the company. An AI agent can also increasingly act as an operational representative within delegated authority.
+They are not three levels of the same thing.
 
-Neither fact makes the representative the source of the company’s value by itself.
+### Faster generation ≠ faster workflow ≠ realised financial value
 
-A face-to-face meeting with a customer or investor may be valuable when it improves trust, understanding, negotiation, judgement, or the resulting decision. Physical presence alone is not evidence that the company has more substance or that the proposal is worth more.
+AI may genuinely reduce all three. The project simply keeps them separate so that a gain in one stage is not automatically reported as a gain in another.
 
-The same applies on the other side. Customers can already use agents to search, compare, browse, and buy on their behalf. Investors and investment teams can also use AI systems for research, screening, diligence, monitoring, and analysis. Companies should therefore expect counterparties to be **human, agentic, or both**.
+## Evidence model
 
-The project distinguishes:
+This project is intended to be more than an “awesome links” list.
 
-- **actors** — directors, employees, contractors, and AI agents;
-- **representation channels** — face-to-face meetings, calls, email, websites, APIs, and agent protocols;
-- **instruments** — wallets, cards, credentials, API keys, and payment rails;
-- **the company** — the legal and organisational entity connecting authority, capability, commitments, and accountability.
+Source registers record:
 
-> **A human meeting is a channel. An AI agent is an actor. A wallet is an instrument. None of them is the company’s value by itself.**
+**Source → evidence type → supported topics → scope → limitations → review date**
 
-See [`content/company-actors-vs-instruments.md`](content/company-actors-vs-instruments.md), [`content/non-human-actors-and-accountability.md`](content/non-human-actors-and-accountability.md), and [`content/representation-is-a-channel.md`](content/representation-is-a-channel.md).
+For important published factual claims, [`data/claims.yml`](data/claims.yml) adds:
 
-## What this project will explain
+**Claim → exact source locator → relevant finding → qualification → publication location → reviewer → review status**
 
-The public guide is being organised around six questions:
+See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
-1. **Understand the difference** — Are we confusing a tool, a workflow, a quality judgement, a representation channel, and a business outcome?
-2. **From demonstration to delivery** — What has actually been shown, and what remains unverified or merely assumed?
-3. **Count the whole job** — Did AI remove work, or move review, correction, integration, and support work elsewhere?
-4. **Make ownership clear** — Who prepares, verifies, approves, operates, supports, and maintains the result?
-5. **Recognise genuine value** — When does AI assistance create benefits worth pursuing?
-6. **Inspect the evidence** — What supports a claim, in what context, and with what limitations?
+The current claim register intentionally marks its first external-source checks as **AI-assisted initial checks with human review pending**. The repository should not imply independent human verification that has not occurred.
 
-## Terminology
+## Publication gate
 
-### Vibe coding
+A small GitHub Actions publication gate runs:
 
-A style of software creation driven primarily through natural-language prompting and rapid iteration. The term is used inconsistently, so this project will always state the intended meaning rather than use it as a judgement of quality.
+```bash
+python scripts/check_publication.py
+```
 
-### AI-assisted work
+It checks:
 
-Work in which AI contributes to an artefact or process while people remain responsible for defining the task, evaluating the result, and deciding whether it is fit for use. The label **AI-assisted** is descriptive, not a quality certification.
+- YAML validity;
+- unique source and claim IDs;
+- required source metadata;
+- claim references to registered sources;
+- publication-target existence;
+- broken local Markdown/HTML links.
 
-### AI slop / workslop
+These checks prevent structural publishing mistakes. **They do not establish truth or source quality.**
 
-A quality problem: output that appears finished or polished but lacks sufficient substance, correctness, context, or usefulness, often shifting interpretation or cleanup work onto someone else. It can occur in code, documents, analysis, images, presentations, and other work products.
+## Deeper reading
 
-### Prototype
+The broader material is organised by question in [`docs/reading-path.md`](docs/reading-path.md), including:
 
-Evidence that an idea can be explored or demonstrated. A prototype can be extremely valuable without being production-ready.
+- strong frames versus finished work;
+- AI and technical capability;
+- source code and open-source economics;
+- humans, agents, authority, and instruments inside a company;
+- dynamic valuation of organisational capabilities;
+- representation channels and the e-commerce / brick-and-mortar analogy.
 
-### Production-ready / client-ready
-
-Context-dependent claims that require explicit acceptance criteria. They should never be inferred merely because an artefact looks polished, runs successfully in one demonstration, or was generated by a capable agent.
-
-## Principles
-
-- **Pro-AI, not credulous about AI.** Useful automation should be adopted when the evidence supports it.
-- **No anti-vibe gatekeeping.** Fast exploratory workflows are legitimate; the issue is misrepresenting their readiness or evidence.
-- **Judge fitness for purpose, not authorship or subscription price.** Human work can be poor. AI work can be excellent. A free tool can produce strong work. A paid tool can produce weak work.
-- **Do not infer substance from polish.** A convincing interface or long document may contain verified client-specific knowledge, or may contain plausible assumptions. Establish which is which.
-- **Do not infer value from source-code volume.** AI can make code generation cheaper without recreating maintainership, compatibility, adoption, governance, or ecosystem value.
-- **Do not infer value from human presence.** Face-to-face representation can be valuable, but its value must come from the outcome it improves rather than the fact that a human was physically present.
-- **Treat counterparties as potentially agentic too.** Customers, investors, suppliers, and other parties may use their own agents to research, evaluate, negotiate, transact, or monitor.
-- **Count downstream work.** Review, correction, integration, support, maintenance, and risk transfer are part of the job.
-- **Match assurance to consequence.** A disposable prototype and a client migration guide should not have the same verification burden.
-- **Make ownership visible.** Generating an artefact does not automatically identify the person qualified to approve it.
-- **Separate evidence from anecdotes.** Practitioner stories can reveal useful failure modes, but they do not establish prevalence or causation.
-- **Preserve uncertainty.** Research findings must retain their scope, methodology, and limitations.
-- **Measure outcomes, not AI activity.** More prompts, tokens, generated code, licences, meetings, or travel are not business-value metrics by themselves.
-
-## Evidence, not logo collecting
-
-The repository will maintain a source register rather than a conventional “awesome list”. Each important claim should be traceable through:
-
-**Claim → source → evidence type → relevant finding → scope → limitations → review date**
-
-Sources may include:
-
-- peer-reviewed or working research papers;
-- official guidance and standards;
-- empirical industry research with disclosed methodology;
-- vendor research or product documentation, clearly labelled as such;
-- case studies;
-- practitioner accounts and community discussions, clearly labelled as anecdotal.
-
-A prestigious source does not make every claim in it universal. An anecdote does not become a statistic because many people relate to it. Vendor plan labels can show how a vendor positions its product, but they do not certify the quality of a specific project.
-
-See [`docs/evidence-policy.md`](docs/evidence-policy.md) and [`data/sources.yml`](data/sources.yml).
-
-## Early cases that motivated the project
-
-Two community discussions illustrate the distinction between *producing something* and *being able to stand behind it*:
-
-- An ExperiencedDevs discussion argues that poor software can remain commercially successful because software quality is only one part of enterprise purchasing, switching cost, accountability, support, and organisational economics.
-- A consulting discussion describes a client-facing technical guide generated with AI and handed to colleagues for review after the commitment had already been made. The useful lesson is not “AI documents are bad”; it is that preparation, verification, approval, and client commitment are different responsibilities.
-
-These discussions are treated as **practitioner accounts**, not verified evidence about the named or implied companies involved.
+These pages should remain supporting analysis unless they are necessary to answer the primary business question.
 
 ## Repository structure
 
 ```text
 .
+├── START-HERE.md
 ├── README.md
 ├── CONTRIBUTING.md
-├── content/
-│   ├── company-actors-vs-instruments.md
-│   ├── ecommerce-and-physical-retail.md
-│   ├── executive-guide.md
-│   ├── non-human-actors-and-accountability.md
-│   ├── representation-is-a-channel.md
-│   ├── source-code-open-source-and-ai.md
-│   └── tool-access-vs-client-readiness.md
+├── index.html
+├── styles.css
+├── content/                 # Core guide + deeper analyses
 ├── data/
-│   ├── source-code-open-source-sources.yml
-│   └── sources.yml
-└── docs/
-    ├── evidence-policy.md
-    └── positioning.md
+│   ├── claims.yml           # Claim-level traceability
+│   ├── sources.yml          # Core source register
+│   └── *-sources.yml        # Topic-specific source registers
+├── docs/
+│   ├── evidence-policy.md
+│   ├── positioning.md
+│   └── reading-path.md
+├── scripts/
+│   └── check_publication.py
+└── .github/workflows/
+    └── publication-gate.yml
 ```
-
-A public website will sit on top of the same content and source register so that nontechnical readers do not need to navigate GitHub to use the guide.
-
-## Current status
-
-**Early foundation.** The project is establishing its editorial model, evidence policy, terminology, and first executive-facing guide before expanding the website.
-
-The first milestone is a concise, credible site that a technical professional can send to a manager without needing to explain or defend the tone.
 
 ## Contributing
 
-Contributions are welcome, especially:
+Contributions are welcome, especially strong sources, corrections, counterexamples, clearer executive explanations, case studies, and examples of both successful and unsuccessful AI-assisted workflows.
 
-- strong primary sources;
-- corrections or challenges to existing claims;
-- case studies with enough context to evaluate them;
-- clearer explanations for nontechnical decision-makers;
-- examples showing both successful and unsuccessful AI-assisted workflows.
+Before submitting, see [`CONTRIBUTING.md`](CONTRIBUTING.md) and run:
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+```bash
+python -m pip install -r requirements-dev.txt
+python scripts/check_publication.py
+```
+
+## Current status
+
+**Pre-public-launch foundation.** The core message and reading path are in place. Evidence is being migrated from topic-level source registration toward claim-level traceability, and launch-critical claims still require independent human review.
 
 ## Licence
 
-A project licence has not yet been selected. Because this repository will contain both software and editorial/reference content, code and content may ultimately use different licences.
+A final code/content licensing model has not yet been selected. Code and editorial/reference content may ultimately use different licences.
