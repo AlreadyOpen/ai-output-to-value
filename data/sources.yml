@@ -203,3 +203,91 @@ sources:
     scope: Cloudflare Agents SDK documentation for x402 and Machine Payments Protocol HTTP 402 payment flows.
     limitations: Technical capability does not establish legal authority, contractual capacity, or legal personhood. Those remain separate questions.
     reviewed: 2026-09-14
+
+  - id: us-census-q2-2026-ecommerce
+    title: Quarterly Retail E-Commerce Sales, Second Quarter 2026
+    publisher: U.S. Census Bureau
+    url: https://www.census.gov/retail/ecommerce.html
+    evidence_type: official_statistics
+    supports:
+      - ecommerce_is_a_material_but_not_total_share_of_retail
+      - ecommerce_sales_can_grow_faster_than_total_retail_sales
+    scope: U.S. official quarterly retail sales estimates. In Q2 2026, seasonally adjusted e-commerce sales were estimated at $340.2 billion and accounted for 17.1% of total retail sales.
+    limitations: U.S.-specific retail statistics. The e-commerce share should not be interpreted as a direct measure of all digital influence on physical-store purchases or omnichannel activity.
+    reviewed: 2026-09-14
+
+  - id: abs-retail-75-years-online-shopping
+    title: Retail Trade — A journey through 75 years of retail statistics
+    publisher: Australian Bureau of Statistics
+    url: https://www.abs.gov.au/articles/retail-trade-journey-through-75-years-retail-statistics
+    evidence_type: official_statistics
+    supports:
+      - online_retail_share_in_australia_increased_after_2019
+      - pandemic_accelerated_online_click_and_collect_and_delivery_adoption
+      - much_of_the_online_share_increase_persisted_after_the_pandemic
+    scope: ABS historical overview of Australian retail statistics. It reports online sales at 6.3% of total retail turnover in 2019 and 11.4% in 2024.
+    limitations: Descriptive statistics do not by themselves identify the causal effect of e-commerce on individual physical retailers or explain all changes in retail structure.
+    reviewed: 2026-09-14
+
+  - id: nber-creative-destruction-ecommerce-retail
+    title: Creative Destruction? Impact of E-Commerce on the Retail Sector
+    publisher: National Bureau of Economic Research
+    url: https://www.nber.org/papers/w30077
+    evidence_type: research_working_paper
+    supports:
+      - ecommerce_expansion_can_reduce_nearby_physical_store_sales
+      - ecommerce_expansion_can_affect_retail_employment_store_exit_and_entry
+      - employment_can_shift_toward_transportation_and_warehousing
+    scope: Study using payroll data for 2.6 million retail workers and data for 3.2 million stores around the staggered rollout of a major e-commerce firm's fulfilment centres. The authors report approximately 4% lower sales and 2.1% lower employment at proximate stores, with increased exits and reduced entry.
+    limitations: Working paper using a specific empirical design around one major e-commerce firm's fulfilment-centre rollout in the United States. Do not generalise the estimated magnitudes to every retailer, country, period, or product category.
+    reviewed: 2026-09-14
+
+  - id: oecd-unpacking-ecommerce-2019
+    title: Unpacking E-commerce — Business Models, Trends and Policies
+    publisher: OECD
+    url: https://www.oecd.org/en/publications/unpacking-e-commerce_23561431-en.html
+    evidence_type: intergovernmental_report
+    supports:
+      - ecommerce_and_physical_retail_can_be_integrated
+      - click_and_collect_uses_physical_locations_to_support_online_transactions
+      - ecommerce_business_models_require_complementary_fulfilment_and_inventory_capabilities
+    scope: OECD review of e-commerce business models, trends, distribution mechanisms, mobile commerce, and policy implications.
+    limitations: Broad policy and business-model synthesis rather than a causal estimate of the value of any particular omnichannel strategy.
+    reviewed: 2026-09-14
+
+  - id: oecd-hybrid-retail-smes-2023
+    title: SMEs in the era of hybrid retail
+    publisher: OECD
+    url: https://www.oecd.org/en/publications/2023/05/smes-in-the-era-of-hybrid-retail_ea79f5fc.html
+    evidence_type: intergovernmental_research
+    supports:
+      - retailers_are_combining_online_and_brick_and_mortar_channels
+      - hybrid_retail_creates_both_opportunities_and_operational_challenges
+    scope: OECD D4SME survey across six countries examining online, offline, and hybrid retail practices among SMEs.
+    limitations: Survey evidence from selected countries and participating SMEs; perceptions and practices should not be treated as universal causal effects.
+    reviewed: 2026-09-14
+
+  - id: oecd-local-retail-global-trends-2026
+    title: Local Retail, Global Trends
+    publisher: OECD
+    url: https://www.oecd.org/en/publications/local-retail-global-trends_55e2edec-en.html
+    evidence_type: intergovernmental_report
+    supports:
+      - ecommerce_intensifies_competition_for_physical_retail
+      - physical_retail_can_adapt_with_digital_and_in_store_technologies
+      - omnichannel_strategies_are_part_of_retail_transformation
+    scope: OECD analysis of retail transformation, local economies, SME adaptation, digitalisation, skills, and town and city centres.
+    limitations: Policy synthesis across diverse markets. It supports directional conclusions about transformation and adaptation, not a universal ranking of online versus physical retail.
+    reviewed: 2026-09-14
+
+  - id: oecd-ecommerce-definition-2025
+    title: The 2025 OECD definition of e-commerce and guidelines for interpretation
+    publisher: OECD
+    url: https://www.oecd.org/en/publications/the-2025-oecd-definition-of-e-commerce-and-guidelines-for-interpretation_2254f1de-en.html
+    evidence_type: intergovernmental_standard_guidance
+    supports:
+      - ecommerce_measurement_is_adapting_to_emerging_ordering_channels
+      - ai_assisted_transactions_are_relevant_to_modern_ecommerce_measurement
+    scope: OECD's 2025 revision of the statistical definition and interpretation guidance for e-commerce, including digital intermediaries, subscriptions, and AI-assisted transactions.
+    limitations: Statistical-definition guidance, not evidence that AI agents will replace human sales or physical retail interactions.
+    reviewed: 2026-09-14
