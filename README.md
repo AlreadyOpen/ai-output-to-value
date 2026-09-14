@@ -61,11 +61,32 @@ Replit provides a useful current example in its own product positioning. As of S
 
 See [`content/tool-access-vs-client-readiness.md`](content/tool-access-vs-client-readiness.md).
 
+## Representation is a channel, not the value
+
+A boss, director, employee, consultant, or other human can represent the company. An AI agent can also increasingly act as an operational representative within delegated authority.
+
+Neither fact makes the representative the source of the company’s value by itself.
+
+A face-to-face meeting with a customer or investor may be valuable when it improves trust, understanding, negotiation, judgement, or the resulting decision. Physical presence alone is not evidence that the company has more substance or that the proposal is worth more.
+
+The same applies on the other side. Customers can already use agents to search, compare, browse, and buy on their behalf. Investors and investment teams can also use AI systems for research, screening, diligence, monitoring, and analysis. Companies should therefore expect counterparties to be **human, agentic, or both**.
+
+The project distinguishes:
+
+- **actors** — directors, employees, contractors, and AI agents;
+- **representation channels** — face-to-face meetings, calls, email, websites, APIs, and agent protocols;
+- **instruments** — wallets, cards, credentials, API keys, and payment rails;
+- **the company** — the legal and organisational entity connecting authority, capability, commitments, and accountability.
+
+> **A human meeting is a channel. An AI agent is an actor. A wallet is an instrument. None of them is the company’s value by itself.**
+
+See [`content/company-actors-vs-instruments.md`](content/company-actors-vs-instruments.md), [`content/non-human-actors-and-accountability.md`](content/non-human-actors-and-accountability.md), and [`content/representation-is-a-channel.md`](content/representation-is-a-channel.md).
+
 ## What this project will explain
 
 The public guide is being organised around six questions:
 
-1. **Understand the difference** — Are we confusing a tool, a workflow, a quality judgement, and a business outcome?
+1. **Understand the difference** — Are we confusing a tool, a workflow, a quality judgement, a representation channel, and a business outcome?
 2. **From demonstration to delivery** — What has actually been shown, and what remains unverified or merely assumed?
 3. **Count the whole job** — Did AI remove work, or move review, correction, integration, and support work elsewhere?
 4. **Make ownership clear** — Who prepares, verifies, approves, operates, supports, and maintains the result?
@@ -100,12 +121,14 @@ Context-dependent claims that require explicit acceptance criteria. They should 
 - **No anti-vibe gatekeeping.** Fast exploratory workflows are legitimate; the issue is misrepresenting their readiness or evidence.
 - **Judge fitness for purpose, not authorship or subscription price.** Human work can be poor. AI work can be excellent. A free tool can produce strong work. A paid tool can produce weak work.
 - **Do not infer substance from polish.** A convincing interface or long document may contain verified client-specific knowledge, or may contain plausible assumptions. Establish which is which.
+- **Do not infer value from human presence.** Face-to-face representation can be valuable, but its value must come from the outcome it improves rather than the fact that a human was physically present.
+- **Treat counterparties as potentially agentic too.** Customers, investors, suppliers, and other parties may use their own agents to research, evaluate, negotiate, transact, or monitor.
 - **Count downstream work.** Review, correction, integration, support, maintenance, and risk transfer are part of the job.
 - **Match assurance to consequence.** A disposable prototype and a client migration guide should not have the same verification burden.
 - **Make ownership visible.** Generating an artefact does not automatically identify the person qualified to approve it.
 - **Separate evidence from anecdotes.** Practitioner stories can reveal useful failure modes, but they do not establish prevalence or causation.
 - **Preserve uncertainty.** Research findings must retain their scope, methodology, and limitations.
-- **Measure outcomes, not AI activity.** More prompts, tokens, generated code, or licences are not business-value metrics by themselves.
+- **Measure outcomes, not AI activity.** More prompts, tokens, generated code, licences, meetings, or travel are not business-value metrics by themselves.
 
 ## Evidence, not logo collecting
 
@@ -142,7 +165,10 @@ These discussions are treated as **practitioner accounts**, not verified evidenc
 ├── README.md
 ├── CONTRIBUTING.md
 ├── content/
+│   ├── company-actors-vs-instruments.md
 │   ├── executive-guide.md
+│   ├── non-human-actors-and-accountability.md
+│   ├── representation-is-a-channel.md
 │   └── tool-access-vs-client-readiness.md
 ├── data/
 │   └── sources.yml
