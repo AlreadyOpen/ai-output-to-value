@@ -1,0 +1,36 @@
+name: Release approval gate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install check dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Build release candidate
+        run: python scripts/build_site.py
+
+      - name: Validate publication structure
+        run: python scripts/check_publication.py
+
+      - name: Enforce release approval policy
+        run: python scripts/check_release.py
