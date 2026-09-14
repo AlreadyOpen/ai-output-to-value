@@ -21,7 +21,7 @@ claims:
         locator: "## Public guidance supporting the distinction"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: multidisciplinary-ai-product-discovery
     claim_text: UK Government and NIST guidance supports combining business context, user or domain needs, technical design, risks, benefits, and costs when evaluating AI use cases.
@@ -43,4 +43,4 @@ claims:
         locator: "## Product discovery should be multidisciplinary"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
