@@ -38,13 +38,30 @@ An actor may be human or software. A wallet, API key, card, or other credential 
 
 An AI-native company does not become insubstantial merely because agents perform much of its operational work.
 
-A small company could legitimately use agents for substantial parts of software development, research, support, monitoring, scheduling, document preparation, or routine operational work.
+A small company could legitimately use agents for substantial parts of software development, research, analysis, sales preparation, customer support, monitoring, scheduling, document preparation, or routine operational work.
 
 The company may still provide real value through domain knowledge, data, product design, integration, contractual commitments, distribution, reputation, governance, support, risk-bearing, and ongoing operation.
 
 > **Human labour is not the measure of substance.**
 
 The project should not imply that a service is legitimate only when humans manually perform a large amount of work.
+
+## Judgement and accountability are different questions
+
+An AI system can analyse evidence, compare alternatives, recommend an action, persuade a customer, or make a bounded operational decision without becoming the legal entity responsible for the result.
+
+Likewise, a human director or manager can hold legal or organisational authority without that fact proving the quality of the judgement exercised.
+
+Keep the questions separate:
+
+- **Judgement / evaluation** — which option appears better under the available evidence and goals?
+- **Authority** — who or what is permitted to act?
+- **Accountability** — who must answer for the result?
+- **Recourse** — where can a customer, counterparty, employee, regulator, or other affected party seek correction or remedy?
+
+This distinction matters because **human-in-the-loop is not itself an accountability model**. A human can click “approve” without meaningful review. Conversely, an automated system can be extensively tested, logged, bounded, and monitored while responsibility remains with the organisation deploying it.
+
+See [`ai-business-capability-and-judgement.md`](ai-business-capability-and-judgement.md).
 
 ## But legal form does not create job substance either
 
