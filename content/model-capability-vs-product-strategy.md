@@ -54,6 +54,28 @@ This is why two organisations using the same underlying model can create very di
 
 It is also why access to a frontier model does not automatically establish a differentiated offering.
 
+## Architecture can change the business case
+
+Even after a useful capability and customer problem have been identified, one more distinction matters:
+
+> **The economics of an AI product are properties of the whole solution architecture, not just the price of the most capable model in it.**
+
+A service may use one model for every request, route simpler work to cheaper models, escalate difficult cases, use a stronger model only for planning or difficult judgement, combine models with deterministic tools, or avoid model calls entirely for steps that conventional software can handle more reliably.
+
+These are engineering choices, but their consequences can change:
+
+- cost per completed customer outcome;
+- quality and acceptance rate;
+- latency and throughput;
+- human-review burden;
+- failure and support behaviour;
+- vendor dependency;
+- customer pricing and margin.
+
+So implementation detail can remain inside engineering while economically material consequences must return to the product and business decision.
+
+See [`architecture-economics-and-product-decisions.md`](architecture-economics-and-product-decisions.md).
+
 ## Do not let the model choose the problem
 
 A useful test is:
@@ -84,17 +106,25 @@ It is:
 
 > **Is there a sufficiently valuable workflow here, and is this model the right component of a reliable and economical way to deliver it?**
 
-## Nine questions for a meeting
+And once the workflow is identified, ask a second question:
+
+> **What is the cheapest architecture that meets the required quality, latency, reliability, and risk constraints?**
+
+The answer may involve the most capable model, cheaper models, routing, deterministic software, human review, or a combination.
+
+## Eleven questions for a meeting
 
 1. **What customer problem are we solving?**
 2. **How is that problem solved today?**
 3. **What measurable outcome should improve?**
-4. **Which part of the workflow actually requires this model's distinctive capability?**
+4. **Which part of the workflow actually requires the most capable model or a distinctive AI capability?**
 5. **What evidence shows it works on the exact task we care about?**
 6. **What cheaper or simpler alternatives have we compared?**
-7. **What is the full delivery and operating cost, not just the model price?**
-8. **What happens when the model is unavailable, too slow, or produces an unacceptable result?**
-9. **Why would a customer pay us rather than use the underlying model or tool directly?**
+7. **What architecture options have been compared end-to-end?**
+8. **What is the full delivery and operating cost per acceptable outcome, not just the model price?**
+9. **What happens when a model is unavailable, too slow, or produces an unacceptable result?**
+10. **Which engineering choices materially change the customer promise or unit economics?**
+11. **Why would a customer pay us rather than use the underlying model or tool directly?**
 
 ## Technology-push innovation is still legitimate
 
@@ -112,8 +142,13 @@ The **UK Government AI Playbook** says AI use cases should be led by business an
 
 https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
 
-The **NIST AI Risk Management Framework** asks organisations to establish context, clearly define business value or business use, specify intended tasks and application scope, and consider expected benefits and costs before deployment decisions:
+The **NIST AI Risk Management Framework** asks organisations to establish context, clearly define business value or business use, specify intended tasks and application scope, prioritise interdisciplinary participation, and consider expected benefits and costs before deployment decisions:
 
 https://airc.nist.gov/airmf-resources/airmf/5-sec-core/
 
-These sources do not show that every successful product must begin with explicit customer demand. They support the narrower principle that AI capability should be evaluated in a defined context of use, against objectives, alternatives, benefits, costs, and risks.
+Research on LLM routing and cascades provides concrete examples of how model selection can change the cost-quality frontier without implying that any one architecture is universally best:
+
+- RouteLLM: https://arxiv.org/abs/2406.18665
+- FrugalGPT: https://arxiv.org/abs/2305.05176
+
+These sources do not show that every successful product must begin with explicit customer demand, or that multi-model routing is always the correct architecture. They support the narrower principles that AI capability should be evaluated in a defined context of use and that technical design can materially change the economics of delivering that capability.
