@@ -2,133 +2,108 @@
 
 ## The five-minute version
 
-Generative AI can be extremely useful. It can shorten drafting, accelerate prototypes, help people explore unfamiliar domains, automate repetitive steps, and make some forms of expertise easier to access.
+Generative AI can be extremely useful. It can shorten drafting, accelerate prototypes, automate repetitive steps, and make some forms of expertise easier to access.
 
-Some free or inexpensive agents can now generate remarkably complete applications. That is a major change in the economics of producing software and other knowledge work.
+Some free or inexpensive agents can generate remarkably complete applications. That is a major change in the economics of producing software and other knowledge work.
 
-But several different achievements are often discussed as though they were the same thing.
-
-**They are not.**
-
-A company can gain access to an advanced agent without having a repeatable professional capability. A model can generate a polished artefact without that artefact containing enough client-specific substance to be ready for use. A team can complete work faster without reducing total cost. A product can be technically impressive without having customers. A simple product built on an API can create substantial value if it solves a real problem well.
-
-The useful question is not “Was AI used?” or “Did the agent build it?”
-
-The useful question is:
+But several different achievements are often discussed as though they were the same thing. **They are not.**
 
 > **What did AI change, what substance has actually been established, what work remains, who is responsible, and what evidence shows that the result is valuable?**
 
 ---
 
-## 1. Do not mix up access, output, delivery, capability, outcome, and value
+## 1. Six different claims, not a mandatory six-step lifecycle
 
-A useful way to structure the conversation is:
+This project uses a decision framework:
 
 **Access → Output → Deliverable → Capability → Outcome → Value**
 
-### Access
+The arrows are a memory aid. A disposable prototype can create a valuable learning outcome without becoming an operational service or a repeatable supplier capability.
 
+### Access
 You have an API key, model subscription, coding assistant, agent platform, free agent, or other AI tool.
 
-That may be a powerful starting point. It does not yet show that your organisation can use the tool effectively for a particular job.
-
 ### Output
-
 The tool generated something: code, a report, an analysis, a design, a presentation, a workflow, or a prototype.
 
-Generation is real work completed. It is not necessarily the whole job.
-
 ### Deliverable
-
-The artefact has been made fit for a defined purpose. Relevant assumptions have been checked, required corrections made, and appropriate acceptance criteria met.
-
-The amount of checking depends on the consequence of being wrong.
+The artefact has been made fit for a defined purpose and appropriate acceptance criteria.
 
 ### Capability
-
 The organisation can produce and use the result repeatedly because the people, process, context, tooling, ownership, and support exist around it.
 
-A one-off demonstration may be excellent without proving repeatability.
-
 ### Outcome
-
-Something useful changed: turnaround time, throughput, quality, user experience, service capacity, risk, cost, revenue, or another meaningful measure.
+Something meaningful changed: turnaround time, throughput, quality, service capacity, risk, cost, revenue, learning, or another measure.
 
 ### Value
-
 The outcome is worth the full cost and trade-offs of achieving it.
 
-That final step is why “we have access to a powerful agent” and “we can profitably deliver this service to clients” are not the same claim.
+A useful reverse-planning question is:
+
+> **What outcome do we need, and what evidence, capability and work would make that outcome plausible?**
 
 ---
 
 ## 2. A capable free agent is not automatically a capable supplier
 
-This is one of the most important distinctions for managers to understand.
-
 A modern coding agent may be able to generate a functioning website, application, database, dashboard, integration, or deployment from a relatively short conversation. The fact that the tool is free or inexpensive does not make that capability trivial.
 
 The mistake is to infer a second claim automatically:
 
-> **Because the agent can produce most of the visible artefact, our organisation already has sufficient substance to sell the job to a client.**
+> **Because the agent can produce most of the visible artefact, our organisation already has sufficient substance to deliver the whole client job.**
 
 Sometimes it does. Sometimes it does not. The evidence has to match the intended job.
 
-A useful way to separate the problem is:
+Keep three capabilities separate:
 
 ### Tool capability
-
 Can the AI produce the artefact?
 
 ### Job substance
+Does the result contain what this particular client actually needs: requirements, business rules, environment, integrations, constraints, evidence, and relevant risk considerations?
 
-Does the result contain what this particular client actually needs: their requirements, business rules, environment, integrations, constraints, evidence, and relevant risk considerations?
+A concrete example:
+
+> **A contact form can look complete while enquiries never reach the business. The interface exists; the promised workflow does not.**
 
 ### Delivery capability
-
 Can the supplier verify, explain, deploy, operate, support, maintain, and stand behind the result?
 
 AI can contribute to all three. Evidence of the first is not automatically evidence of the other two.
 
 ### Replit is a useful concrete example
 
-As of September 2026, Replit describes its **Starter** plan as being for **exploring what is possible with its generative tools**. Its product page positions **Pro** for **commercial and professional builds**. Replit’s pricing page also warns that Agent behaviour is probabilistic and may occasionally produce mistakes.
+As reviewed in September 2026, Replit's **homepage** labels Starter “For exploring what’s possible” and Pro “For commercial and professional builds.” Its **pricing page** separately warns that Agent is probabilistic and may occasionally make mistakes.
 
-That vendor positioning should not be turned into a simplistic rule. A free-plan result can be perfectly adequate for a client. Paying for Pro does not certify a project as professional or client-ready.
+Those are two different pieces of vendor evidence and should be cited separately.
 
-The important point is narrower:
+The positioning should not be turned into a simplistic rule. A free-plan result can be perfectly adequate for a client. Paying for Pro does not certify a project as professional or client-ready.
 
-> **Even the tool vendor distinguishes access for exploration from professional delivery. The subscription tier is not the evidence that the job has enough substance.**
-
-See [A capable AI agent is not the same as a client-ready capability](tool-access-vs-client-readiness.md).
+See [Tool access vs client readiness](tool-access-vs-client-readiness.md).
 
 ---
 
-## 3. Vibe coding, AI-assisted work, and AI slop are not three levels of the same thing
-
-These terms describe different dimensions.
+## 3. Vibe coding, AI-assisted work, responsible practice, and slop are different dimensions
 
 ### Vibe coding describes a way of working
 
-The term is used inconsistently, but commonly refers to creating software through natural-language prompting and rapid iteration, sometimes with limited inspection of the generated implementation.
+The term is used inconsistently, but commonly refers to software creation through natural-language prompting and rapid iteration, sometimes with limited inspection of the generated implementation.
 
 That can be entirely appropriate for exploration, prototyping, disposable tools, or learning.
 
-The important question is what happens when expectations change. If a prototype becomes a customer-facing system, the evidence required may also change.
-
 ### AI-assisted work describes involvement of AI
 
-A developer, consultant, analyst, designer, researcher, or manager may use AI extensively while still reviewing, testing, correcting, and taking responsibility for the result.
+**AI-assisted work** means AI contributed to producing or performing the work. It can be reviewed or unreviewed, excellent or poor.
 
-“AI-assisted” therefore does not mean “low quality”. It also does not certify quality. It simply describes part of the workflow.
+### Responsible AI-assisted practice describes the controls around use
+
+For an intended use, a responsible practice includes proportionate evaluation, ownership, and controls. What is proportionate depends on consequence: a disposable internal mock-up does not need the same assurance as production migration instructions.
 
 ### AI slop or workslop describes a quality problem
 
 A result may look complete while lacking enough correctness, context, substance, or usefulness for the person who has to use it.
 
-The key business problem is often not that AI generated the artefact. It is that generation created the appearance of completion while significant thinking, checking, or cleanup remained elsewhere.
-
-That same failure mode can occur with human-written work. AI changes the speed and volume at which it can occur.
+These categories are not mutually exclusive. A vibe-coded artefact is AI-assisted. Whether it is useful, responsible for the intended use, or low-value output is a separate assessment.
 
 ---
 
@@ -136,144 +111,83 @@ That same failure mode can occur with human-written work. AI changes the speed a
 
 Before generative AI, a weakly specified project often looked unfinished because little had been built yet.
 
-With a capable agent, the same weakly specified project can quickly have:
+With a capable agent, the same weakly specified project can quickly have a polished interface, realistic copy, routes, a database, authentication, charts, deployment, and plausible business logic.
 
-- a polished interface;
-- realistic-looking copy;
-- routes and navigation;
-- a database;
-- authentication;
-- charts or dashboards;
-- deployment;
-- plausible business logic.
-
-That is useful progress. But some of those decisions may have been inferred because the agent needed to complete the artefact.
-
-The management question is therefore:
+That is useful progress. But some decisions may have been inferred because the agent needed to complete the artefact.
 
 > **Which parts of the apparent completeness come from verified client-specific substance, and which parts are reasonable-looking assumptions made during generation?**
-
-This is the **substance gap**.
-
-It is not a claim that the result is wrong. It is the distance between what the artefact appears to establish and what has actually been established for the intended use.
 
 Four useful questions are:
 
 1. What did the agent have enough information to know?
 2. What did it have to infer or invent?
-3. Which assumptions have been checked against the client’s real requirements and environment?
+3. Which assumptions have been checked against the client's real requirements and environment?
 4. Who can approve and support the result after delivery?
 
 ---
 
-## 5. Count the whole job
+## 5. Count the whole job — and use precise units
 
-Suppose an employee previously spent eight hours producing a technical document.
-
-With AI, the first draft now takes two hours.
-
-That is a real six-hour improvement in drafting time.
-
-But the business question is larger:
-
-- How much specification work was needed before generation?
-- How long did technical review take?
-- Were corrections required?
-- Did another team absorb the verification work?
-- Was integration or formatting still needed?
-- Did the final deliverable arrive sooner?
-- Was any released capacity actually used for something valuable?
-
-An illustrative example:
+**Illustrative labour hours, not measured results. Assume both workflows meet the same acceptance criteria.**
 
 | Work | Before | AI-assisted |
 | --- | ---: | ---: |
 | Drafting | 8 h | 2 h |
 | Review and correction | 1 h | 4 h |
 | Integration / formatting | 1 h | 1 h |
-| **Total** | **10 h** | **7 h** |
+| **Total labour hours** | **10 h** | **7 h** |
 
-In this example AI still saves three hours. It would be misleading to report either “75% faster” based only on drafting or “AI created extra review work so it failed”.
+Drafting uses **75% fewer labour hours**. The total illustrated workflow uses **30% fewer labour hours**.
 
-The whole workflow improved from ten hours to seven.
+That is not the same thing as saying the work is “75% faster” or “30% faster.” Speed can refer to a reciprocal rate, and summed labour hours do not establish elapsed delivery time. Parallel work, queues, waiting for review, and handoffs can change the calendar duration.
 
-Now imagine review and correction took nine hours instead of four. The conclusion would change.
+The business question is therefore larger than generation time:
 
-**Measure the whole job.**
+- How much specification work was needed?
+- How long did review take?
+- Were corrections required?
+- Did another team absorb verification work?
+- Did the final deliverable arrive sooner?
+- Was released capacity used for something valuable?
+
+**Measure the whole job at the level relevant to the decision.**
 
 ---
 
 ## 6. Time saved is not automatically money saved
 
-If a salaried employee completes a task four hours faster, the company has usually created **capacity** before it has created a cash saving.
+If a salaried employee completes a task four hours sooner, the company normally creates **capacity** first.
 
-That capacity can become value in several ways:
+That capacity can become financial value through avoided hiring, lower external spending, greater paid throughput, improved turnaround, fewer losses, earlier market entry, or additional useful work.
 
-- the employee completes additional useful work;
-- the team avoids hiring additional staff;
-- external spending is reduced;
-- customer turnaround improves;
-- more paid work can be accepted;
-- errors or losses are reduced;
-- a product reaches market earlier;
-- the organisation stops doing low-value work.
-
-If nothing useful happens with the released capacity, it is still reasonable to report a time saving. It is not yet reasonable to count the same hours automatically as realised profit.
+A time saving is still worth reporting. It simply should not be counted automatically as realised cash value without identifying the mechanism.
 
 ---
 
 ## 7. A polished artefact is not evidence of readiness
 
-AI is particularly good at producing outputs that *look* complete.
+For a client-facing migration guide, ask which versions it applies to, which steps were tested, what assumptions it makes, how failure is handled, who can approve it, and who will support the client.
 
-That is useful. It also means appearance is a weak readiness test.
+For a generated website, ask whether the contact form reaches the intended business process, whether company claims are accurate, whether relevant privacy/security/accessibility requirements are met, and who maintains it.
 
-For a client-facing migration guide, for example, useful questions might include:
+For an executive report, ask where the numbers came from, which conclusions are evidence versus recommendations, whether contradictory evidence was considered, and who can defend the important claims.
 
-- Which software and API versions does this apply to?
-- Which steps were tested?
-- What assumptions does it make about the client's environment?
-- What happens when a step fails?
-- Who has enough domain expertise to approve it?
-- Who will support the client if the instructions are incomplete?
-
-For a generated website:
-
-- Does the contact form actually deliver information to the intended business process?
-- Are the claims about the company accurate?
-- Are privacy, security, and accessibility requirements met?
-- Are real client requirements implemented, or were plausible defaults generated?
-- Who maintains the site after launch?
-
-For an executive report:
-
-- Where did the numbers come from?
-- Which conclusions are evidence and which are recommendations?
-- Were contradictory sources considered?
-- Can the named owner defend the important claims?
-
-The correct level of assurance depends on consequence. A disposable internal mock-up does not need the same controls as technical instructions used during a production migration.
+The correct level of assurance depends on consequence.
 
 ---
 
 ## 8. Ownership is more than authorship
 
-AI complicates an old organisational question: who owns a deliverable?
-
-There may be several legitimate roles:
+There may be several legitimate roles around one AI-assisted deliverable:
 
 - the person who requested or committed to the work;
 - the person who prepared the specification;
 - the person who operated the AI tool;
 - the subject-matter expert who verified the content;
-- the manager or professional who approved release;
+- the person who approved release;
 - the team that operates and supports the result.
 
-These roles do not have to belong to one person.
-
-Problems occur when the handoffs are invisible—for example when a generated artefact is described as “done” while substantial expert review has silently become someone else's urgent task.
-
-A useful management practice is therefore simple:
+These roles do not have to belong to one person. Problems occur when the handoffs are invisible.
 
 > **Before committing the deliverable, agree who prepares it, who verifies it, who can approve it, and who supports it afterward.**
 
@@ -281,25 +195,11 @@ A useful management practice is therefore simple:
 
 ## 9. Commercial success and technical quality are different questions
 
-Enterprise software can remain commercially successful for many reasons beyond technical elegance:
+Enterprise software can remain commercially successful because of functionality, switching costs, integrations, procurement, support arrangements, regulation, ecosystem effects, brand, sales, and migration cost.
 
-- product functionality;
-- switching costs;
-- integration with existing processes;
-- contracts and procurement;
-- support arrangements;
-- regulatory requirements;
-- ecosystem and partner effects;
-- brand and trust;
-- sales and marketing;
-- organisational familiarity;
-- the cost and risk of migration.
+So “customers pay for it” is not proof that the underlying technology is excellent.
 
-This is why “customers pay for it” is not proof that the underlying technology is excellent.
-
-But the reverse mistake is also common. Technical professionals can treat code quality as an end in itself without connecting it to business consequences.
-
-Technical quality matters when it affects things the organisation values: reliability, change speed, security, incident cost, performance, user experience, maintainability, support burden, and future migration cost.
+The reverse mistake is also common: technical professionals can treat code quality as an end in itself without connecting it to reliability, security, change speed, incident cost, performance, maintainability, support burden, or migration cost.
 
 The practical question is:
 
@@ -307,42 +207,35 @@ The practical question is:
 
 ---
 
-## 10. Simple AI products can still create real value
+## 10. Cheap production creates an opportunity to test, not proof of a profitable business
 
-This guide should not be read as “an API wrapper cannot be a business” or “a free agent cannot produce professional work”.
+A technically simple AI product can create real commercial value. Keep four variables separate:
 
-A product can be technically simple and commercially valuable if it does something customers need better, faster, more conveniently, or more cheaply than the alternatives.
+| Variable | Example question |
+| --- | --- |
+| **Customer value** | Does this save the customer time, reduce risk, improve an outcome, or make a workflow easier? |
+| **Delivery cost** | What does it cost to generate, verify, integrate, operate and support the service? |
+| **Price / willingness to pay** | What will customers pay given alternatives, including direct use of the underlying agent? |
+| **Supplier margin** | After the full delivery cost, is the business economically sustainable? |
 
-The model asks different questions:
+Reducing production cost can improve the opportunity. It does not guarantee greater demand, a durable price, low support burden, or a positive margin.
 
-- What problem is being solved?
-- Why is this solution preferable to using the underlying model or agent directly?
-- What context, workflow, integration, support, data, trust, distribution, or expertise does the product add?
-- Can the service be delivered repeatedly?
-- Will customers pay enough to support the full cost?
-
-Technical complexity and tool price are neither requirements for value nor proof of value.
-
-If the core proposition is **“we have access to the same agent the client could use themselves”**, the business should be able to explain what additional value it provides.
+> **Cheap production creates an opportunity to test — not proof of a profitable business.**
 
 ---
 
 ## 11. Seven questions to ask in a meeting
 
-When someone presents an AI initiative, try these:
-
 1. **What exactly have we demonstrated?**
 2. **What did the AI know from supplied requirements, and what did it infer?**
-3. **What remains to be checked or built before the intended use?**
+3. **What remains before the intended use?**
 4. **Which work disappeared, and which work moved elsewhere?**
 5. **Who is responsible for verification, approval, operation, and support?**
 6. **Which business outcome are we trying to change?**
-7. **What evidence would tell us whether scaling this is worthwhile?**
-
-These questions work whether the proposed AI system is excellent, mediocre, or still experimental.
+7. **What evidence would tell us whether the next step is worthwhile?**
 
 ---
 
 ## 12. The position in one paragraph
 
-Use AI ambitiously. Prototype quickly. Use free and inexpensive agents when they are sufficient. Automate work that can be automated. Let people outside traditional technical roles build useful things. But keep the categories clear: access to a capable agent is not automatically a professional service, generated output is not automatically a finished deliverable, apparent completeness is not proof of client-specific substance, time saved is not automatically cash saved, and a working demonstration is not automatically a business. Measure the whole workflow, match assurance to consequence, make ownership visible, and judge success by outcomes that matter.
+Use AI ambitiously. Prototype quickly. Use free and inexpensive agents when they are sufficient. Automate work that can be automated. Let people outside traditional technical roles build useful things. But keep the claims clear: access to a capable agent is not automatically a professional service, generated output is not automatically a finished deliverable, apparent completeness is not proof of client-specific substance, reduced labour is not automatically reduced elapsed time or cash cost, and a working demonstration is not automatically a business. Measure the whole workflow, match assurance to consequence, make ownership visible, and judge success by outcomes that matter.
