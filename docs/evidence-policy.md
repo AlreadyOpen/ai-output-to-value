@@ -113,7 +113,7 @@ Files under `research/` are working notes or pointers. They are not a second pub
 
 For each important factual claim, the project should be able to reconstruct:
 
-> **Claim → source → source version/date → exact locator → relevant finding → qualification → publication location → reviewer → review date/status**
+> **Claim → source → source version/date → exact locator → relevant finding → qualification → publication location → reviewer/process → review date/status**
 
 A broad `supports:` tag in a source record helps discovery. It is not a substitute for claim-level traceability.
 
@@ -133,14 +133,14 @@ A claim record should resemble:
   published_in:
     - file: content/example.md
       locator: "## Exact heading in the article"
-  reviewer: transparent reviewer or review role
+  reviewer: transparent reviewer or review process
   reviewed: 2026-09-14
-  human_review_status: pending
+  independent_review_status: pending
 ```
 
 The structural checker verifies that publication locators exist. The built evidence page gives each claim a stable HTML anchor and links back to the pages using it.
 
-## 5. Review state must be explicit
+## 5. Independent review must be actor-neutral
 
 A date on an article means **Last updated**, not “all factual claims approved”.
 
@@ -148,13 +148,19 @@ Reader-facing article metadata should distinguish:
 
 - publication status, such as **Draft**, **Research draft**, **Editorial review in progress**, or **Reviewed for publication**;
 - last-updated date;
-- evidence-review state for connected claims.
+- independent-review state for connected claims.
 
 Machine values such as `research_draft` may remain in YAML but should be translated into normal reader-facing wording.
 
-A claim marked `human_review_status: completed` must have an inspectable reviewer and review date.
+A claim marked `independent_review_status: completed` must have an inspectable reviewer/process and review date.
 
-The current project policy uses independent human editorial approval for launch-critical claims. This is a **chosen release control**, not a claim that humans are infallible or inherently better judges than AI. Other assurance mechanisms may also contribute, including automated checks, reproducible calculations, model-assisted review, specialist checks, and cross-method verification.
+> **Independent review is a property of the process, not the identity of the reviewer.**
+
+The reviewer may be a human, AI system, automated method, specialist toolchain, or hybrid process. The same standard applies: the review should be sufficiently separate from the originating authoring step, inspect the relevant source or evidence directly, test whether the claim follows within scope, preserve material qualifications, and record enough information to audit what happened.
+
+A second pass by the same authoring process should not be labelled independent merely because it produced a different answer. Likewise, a human author reading their own draft again is not automatically independent review. Independence is about separation, method, and evidence.
+
+Different contexts may still require a particular type of approval. For example, a law, contract, board rule, safety procedure, or professional standard may require a named human sign-off. That is an **authority or governance requirement**, not evidence that human review is intrinsically a better truth-finding mechanism.
 
 ## 6. Preserve scope
 
@@ -251,7 +257,7 @@ It rejects, among other things:
 - empty required source/claim/evidence values;
 - unknown source references;
 - claim publication locators that do not exist;
-- completed review states without reviewer/date records;
+- completed independent-review states without reviewer/date records;
 - duplicate, invalid, or reserved article slugs;
 - broken local links;
 - missing HTML fragments;
@@ -268,11 +274,11 @@ A green preview gate means **the draft builds and passes structural controls**. 
 
 At minimum:
 
-- launch-critical claims must have completed the declared editorial review;
+- launch-critical claims must have completed independent review;
 - the review record must be inspectable;
 - core articles must be marked ready for publication.
 
-A release gate is still not a guarantee of truth. It records that the project’s chosen publication controls have been completed.
+The independent reviewer/process may be human, AI, automated, or hybrid, provided it meets the same evidence and separation criteria. A release gate is still not a guarantee of truth. It records that the project’s chosen publication controls have been completed.
 
 ## 12. Versioned publication links
 
