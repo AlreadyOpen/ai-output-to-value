@@ -1,0 +1,41 @@
+claims:
+  - id: govuk-product-discovery-user-needs
+    claim_text: GOV.UK service guidance recommends understanding users and their problem before committing to a preselected solution, and treating ungrounded suggestions as assumptions to test.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: govuk-service-standard-understand-users
+        source_version: reviewed 2026-09-14
+        locator: Service Standard point 1, guidance on understanding users and avoiding a preselected solution.
+        relevant_finding: The guidance focuses teams on users, context and problems and recommends testing assumptions early.
+        qualification: Public-service guidance rather than empirical proof of commercial product success or one mandatory private-sector product method.
+      - source_id: govuk-learning-user-needs
+        source_version: reviewed 2026-09-14
+        locator: Guidance on learning user needs and treating non-user suggestions as assumptions.
+        relevant_finding: Suggestions that do not come from users should be treated as assumptions to test through research.
+        qualification: Guidance supports the discovery principle; it does not prove a specific product opportunity or customer willingness to pay.
+    published_in:
+      - file: content/product-ideas-vs-product-discovery.md
+        locator: "## Public guidance supporting the distinction"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: uk-ai-playbook-use-cases-led-by-needs
+    claim_text: The UK Government AI Playbook recommends selecting AI use cases from business and user needs, pain points and inefficiencies rather than technology capability alone.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: uk-government-ai-playbook-use-cases
+        source_version: HTML playbook reviewed 2026-09-14
+        locator: Use-case selection guidance.
+        relevant_finding: The playbook frames AI use-case selection around business and user needs and cautions against beginning with the technology itself.
+        qualification: Public-sector guidance rather than evidence that every successful commercial product must begin with explicit customer demand.
+    published_in:
+      - file: content/product-ideas-vs-product-discovery.md
+        locator: "## Public guidance supporting the distinction"
+      - file: content/model-capability-vs-product-strategy.md
+        locator: "## Public guidance supporting the distinction"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
