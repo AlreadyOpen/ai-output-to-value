@@ -2,303 +2,158 @@
 
 > **Not every engineering detail is a management decision. But when an engineering choice changes cost, quality, latency, risk, or what can be offered to a customer, its consequences are part of the business decision.**
 
-AI products make this boundary especially important.
+AI products make this boundary especially important because model selection, routing, evaluation, retries, tools, and escalation can directly change unit economics.
 
-A discussion can begin with what sounds like a technical question:
+## Keep implementation detail and business consequence separate
 
-- Which model should handle this step?
-- Should every request use the most capable model?
-- Can a cheaper model perform routine work?
-- Should difficult cases be escalated?
-- Should one model plan while other components execute?
+Engineering should normally own details such as router implementation, prompts, schemas, SDK integration, caching, retries, queues, deployment topology, and observability.
 
-Those questions have technical implementations. But their answers can determine whether a customer workflow is affordable, reliable, fast enough, supportable, and commercially viable.
+Cross-functional decision-makers need the consequences when those choices change:
 
-That means the correct organisational response is not to make every executive debate model-routing code. It is to separate **implementation detail** from **business consequence**.
-
-## The boundary to preserve
-
-### Engineering should own implementation detail
-
-Examples include:
-
-- router implementation;
-- prompts and tool schemas;
-- caching and batching;
-- SDK and provider integration;
-- retry and timeout logic;
-- queueing and orchestration;
-- deployment topology;
-- observability implementation;
-- internal evaluation harnesses.
-
-These are normally engineering design decisions within agreed constraints.
-
-### Cross-functional decision-makers need the consequences
-
-Examples include:
-
-- expected cost per completed customer outcome;
+- cost per acceptable customer outcome;
 - quality or acceptance rate;
 - latency and throughput;
 - failure and escalation behaviour;
-- review and assurance requirements;
-- support burden;
-- vendor dependency and portability;
-- privacy, security, or regulatory constraints;
-- expected gross margin or cost saving;
-- whether the resulting service level is good enough for the customer proposition.
+- evaluation burden;
+- support load;
+- vendor dependency;
+- security, privacy, or regulatory constraints;
+- price, margin, or achievable service level.
 
-These are not merely coding details. They can change the product and its economics.
+> **Take implementation detail offline. Bring product-changing consequences back online.**
 
 ## Economics lives in the architecture
 
 The price of one model does not determine the cost of an AI-enabled service.
 
-A useful approximation is:
+A useful accounting boundary is:
 
-**Cost per customer outcome = planning + generation/execution + tool use + retries + context + verification + infrastructure + additional automated or human intervention + failure handling + support**
+**Relevant workflow cost = planning + generation/execution + tool use + retries + context + verification/evaluation + infrastructure + specialist or human intervention + failure handling + support**
 
-Different architectures can change every term.
+Then measure:
 
-For example, a workflow might use:
+\[
+\text{Cost per acceptable outcome} =
+\frac{\text{relevant cost of successful and unsuccessful attempts}}{\text{number of outcomes that meet the defined acceptance rule}}
+\]
+
+The numerator and denominator must be stated. A cheap model can create an expensive workflow if it causes retries, corrections, escalation, downstream failures, or support work. A more expensive model can sometimes reduce total cost by reducing those terms.
+
+The reverse can also be true: using the most capable model for simple, easily checked work may add cost without improving the customer outcome.
+
+## Architecture options are hypotheses
+
+A workflow might use:
 
 1. one high-capability model for every request;
-2. a lower-cost model for most requests and a stronger model only when needed;
-3. a cascade in which an inexpensive model attempts the task first and difficult cases escalate;
+2. a cheaper model for routine requests and a stronger model only when needed;
+3. a cascade where an inexpensive model attempts the task first;
 4. a router that predicts which model should handle each request;
-5. a strong model for planning or difficult evaluation while lower-cost models, deterministic software, or tools execute easier steps;
-6. a model for customer-facing communication while deterministic policy tools constrain pricing or permissions;
-7. no large language model at all for stages that conventional software can handle more reliably.
+5. a stronger model for planning or difficult evaluation while cheaper models or deterministic tools execute easier steps;
+6. a conversational model for customer interaction while deterministic policy tools constrain pricing or permissions;
+7. conventional software for stages that do not benefit from an LLM.
 
-There is no universal winner. The point is that **architecture determines how much expensive capability is actually consumed and what additional verification or recovery work is created**.
-
-So these two statements can both be misleading:
-
-> **“The model is cheap, so the service will be cheap.”**
-
-> **“The model is expensive, so the service cannot be viable.”**
-
-The relevant unit is usually the **completed, acceptable customer outcome**, not the headline token price.
+There is no universal winner. The target workload needs its own evaluation.
 
 ## Selective use of stronger models is an established design pattern
 
-Research on LLM routing and cascading provides evidence that stronger and weaker models can sometimes be combined to improve the cost-quality trade-off.
+Research on LLM routing and cascading provides bounded evidence that selectively combining stronger and weaker models can improve cost-quality trade-offs in evaluated settings.
 
-**RouteLLM** studies learned routing between stronger, more expensive models and weaker, cheaper models. Its experiments show that routing can reduce cost while preserving benchmark performance in the evaluated settings.
+**RouteLLM** studies learned routing between stronger, more expensive models and weaker, cheaper models. **FrugalGPT** studies cascades and other budget-aware strategies.
 
-**FrugalGPT** studies prompt adaptation, model approximation, and LLM cascades. Its experiments show that selectively combining models can, in some evaluated settings, match or improve the performance of a more expensive model at lower cost.
+Those studies support the narrow principle that a workflow does not necessarily need the most capable model for every step.
 
-These results support a general principle:
+They do **not** establish that a particular router, planner/executor split, model pair, benchmark saving, or quality level will transfer to a different production workload.
 
-> **A workflow does not necessarily need to use the most capable model for every step.**
+- RouteLLM: https://arxiv.org/abs/2406.18665
+- FrugalGPT: https://arxiv.org/abs/2305.05176
 
-They do **not** prove that any particular planner/executor architecture, router, model pair, benchmark result, or cost saving will transfer to a different customer workflow.
+## Define the denominator before comparing architectures
 
-The target workload still needs its own evaluation.
+The table below is **fictional** and exists only to show how a comparison should be labelled.
 
-Sources:
+Assume a batch of customer tasks with one shared acceptance rule. In this example:
 
-- RouteLLM paper: https://arxiv.org/abs/2406.18665
-- RouteLLM repository: https://github.com/lm-sys/RouteLLM
-- FrugalGPT paper: https://arxiv.org/abs/2305.05176
-- FrugalGPT repository: https://github.com/stanford-futuredata/FrugalGPT
+- **First-pass acceptable** means the initial automated result meets the acceptance rule without escalation.
+- **Escalated** means the task needs another model, deterministic validation, specialist review, human approval, repair, or another recovery step.
+- **All-in variable cost per acceptable outcome** includes model/tool calls, unsuccessful attempts, retries, and the expected variable cost of escalation/evaluation across the batch. It excludes fixed company overhead unless stated otherwise.
+- **Median latency** is end-to-end latency for the measured workflow, not model inference time alone.
 
-## A strong planner plus cheaper executors is a hypothesis, not a law
-
-One plausible architecture is:
-
-**higher-capability model → planning / decomposition / difficult evaluation**
-
-followed by:
-
-**lower-cost models or deterministic tools → easier or more repetitive execution**
-
-This can be attractive when the expensive reasoning step is infrequent and the execution steps are easier to verify.
-
-But it should not be treated as an automatic best practice, nor should “difficult judgement” be assumed to require a human rather than a stronger or differently specialised model.
-
-Questions include:
-
-- Does the planner actually improve downstream success?
-- Can the cheaper executor follow the plan reliably?
-- Does decomposition create more calls than a single-model approach?
-- How much latency does orchestration add?
-- What happens when the plan is wrong?
-- Can deterministic software replace some model calls entirely?
-- Can another model or automated evaluator verify the result effectively?
-- Where does specialist or human review add measurable value or required authority?
-- Is verification cheap enough to preserve the expected saving?
-- Does the workload contain enough repeated structure for routing or cascading to help?
-
-A multi-model architecture can reduce cost. It can also add complexity, latency, retries, and new failure modes.
-
-That is why the business decision should be based on measured **end-to-end outcomes**, not architectural fashion.
-
-## Technical feasibility and commercial feasibility are coupled
-
-Consider a hypothetical AI-enabled service.
-
-Engineering discovers three possible architectures:
-
-| Architecture | Accepted task rate | Median latency | Estimated cost per completed task | Additional review / escalation | Notes |
+| Architecture | First-pass acceptable | Escalated | Median end-to-end latency | All-in variable cost per acceptable outcome | Notes |
 | --- | ---: | ---: | ---: | ---: | --- |
-| A — strongest model everywhere | 97% | 24 s | $4.20 | 3% | Simple architecture, high model cost |
-| B — route routine work to cheaper model | 95% | 15 s | $0.85 | 5% | Lower cost, routing needed |
-| C — cheaper model only | 86% | 8 s | $0.18 | 18% | Cheap inference, high downstream burden |
+| A — strongest model everywhere | 97% | 3% | 24 s | $4.40 | Simple routing, expensive inference |
+| B — route easier work to cheaper model | 95% | 5% | 17 s | $1.05 | Routing cost included |
+| C — cheaper model only | 86% | 18% | 14 s | $0.95 | Cheap inference, much more repair/escalation |
 
-These numbers are illustrative, not benchmark claims. The review/escalation step could be another model, deterministic validation, a specialist, a human approver, or a hybrid process depending on the failure mode.
+The row with the cheapest model call is not necessarily the row with the cheapest acceptable outcome.
 
-Engineering can determine how each option works. But choosing among them may depend on questions outside engineering:
-
-- Is 95% acceptable for the customer promise?
-- Is a 5% escalation rate operationally sustainable?
-- Does lower latency matter enough to affect adoption?
-- What price will the customer pay?
-- What support commitment is included?
-- How costly is a failed task?
-- Does the organisation prefer higher margin or higher assurance?
-
-Once those questions appear, the decision is cross-functional.
-
-## Do not send economically material consequences out of the room
-
-It can be completely reasonable to take implementation discussion offline.
-
-A management meeting does not need to decide:
-
-- how a routing score is calculated;
-- which SDK method is called;
-- how retries are coded;
-- where a cache lives.
-
-But if the engineering discussion changes any of the following, the consequences need to come back into the product/business decision:
-
-- whether the proposed customer workflow is technically possible;
-- what quality level is realistically achievable;
-- what the workflow costs to deliver;
-- how long it takes;
-- how much additional assurance or escalation is required;
-- which risks remain;
-- what customer promise can responsibly be made.
-
-A useful rule is:
-
-> **Take implementation detail offline. Bring product-changing consequences back online.**
+Likewise, a 95% first-pass rate is not automatically acceptable. The customer promise, failure cost, and recovery process determine whether it is enough.
 
 ## Product discovery should be multidisciplinary
 
-The UK Government AI Playbook says AI use cases should be led by business and user needs rather than by what the technology can do, and it calls for multidisciplinary teams that can identify user needs, build and test products, measure service performance, and support live operation.
+The UK Government AI Playbook recommends selecting AI use cases from business and user needs and using multidisciplinary teams. NIST's AI Risk Management Framework asks organisations to define context, business value, intended tasks, expected benefits, expected costs, and relevant actors.
 
-NIST's AI Risk Management Framework similarly asks organisations to establish deployment context, define business value, document intended tasks, prioritise interdisciplinary participation, and examine expected benefits and costs.
+These are governance sources rather than proofs of commercial success. They support a narrower organisational principle:
 
-These are governance sources rather than proofs of commercial success. They support the narrower organisational principle that **business context, domain expertise, technical design, risk, and economics should meet during AI product discovery**.
+> **Business context, domain knowledge, technical design, risk, and economics need to meet before a customer commitment is made.**
 
-Sources:
+Business or product teams do not need to choose SDK methods. Engineering should not be expected to define customer value alone.
 
-- UK Government AI Playbook: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
-- NIST AI RMF Core: https://airc.nist.gov/airmf-resources/airmf/5-sec-core/
-- NIST AI RMF Playbook — MAP: https://airc.nist.gov/airmf-resources/playbook/map/
-
-## A better division of decision rights
-
-A practical operating model is:
+## A practical division of decision rights
 
 ### Business / product / domain
 
-Define:
-
-- the customer problem;
-- the desired outcome;
-- the acceptable service level;
-- critical constraints;
-- risk tolerance;
-- commercial goals;
-- what would count as a useful solution.
+Define the customer problem, desired outcome, acceptance rule, service level, risk tolerance, constraints, and commercial objective.
 
 ### Engineering
 
-Design and test:
-
-- alternative architectures;
-- model/tool combinations;
-- routing or escalation logic;
-- reliability mechanisms;
-- evaluation methods;
-- operating and failure behaviour.
+Design and test alternative model/tool combinations, routing, escalation, evaluation, reliability, and failure behaviour.
 
 ### Cross-functional decision
 
-Compare options on:
+Compare options on quality, cost, latency, reliability, support burden, security/compliance, customer fit, price/margin, and strategic dependency.
 
-- quality;
-- cost;
-- latency;
-- reliability;
-- support burden;
-- security and compliance;
-- customer fit;
-- price and margin;
-- strategic dependency.
+> **Engineering owns the mechanism. The business must understand the consequences.**
 
-The objective is not to let business micromanage engineering or to let engineering define the product alone.
+## Architecture trade-off record
 
-The objective is to make **trade-offs visible before commitments are made**.
+For each candidate architecture, record:
 
-## Use cost per acceptable outcome, not cost per call
+| Field | What to state |
+| --- | --- |
+| **Customer outcome** | What successful completion means to the user or buyer. |
+| **Acceptance rule** | The explicit quality/fitness threshold used in the denominator. |
+| **Attempt population** | What requests, documents, cases, or tasks are being measured. |
+| **Architecture** | Models, tools, deterministic components, routing, and escalation path. |
+| **First-pass performance** | Quality before repair or escalation. |
+| **Escalation / retry rate** | Share of attempts needing additional work and what that work is. |
+| **Cost boundary** | Which variable and fixed costs are included or excluded. |
+| **Cost per acceptable outcome** | Total relevant cost divided by accepted outcomes. |
+| **Latency / availability** | End-to-end service behaviour, not only model latency. |
+| **Failure consequence** | What happens when the workflow remains unacceptable. |
+| **Customer promise affected** | Which commitment changes if this architecture changes. |
 
-A cheap model can create an expensive workflow if it causes:
-
-- more retries;
-- more review or escalation;
-- more corrections;
-- more failed downstream actions;
-- more support incidents;
-- more customer rework.
-
-A more expensive model can sometimes reduce total cost if it reduces those downstream terms.
-
-The opposite can also be true: using a frontier model for simple, easily verified work can waste money without improving the outcome.
-
-So the measurement unit should be close to what the customer or business actually values:
-
-- cost per accepted document;
-- cost per resolved case;
-- cost per successful design iteration;
-- cost per completed workflow;
-- cost per validated analysis;
-- cost per correctly executed transaction;
-- cost per customer outcome.
-
-This keeps optimisation connected to value rather than model prestige.
+This is the practical output of the architecture discussion. It lets management compare commercial consequences without micromanaging implementation.
 
 ## Questions for a product meeting
 
 1. **What customer outcome are we trying to produce?**
-2. **What quality threshold is actually required?**
-3. **Which steps need the strongest available reasoning or evaluation, and which do not?**
-4. **Which steps should use deterministic software rather than an LLM?**
-5. **What architecture options have been compared?**
-6. **What is the end-to-end cost per acceptable outcome?**
-7. **How much review, retry, and failure-handling work does each option create?**
-8. **What latency and availability can we realistically promise?**
-9. **Which technical choices materially change the customer proposition or unit economics?**
-10. **Which implementation details can engineering decide independently once those constraints are agreed?**
+2. **What exactly counts as acceptable?**
+3. **Which population are our rates and costs measured over?**
+4. **Which steps need the strongest available capability, and which do not?**
+5. **Which steps should use deterministic software rather than an LLM?**
+6. **What architecture options have been compared?**
+7. **What is the all-in relevant cost per acceptable outcome?**
+8. **How much retry, evaluation, repair, and escalation does each option create?**
+9. **What latency and availability can we realistically promise?**
+10. **Which engineering choices materially change the customer proposition or unit economics?**
 
 ## The broader lesson
 
-AI compresses the distance between technical architecture and business economics.
+AI compresses the distance between architecture and business economics. Model calls may be variable cost; evaluation and escalation may be equally important variable costs; architecture may determine margin and service quality.
 
-When model calls are a material variable cost, routing, cascading, tool use, verification, escalation, and human or automated intervention can directly determine margin and service quality.
-
-That does not make every architecture review an executive meeting.
+That does not make every architecture discussion an executive meeting.
 
 It means the organisation needs a reliable translation layer between engineering evidence and commercial decisions.
 
-> **Engineering owns the mechanism. The business must understand the consequences.**
-
-And the most compact version is:
-
 > **Economics lives in the architecture.**
-
-See [`ai-business-capability-and-judgement.md`](ai-business-capability-and-judgement.md) for the related distinction between judgement capability, authority, accountability, and assurance.
