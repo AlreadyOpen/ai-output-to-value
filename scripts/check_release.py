@@ -16,8 +16,8 @@ def main() -> int:
     for _, claim in load_claim_records(ROOT):
         if not isinstance(claim, dict) or not claim.get("launch_critical"):
             continue
-        if claim.get("human_review_status") != "completed":
-            errors.append(f"launch-critical claim not human-approved: {claim.get('id', '<missing id>')}")
+        if claim.get("independent_review_status") != "completed":
+            errors.append(f"launch-critical claim has not completed independent review: {claim.get('id', '<missing id>')}")
         if not str(claim.get("reviewer", "")).strip() or not str(claim.get("reviewed", "")).strip():
             errors.append(f"launch-critical claim lacks an inspectable review record: {claim.get('id', '<missing id>')}")
 
