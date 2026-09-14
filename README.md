@@ -16,7 +16,7 @@ If you are a business reader, do **not** read the repository front-to-back.
 
 For a meeting, use the **[one-page meeting brief](content/meeting-brief.md)**.
 
-Broader analyses on open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational capability are deeper reading rather than prerequisites. See [`docs/reading-path.md`](docs/reading-path.md).
+Broader analyses cover product ideation versus discovery, model capability versus product strategy, architecture and unit economics, open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational capability. See [`docs/reading-path.md`](docs/reading-path.md).
 
 ## The practical question
 
@@ -118,7 +118,8 @@ These checks prevent structural publishing mistakes. **They do not establish fac
 ├── data/
 │   ├── articles.yml         # Publication manifest
 │   ├── claims.yml           # Claim-level traceability
-│   └── sources.yml          # Canonical source register
+│   ├── sources.yml          # Canonical source register
+│   └── *-sources.yml        # Topic-specific research registers
 ├── docs/
 │   ├── evidence-policy.md
 │   ├── positioning.md
