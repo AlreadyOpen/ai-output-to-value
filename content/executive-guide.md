@@ -2,11 +2,9 @@
 
 ## The five-minute version
 
-Generative AI can be extremely useful. It can shorten drafting, accelerate prototypes, automate repetitive steps, analyse large bodies of information, prepare proposals and presentations, interact with customers, and make some forms of expertise easier to access.
+Generative AI can shorten drafting, accelerate prototypes, analyse large bodies of information, prepare proposals and presentations, interact with customers, and automate technical and business-facing work.
 
-Some free or inexpensive agents can generate remarkably complete applications and business artefacts. Realtime systems can also participate in live conversational workflows. These are major changes in the economics of producing software, knowledge work, and customer-facing work.
-
-But several different achievements are often discussed as though they were the same thing. **They are not.**
+That is real capability. The management problem is treating several different achievements as though they were the same.
 
 > **What did AI change, what substance has actually been established, what work remains, who or what is responsible, and what evidence shows that the result is valuable?**
 
@@ -18,19 +16,19 @@ This project uses a decision framework:
 
 **Access → Output → Deliverable → Capability → Outcome → Value**
 
-The arrows are a memory aid. A disposable prototype can create a valuable learning outcome without becoming an operational service or a repeatable supplier capability.
+The arrows are a memory aid, not a mandatory lifecycle.
 
 ### Access
-You have an API key, model subscription, coding assistant, agent platform, free agent, or other AI tool.
+You have a model, API, subscription, agent, or tool.
 
 ### Output
-The tool generated something or performed a task: code, a report, an analysis, a design, a presentation, a customer response, a workflow, or a prototype.
+The system generated something or performed a task.
 
 ### Deliverable
-The artefact or service has been made fit for a defined purpose and appropriate acceptance criteria.
+The artefact or service is fit for a defined purpose and appropriate acceptance criteria.
 
 ### Capability
-The organisation can produce and use the result repeatedly because the process, context, tooling, ownership, evaluation, authority, and support exist around it.
+The organisation can repeatedly produce, evaluate, operate, support, maintain, and improve the result.
 
 ### Outcome
 Something meaningful changed: turnaround time, throughput, quality, service capacity, risk, cost, revenue, learning, customer satisfaction, or another measure.
@@ -38,46 +36,42 @@ Something meaningful changed: turnaround time, throughput, quality, service capa
 ### Value
 The outcome is worth the full cost and trade-offs of achieving it.
 
-A useful reverse-planning question is:
+A disposable prototype can create valuable learning without becoming an operational service. A useful reverse-planning question is:
 
-> **What outcome do we need, and what evidence, capability and work would make that outcome plausible?**
+> **What outcome do we need, and what evidence, capability, and work would make that outcome plausible?**
 
 ---
 
 ## 2. A capable free agent is not automatically a capable supplier
 
-A modern coding agent may be able to generate a functioning website, application, database, dashboard, integration, or deployment from a relatively short conversation. The fact that the tool is free or inexpensive does not make that capability trivial.
+A modern agent may generate a functioning website, application, database, dashboard, report, analysis, integration, or deployment from a short conversation.
 
-The mistake is to infer a second claim automatically:
+The mistake is to infer automatically:
 
 > **Because the agent can produce most of the visible artefact, our organisation already has sufficient substance to deliver the whole client job.**
 
-Sometimes it does. Sometimes it does not. The evidence has to match the intended job.
-
-Keep three capabilities separate:
+Sometimes it does. Sometimes it does not. Keep three capabilities separate.
 
 ### Tool capability
 Can the AI produce the artefact or perform the task?
 
 ### Job substance
-Does the result contain what this particular client actually needs: requirements, business rules, environment, integrations, constraints, evidence, and relevant risk considerations?
+Does the result contain what this particular job actually requires: requirements, business rules, environment, integrations, constraints, evidence, and relevant risk considerations?
 
-A concrete example:
+A simple example:
 
 > **A contact form can look complete while enquiries never reach the business. The interface exists; the promised workflow does not.**
 
 ### Delivery capability
-Can the supplier verify, explain, deploy, operate, support, maintain, and stand behind the result?
+Can the supplier evaluate, explain, deploy, operate, support, maintain, correct, and stand behind the result?
 
-AI can contribute to all three. Evidence of the first is not automatically evidence of the other two.
+AI can contribute to all three. Evidence of one is not automatically evidence of the others.
 
 ### Replit is a useful concrete example
 
-As reviewed in September 2026, Replit's **homepage** labels Starter “For exploring what’s possible” and Pro “For commercial and professional builds.” Its **pricing page** separately warns that Agent is probabilistic and may occasionally make mistakes.
+As reviewed in September 2026, Replit's homepage labels Starter “For exploring what’s possible” and Pro “For commercial and professional builds.” Its pricing page separately warns that Agent is probabilistic and may occasionally make mistakes.
 
-Those are two different pieces of vendor evidence and should be cited separately.
-
-The positioning should not be turned into a simplistic rule. A free-plan result can be perfectly adequate for a client. Paying for Pro does not certify a project as professional or client-ready.
+The first statement is vendor positioning about plan purpose. The second establishes that the agent is fallible. Neither proves whether a particular free-plan or paid-plan result is client-ready.
 
 See [Tool access vs client readiness](tool-access-vs-client-readiness.md).
 
@@ -85,68 +79,44 @@ See [Tool access vs client readiness](tool-access-vs-client-readiness.md).
 
 ## 3. Vibe coding, AI-assisted work, responsible practice, and slop are different dimensions
 
-### Vibe coding describes a way of working
+**Vibe coding** describes a way of working, usually prompt-driven creation and rapid iteration.
 
-The term is used inconsistently, but commonly refers to software creation through natural-language prompting and rapid iteration, sometimes with limited inspection of the generated implementation.
+**AI-assisted work** means AI contributed to producing or performing the work. It can be excellent or poor.
 
-That can be entirely appropriate for exploration, prototyping, disposable tools, or learning.
+**Responsible AI-assisted practice** adds proportionate evaluation, ownership, and controls for the intended use.
 
-### AI-assisted work describes involvement of AI
+**AI slop / workslop** describes a quality problem: output that appears finished but lacks enough correctness, context, substance, or usefulness.
 
-**AI-assisted work** means AI contributed to producing or performing the work. It can be reviewed or unreviewed, excellent or poor.
-
-### Responsible AI-assisted practice describes the controls around use
-
-For an intended use, a responsible practice includes proportionate evaluation, ownership, and controls. What is proportionate depends on consequence: a disposable internal mock-up does not need the same assurance as production migration instructions.
-
-### AI slop or workslop describes a quality problem
-
-A result may look complete while lacking enough correctness, context, substance, or usefulness for the person who has to use it.
-
-These categories are not mutually exclusive. A vibe-coded artefact is AI-assisted. Whether it is useful, responsible for the intended use, or low-value output is a separate assessment.
+These categories can overlap. Authorship or workflow does not determine fitness for purpose by itself.
 
 ---
 
 ## 4. The substance gap: visible completeness can arrive before verified completeness
 
-Before generative AI, a weakly specified project often looked unfinished because little had been built yet.
+Before generative AI, a weakly specified project often looked unfinished because little had been built.
 
-With a capable agent, the same weakly specified project can quickly have a polished interface, realistic copy, routes, a database, authentication, charts, deployment, plausible business logic, presentation material, or customer-facing dialogue.
+With a capable agent, the same project can quickly acquire a polished interface, realistic copy, authentication, charts, business logic, deployment, presentation material, or customer-facing dialogue. That is useful progress, but some decisions may have been inferred simply because the system needed to complete the artefact or interaction.
 
-That is useful progress. But some decisions may have been inferred because the agent needed to complete the artefact or interaction.
+> **Which parts of the apparent completeness come from established job-specific substance, and which parts are plausible assumptions made during generation?**
 
-> **Which parts of the apparent completeness come from verified client-specific substance, and which parts are reasonable-looking assumptions made during generation?**
+Ask:
 
-Four useful questions are:
-
-1. What did the agent have enough information to know?
-2. What did it have to infer or invent?
-3. Which assumptions have been checked against the client's real requirements and environment?
-4. Who or what can approve and support the result after delivery?
+1. What did the system have enough information to know?
+2. What did it infer or invent?
+3. Which assumptions have been checked against the real requirements and environment?
+4. Who or what can approve, operate, and support the result?
 
 ---
 
 ## 5. AI can do business work too
 
-The project should not divide the world into **AI does implementation** and **humans do judgement, persuasion, strategy, and customers**.
+Do not divide the organisation into **AI does implementation** and **humans do judgement, persuasion, strategy, and customers**.
 
-AI systems can already contribute to or perform parts of:
+AI systems can participate in company and market research, document and data analysis, proposals, presentations, customer enquiries, live voice interaction, objection handling, planning, recommendations, monitoring, and tool-using workflows.
 
-- company and market research;
-- document and data analysis;
-- proposal and pitch preparation;
-- presentations and scripts;
-- customer enquiries;
-- live voice interaction;
-- objection handling and persuasive communication;
-- planning and option comparison;
-- recommendations and bounded decisions;
-- monitoring and follow-up;
-- tool-using operational workflows.
+Current realtime APIs make live conversational and tool-connected systems technically practical. Research also shows that LLMs can be persuasive in controlled settings, while customer-support studies show measurable productivity and customer-sentiment effects in specific AI-assisted workflows.
 
-Current realtime APIs make live audio/text interaction and tool-connected sessions technically practical. Research also shows that LLMs can be persuasive in controlled settings, while customer-support studies show measurable productivity and customer-sentiment effects in specific AI-assisted workflows.
-
-Those findings do **not** prove that an autonomous AI is automatically a better salesperson, manager, public speaker, consultant, or analyst. They do show that these capabilities should not be declared permanently human-only.
+Those findings do not establish that an autonomous AI is automatically a better salesperson, manager, speaker, consultant, or analyst. They establish that these activities should not be declared permanently human-only.
 
 ### Judgement, authority, and accountability are different
 
@@ -154,13 +124,11 @@ Those findings do **not** prove that an autonomous AI is automatically a better 
 
 **Authority** asks who or what is permitted to act, commit money, make an offer, change a system, or bind the organisation.
 
-**Accountability / recourse** asks where responsibility for the result sits and who must correct failures.
+**Accountability / recourse** asks where responsibility for the result sits and where correction or remedy is available.
 
-An AI system may perform substantial analysis and judgement-like evaluation without having the legal authority to bind the company. A human executive may possess formal authority without their judgement automatically being correct.
+A human can make an excellent or poor decision. An AI system can make an excellent or poor evaluation. The relevant comparison is between complete decision processes—human, AI, automated, or hybrid—using evidence appropriate to the task.
 
-Human decision-makers are fallible too. Companies can fail because of poor strategy, bad assumptions, financing decisions, governance failures, market shifts, execution, or many other causes. **Human involvement is not a correctness certificate.**
-
-The relevant comparison is between alternative decision processes—human, AI, automated, or hybrid—using evidence appropriate to the task.
+> **Apply the same standard to human, AI, and hybrid work: assess the complete process and its results, not the identity of the producer.**
 
 See [AI can do business work too](ai-business-capability-and-judgement.md).
 
@@ -168,22 +136,19 @@ See [AI can do business work too](ai-business-capability-and-judgement.md).
 
 ## 6. Human-in-the-loop is a control pattern, not a quality guarantee
 
-Human review can add independent challenge, domain context, personal commitment, legal authority, or another failure detector. It may also be required by law or contract.
+Assurance should match the failure mode rather than automatically insert a person.
 
-But a human reviewer can also be rushed, biased, inattentive, under-qualified, or reduced to rubber-stamping large volumes of generated material. Automated checks can sometimes be more consistent for well-defined conditions.
+Three different examples show why:
 
-So assurance should match the failure mode. It may include:
+- **Automated check:** a deterministic schema, calculation, or policy rule may be more consistently checked by software than by manual inspection.
+- **Specialist evaluation:** an unusual technical, legal, domain, or safety question may benefit from an independent specialist or specialised model/toolchain because the failure mode depends on expertise and context.
+- **Authority sign-off:** a named person may have to approve a contract, regulated action, or corporate commitment because law, policy, or governance assigns that authority to them—not because their reasoning is presumed superior.
 
-- deterministic tests;
-- source and provenance checks;
-- cross-model or multi-method verification;
-- statistical monitoring;
-- specialist review;
-- human approval where authority or law requires it;
-- escalation of uncertain cases;
-- combinations of the above.
+Other controls can include source/provenance checks, cross-model review, reproducible calculations, statistical monitoring, escalation, and combinations of these.
 
-The question is not **“Where do we insert a human?”**. It is **“What assurance gives us enough confidence for this consequence?”**
+The question is not **“Where do we insert a human?”** It is:
+
+> **What assurance gives us enough confidence for this consequence, and where must authority or accountability sit?**
 
 ---
 
@@ -200,18 +165,9 @@ The question is not **“Where do we insert a human?”**. It is **“What assur
 
 Drafting uses **75% fewer labour hours**. The total illustrated workflow uses **30% fewer labour hours**.
 
-That is not the same thing as saying the work is “75% faster” or “30% faster.” Speed can refer to a reciprocal rate, and summed labour hours do not establish elapsed delivery time. Parallel work, queues, waiting for review, and handoffs can change the calendar duration.
+That does not establish the same reduction in elapsed delivery time. Parallel work, queues, waiting, and handoffs can change calendar duration without changing summed labour hours.
 
-The business question is therefore larger than generation time:
-
-- How much specification work was needed?
-- How long did evaluation take?
-- Were corrections required?
-- Did another team or automated process absorb verification work?
-- Did the final deliverable arrive sooner?
-- Was released capacity used for something valuable?
-
-**Measure the whole job at the level relevant to the decision.**
+Count specification, evaluation, correction, testing, integration, deployment, support, and maintenance at the level relevant to the decision.
 
 ---
 
@@ -219,52 +175,41 @@ The business question is therefore larger than generation time:
 
 If a salaried employee completes a task four hours sooner, the company normally creates **capacity** first.
 
-That capacity can become financial value through avoided hiring, lower external spending, greater paid throughput, improved turnaround, fewer losses, earlier market entry, or additional useful work.
+That capacity can become financial value through avoided hiring, reduced external spend, greater paid throughput, improved turnaround, fewer losses, earlier market entry, or additional useful work.
 
-A time saving is still worth reporting. It simply should not be counted automatically as realised cash value without identifying the mechanism.
+A time saving is worth reporting. It should not automatically be counted as realised cash value without identifying the mechanism.
 
 ---
 
 ## 9. A polished artefact or fluent interaction is not evidence of readiness
 
-For a client-facing migration guide, ask which versions it applies to, which steps were tested, what assumptions it makes, how failure is handled, who or what can approve it, and who will support the client.
+For a migration guide, ask which versions it applies to, which steps were tested, what assumptions it makes, how failure is handled, and how release/support responsibility works.
 
 For a generated website, ask whether the contact form reaches the intended business process, whether company claims are accurate, whether relevant privacy/security/accessibility requirements are met, and who maintains it.
 
 For an executive report, ask where the numbers came from, which conclusions are evidence versus recommendations, whether contradictory evidence was considered, and how important claims can be defended.
 
-For a conversational sales or service agent, ask whether it answers accurately, handles uncertainty, stays within pricing or policy authority, escalates correctly, and improves real customer outcomes rather than merely sounding confident.
+For a conversational sales or service agent, ask whether it answers accurately, handles uncertainty, stays within policy authority, escalates correctly, and improves real customer outcomes rather than merely sounding confident.
 
-The correct level of assurance depends on consequence.
+The correct assurance burden depends on consequence.
 
 ---
 
 ## 10. Ownership is more than authorship
 
-There may be several legitimate roles or systems around one AI-assisted deliverable:
+A deliverable may involve a requester, a specification process, one or more models or people producing the work, automated or specialist evaluation, an authorised approver, and an operating/support function.
 
-- the actor that requested or committed to the work;
-- the process that prepared the specification;
-- the model or person that generated the output;
-- automated or specialist evaluation;
-- the actor authorised to approve release;
-- the team or system that operates and supports the result.
+Problems occur when those handoffs, authority boundaries, and responsibilities are invisible.
 
-These roles do not have to belong to one person. Problems occur when the handoffs, authority, and accountability are invisible.
-
-> **Before committing the deliverable, agree how it is prepared, how it is verified, who or what can approve it, and who supports it afterward.**
+> **Before committing a deliverable, agree how it is prepared, how it is evaluated, who or what may approve it, and how it is supported afterward.**
 
 ---
 
 ## 11. Commercial success and technical quality are different questions
 
-Enterprise software can remain commercially successful because of functionality, switching costs, integrations, procurement, support arrangements, regulation, ecosystem effects, brand, sales, and migration cost.
+Customers may pay because of functionality, integration, procurement, support, switching cost, regulation, ecosystem effects, brand, sales, or migration cost. Commercial success therefore does not prove technical excellence.
 
-So “customers pay for it” is not proof that the underlying technology is excellent.
-
-The reverse mistake is also common: technical professionals can treat code quality as an end in itself without connecting it to reliability, security, change speed, incident cost, performance, maintainability, support burden, or migration cost.
-
-The practical question is:
+The reverse mistake is treating technical quality as an end in itself. It matters through consequences such as reliability, security, change cost, incident cost, maintainability, performance, support burden, and migration risk.
 
 > **Which aspects of quality materially affect this product, customer, or decision?**
 
@@ -272,16 +217,17 @@ The practical question is:
 
 ## 12. Cheap production creates an opportunity to test, not proof of a profitable business
 
-A technically simple AI product can create real commercial value. Keep four variables separate:
+A technically simple AI product can create real commercial value. Keep these quantities separate:
 
 | Variable | Example question |
 | --- | --- |
-| **Customer value** | Does this save the customer time, reduce risk, improve an outcome, or make a workflow easier? |
-| **Delivery cost** | What does it cost to generate, verify, integrate, operate and support the service? |
-| **Price / willingness to pay** | What will customers pay given alternatives, including direct use of the underlying agent? |
-| **Supplier margin** | After the full delivery cost, is the business economically sustainable? |
+| **Customer value** | Does this improve an outcome enough to matter? |
+| **Selling price / willingness to pay** | What will customers pay given their alternatives? |
+| **Relevant delivery cost** | What do generation, evaluation, integration, operation, revisions, and support cost? |
+| **Contribution / margin** | What remains after the relevant delivery cost, before broader fixed costs? |
+| **Total profitability** | Does the whole business remain profitable after fixed costs and other obligations? |
 
-Reducing production cost can improve the opportunity. It does not guarantee greater demand, a durable price, low support burden, or a positive margin.
+Reducing production cost can improve the opportunity. It does not guarantee demand, durable pricing, low support burden, or profit.
 
 > **Cheap production creates an opportunity to test — not proof of a profitable business.**
 
@@ -302,4 +248,4 @@ Reducing production cost can improve the opportunity. It does not guarantee grea
 
 ## 14. The position in one paragraph
 
-Use AI ambitiously. Prototype quickly. Use free and inexpensive agents when they are sufficient. Automate technical **and business-facing** work when evidence supports it. Let people and agents outside traditional role boundaries build useful things. Do not preserve “judgement” as a human-only category, and do not assume an AI decision is good merely because it is automated. Keep the claims clear: access to a capable agent is not automatically a professional service, generated output is not automatically a finished deliverable, apparent completeness is not proof of client-specific substance, human involvement is not automatically a quality guarantee, reduced labour is not automatically reduced elapsed time or cash cost, and a working demonstration is not automatically a business. Measure the whole workflow, match assurance to consequence, make authority and accountability visible, and judge success by outcomes that matter.
+Use AI ambitiously. Prototype quickly. Use inexpensive tools when they are sufficient. Automate technical and business-facing work when evidence supports it. Do not preserve judgement as a human-only category, and do not assume an AI decision is good merely because it is automated. Match each claim to evidence, count the whole workflow, match assurance to consequence, make authority and accountability visible, and judge success by outcomes that matter.
