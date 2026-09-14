@@ -89,9 +89,33 @@ A source's prestige does not change the status of the claim it can support.
 
 For each important factual claim, the project should be able to reconstruct:
 
-> **Claim → source → evidence type → relevant finding → scope → limitations → review date**
+> **Claim → source → exact locator → relevant finding → qualification → publication location → reviewer → review date**
 
-The public website may present this more simply, but the repository should preserve the underlying chain.
+The source registers in `data/*.yml` describe whole sources. The claim register in [`data/claims.yml`](../data/claims.yml) records the narrower relationship between a published sentence and the evidence that supports it.
+
+For launch-critical factual claims, record at minimum:
+
+```yaml
+- id: stable-claim-id
+  claim_text: The wording the project intends to publish.
+  status: supported
+  launch_critical: true
+  evidence:
+    - source_id: registered-source-id
+      locator: Exact section, page, table, figure, paragraph, or named subsection.
+      relevant_finding: What that location actually establishes.
+      qualification: What must remain visible to avoid overclaiming.
+  published_in:
+    - file: index.html
+      locator: "#evidence"
+  reviewer: Name or transparent review role
+  reviewed: 2026-09-14
+  human_review_status: pending
+```
+
+A broad `supports:` tag in a source record is useful for discovery, but it is **not** a substitute for claim-level traceability when a factual statement is published prominently.
+
+The `reviewer` field must not imply independent human verification when none occurred. AI-assisted source checks should be labelled as such and may retain `human_review_status: pending` until a person independently checks the source.
 
 ## 4. Preserve scope
 
@@ -175,7 +199,23 @@ That does not change the acceptance standard:
 
 AI use is neither a reason to reject a contribution nor a substitute for verification.
 
-## 10. Corrections
+## 10. Publication checks
+
+The repository includes [`scripts/check_publication.py`](../scripts/check_publication.py) and a GitHub Actions workflow.
+
+The structural publication gate checks:
+
+- whether YAML files parse;
+- whether source IDs are unique;
+- whether required source metadata is present;
+- whether claim IDs are unique;
+- whether claim evidence references registered source IDs;
+- whether claim publication targets exist;
+- whether relative Markdown and HTML links point to existing files or directories.
+
+These checks **cannot establish truth, source quality, or whether a source really supports a sentence**. They prevent avoidable structural publishing errors. Evidence review remains an editorial responsibility.
+
+## 11. Corrections
 
 Corrections are part of the evidence system, not an embarrassment to hide.
 
