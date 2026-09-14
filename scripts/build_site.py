@@ -44,7 +44,7 @@ def page_shell(title: str, body: str, *, source: str | None = None, meta: str = 
     <div class="shell header-inner">
       <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="index.html">Articles</a>
+        <a href="../articles/index.html">Articles</a>
         <a href="../evidence/index.html">Evidence</a>
         <a href="{REPO_URL}">GitHub</a>
       </nav>
@@ -54,7 +54,7 @@ def page_shell(title: str, body: str, *, source: str | None = None, meta: str = 
     <summary>Menu</summary>
     <nav aria-label="Mobile navigation">
       <a href="../index.html">Home</a>
-      <a href="index.html">Articles</a>
+      <a href="../articles/index.html">Articles</a>
       <a href="../evidence/index.html">Evidence</a>
       <a href="{REPO_URL}">GitHub</a>
     </nav>
@@ -67,10 +67,10 @@ def page_shell(title: str, body: str, *, source: str | None = None, meta: str = 
     <aside class="article-aside" aria-label="Article links">
       <strong>AI Output to Value</strong>
       <a href="../index.html">Home</a>
-      <a href="index.html">All articles</a>
+      <a href="../articles/index.html">All articles</a>
       <a href="../evidence/index.html">Evidence</a>
       {source_link}
-      <a href="corrections.html">Report a correction</a>
+      <a href="../articles/corrections.html">Report a correction</a>
     </aside>
   </main>
 </body>
@@ -79,24 +79,37 @@ def page_shell(title: str, body: str, *, source: str | None = None, meta: str = 
 
 
 def rewrite_internal_links(rendered: str, source_to_url: dict[str, str], source_path: Path) -> str:
+    """Rewrite repository-relative Markdown links for the built site.
+
+    Published Markdown pages become article HTML links. Data files and other
+    repository files remain inspectable through GitHub rather than becoming
+    broken links inside the static publication.
+    """
+
     def replace(match: re.Match[str]) -> str:
         href = match.group(1)
-        if href.startswith(("http://", "https://", "mailto:", "#")):
+        if href.startswith(("http://", "https://", "mailto:", "tel:", "#")):
             return match.group(0)
+
         path_part, sep, fragment = href.partition("#")
         if not path_part:
             return match.group(0)
+
         resolved = (source_path.parent / path_part).resolve()
         try:
             rel = resolved.relative_to(ROOT.resolve()).as_posix()
         except ValueError:
             return match.group(0)
+
         mapped = source_to_url.get(rel)
         if mapped:
             suffix = f"#{fragment}" if sep else ""
             return f'href="{mapped}{suffix}"'
-        if rel.startswith("data/"):
-            return f'href="{REPO_URL}/blob/main/{rel}"'
+
+        if resolved.exists():
+            suffix = f"#{fragment}" if sep else ""
+            return f'href="{REPO_URL}/blob/main/{rel}{suffix}"'
+
         return match.group(0)
 
     return re.sub(r'href="([^"]+)"', replace, rendered)
@@ -129,7 +142,10 @@ def render_articles() -> list[dict]:
         ("advanced", "Advanced / agentic organisations"),
         ("policy", "Publication policy"),
     ]
-    blocks = ["<h1>Articles</h1><p>Start with the core route. The deeper and advanced material supports the argument but is not required for the five-minute introduction.</p>"]
+    blocks = [
+        "<h1>Articles</h1>",
+        "<p>Start with the core route. Deeper and advanced material supports the argument but is not required for the five-minute introduction.</p>",
+    ]
     for key, label in sections:
         selected = [a for a in articles if a.get("section") == key]
         if not selected:
@@ -154,14 +170,21 @@ def render_evidence() -> None:
 
     blocks = [
         "<h1>Evidence and claims</h1>",
-        "<p>This page connects published claims to exact source records, locators, qualifications and review status. Automated checks confirm structural consistency; they do not establish factual truth.</p>",
+        "<p>This page connects published claims to source records, exact locators, qualifications and review status. Automated checks confirm structural consistency; they do not establish factual truth.</p>",
     ]
     for claim in claims_data["claims"]:
         status = html.escape(str(claim.get("status", "")))
         review = html.escape(str(claim.get("human_review_status", "")))
         blocks.append('<section class="evidence-record">')
-        blocks.append(f'<p><span class="status-label">{status}</span> <span class="status-label">human review: {review}</span></p>')
+        blocks.append(
+            f'<p><span class="status-label">{status}</span> '
+            f'<span class="status-label">human review: {review}</span></p>'
+        )
         blocks.append(f'<h2>{html.escape(claim["claim_text"])}</h2>')
+        if claim.get("availability_status"):
+            blocks.append(
+                f'<p><strong>Availability:</strong> {html.escape(str(claim["availability_status"]))}</p>'
+            )
         for ev in claim.get("evidence", []):
             src = sources.get(ev.get("source_id"), {})
             url = html.escape(src.get("url", "#"))
@@ -174,7 +197,12 @@ def render_evidence() -> None:
 
     out = SITE / "evidence"
     out.mkdir(parents=True, exist_ok=True)
-    page = page_shell("Evidence", "".join(blocks), source="data/claims.yml", meta="Claim-level traceability")
+    page = page_shell(
+        "Evidence",
+        "".join(blocks),
+        source="data/claims.yml",
+        meta="Claim-level traceability · structural checks are not factual review",
+    )
     (out / "index.html").write_text(page, encoding="utf-8")
 
 
