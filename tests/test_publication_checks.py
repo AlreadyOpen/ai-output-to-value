@@ -31,7 +31,7 @@ class PublicationCheckTests(unittest.TestCase):
             "evidence": [{"source_id": "source-1", "locator": "Section 1",
                           "relevant_finding": "Finding", "qualification": "Qualification"}],
             "published_in": [{"file": "content/article.md", "locator": "## Section"}],
-            "reviewer": "Reviewer", "reviewed": "2026-09-14", "human_review_status": "completed",
+            "reviewer": "Independent review process", "reviewed": "2026-09-14", "independent_review_status": "completed",
         }]}
         articles = {"articles": [{
             "id": "article", "title": "Article", "source": "content/article.md",
@@ -86,7 +86,7 @@ class PublicationCheckTests(unittest.TestCase):
         data["claims"][0]["reviewer"] = ""
         data["claims"][0]["reviewed"] = ""
         self.write_yaml(self.root / "data" / "claims.yml", data)
-        self.assert_fails_with("completed human review requires reviewer and reviewed date")
+        self.assert_fails_with("completed independent review requires reviewer and reviewed date")
 
     def test_missing_publication_locator_fails(self):
         data = self.read_yaml("claims.yml")
