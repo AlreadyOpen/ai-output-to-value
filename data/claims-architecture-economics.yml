@@ -1,0 +1,46 @@
+claims:
+  - id: llm-routing-cascades-cost-quality
+    claim_text: Research on LLM routing and cascades shows that selectively using stronger and weaker models can improve cost-quality trade-offs in evaluated settings, without establishing that one architecture is universally best.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: routellm-2024
+        source_version: arXiv paper reviewed 2026-09-14
+        locator: Abstract and evaluation summary.
+        relevant_finding: RouteLLM evaluates learned routing between stronger and weaker models and reports cost savings at benchmark quality targets in the evaluated settings.
+        qualification: Benchmark results do not establish the same saving, quality, latency, or reliability on a different customer workload or model pair.
+      - source_id: frugalgpt-2023-2024
+        source_version: paper reviewed 2026-09-14
+        locator: Abstract and cascade evaluation.
+        relevant_finding: FrugalGPT evaluates model cascades and budget-constrained strategies that can improve the cost-performance trade-off in the studied settings.
+        qualification: Results are specific to the evaluated datasets, models, thresholds, and period; cascades can add latency, calls, and failure modes.
+    published_in:
+      - file: content/architecture-economics-and-product-decisions.md
+        locator: "## Selective use of stronger models is an established design pattern"
+      - file: content/model-capability-vs-product-strategy.md
+        locator: "## Public guidance supporting the distinction"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: multidisciplinary-ai-product-discovery
+    claim_text: UK Government and NIST guidance supports combining business context, user or domain needs, technical design, risks, benefits, and costs when evaluating AI use cases.
+    status: qualified
+    launch_critical: false
+    evidence:
+      - source_id: uk-government-ai-playbook-multidisciplinary
+        source_version: HTML playbook reviewed 2026-09-14
+        locator: Guidance on use-case selection and multidisciplinary teams.
+        relevant_finding: The playbook calls for multidisciplinary AI teams and business/user-needs-led use-case selection.
+        qualification: Government guidance rather than empirical proof that one team structure maximises commercial success.
+      - source_id: nist-ai-rmf-core-map
+        source_version: AI RMF MAP function reviewed 2026-09-14
+        locator: MAP categories addressing context, business value, intended tasks, benefits and costs.
+        relevant_finding: NIST asks organisations to define context, business value, intended tasks, expected benefits and expected costs with interdisciplinary participation.
+        qualification: Risk-management framework rather than a product-profitability model.
+    published_in:
+      - file: content/architecture-economics-and-product-decisions.md
+        locator: "## Product discovery should be multidisciplinary"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
