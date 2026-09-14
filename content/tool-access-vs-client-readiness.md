@@ -4,22 +4,22 @@ A modern AI coding agent can produce a surprisingly complete application from a 
 
 The management mistake is a different claim:
 
-> **Because the agent can produce the artefact, our organisation already has enough substance to sell the job.**
+> **Because the agent can produce the artefact, our organisation already has enough substance to deliver the whole client job.**
 
 That conclusion does not follow automatically.
 
 ## A concrete example: Replit
 
-As of September 2026, Replit describes its **Starter** plan as **“For exploring what’s possible with our new generative tools.”** Its product page describes **Pro** as **“For commercial and professional builds.”** Replit’s pricing page also warns that Agent is powered by large language models and is probabilistic, so it may make mistakes.
+As reviewed in September 2026, Replit's **homepage** labels Starter **“For exploring what’s possible”** and Pro **“For commercial and professional builds.”** Its **pricing page** separately states that Replit Agent is powered by large language models and that its probabilistic behaviour means it may occasionally make mistakes.
 
 Sources:
 
-- Replit pricing: https://replit.com/pricing
-- Replit product page: https://replit.com/
+- Replit homepage / plan positioning: https://replit.com/
+- Replit pricing / Agent warning: https://replit.com/pricing
 
-This is useful because the distinction comes from the vendor itself.
+This is useful as a vendor example because even the product's own positioning distinguishes exploration from commercial/professional building, while also warning that generated behaviour can be fallible.
 
-But it should not be misread in the opposite direction. Paying for Pro does **not** certify a project as professional, correct, secure, maintainable, or suitable for a client. A plan changes access to product features and capacity. Readiness still depends on the job.
+But it should not be misread in the opposite direction. Paying for Pro does **not** certify a project as professional, correct, secure, maintainable, or suitable for a client. A free-plan result can be perfectly adequate. The subscription tier is not the readiness test.
 
 ## The three capabilities that are easily confused
 
@@ -27,15 +27,7 @@ But it should not be misread in the opposite direction. Paying for Pro does **no
 
 **Can the AI tool produce something useful?**
 
-Examples:
-
-- generate a website;
-- create a database schema;
-- implement authentication;
-- produce a dashboard;
-- draft a technical report;
-- connect an API;
-- deploy a working application.
+Examples include generating a website, database schema, authentication flow, dashboard, report, API integration, or deployment.
 
 A free or inexpensive tool can be highly capable at this level.
 
@@ -43,9 +35,13 @@ A free or inexpensive tool can be highly capable at this level.
 
 **Does the result contain what this particular client actually needs?**
 
+A concrete example:
+
+> **A contact form can look complete while enquiries never reach the business. The interface exists; the promised workflow does not.**
+
 Substance may include:
 
-- correct understanding of the client’s problem;
+- correct understanding of the client's problem;
 - accurate company- or domain-specific content;
 - requirements and acceptance criteria;
 - appropriate architecture and integrations;
@@ -55,9 +51,7 @@ Substance may include:
 - migration, backup, recovery, data ownership, and operational considerations where relevant;
 - evidence supporting important claims.
 
-An application can look finished while some of these remain unknown.
-
-AI can help produce this substance too. The point is not that substance must be written manually. The point is that its presence must be established rather than inferred from the polish of the output.
+AI can help create all of this. The point is not that substance must be written manually. The point is that its presence must be established rather than inferred from the polish of the output.
 
 ### 3. Delivery capability
 
@@ -65,16 +59,16 @@ AI can help produce this substance too. The point is not that substance must be 
 
 That may require:
 
-- someone who can evaluate whether the result is correct enough for its intended use;
+- someone or something capable of evaluating whether the result is fit for its intended use;
 - clear ownership of review and approval;
 - the ability to explain important design and business decisions;
 - a process for fixing defects;
 - deployment and operational ownership;
 - support and maintenance arrangements;
-- continuity if the original prompt author is unavailable;
+- continuity if the original builder is unavailable;
 - a commercially sustainable way to provide the service.
 
-This is organisational capability, not a feature of the AI model.
+This is organisational capability, not a feature of the model or subscription plan.
 
 ## The substance gap
 
@@ -84,44 +78,36 @@ Before AI, a weakly specified job often looked unfinished because little had bee
 
 That is valuable progress. It can also hide uncertainty.
 
-The important question becomes:
-
 > **Which parts of the apparent completeness come from verified client-specific substance, and which parts are reasonable-looking assumptions made during generation?**
 
-This is the **substance gap**.
-
-It is not an accusation that the output is wrong. It is the distance between **what the artefact appears to establish** and **what has actually been established for the intended job**.
+This is the **substance gap**. It is not an accusation that the output is wrong. It is the distance between what the artefact appears to establish and what has actually been established for the intended job.
 
 ## A useful management test
 
-When someone says, “The agent already built it,” ask four follow-up questions:
+When someone says, “The agent already built it,” ask:
 
 1. **What did the agent have enough information to know?**
-2. **What did it have to infer or invent in order to complete the artefact?**
-3. **Which of those assumptions have been checked against the client’s actual requirements and environment?**
-4. **Who can approve and support the result after it is delivered?**
+2. **What did it have to infer or invent?**
+3. **Which assumptions have been checked against the client's actual requirements and environment?**
+4. **Who or what can approve and support the result after delivery?**
 
-These questions do not slow down AI adoption. They identify where human or automated assurance is still worth spending effort.
+These questions do not imply that more review is always the answer. They identify where additional assurance is worth its cost and where it is not.
 
 ## Prototype, client deliverable, and professional service are different claims
-
-A single Replit-generated application could legitimately be all three at different times.
 
 | Claim | Evidence needed |
 | --- | --- |
 | **“We have a prototype.”** | It demonstrates the idea sufficiently for exploration or discussion. |
-| **“This is ready for the client to use.”** | It meets agreed requirements and appropriate acceptance criteria for that use. |
+| **“This is ready for the client to use.”** | It meets agreed requirements and proportionate acceptance criteria for that use. |
 | **“We can provide this as a professional service.”** | The organisation can repeatedly deliver, verify, operate, support, maintain, and price the service responsibly. |
 
-The mistake is not using the same tool for all three stages. The mistake is treating evidence for the first claim as sufficient evidence for the third.
+The mistake is not using the same tool across all three claims. The mistake is treating evidence for the first as automatically sufficient evidence for the third.
 
 ## “But the free agent can already do the work”
 
 Sometimes it can.
 
-For a small, low-risk, well-specified job, a free agent plus a competent person may produce a perfectly acceptable client result. The cost of the tool is not a proxy for quality, and technical complexity is not a requirement for business value.
-
-The stronger statement is:
+For a small, low-risk, well-specified job, a free agent plus proportionate verification may produce a perfectly acceptable client result. Tool cost and technical complexity are not proxies for quality.
 
 > **A tool being capable of performing much of the production work does not automatically mean the organisation has supplied the judgement, context, verification, accountability, and service needed for the whole job.**
 
@@ -131,25 +117,10 @@ That is true whether the tool costs $0, $20, $100, or an enterprise contract.
 
 AI can collapse production costs dramatically. That can create excellent businesses.
 
-But a client normally pays for some combination of:
+But customer value, delivery cost, willingness to pay, and supplier margin remain separate variables. If the only proposition is **“we have access to the same agent you can use for free”**, the business should be able to explain what additional value it provides.
 
-- a solved problem;
-- saved time or money;
-- domain judgement;
-- integration with their environment;
-- reliability;
-- accountability;
-- support;
-- convenience;
-- trust;
-- distribution or access;
-- risk reduction;
-- a result they do not want to assemble themselves.
-
-If the only proposition is **“we have access to the same agent you can use for free”**, the business should be able to explain what additional value it provides.
-
-That answer may still be strong. It just should not be assumed.
+That answer may be strong. It just should not be assumed.
 
 ## One sentence for a management meeting
 
-> **The agent may already be capable of generating most of the artefact; our job is to establish whether we have supplied enough client-specific substance and delivery capability to stand behind it.**
+> **The agent may already be capable of generating most of the artefact; our job is to establish whether we have enough client-specific substance and delivery capability to stand behind the claim we are making.**
