@@ -29,6 +29,10 @@ These pages support the central argument but are not prerequisites.
 
 - [`content/architecture-economics-and-product-decisions.md`](../content/architecture-economics-and-product-decisions.md)
 
+### Can AI itself perform business-facing analysis, communication, and judgement?
+
+- [`content/ai-business-capability-and-judgement.md`](../content/ai-business-capability-and-judgement.md) — why analysis, persuasion, planning, customer interaction, and evaluative judgement should not be treated as permanent human monopolies, while authority and accountability remain separate questions.
+
 ### What happens to technical capability when AI gets much better?
 
 - [`content/ai-does-not-eliminate-technical-capability.md`](../content/ai-does-not-eliminate-technical-capability.md)
