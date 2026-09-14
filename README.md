@@ -61,6 +61,38 @@ Replit provides a useful current example in its own product positioning. As of S
 
 See [`content/tool-access-vs-client-readiness.md`](content/tool-access-vs-client-readiness.md).
 
+## Faster code does not create a new Linux
+
+AI can compress parts of the development, production, and maintenance cycle. It can draft code, tests, documentation, patches, migrations, and fixes much faster than traditional workflows in many settings.
+
+That does **not** mean mature software value collapses to the cost of generating source code.
+
+A useful progression is:
+
+**Source tree → maintained project → adopted ecosystem → dependable infrastructure**
+
+Linux illustrates the distinction. The kernel is not valuable only because source code exists. Its value also comes from decades of bug fixes, compatibility work, hardware support, review, release discipline, maintainers, corporate participation, downstream distributions, users, standards, and accumulated trust.
+
+Open source makes the same economic point from another direction: **zero licence price is not zero value**. Harvard research on widely used open-source software estimates very large replacement and demand-side value relative to the cost of producing the shared code once. The exact figures depend on the study's methodology, but the business lesson is robust: the price of acquiring source code does not tell you the value of the ecosystem that depends on it.
+
+As AI lowers the marginal cost of producing code, value may become more concentrated in:
+
+- specifications and problem selection;
+- trusted tests and benchmarks;
+- maintainer judgement;
+- review and governance;
+- compatibility and standards;
+- security response;
+- provenance;
+- distribution and adoption;
+- operating knowledge;
+- sustainable maintenance;
+- reputation and trust.
+
+> **AI can make a fork cheap. It does not make a replacement ecosystem cheap.**
+
+See [`content/source-code-open-source-and-ai.md`](content/source-code-open-source-and-ai.md) and [`data/source-code-open-source-sources.yml`](data/source-code-open-source-sources.yml).
+
 ## Representation is a channel, not the value
 
 A boss, director, employee, consultant, or other human can represent the company. An AI agent can also increasingly act as an operational representative within delegated authority.
@@ -121,6 +153,7 @@ Context-dependent claims that require explicit acceptance criteria. They should 
 - **No anti-vibe gatekeeping.** Fast exploratory workflows are legitimate; the issue is misrepresenting their readiness or evidence.
 - **Judge fitness for purpose, not authorship or subscription price.** Human work can be poor. AI work can be excellent. A free tool can produce strong work. A paid tool can produce weak work.
 - **Do not infer substance from polish.** A convincing interface or long document may contain verified client-specific knowledge, or may contain plausible assumptions. Establish which is which.
+- **Do not infer value from source-code volume.** AI can make code generation cheaper without recreating maintainership, compatibility, adoption, governance, or ecosystem value.
 - **Do not infer value from human presence.** Face-to-face representation can be valuable, but its value must come from the outcome it improves rather than the fact that a human was physically present.
 - **Treat counterparties as potentially agentic too.** Customers, investors, suppliers, and other parties may use their own agents to research, evaluate, negotiate, transact, or monitor.
 - **Count downstream work.** Review, correction, integration, support, maintenance, and risk transfer are part of the job.
@@ -166,11 +199,14 @@ These discussions are treated as **practitioner accounts**, not verified evidenc
 ├── CONTRIBUTING.md
 ├── content/
 │   ├── company-actors-vs-instruments.md
+│   ├── ecommerce-and-physical-retail.md
 │   ├── executive-guide.md
 │   ├── non-human-actors-and-accountability.md
 │   ├── representation-is-a-channel.md
+│   ├── source-code-open-source-and-ai.md
 │   └── tool-access-vs-client-readiness.md
 ├── data/
+│   ├── source-code-open-source-sources.yml
 │   └── sources.yml
 └── docs/
     ├── evidence-policy.md
