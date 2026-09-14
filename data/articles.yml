@@ -1,0 +1,179 @@
+# Publication manifest. Markdown remains the maintained editorial source.
+# scripts/build_site.py renders these entries as normal styled HTML pages.
+
+articles:
+  - id: start-here
+    title: What did buying AI actually achieve?
+    source: START-HERE.md
+    slug: start-here
+    section: core
+    order: 10
+    summary: The five-minute introduction to the project's decision framework.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: editorial_review
+
+  - id: frame-vs-finished-work
+    title: A strong frame is not the same as a finished job
+    source: content/frame-vs-finished-work.md
+    slug: frame-vs-finished-work
+    section: core
+    order: 20
+    summary: How to value a strong concept, scaffold or prototype without treating it as proof that the whole job is complete.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: editorial_review
+
+  - id: tool-access-vs-client-readiness
+    title: A capable AI agent is not the same as a client-ready capability
+    source: content/tool-access-vs-client-readiness.md
+    slug: tool-access-vs-client-readiness
+    section: core
+    order: 30
+    summary: Tool capability, job substance, delivery capability and the substance gap.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: editorial_review
+
+  - id: executive-guide
+    title: From AI output to business value
+    source: content/executive-guide.md
+    slug: executive-guide
+    section: core
+    order: 40
+    summary: The broader executive guide, including workflow accounting and commercial-value reasoning.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: editorial_review
+
+  - id: worked-cases
+    title: Worked decisions
+    source: content/worked-cases.md
+    slug: worked-cases
+    section: core
+    order: 50
+    summary: Fictional cases showing when to approve, defer, or stop additional work.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: meeting-brief
+    title: One-page meeting brief
+    source: content/meeting-brief.md
+    slug: meeting-brief
+    section: core
+    order: 60
+    summary: A printable set of questions for reviewing an AI-enabled proposal or deliverable.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: ai-technical-capability
+    title: AI does not eliminate technical capability
+    source: content/ai-does-not-eliminate-technical-capability.md
+    slug: ai-does-not-eliminate-technical-capability
+    section: deeper
+    order: 110
+    summary: Why task automation and organisational technical capability are different claims.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: source-code-open-source
+    title: Source code, open source and AI
+    source: content/source-code-open-source-and-ai.md
+    slug: source-code-open-source-and-ai
+    section: deeper
+    order: 120
+    summary: Why lower source-code production cost does not recreate mature ecosystems such as Linux.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: company-capability-review
+    title: Apply the capability review across the whole company
+    source: content/assess-every-layer-of-the-company.md
+    slug: assess-every-layer-of-the-company
+    section: deeper
+    order: 130
+    summary: A symmetric, periodically reviewed capability map across governance, management, technical work and operations.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: company-actors-instruments
+    title: Company actors are not the same as company instruments
+    source: content/company-actors-vs-instruments.md
+    slug: company-actors-vs-instruments
+    section: advanced
+    order: 210
+    summary: Distinguishing legal entities, human and software actors, and instruments such as credentials or wallets.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: non-human-accountability
+    title: Non-human does not mean non-accountable
+    source: content/non-human-actors-and-accountability.md
+    slug: non-human-actors-and-accountability
+    section: advanced
+    order: 220
+    summary: Delegated agent authority, legal identity, evidence and accountability.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: representation-channel
+    title: Representation is a channel, not the value
+    source: content/representation-is-a-channel.md
+    slug: representation-is-a-channel
+    section: advanced
+    order: 230
+    summary: Human and agent representation should be evaluated by outcomes rather than presence alone.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: ecommerce-analogy
+    title: E-commerce and brick-and-mortar
+    source: content/ecommerce-and-physical-retail.md
+    slug: ecommerce-and-physical-retail
+    section: advanced
+    order: 240
+    summary: Historical retail evidence plus a clearly labelled analogy for changing interaction channels.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
+
+  - id: evidence-policy
+    title: Evidence policy
+    source: docs/evidence-policy.md
+    slug: evidence-policy
+    section: policy
+    order: 310
+    summary: Evidence classes, claim status, traceability, scope and correction rules.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: active_policy
+
+  - id: reading-path
+    title: Reading path
+    source: docs/reading-path.md
+    slug: reading-path
+    section: policy
+    order: 320
+    summary: Core, deeper and advanced reading routes.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: active_policy
+
+  - id: corrections
+    title: Corrections and editorial review
+    source: content/corrections.md
+    slug: corrections
+    section: policy
+    order: 330
+    summary: How to report a factual, evidence, accessibility or publication problem.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: draft
