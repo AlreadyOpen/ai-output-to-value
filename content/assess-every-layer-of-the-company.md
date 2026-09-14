@@ -8,6 +8,86 @@ The same discipline should apply across the company:
 
 That does not mean every role should be assessed in exactly the same way. A shareholder, director, CEO, manager, engineer, salesperson, and AI agent occupy different legal and economic positions.
 
+## These values are not static
+
+Contribution, authority, cost, and replaceability should not be treated as permanent properties of a job title.
+
+They are **time-varying variables**.
+
+A useful analogy is the stock market. A share is not valued forever at the price someone once paid for it. New information changes expectations about future cash flows, risk, competition, and alternatives, so the market continuously reprices it.
+
+Organisational capability should be viewed similarly:
+
+> **Past value does not guarantee current value. Current cost does not reveal future value. Current replaceability does not guarantee future replaceability.**
+
+A role that was extremely scarce in 2024 may become easier to augment in 2026. A role that looks routine today may become critical after a regulatory change, security incident, acquisition, or architecture transition. An AI agent that appears capable in a demonstration may become less attractive after reliability problems, vendor changes, or new legal constraints. Conversely, a human specialist who once spent most of their time producing artefacts may become more valuable when they can direct and validate many agents.
+
+The company should therefore continuously reassess the **functions and capabilities**, not freeze their value at the moment the org chart was created.
+
+### A dynamic capability ledger
+
+For any role, team, agent, or external supplier, consider at least these changing dimensions:
+
+| Dimension | What can change it? |
+| --- | --- |
+| **Contribution(t)** | Strategy, customer needs, technology, product maturity, incidents, new markets, organisational dependencies |
+| **Authority(t)** | Law, regulation, board delegation, internal policy, agent permissions, contractual arrangements, technical controls |
+| **Cost(t)** | Salary, equity, bonuses, agent/API spend, vendor fees, coordination overhead, delay, supervision and compliance costs |
+| **Replaceability(t)** | Agent capability, labour supply, vendors, open source, documentation, switching cost, tacit knowledge, integration difficulty |
+| **Scarcity(t)** | Market supply of the capability, internal knowledge concentration, specialist domain expertise, trusted relationships |
+| **Risk(t)** | Failure impact, concentration risk, key-person risk, model/vendor dependency, cybersecurity and regulatory exposure |
+| **Option value(t)** | Ability to respond to future opportunities, incidents, migrations, negotiations, new products or unexpected change |
+
+The notation `(t)` is deliberate. These values move.
+
+A company's structure should therefore be managed more like a **portfolio of capabilities** than a museum of job titles.
+
+### Reprice on new information
+
+Events that should trigger reassessment include:
+
+- a new generation of AI agents materially improving at a task;
+- a major model or platform becoming cheaper or more expensive;
+- a new open-source alternative appearing;
+- a vendor becoming a concentration risk;
+- a security or reliability incident exposing missing expertise;
+- new laws or contractual requirements changing who can authorise a decision;
+- a merger or acquisition changing the knowledge required;
+- a product moving from prototype to production;
+- a customer segment demanding much stronger assurance;
+- accumulated technical debt increasing the value of deep system knowledge;
+- agents taking over reporting and coordination work that previously justified a management layer.
+
+This should not mean constant firing and rehiring. Markets reprice continuously, but long-term investors do not necessarily trade every minute. Likewise, organisations should **observe continuously and rebalance deliberately**.
+
+The point is to prevent stale assumptions such as:
+
+- "we have always needed ten managers";
+- "we have AI now, so engineers are obsolete";
+- "the CTO must be valuable because the title is senior";
+- "this agent is cheap, so it is more economical";
+- "this employee is expensive, so they are replaceable";
+- "this capability was commoditised last year, so it will never become scarce again."
+
+### Value is forward-looking
+
+Like an investment, a capability should not be assessed only from its most recent visible output.
+
+A useful conceptual model is:
+
+**Current contribution**
++ **future option value**
++ **authority / accountability value**
++ **scarcity and switching value**
+− **total cost**
+− **risk introduced**
+
+This is not an accounting formula and should not be converted into a fake precise score. It is a reminder that an engineer who prevents a catastrophic migration failure may look "idle" until the incident occurs; a manager who only relays status may look busy while adding little option value; and a cheap agent may have high apparent productivity while introducing expensive dependency or verification risk.
+
+> **Do not value a capability only by what it produced this week. Value what it enables, protects, and can become under changing conditions.**
+
+This also connects directly to the strategic-management concept of **dynamic capabilities**: firms need the ability to integrate, build, and reconfigure internal and external competencies as environments change. AI accelerates the rate at which that reconfiguration may be necessary.
+
 ## Ownership, governance, management, operations, and agency are different
 
 A useful decomposition is:
@@ -140,12 +220,14 @@ A practical review should examine every function with the same set of questions:
 8. **What knowledge disappears if the role is removed?**
 9. **What is the total cost of the role, including coordination overhead?**
 10. **What measurable outcomes improve because the role exists?**
+11. **How have these answers changed since the last review?**
+12. **What new information would cause us to revalue this capability?**
 
 This test should be applied to a senior manager just as readily as to a developer.
 
 ## The principle
 
-> **AI should not be used to question only the value of people who produce visible technical artefacts. It should force a more rigorous examination of value across the whole organisation.**
+> **AI should not be used to question only the value of people who produce visible technical artefacts. It should force a more rigorous and continuously updated examination of value across the whole organisation.**
 
 Some technical roles will shrink. Some management roles will shrink. Some executive responsibilities will be augmented. Some specialists will become much more leveraged. New agent-governance roles will appear.
 
@@ -153,12 +235,14 @@ The target is not "fewer humans".
 
 The target is:
 
-> **a company structure in which authority, cost, capability, accountability, and value are aligned.**
+> **a company structure in which authority, cost, capability, accountability, and value remain aligned as conditions change.**
 
 ## Sources
 
 - G20/OECD Principles of Corporate Governance 2023: board responsibilities, management monitoring, shareholder rights, and accountability.
 - Australian Securities and Investments Commission (ASIC): obligations of company officeholders and directors.
 - Cloudflare, August 2026: agent identity linked to humans or organisations and delegated Virtual Wallets with spending controls.
+- California Management Review / UC Berkeley Haas: dynamic capabilities as the ability to integrate, build, and reconfigure competencies in changing environments.
+- OECD and IMF research on AI exposure and complementarity: the effect of AI on jobs and tasks depends on changing technical capability, complementarity, adoption, skills, regulation, and organisational context.
 
-These sources establish governance roles and emerging agent infrastructure. The proposed value-assessment framework is an editorial synthesis, not a legal standard or a claim that all corporate roles can be substituted by AI.
+These sources establish governance roles, changing organisational capabilities, and emerging agent infrastructure. The proposed dynamic value-assessment framework and stock-market analogy are editorial synthesis, not an accounting standard or a claim that people should literally be priced like securities.
