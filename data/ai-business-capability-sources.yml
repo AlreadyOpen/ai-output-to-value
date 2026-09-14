@@ -1,0 +1,100 @@
+# Sources for AI business capability, communication, persuasion, and judgement.
+#
+# These records support content/ai-business-capability-and-judgement.md.
+# They do not imply that a technically capable AI system is automatically an
+# effective salesperson, manager, public speaker, adviser, or decision-maker.
+
+sources:
+  - id: openai-gpt-realtime
+    title: GPT-Realtime
+    publisher: OpenAI
+    url: https://developers.openai.com/api/docs/models/gpt-realtime
+    evidence_type: vendor_product_documentation
+    supports:
+      - realtime_text_and_audio_input_output
+      - realtime_connections_over_webrtc_websocket_and_sip
+    scope: Official model documentation describing realtime text and audio capabilities and supported connection methods.
+    limitations: Technical capability documentation. It does not establish effectiveness in sales, public speaking, customer service, negotiation, counselling, or embodied robotics.
+    reviewed: 2026-09-14
+
+  - id: openai-live-api
+    title: Live API reference
+    publisher: OpenAI
+    url: https://developers.openai.com/api/reference/typescript/resources/live
+    evidence_type: vendor_api_documentation
+    supports:
+      - live_conversational_sessions
+      - live_audio_transport
+      - delegated_function_tools
+    scope: Official API reference for live sessions, audio transport, session configuration, and delegated tool use.
+    limitations: API availability does not establish quality of a customer-facing workflow or compliance with sector-specific rules.
+    reviewed: 2026-09-14
+
+  - id: openai-responses-api-tools
+    title: Responses API — Create a model response
+    publisher: OpenAI
+    url: https://developers.openai.com/api/reference/cli/resources/responses/methods/create
+    evidence_type: vendor_api_documentation
+    supports:
+      - text_image_and_file_inputs
+      - built_in_web_and_file_search
+      - custom_function_calling
+      - code_interpreter_output_support
+    scope: Official API reference describing model inputs and tool categories available through the Responses API.
+    limitations: Tool support establishes technical possibility, not the accuracy, completeness, speed, or business value of any particular report-analysis workflow.
+    reviewed: 2026-09-14
+
+  - id: nber-generative-ai-at-work-business-capability
+    title: Generative AI at Work
+    publisher: National Bureau of Economic Research
+    authors:
+      - Erik Brynjolfsson
+      - Danielle Li
+      - Lindsey R. Raymond
+    publication_date: 2023-04
+    revision_date: 2023-11
+    url: https://www.nber.org/papers/w31161
+    evidence_type: research_study
+    supports:
+      - generative_ai_assistance_can_improve_customer_support_productivity_in_a_specific_setting
+      - effects_can_vary_substantially_across_workers
+      - customer_sentiment_can_change_in_ai_assisted_workflows
+    scope: Staggered introduction of a generative-AI conversational assistant among 5,179 customer-support agents. The revised paper reports a 14% average increase in issues resolved per hour, larger effects among novice and lower-skilled workers, and improvements in customer sentiment.
+    limitations: AI-assisted human workflow in one customer-support setting. It does not establish autonomous customer-service, sales, negotiation, or management performance in other organisations.
+    reviewed: 2026-09-14
+
+  - id: nature-human-behaviour-gpt4-persuasion-2025
+    title: On the conversational persuasiveness of GPT-4
+    publisher: Nature Human Behaviour
+    authors:
+      - Francesco Salvi
+      - Manoel Horta Ribeiro
+      - Riccardo Gallotti
+      - Robert West
+    publication_date: 2025-05-19
+    url: https://www.nature.com/articles/s41562-025-02194-6
+    evidence_type: peer_reviewed_research
+    supports:
+      - llms_can_perform_persuasive_conversation_in_controlled_tasks
+      - personalised_llm_arguments_can_outperform_a_human_baseline_in_the_studied_setting
+      - non_personalised_ai_was_not_shown_to_differ_significantly_from_the_human_baseline_in_that_experiment
+    scope: Preregistered controlled multiround debate study comparing human and GPT-4 opponents, with and without limited sociodemographic personalisation.
+    limitations: Structured sociopolitical debate is not commercial sales, account management, professional negotiation, or public speaking. Results should not be generalised to those settings without direct evaluation.
+    reviewed: 2026-09-14
+
+  - id: scientific-reports-llm-persuasion-meta-analysis-2025
+    title: A meta-analysis of the persuasive power of large language models
+    publisher: Scientific Reports
+    authors:
+      - Lukas Hölbling
+      - Sebastian Maier
+      - Stefan Feuerriegel
+    publication_date: 2025-12-12
+    url: https://www.nature.com/articles/s41598-025-30783-y
+    evidence_type: peer_reviewed_meta_analysis
+    supports:
+      - persuasive_effectiveness_of_llms_and_humans_has_no_clear_overall_winner_across_included_studies
+      - persuasion_performance_varies_substantially_by_context
+    scope: Meta-analysis of seven eligible studies with 17,422 participants comparing LLM and human persuasive performance.
+    limitations: Small number of eligible studies and substantial heterogeneity. It does not establish equivalence for sales, customer-service, negotiation, public-speaking, or other specific business tasks.
+    reviewed: 2026-09-14
