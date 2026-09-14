@@ -4,6 +4,14 @@
 
 > **Access is not capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
 
+## Umbrella initiative
+
+**AlreadyOpen** is the umbrella initiative for this project:
+
+- https://github.com/AlreadyOpen
+
+`AI Output to Value` is one publication within that broader initiative. The repository currently remains at `helenkwok/ai-output-to-value`; any later transfer to `AlreadyOpen/ai-output-to-value` is a repository-location decision, not a change to the project's scope or identity.
+
 ## Start here
 
 If you are a business reader, do **not** read the repository front-to-back.
@@ -98,6 +106,8 @@ Markdown and YAML remain the maintained source. [`scripts/build_site.py`](script
 - links back to the source version used for the build.
 
 No client-side application framework is required.
+
+The builder accepts `PUBLICATION_REPO_URL` and `PUBLICATION_UMBRELLA_URL`, so the publication can keep stable project/umbrella links if the repository is later transferred without hardcoding a personal owner into the publishing logic.
 
 ## Two different gates
 
