@@ -83,15 +83,15 @@ def evidence_block(records: list[dict]) -> str:
     for c in records:
         cid = html.escape(str(c.get("id", "")))
         text = html.escape(str(c.get("claim_text", "")))
-        review = html.escape(str(c.get("human_review_status", "unspecified")))
-        items.append(f'<li><a href="../evidence/index.html#{cid}">{text}</a> <span class="evidence-review-note">(human review: {review})</span></li>')
+        review = html.escape(str(c.get("independent_review_status", "unspecified")))
+        items.append(f'<li><a href="../evidence/index.html#{cid}">{text}</a> <span class="evidence-review-note">(independent review: {review})</span></li>')
     return '<section class="article-evidence-links"><h2>Evidence used on this page</h2><p>Factual claims currently connected to the publication evidence register:</p><ul>' + ''.join(items) + '</ul></section>'
 
 
 def meta_for(item: dict, records: list[dict]) -> str:
     if records:
-        pending = sum(c.get("human_review_status") != "completed" for c in records)
-        evidence_state = f"Evidence review: {pending} connected claim(s) await human approval" if pending else "Evidence review: connected claims marked complete"
+        pending = sum(c.get("independent_review_status") != "completed" for c in records)
+        evidence_state = f"Evidence review: {pending} connected claim(s) await independent review" if pending else "Evidence review: connected claims marked complete"
     else:
         evidence_state = "Evidence review: no claim-level records attached yet"
     return (f'<span class="status-label">{html.escape(status_label(str(item.get("status", "draft"))))}</span> '
@@ -143,7 +143,7 @@ def render_evidence() -> None:
     blocks = ["<h1>Evidence and claims</h1>", "<p>Claim records show source, locator, qualification, review state, and where each claim appears. Structural checks do not establish factual truth.</p>"]
     for c in records:
         cid = html.escape(str(c.get("id", "")))
-        blocks.append(f'<section class="evidence-record" id="{cid}"><p><span class="status-label">{html.escape(str(c.get("status", "")))}</span> <span class="status-label">human review: {html.escape(str(c.get("human_review_status", "")))}</span></p><h2>{html.escape(str(c.get("claim_text", "")))}</h2>')
+        blocks.append(f'<section class="evidence-record" id="{cid}"><p><span class="status-label">{html.escape(str(c.get("status", "")))}</span> <span class="status-label">independent review: {html.escape(str(c.get("independent_review_status", "")))}</span></p><h2>{html.escape(str(c.get("claim_text", "")))}</h2>')
         blocks.append(f'<p><strong>Review record:</strong> {html.escape(str(c.get("reviewer", "")))} · {html.escape(str(c.get("reviewed", "")))}</p>')
         if c.get("launch_critical") is not None:
             blocks.append(f'<p><strong>Launch-critical:</strong> {"yes" if c.get("launch_critical") else "no"}</p>')
