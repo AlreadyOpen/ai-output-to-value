@@ -19,7 +19,7 @@ claims:
         locator: "### Replit is a useful concrete example"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: replit-agent-probabilistic-warning-2026-09
     claim_text: Replit warns that Agent behaviour is probabilistic and may occasionally produce mistakes.
@@ -38,7 +38,7 @@ claims:
         locator: "### Replit is a useful concrete example"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: dora-ai-amplifier-2025
     claim_text: DORA's 2025 research characterises AI primarily as an amplifier of an organisation's existing strengths and weaknesses and links returns to the underlying organisational system rather than tools alone.
@@ -55,7 +55,7 @@ claims:
         locator: "## AI can make code cheaper without making engineering unnecessary"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: nber-generative-ai-customer-support-2023
     claim_text: In a study of 5,179 customer-support agents, access to a generative-AI assistant increased issues resolved per hour by 14% on average, with larger effects for novice and lower-skilled workers and minimal effects for experienced and highly skilled workers.
@@ -74,7 +74,7 @@ claims:
         locator: "## 5. AI can do business work too"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: uk-ai-playbook-human-control-lifecycle-2025
     claim_text: The UK Government AI Playbook calls for meaningful human control at appropriate stages, lifecycle management, appropriate skills and expertise, testing, monitoring, and clear accountability.
@@ -91,7 +91,7 @@ claims:
         locator: "Lifecycle governance, expertise, meaningful human control, testing, monitoring, and accountability."
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: cloudflare-wallets-availability-2026-09
     claim_text: Cloudflare has announced an Account Wallet and Virtual Wallet architecture, but at the review date only wallet-handle reservation is available; a reserved handle does not yet send, receive, or hold funds.
@@ -118,7 +118,7 @@ claims:
         locator: "## Organisational AI can make more authority programmable"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: metr-experiment-design-2026
     claim_text: METR said its newer developer-productivity experiment provided an unreliable signal of the current productivity effect of AI tools because of participation, task-selection, pay-rate, concurrent-agent, and time-measurement problems.
@@ -135,7 +135,7 @@ claims:
         locator: "- id: metr-developer-productivity-experiment-design-2026"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: linux-kernel-open-source
     claim_text: The Linux kernel is available under an open-source licence; zero acquisition price does not by itself establish zero capability or economic value.
@@ -152,7 +152,7 @@ claims:
         locator: "## Linux is free"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: oss-zero-price-not-zero-economic-value
     claim_text: Research on widely used open-source software provides evidence that zero licence price does not imply zero economic value or zero replacement cost.
@@ -171,4 +171,4 @@ claims:
         locator: "## Linux is free"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
