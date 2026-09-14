@@ -16,7 +16,7 @@ claims:
         locator: "## 5. AI can do business work too"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: gpt4-personalised-persuasion-study-2025
     claim_text: In a controlled debate study, personalised GPT-4 was more persuasive than the human baseline in that experimental condition, while non-personalised GPT-4 was not shown to differ significantly from the human baseline.
@@ -33,7 +33,7 @@ claims:
         locator: "## 2. AI can participate in persuasion and customer interaction"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: llm-persuasion-meta-analysis-2025
     claim_text: A 2025 meta-analysis found no significant overall difference between LLM and human persuasive performance across the small, heterogeneous set of eligible studies.
@@ -50,7 +50,7 @@ claims:
         locator: "## 2. AI can participate in persuasion and customer interaction"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: openai-responses-business-analysis-tools
     claim_text: OpenAI's current model API supports multimodal/file inputs and tool use that can underpin business-analysis workflows, without establishing the accuracy or value of a particular analysis.
@@ -67,4 +67,4 @@ claims:
         locator: "## 4. AI can analyse company information rapidly, but analysis still needs an evaluation target"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
