@@ -6,19 +6,9 @@ AI products make this boundary especially important because model selection, rou
 
 ## Keep implementation detail and business consequence separate
 
-Engineering should normally own details such as router implementation, prompts, schemas, SDK integration, caching, retries, queues, deployment topology, and observability.
+Engineering should normally own implementation details such as prompts, schemas, routing, retries, SDK integration, caching, deployment topology, and observability.
 
-Cross-functional decision-makers need the consequences when those choices change:
-
-- cost per acceptable customer outcome;
-- quality or acceptance rate;
-- latency and throughput;
-- failure and escalation behaviour;
-- evaluation burden;
-- support load;
-- vendor dependency;
-- security, privacy, or regulatory constraints;
-- price, margin, or achievable service level.
+Cross-functional decision-makers need the consequences when those choices change cost per acceptable outcome, quality, latency, failure behaviour, evaluation burden, support load, vendor dependency, risk, price, or margin.
 
 > **Take implementation detail offline. Bring product-changing consequences back online.**
 
@@ -26,16 +16,11 @@ Cross-functional decision-makers need the consequences when those choices change
 
 The price of one model does not determine the cost of an AI-enabled service.
 
-A useful accounting boundary is:
-
 **Relevant workflow cost = planning + generation/execution + tool use + retries + context + verification/evaluation + infrastructure + specialist or human intervention + failure handling + support**
 
 Then measure:
 
-\[
-\text{Cost per acceptable outcome} =
-\frac{\text{relevant cost of successful and unsuccessful attempts}}{\text{number of outcomes that meet the defined acceptance rule}}
-\]
+> **Cost per acceptable outcome = total relevant cost of successful and unsuccessful attempts ÷ number of outcomes that meet the defined acceptance rule.**
 
 The numerator and denominator must be stated. A cheap model can create an expensive workflow if it causes retries, corrections, escalation, downstream failures, or support work. A more expensive model can sometimes reduce total cost by reducing those terms.
 
@@ -43,15 +28,7 @@ The reverse can also be true: using the most capable model for simple, easily ch
 
 ## Architecture options are hypotheses
 
-A workflow might use:
-
-1. one high-capability model for every request;
-2. a cheaper model for routine requests and a stronger model only when needed;
-3. a cascade where an inexpensive model attempts the task first;
-4. a router that predicts which model should handle each request;
-5. a stronger model for planning or difficult evaluation while cheaper models or deterministic tools execute easier steps;
-6. a conversational model for customer interaction while deterministic policy tools constrain pricing or permissions;
-7. conventional software for stages that do not benefit from an LLM.
+A workflow might use one high-capability model for every request, route simpler work to cheaper models, cascade from inexpensive to stronger models, use a router, use a stronger model for planning while cheaper models or deterministic tools execute easier steps, constrain customer-facing agents with policy tools, or avoid LLMs for stages conventional software handles more reliably.
 
 There is no universal winner. The target workload needs its own evaluation.
 
@@ -61,9 +38,7 @@ Research on LLM routing and cascading provides bounded evidence that selectively
 
 **RouteLLM** studies learned routing between stronger, more expensive models and weaker, cheaper models. **FrugalGPT** studies cascades and other budget-aware strategies.
 
-Those studies support the narrow principle that a workflow does not necessarily need the most capable model for every step.
-
-They do **not** establish that a particular router, planner/executor split, model pair, benchmark saving, or quality level will transfer to a different production workload.
+Those studies support the narrow principle that a workflow does not necessarily need the most capable model for every step. They do **not** establish that a particular router, planner/executor split, model pair, benchmark saving, or quality level will transfer to a different production workload.
 
 - RouteLLM: https://arxiv.org/abs/2406.18665
 - FrugalGPT: https://arxiv.org/abs/2305.05176
@@ -72,22 +47,22 @@ They do **not** establish that a particular router, planner/executor split, mode
 
 The table below is **fictional** and exists only to show how a comparison should be labelled.
 
-Assume a batch of customer tasks with one shared acceptance rule. In this example:
+Assume a batch of customer tasks with one shared acceptance rule:
 
-- **First-pass acceptable** means the initial automated result meets the acceptance rule without escalation.
-- **Escalated** means the task needs another model, deterministic validation, specialist review, human approval, repair, or another recovery step.
-- **All-in variable cost per acceptable outcome** includes model/tool calls, unsuccessful attempts, retries, and the expected variable cost of escalation/evaluation across the batch. It excludes fixed company overhead unless stated otherwise.
-- **Median latency** is end-to-end latency for the measured workflow, not model inference time alone.
+- **First-pass acceptable** means the initial automated result meets the rule without escalation.
+- **Escalated** means the task needs another model, deterministic validation, specialist review, repair, or another recovery step.
+- **All-in variable cost per acceptable outcome** includes model/tool calls, unsuccessful attempts, retries, and expected variable escalation/evaluation cost. Fixed company overhead is excluded unless stated otherwise.
+- **Median latency** is end-to-end workflow latency, not model inference time alone.
+
+Because first-pass acceptable and escalated are mutually exclusive shares of the same task population in this illustration, each row sums to 100%.
 
 | Architecture | First-pass acceptable | Escalated | Median end-to-end latency | All-in variable cost per acceptable outcome | Notes |
 | --- | ---: | ---: | ---: | ---: | --- |
 | A — strongest model everywhere | 97% | 3% | 24 s | $4.40 | Simple routing, expensive inference |
 | B — route easier work to cheaper model | 95% | 5% | 17 s | $1.05 | Routing cost included |
-| C — cheaper model only | 86% | 18% | 14 s | $0.95 | Cheap inference, much more repair/escalation |
+| C — cheaper model only | 86% | 14% | 14 s | $0.95 | Cheap inference, much more repair/escalation |
 
-The row with the cheapest model call is not necessarily the row with the cheapest acceptable outcome.
-
-Likewise, a 95% first-pass rate is not automatically acceptable. The customer promise, failure cost, and recovery process determine whether it is enough.
+The row with the cheapest model call is not necessarily the row with the cheapest acceptable outcome. Likewise, a 95% first-pass rate is not automatically acceptable. The customer promise, failure cost, and recovery process determine whether it is enough.
 
 ## Product discovery should be multidisciplinary
 
@@ -96,8 +71,6 @@ The UK Government AI Playbook recommends selecting AI use cases from business an
 These are governance sources rather than proofs of commercial success. They support a narrower organisational principle:
 
 > **Business context, domain knowledge, technical design, risk, and economics need to meet before a customer commitment is made.**
-
-Business or product teams do not need to choose SDK methods. Engineering should not be expected to define customer value alone.
 
 ## A practical division of decision rights
 
@@ -133,7 +106,7 @@ For each candidate architecture, record:
 | **Failure consequence** | What happens when the workflow remains unacceptable. |
 | **Customer promise affected** | Which commitment changes if this architecture changes. |
 
-This is the practical output of the architecture discussion. It lets management compare commercial consequences without micromanaging implementation.
+This lets management compare commercial consequences without micromanaging implementation.
 
 ## Questions for a product meeting
 
@@ -152,8 +125,6 @@ This is the practical output of the architecture discussion. It lets management 
 
 AI compresses the distance between architecture and business economics. Model calls may be variable cost; evaluation and escalation may be equally important variable costs; architecture may determine margin and service quality.
 
-That does not make every architecture discussion an executive meeting.
-
-It means the organisation needs a reliable translation layer between engineering evidence and commercial decisions.
+That does not make every architecture discussion an executive meeting. It means the organisation needs a reliable translation layer between engineering evidence and commercial decisions.
 
 > **Economics lives in the architecture.**
