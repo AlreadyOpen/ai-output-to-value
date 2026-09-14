@@ -20,6 +20,7 @@ class PublicationCheckTests(unittest.TestCase):
             path.mkdir(parents=True, exist_ok=True)
         (root / "README.md").write_text("# Repository only\n", encoding="utf-8")
         (root / "content" / "article.md").write_text("# Article\n\n## Section\n\nEvidence statement.\n", encoding="utf-8")
+
         source = {"sources": [{
             "id": "source-1", "title": "Source", "publisher": "Publisher",
             "url": "https://example.com/source", "evidence_type": "test",
@@ -28,15 +29,25 @@ class PublicationCheckTests(unittest.TestCase):
         }]}
         claim = {"claims": [{
             "id": "claim-1", "claim_text": "Evidence statement.", "status": "supported",
+            "launch_critical": False,
             "evidence": [{"source_id": "source-1", "locator": "Section 1",
                           "relevant_finding": "Finding", "qualification": "Qualification"}],
             "published_in": [{"file": "content/article.md", "locator": "## Section"}],
-            "reviewer": "Independent review process", "reviewed": "2026-09-14", "independent_review_status": "completed",
+            "reviewer": "Independent review process", "reviewed": "2026-09-14",
+            "independent_review_status": "completed",
+            "review_record": {
+                "claim_revision": "fixture-v1",
+                "source_versions_checked": ["source-1 fixture version"],
+                "method": "Direct source check against claim and qualification.",
+                "finding": "Claim is supported within the stated scope.",
+                "disposition": "accepted",
+            },
         }]}
         articles = {"articles": [{
             "id": "article", "title": "Article", "source": "content/article.md",
-            "slug": "article", "section": "core", "order": 1, "summary": "Summary",
-            "maintainer": "Maintainer", "reviewed": "2026-09-14", "status": "ready",
+            "slug": "article", "section": "core", "release_scope": "guide",
+            "order": 1, "summary": "Summary", "maintainer": "Maintainer",
+            "reviewed": "2026-09-14", "status": "ready",
         }]}
         self.write_yaml(root / "data" / "sources.yml", source)
         self.write_yaml(root / "data" / "claims.yml", claim)
@@ -62,7 +73,8 @@ class PublicationCheckTests(unittest.TestCase):
         return yaml.safe_load((self.root / "data" / name).read_text(encoding="utf-8"))
 
     def run_checker(self):
-        env = os.environ.copy(); env["PUBLICATION_ROOT"] = str(self.root)
+        env = os.environ.copy()
+        env["PUBLICATION_ROOT"] = str(self.root)
         return subprocess.run([sys.executable, str(CHECKER)], text=True, capture_output=True, env=env)
 
     def assert_fails_with(self, text: str):
@@ -79,14 +91,62 @@ class PublicationCheckTests(unittest.TestCase):
         ev = data["claims"][0]["evidence"][0]
         ev["locator"] = ev["relevant_finding"] = ev["qualification"] = ""
         self.write_yaml(self.root / "data" / "claims.yml", data)
-        self.assert_fails_with("field 'locator' must be non-empty")
+        self.assert_fails_with("field 'locator' must be a non-empty string")
 
     def test_completed_review_requires_reviewer_and_date(self):
         data = self.read_yaml("claims.yml")
         data["claims"][0]["reviewer"] = ""
-        data["claims"][0]["reviewed"] = ""
+        data["claims"][0]["reviewed"] = "not-a-date"
         self.write_yaml(self.root / "data" / "claims.yml", data)
-        self.assert_fails_with("completed independent review requires reviewer and reviewed date")
+        self.assert_fails_with("completed independent review requires reviewer/process and a valid reviewed date")
+
+    def test_completed_review_requires_structured_record(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0].pop("review_record")
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("completed independent review requires a structured review_record")
+
+    def test_missing_launch_critical_classification_fails(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0].pop("launch_critical")
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("missing fields: launch_critical")
+
+    def test_launch_critical_must_be_boolean(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["launch_critical"] = "false"
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("field 'launch_critical' must be a Boolean")
+
+    def test_empty_container_does_not_satisfy_reviewer(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["reviewer"] = []
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("field 'reviewer' must be a non-empty string")
+
+    def test_bad_review_date_fails(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["reviewed"] = "not-a-date"
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("field 'reviewed' must be an ISO date")
+
+    def test_unknown_claim_status_fails(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["status"] = "probably-fine"
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("unknown claim status")
+
+    def test_unknown_article_section_fails(self):
+        data = self.read_yaml("articles.yml")
+        data["articles"][0]["section"] = "crore"
+        self.write_yaml(self.root / "data" / "articles.yml", data)
+        self.assert_fails_with("unknown section: crore")
+
+    def test_unknown_release_scope_fails(self):
+        data = self.read_yaml("articles.yml")
+        data["articles"][0]["release_scope"] = "mystery"
+        self.write_yaml(self.root / "data" / "articles.yml", data)
+        self.assert_fails_with("unknown release_scope: mystery")
 
     def test_missing_publication_locator_fails(self):
         data = self.read_yaml("claims.yml")
@@ -101,6 +161,11 @@ class PublicationCheckTests(unittest.TestCase):
     def test_built_link_cannot_escape_deployment_root(self):
         (self.root / "site" / "articles" / "article.html").write_text('<a href="../../README.md">Repository file</a>', encoding="utf-8")
         self.assert_fails_with("built link escapes deployment root")
+
+    def test_root_relative_built_link_resolves_inside_site(self):
+        (self.root / "site" / "articles" / "article.html").write_text('<a href="/index.html">Home</a>', encoding="utf-8")
+        result = self.run_checker()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_reserved_index_slug_fails(self):
         data = self.read_yaml("articles.yml")
