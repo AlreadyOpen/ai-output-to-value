@@ -47,9 +47,9 @@ The OECD's work on e-commerce business models notes that firms use physical infr
 
 ## 4. Face-to-face interaction can be analysed the same way — as an analogy
 
-A human representative meeting a customer or investor face-to-face may create significant value when the meeting improves trust, negotiation, interpretation of ambiguity, confidence in commitments, strategic understanding, or handling of sensitive issues.
+A human representative meeting a customer or investor face-to-face may create significant value when the meeting improves trust, negotiation, interpretation of ambiguity, confidence in commitments, strategic understanding, physical demonstration, or handling of sensitive issues.
 
-But the fact that the meeting happened physically does not establish that those outcomes occurred.
+But the fact that the meeting happened physically does not establish that those outcomes occurred, and none of those cognitive outcomes should be assumed to be permanently human-only.
 
 Likewise, a physical store may add value because a customer can inspect a product, collect it immediately, return it easily, or receive expert service. The value comes from the **function performed through the channel**, not from the channel by itself.
 
@@ -72,7 +72,7 @@ Online channels increased expectations around price transparency, comparison, co
 
 This put pressure on physical retailers to justify the parts of the experience that could not be reproduced as easily online.
 
-A comparable question may arise when customers use agents to compare suppliers, inspect public evidence, analyse documentation, summarise contracts, prepare questions, or request routine information.
+A comparable question may arise when customers use agents to compare suppliers, inspect public evidence, analyse documentation, summarise contracts, prepare questions, negotiate within defined limits, or request information.
 
 A supplier should not assume that a human sales meeting has high value merely because it is human-to-human. Human representation may remain highly valuable where it improves the outcome.
 
@@ -82,12 +82,15 @@ A supplier should not assume that a human sales meeting has high value merely be
 
 Retail offers one plausible analogy for how human and agent channels could coexist:
 
-- agents may perform more research, filtering, monitoring, routine purchasing, and preparation;
-- humans may concentrate on cases where judgement, negotiation, trust, exception handling, accountability, or relationship-building materially improves the outcome;
+- agents may perform more research, filtering, monitoring, purchasing, analysis, customer communication, and preparation;
+- agents may also perform negotiation, recommendation, and judgement-like evaluation where they demonstrate adequate performance and possess appropriate delegated authority;
+- humans may remain especially valuable where personal relationships, legal or contractual responsibility, independent challenge, physical presence, or demonstrated human performance improves the outcome;
 - software and humans may share context across the same process;
 - organisations may choose channels according to usefulness rather than tradition.
 
 This resembles omnichannel retail conceptually, but it does **not** establish the future structure of professional services, investment, sales, or governance.
+
+The important distinction is not **routine AI versus judgemental human**. It is **which actor or combination performs the task best under the required authority, accountability, safety, relationship, and economic constraints**.
 
 ## 7. Presence is not the same thing as substance
 
@@ -100,7 +103,9 @@ The same analytical discipline can be applied to AI-enabled firms:
 - a human-heavy firm is not automatically more substantive;
 - an agent-heavy firm is not automatically thin or low quality;
 - a face-to-face meeting is not automatically more valuable than an agent-mediated interaction;
-- a fully digital interaction is not automatically preferable either.
+- a fully digital interaction is not automatically preferable either;
+- human judgement is not automatically superior merely because a human holds a senior title;
+- AI judgement is not automatically superior merely because it is faster or scalable.
 
 The useful question is:
 
@@ -121,9 +126,12 @@ The retail evidence and the analogy support different kinds of statements and sh
 
 - a new digital channel can reduce the exclusivity of an older channel without proving the older channel has no value;
 - human presence should be justified by the outcome it improves, not assumed to be valuable merely because it is human;
+- AI capability in analysis, communication, persuasion, or judgement should also be evaluated rather than assumed from fluency;
 - hybrid human/agent interaction is one plausible future scenario, not an established consequence of the retail evidence.
 
 > **E-commerce did not make the store meaningless. It made the store justify what the store was for. Our interpretation is that AI agents may create a similar question for some forms of human representation.**
+
+See [`ai-business-capability-and-judgement.md`](ai-business-capability-and-judgement.md) for the project's broader actor-neutral approach to analysis, judgement, authority, and accountability.
 
 ## Sources
 
