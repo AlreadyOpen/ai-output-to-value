@@ -2,27 +2,31 @@
 
 **An open guide to AI-assisted work, quality, accountability, and business value.**
 
-AI tools can produce drafts, code, research, designs, reports, and prototypes quickly. That does not automatically make those outputs verified deliverables, operational capabilities, or profitable products.
+AI tools can produce drafts, code, research, designs, reports, and prototypes quickly. Some free or inexpensive agents can generate remarkably complete applications. That does not automatically make those outputs verified deliverables, client-ready services, repeatable organisational capabilities, or profitable products.
 
 This project helps decision-makers separate those ideas.
 
-> **Access is not capability. Output is not completion. Activity is not business value.**
+> **Access is not capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
 
 ## Why this project exists
 
 Business conversations about generative AI often collapse several different things into one bucket:
 
 - buying an API key or software subscription;
+- gaining access to a capable free or inexpensive agent;
 - experimenting through prompt-driven or “vibe” workflows;
 - professional AI-assisted work with review and domain expertise;
 - low-value or misleading output sometimes called AI slop or workslop;
 - a working prototype;
-- a production-ready deliverable;
+- a client-ready deliverable;
+- an organisational capability to deliver and support the work;
 - measurable business value.
 
 These are not synonyms and they should not be evaluated the same way.
 
-The goal of **AI Output to Value** is not to argue that AI is good or bad. It is to make the remaining work, evidence, ownership, risk, and economics visible so that leaders can make better decisions.
+A particularly important failure mode is the belief that **because an agent can generate most of the visible artefact, the organisation already has sufficient substance to sell the job to a client**. Sometimes the generated result really is sufficient. Sometimes it is not. The point is that readiness must be established for the intended job rather than inferred from the apparent completeness of the output.
+
+The goal of **AI Output to Value** is not to argue that AI is good or bad. It is to make the remaining work, evidence, ownership, risk, client-specific substance, and economics visible so that leaders can make better decisions.
 
 ## The core model
 
@@ -32,21 +36,37 @@ The project uses a simple progression:
 
 | Stage | What it means | What it does *not* prove |
 | --- | --- | --- |
-| **Access** | The organisation has a model, API, subscription, agent, or tool. | That the organisation knows how to use it effectively. |
-| **Output** | The system produced code, text, analysis, media, or another artefact. | That the output is correct, useful, complete, or safe. |
-| **Deliverable** | The output has been made fit for a defined purpose and acceptance criteria. | That the organisation can operate or maintain it. |
-| **Capability** | People, process, tooling, knowledge, and ownership exist to use it repeatedly. | That it produces a valuable business outcome. |
+| **Access** | The organisation has a model, API, subscription, agent, or tool. | That the organisation knows how to use it effectively for a particular job. |
+| **Output** | The system produced code, text, analysis, media, or another artefact. | That the output is correct, useful, complete, or grounded in the client’s actual requirements. |
+| **Deliverable** | The output has been made fit for a defined purpose and acceptance criteria. | That the organisation can operate, maintain, or repeatedly deliver it. |
+| **Capability** | People, process, tooling, knowledge, ownership, and support exist to use it repeatedly. | That it produces a valuable business outcome. |
 | **Outcome** | Something useful changed: time, quality, service, throughput, risk, revenue, etc. | That the gain exceeds the full cost of achieving it. |
 | **Value** | The outcome is worth its total cost and trade-offs. | That the same approach will generalise to every task. |
 
 This progression is deliberately not a maturity score. Some tasks should stop at a prototype. Some low-risk tasks need only lightweight checking. Higher-risk or client-facing work needs stronger evidence and accountability.
+
+## A capable agent is not automatically a capable supplier
+
+A useful distinction is:
+
+1. **Tool capability** — can the AI produce the artefact?
+2. **Job substance** — does the result contain what this particular client actually needs?
+3. **Delivery capability** — can the supplier verify, explain, operate, support, and stand behind the result?
+
+AI can contribute to all three. The mistake is assuming that evidence of the first is automatically evidence of the other two.
+
+This matters because generative tools can make visible output arrive very early. A weakly specified project may already have a polished interface, realistic copy, routes, a database, and a deployment before important assumptions have been checked. That is real progress, but appearance is a weak readiness test.
+
+Replit provides a useful current example in its own product positioning. As of September 2026, Replit describes its **Starter** plan as being for **exploring what is possible**, while its product page positions **Pro** for **commercial and professional builds**. Replit also warns that Agent is probabilistic and may make mistakes. This does not mean that free-plan work cannot be client-ready, nor that a paid plan makes a project professional. It shows that **tool access and professional delivery are different claims even in the vendor’s own framing**.
+
+See [`content/tool-access-vs-client-readiness.md`](content/tool-access-vs-client-readiness.md).
 
 ## What this project will explain
 
 The public guide is being organised around six questions:
 
 1. **Understand the difference** — Are we confusing a tool, a workflow, a quality judgement, and a business outcome?
-2. **From demonstration to delivery** — What has actually been shown, and what remains unverified?
+2. **From demonstration to delivery** — What has actually been shown, and what remains unverified or merely assumed?
 3. **Count the whole job** — Did AI remove work, or move review, correction, integration, and support work elsewhere?
 4. **Make ownership clear** — Who prepares, verifies, approves, operates, supports, and maintains the result?
 5. **Recognise genuine value** — When does AI assistance create benefits worth pursuing?
@@ -72,13 +92,14 @@ Evidence that an idea can be explored or demonstrated. A prototype can be extrem
 
 ### Production-ready / client-ready
 
-Context-dependent claims that require explicit acceptance criteria. They should never be inferred merely because an artefact looks polished or runs successfully in one demonstration.
+Context-dependent claims that require explicit acceptance criteria. They should never be inferred merely because an artefact looks polished, runs successfully in one demonstration, or was generated by a capable agent.
 
 ## Principles
 
 - **Pro-AI, not credulous about AI.** Useful automation should be adopted when the evidence supports it.
 - **No anti-vibe gatekeeping.** Fast exploratory workflows are legitimate; the issue is misrepresenting their readiness or evidence.
-- **Judge fitness for purpose, not authorship.** Human work can be poor. AI work can be excellent. The origin alone is not the test.
+- **Judge fitness for purpose, not authorship or subscription price.** Human work can be poor. AI work can be excellent. A free tool can produce strong work. A paid tool can produce weak work.
+- **Do not infer substance from polish.** A convincing interface or long document may contain verified client-specific knowledge, or may contain plausible assumptions. Establish which is which.
 - **Count downstream work.** Review, correction, integration, support, maintenance, and risk transfer are part of the job.
 - **Match assurance to consequence.** A disposable prototype and a client migration guide should not have the same verification burden.
 - **Make ownership visible.** Generating an artefact does not automatically identify the person qualified to approve it.
@@ -97,11 +118,11 @@ Sources may include:
 - peer-reviewed or working research papers;
 - official guidance and standards;
 - empirical industry research with disclosed methodology;
-- vendor research, clearly labelled as such;
+- vendor research or product documentation, clearly labelled as such;
 - case studies;
 - practitioner accounts and community discussions, clearly labelled as anecdotal.
 
-A prestigious source does not make every claim in it universal. An anecdote does not become a statistic because many people relate to it.
+A prestigious source does not make every claim in it universal. An anecdote does not become a statistic because many people relate to it. Vendor plan labels can show how a vendor positions its product, but they do not certify the quality of a specific project.
 
 See [`docs/evidence-policy.md`](docs/evidence-policy.md) and [`data/sources.yml`](data/sources.yml).
 
@@ -121,7 +142,8 @@ These discussions are treated as **practitioner accounts**, not verified evidenc
 ├── README.md
 ├── CONTRIBUTING.md
 ├── content/
-│   └── executive-guide.md
+│   ├── executive-guide.md
+│   └── tool-access-vs-client-readiness.md
 ├── data/
 │   └── sources.yml
 └── docs/
