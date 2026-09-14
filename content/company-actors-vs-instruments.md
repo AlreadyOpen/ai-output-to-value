@@ -50,19 +50,21 @@ An AI agent may be able to:
 
 That does not make the agent a director, employee, company, or legal person. It makes the agent a **delegated software actor**, rather than a passive credential.
 
-## Cloudflare's architecture helps show the difference
+## Cloudflare's announced architecture helps show the difference
 
-Cloudflare Wallets separates the agent from the wallet it uses.
+Cloudflare has announced an Account Wallet / Virtual Wallet architecture that separates the agent from the wallet it would use.
 
-Cloudflare describes Account Wallets for human account owners and Virtual Wallets for agents. The account owner can delegate spending authority to a virtual wallet, while the agent operates using that wallet within its permissions.
+The announced design describes Account Wallets for human Cloudflare-account owners and Virtual Wallets for agents, with delegated spending permissions and owner-defined limits. **At the documentation review date, this full wallet functionality is not yet available.** Cloudflare currently allows handle reservation; its documentation says a reserved handle does not yet let a user send, receive, or hold funds. Full wallet access and Virtual Wallet issuance were announced as forthcoming.
 
-The wallet is therefore an instrument used by the agent. It is not the agent itself.
+This is different from Cloudflare's **Agentic Payments** documentation, which describes currently documented payment flows such as x402 and Machine Payments Protocol. The project should not use the existence of those payment protocols as proof that the separate Wallets product is already fully operational.
 
-Cloudflare also describes agent identity as linking the agent back to the human or organisation that authorised it. This gives a useful pattern:
+The conceptual distinction remains useful:
 
 **Legal entity → governance → delegated authority → actor → instrument → action → evidence**
 
-The actor may be human or software.
+The actor may be human or software. The wallet, card, credential, or API key is an instrument used by an actor.
+
+Cloudflare also describes its proposed agent identity as linking an agent back to the human or organisation that authorised it. That is an announced infrastructure design, not evidence that the agent becomes a legal person.
 
 ## Why this matters for AI Output to Value
 
@@ -89,5 +91,6 @@ The boss is part of this chain too. Choosing the tool, defining what the company
 
 - ASIC, *Becoming a company director*: https://www.asic.gov.au/for-business-and-companies/small-business-director-essentials/becoming-a-company-director
 - ASIC, *The replaceable rules for company governance*: https://www.asic.gov.au/for-business-and-companies/companies/register-a-company/the-replaceable-rules-for-company-governance
-- Cloudflare, *Cloudflare Gives AI Agents an Identity and a Wallet*: https://www.cloudflare.com/press/press-releases/2026/cloudflare-gives-ai-agents-an-identity-and-a-wallet/
-- Cloudflare Wallets: https://developers.cloudflare.com/wallets/
+- Cloudflare, *Cloudflare Gives AI Agents an Identity and a Wallet*, 4 August 2026: https://www.cloudflare.com/press/press-releases/2026/cloudflare-gives-ai-agents-an-identity-and-a-wallet/
+- Cloudflare Wallets documentation, reviewed 14 September 2026: https://developers.cloudflare.com/wallets/
+- Cloudflare Agentic Payments: https://developers.cloudflare.com/agents/tools/payments/
