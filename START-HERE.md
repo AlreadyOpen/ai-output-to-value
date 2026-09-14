@@ -65,6 +65,8 @@ Keep three questions separate:
 
 Human review can be useful or legally required, but **human-in-the-loop is a control pattern, not a guarantee of quality**. Use the human, AI, automated, or hybrid process that produces the best evidenced outcome within the required authority and accountability constraints.
 
+> **Apply the same standard to human, AI and hybrid work: assess the complete process and its results, not the identity of the producer.**
+
 See [AI can do business work too](content/ai-business-capability-and-judgement.md).
 
 ## Count the whole job
