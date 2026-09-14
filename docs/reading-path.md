@@ -20,6 +20,15 @@ For a meeting, use the printable [`content/meeting-brief.md`](../content/meeting
 
 These pages support the central argument but are not prerequisites.
 
+### How do ideas become products rather than just plausible concepts?
+
+- [`content/product-ideas-vs-product-discovery.md`](../content/product-ideas-vs-product-discovery.md)
+- [`content/model-capability-vs-product-strategy.md`](../content/model-capability-vs-product-strategy.md)
+
+### How do technical choices change product economics?
+
+- [`content/architecture-economics-and-product-decisions.md`](../content/architecture-economics-and-product-decisions.md)
+
 ### What happens to technical capability when AI gets much better?
 
 - [`content/ai-does-not-eliminate-technical-capability.md`](../content/ai-does-not-eliminate-technical-capability.md)
@@ -45,7 +54,9 @@ For contributors, reviewers, researchers, and readers who want to inspect the ev
 1. [`docs/evidence-policy.md`](evidence-policy.md) — evidence classes, claim statuses, scope, anecdotes, and corrections.
 2. [`data/claims.yml`](../data/claims.yml) — claim-level traceability.
 3. [`data/sources.yml`](../data/sources.yml) — the canonical source register.
-4. [`content/corrections.md`](../content/corrections.md) — correction and editorial-review route.
+4. [`data/product-discovery-sources.yml`](../data/product-discovery-sources.yml) — user-needs, discovery, and multidisciplinary-product evidence.
+5. [`data/architecture-economics-sources.yml`](../data/architecture-economics-sources.yml) — model-routing, workflow economics, and cross-functional architecture evidence.
+6. [`content/corrections.md`](../content/corrections.md) — correction and editorial-review route.
 
 The publication build renders the Markdown and YAML into normal HTML pages. Raw source files remain available for inspection.
 
