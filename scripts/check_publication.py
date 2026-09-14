@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Small structural publication gate for AI Output to Value.
+"""Structural publication gate for AI Output to Value.
 
-This script does not establish whether a claim is true. It checks that the
-repository's evidence and publication structure is internally consistent:
+This script does not establish whether a factual claim is true. It checks that
+the repository's evidence and publication structure is internally consistent:
 
 - YAML parses;
-- source IDs are unique;
-- required source metadata is present;
-- claim IDs are unique;
-- claim evidence points to registered source IDs;
-- claim publication targets exist;
-- local Markdown/HTML links point to existing files or directories.
+- source IDs are unique and required source fields exist;
+- claim IDs are unique and evidence points to registered sources;
+- publication targets referenced by claims exist;
+- article IDs/slugs are unique and source Markdown files exist;
+- local Markdown/HTML links point to existing files or directories;
+- a built site exists when the builder has been run.
 """
 
 from __future__ import annotations
@@ -55,6 +55,19 @@ EVIDENCE_REQUIRED = {
     "qualification",
 }
 
+ARTICLE_REQUIRED = {
+    "id",
+    "title",
+    "source",
+    "slug",
+    "section",
+    "order",
+    "summary",
+    "maintainer",
+    "reviewed",
+    "status",
+}
+
 MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 HTML_HREF_RE = re.compile(r"\bhref=[\"']([^\"']+)[\"']", re.IGNORECASE)
 
@@ -77,7 +90,7 @@ class CheckResult:
 def load_yaml(path: Path, result: CheckResult):
     try:
         return yaml.safe_load(path.read_text(encoding="utf-8"))
-    except Exception as exc:  # PyYAML provides useful parse details in str(exc)
+    except Exception as exc:
         result.error(f"{path.relative_to(ROOT)}: invalid YAML: {exc}")
         return None
 
@@ -175,9 +188,7 @@ def check_claims(source_ids: set[str], result: CheckResult) -> None:
                     )
                 source_id = item.get("source_id")
                 if source_id not in source_ids:
-                    result.error(
-                        f"{evidence_label} references unknown source_id: {source_id}"
-                    )
+                    result.error(f"{evidence_label} references unknown source_id: {source_id}")
 
         published_in = claim.get("published_in")
         if not isinstance(published_in, list) or not published_in:
@@ -199,9 +210,55 @@ def check_claims(source_ids: set[str], result: CheckResult) -> None:
                     result.error(f"{pub_label} requires a locator")
 
         if claim.get("human_review_status") != "completed":
-            result.warn(
-                f"{claim_id}: human review is {claim.get('human_review_status', 'unspecified')}"
-            )
+            result.warn(f"{claim_id}: human review is {claim.get('human_review_status', 'unspecified')}")
+
+
+def check_articles(result: CheckResult) -> None:
+    path = DATA_DIR / "articles.yml"
+    if not path.exists():
+        result.error("data/articles.yml is missing")
+        return
+
+    data = load_yaml(path, result)
+    articles = data.get("articles") if isinstance(data, dict) else None
+    if not isinstance(articles, list):
+        result.error("data/articles.yml: top-level 'articles' must be a list")
+        return
+
+    ids: set[str] = set()
+    slugs: set[str] = set()
+    for index, article in enumerate(articles, start=1):
+        label = f"data/articles.yml: article #{index}"
+        if not isinstance(article, dict):
+            result.error(f"{label} must be a mapping")
+            continue
+
+        missing = sorted(ARTICLE_REQUIRED - article.keys())
+        if missing:
+            result.error(f"{label} missing fields: {', '.join(missing)}")
+
+        article_id = article.get("id")
+        slug = article.get("slug")
+        source = article.get("source")
+
+        if not isinstance(article_id, str) or not article_id.strip():
+            result.error(f"{label} has an invalid id")
+        elif article_id in ids:
+            result.error(f"duplicate article id: {article_id}")
+        else:
+            ids.add(article_id)
+
+        if not isinstance(slug, str) or not slug.strip():
+            result.error(f"{label} has an invalid slug")
+        elif slug in slugs:
+            result.error(f"duplicate article slug: {slug}")
+        else:
+            slugs.add(slug)
+
+        if not isinstance(source, str) or not source.strip():
+            result.error(f"{label} has an invalid source")
+        elif not (ROOT / source).exists():
+            result.error(f"{label} source does not exist: {source}")
 
 
 def iter_text_files():
@@ -253,20 +310,29 @@ def check_internal_links(result: CheckResult) -> None:
             try:
                 resolved.relative_to(ROOT.resolve())
             except ValueError:
-                result.error(
-                    f"{path.relative_to(ROOT)}: local link escapes repository: {raw_link}"
-                )
+                result.error(f"{path.relative_to(ROOT)}: local link escapes repository: {raw_link}")
                 continue
             if not resolved.exists():
-                result.error(
-                    f"{path.relative_to(ROOT)}: broken internal link: {raw_link}"
-                )
+                result.error(f"{path.relative_to(ROOT)}: broken internal link: {raw_link}")
+
+
+def check_built_site(result: CheckResult) -> None:
+    required = [
+        ROOT / "site" / "index.html",
+        ROOT / "site" / "articles" / "index.html",
+        ROOT / "site" / "evidence" / "index.html",
+    ]
+    for path in required:
+        if not path.exists():
+            result.error(f"built publication file is missing: {path.relative_to(ROOT)}")
 
 
 def main() -> int:
     result = CheckResult()
     source_ids = check_sources(result)
     check_claims(source_ids, result)
+    check_articles(result)
+    check_built_site(result)
     check_internal_links(result)
 
     for warning in result.warnings:
