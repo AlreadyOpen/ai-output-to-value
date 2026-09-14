@@ -72,24 +72,53 @@ This case matters because the framework should not make every answer "more revie
 
 ### Situation
 
-A company can generate a client report for $8 of model and infrastructure cost. Previously the report took several hours of analyst time.
+A company can generate the first version of a client report for **$8 of model and infrastructure cost**. Previously the report required substantially more analyst labour.
 
-### Keep four variables separate
+The $8 generation cost is useful information, but it is not yet the delivery cost, selling price, customer value, margin, or profit.
 
-| Variable | Illustrative question |
+### Keep the quantities separate
+
+| Variable | Meaning |
 | --- | --- |
-| **Customer value** | Does the report improve a decision enough that the customer wants it? |
-| **Delivery cost** | What do generation, verification, support, revisions and operations cost in total? |
-| **Price / willingness to pay** | What will the customer pay given alternative tools and suppliers? |
-| **Supplier margin** | Is the price greater than the full delivery cost at the required service level? |
+| **Customer value** | What benefit the customer receives from the report or decision process. This is not automatically the price charged. |
+| **Selling price** | What the customer actually pays the supplier. |
+| **Relevant delivery cost** | Generation plus verification, data, integration, revisions, operations, support and other variable costs required to deliver the promised service. |
+| **Contribution** | Selling price minus the relevant delivery cost. It is **before** fixed overhead, sales cost, tax and other business-level costs unless those are explicitly included. |
 
-Suppose production falls from $180 to $20, but customers will only pay $25 because comparable outputs are now abundant. The cheaper production is real, but it did not automatically create an attractive business.
+### Scenario A — production became cheap, but the business is weak
 
-Alternatively, suppose the company adds proprietary data, workflow integration, reliable verification and a decision process customers value at $400. The same cheap production can now support a strong margin.
+Assume the new workflow has:
+
+- model and infrastructure: **$8**;
+- verification and correction: **$7**;
+- expected revisions and support: **$5**;
+- **relevant delivery cost: $20**;
+- **selling price: $25**.
+
+The contribution is therefore **$5 per report before fixed costs**.
+
+If comparable outputs have also become abundant, customers may be unwilling to pay materially more. The reduction in production cost is real, but it does not automatically create an attractive business once the full delivery workflow and achievable price are counted.
+
+### Scenario B — surrounding capability creates additional value
+
+Now assume the supplier adds proprietary data, workflow integration, reliable verification and a decision process that customers find materially more useful.
+
+For illustration:
+
+- estimated customer value from the improved outcome: **$600**;
+- **selling price: $400**;
+- model/infrastructure plus data, integration, verification, revisions and support: **$90 relevant delivery cost**;
+- **contribution: $310 per delivery before fixed costs**.
+
+This does **not** prove the total business is profitable. Sales, product development, fixed infrastructure, insurance, administration and other costs may still matter. It does show why a cheap underlying model call can support a strong commercial proposition **when the complete service creates enough value and the full delivery cost remains below the realised price**.
 
 ### Decision principle
 
 > **Cheap production creates an opportunity to test — not proof of a profitable business.**
+
+And when evaluating a positive case:
+
+> **Do not substitute estimated customer value for realised price, or contribution before fixed costs for total business profit.**
 
 ---
 
