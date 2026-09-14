@@ -14,7 +14,8 @@ from publication_data import load_yaml, source_map
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-REPO_URL = "https://github.com/helenkwok/ai-output-to-value"
+REPO_URL = os.environ.get("PUBLICATION_REPO_URL", "https://github.com/helenkwok/ai-output-to-value")
+UMBRELLA_URL = os.environ.get("PUBLICATION_UMBRELLA_URL", "https://github.com/AlreadyOpen")
 SOURCE_REF = os.environ.get("PUBLICATION_SOURCE_REF") or os.environ.get("GITHUB_SHA") or "main"
 STATUS = {
     "draft": "Draft",
@@ -48,9 +49,9 @@ def page_shell(title: str, body: str, source: str | None = None, meta: str = "")
 <title>{html.escape(title)} — AI Output to Value</title>
 <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="../publication.css"></head><body>
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a></nav></div></header>
-<details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a></nav></details>
-<main id="main" class="article-shell"><article class="article-body"><div class="article-meta">{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="../articles/corrections.html">Report a correction</a></aside></main></body></html>"""
+<header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></div></header>
+<details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></details>
+<main id="main" class="article-shell"><article class="article-body"><div class="article-meta">{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/corrections.html">Report a correction</a></aside></main></body></html>"""
 
 
 def rewrite_links(rendered: str, mapping: dict[str, str], source_path: Path) -> str:
@@ -167,7 +168,7 @@ def build() -> None:
     SITE.mkdir(parents=True)
     for name in ("index.html", "styles.css", "publication.css"): shutil.copy2(ROOT / name, SITE / name)
     render_articles(); render_evidence()
-    print(f"Built static site at {SITE} using source ref {SOURCE_REF}")
+    print(f"Built static site at {SITE} using source ref {SOURCE_REF}; repository {REPO_URL}; umbrella {UMBRELLA_URL}")
 
 
 if __name__ == "__main__": build()
