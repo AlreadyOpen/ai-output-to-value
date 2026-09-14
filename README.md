@@ -9,35 +9,32 @@
 If you are a business reader, do **not** read the repository front-to-back.
 
 1. **[Start here — five-minute guide](START-HERE.md)**
-2. **[Tool access vs client readiness](content/tool-access-vs-client-readiness.md)**
-3. **[Executive guide](content/executive-guide.md)**
+2. **[A strong frame is not the same as a finished job](content/frame-vs-finished-work.md)**
+3. **[Tool access vs client readiness](content/tool-access-vs-client-readiness.md)**
+4. **[Executive guide](content/executive-guide.md)**
+5. **[Worked decisions](content/worked-cases.md)**
 
-That is the primary reading path.
+For a meeting, use the **[one-page meeting brief](content/meeting-brief.md)**.
 
-The repository also contains deeper analyses on open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational value. They support the broader framework but are **not prerequisites** for understanding the main argument. See [`docs/reading-path.md`](docs/reading-path.md).
+Broader analyses on open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational capability are deeper reading rather than prerequisites. See [`docs/reading-path.md`](docs/reading-path.md).
 
 ## The practical question
 
 Generative AI can produce remarkably complete software, reports, research, designs, automations, and other work at very low marginal cost.
 
-The project asks a narrower management question:
+The project asks:
 
 > **We bought or gained access to AI. What have we actually achieved, what remains, and what evidence connects the output to business value?**
 
-A useful progression is:
+This project uses a decision framework:
 
 **Access → Output → Deliverable → Capability → Outcome → Value**
 
-| Stage | Question |
-| --- | --- |
-| **Access** | Do we have the model, agent, API, subscription, or tool? |
-| **Output** | Did it generate something useful-looking or functional? |
-| **Deliverable** | Is it fit for the intended purpose and acceptance criteria? |
-| **Capability** | Can the organisation repeatedly verify, operate, support, maintain, and improve it? |
-| **Outcome** | What actually changed? |
-| **Value** | Was that outcome worth the full cost, risk, and trade-offs? |
+These are **six different claims**, not six mandatory steps. A disposable prototype can create a valuable learning outcome without becoming an operational service.
 
-The model is not a maturity score. A prototype may intentionally stop early. Assurance should match the consequence of being wrong.
+A useful reverse-planning question is:
+
+> **What outcome do we need, and what evidence, capability, and work would make that outcome plausible?**
 
 ## Three distinctions that matter
 
@@ -45,65 +42,67 @@ The model is not a maturity score. A prototype may intentionally stop early. Ass
 
 A capable agent may generate most of the visible artefact. That does not automatically establish that the result reflects the actual client's requirements or that the supplier can verify, operate, support, maintain, and stand behind it.
 
-### Vibe coding ≠ AI-assisted work ≠ AI slop
+### Vibe coding, AI-assisted work, responsible practice, and slop are different dimensions
 
 - **Vibe coding** describes a way of working.
-- **AI-assisted work** describes AI involvement in the workflow.
+- **AI-assisted work** means AI contributed to producing or performing the work.
+- **Responsible AI-assisted practice** adds proportionate evaluation, ownership, and controls for the intended use.
 - **AI slop / workslop** describes a quality problem.
 
-They are not three levels of the same thing.
+They can overlap. A vibe-coded artefact is AI-assisted; whether it is fit for purpose is a separate assessment.
 
-### Faster generation ≠ faster workflow ≠ realised financial value
+### Reduced labour ≠ reduced elapsed time ≠ realised financial value
 
-AI may genuinely reduce all three. The project simply keeps them separate so that a gain in one stage is not automatically reported as a gain in another.
+AI may genuinely improve all three. The project keeps the units separate so that a gain in one metric is not automatically reported as a gain in another.
 
 ## Evidence model
 
 This project is intended to be more than an “awesome links” list.
 
-Source registers record:
+The canonical [`data/sources.yml`](data/sources.yml) identifies publications and records source type, supported topics, scope, limitations, review date, and availability status where relevant.
 
-**Source → evidence type → supported topics → scope → limitations → review date**
-
-For important published factual claims, [`data/claims.yml`](data/claims.yml) adds:
+For important published factual claims, [`data/claims.yml`](data/claims.yml) records:
 
 **Claim → exact source locator → relevant finding → qualification → publication location → reviewer → review status**
 
 See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
-The current claim register intentionally marks its first external-source checks as **AI-assisted initial checks with human review pending**. The repository should not imply independent human verification that has not occurred.
+The current claim register intentionally marks its initial external-source checks as **AI-assisted checks with human review pending**. The repository should not imply independent human verification that has not occurred.
+
+## Publication layer
+
+Markdown and YAML remain the maintained source. [`scripts/build_site.py`](scripts/build_site.py) generates normal static HTML pages into `site/`:
+
+- styled article pages;
+- article index and reading routes;
+- claim-level evidence page;
+- mobile navigation;
+- print-friendly layouts;
+- links back to the raw source for inspection.
+
+This keeps the publication lightweight: no client-side application framework is required.
 
 ## Publication gate
 
-A small GitHub Actions publication gate runs:
+GitHub Actions runs:
 
 ```bash
+python scripts/build_site.py
 python scripts/check_publication.py
 ```
 
-It checks:
+The gate checks:
 
 - YAML validity;
-- unique source and claim IDs;
-- required source metadata;
+- unique source, claim, article IDs and article slugs;
+- required evidence metadata;
 - claim references to registered sources;
+- article source existence;
 - publication-target existence;
+- built-site presence;
 - broken local Markdown/HTML links.
 
-These checks prevent structural publishing mistakes. **They do not establish truth or source quality.**
-
-## Deeper reading
-
-The broader material is organised by question in [`docs/reading-path.md`](docs/reading-path.md), including:
-
-- strong frames versus finished work;
-- AI and technical capability;
-- source code and open-source economics;
-- humans, agents, authority, and instruments inside a company;
-- dynamic valuation of organisational capabilities;
-- representation channels and the e-commerce / brick-and-mortar analogy.
-
-These pages should remain supporting analysis unless they are necessary to answer the primary business question.
+These checks prevent structural publishing mistakes. **They do not establish factual truth or source quality.**
 
 ## Repository structure
 
@@ -114,35 +113,34 @@ These pages should remain supporting analysis unless they are necessary to answe
 ├── CONTRIBUTING.md
 ├── index.html
 ├── styles.css
-├── content/                 # Core guide + deeper analyses
+├── publication.css
+├── content/                 # Core guide + deeper analyses + meeting/corrections material
 ├── data/
+│   ├── articles.yml         # Publication manifest
 │   ├── claims.yml           # Claim-level traceability
-│   ├── sources.yml          # Core source register
-│   └── *-sources.yml        # Topic-specific source registers
+│   └── sources.yml          # Canonical source register
 ├── docs/
 │   ├── evidence-policy.md
 │   ├── positioning.md
 │   └── reading-path.md
 ├── scripts/
+│   ├── build_site.py
 │   └── check_publication.py
 └── .github/workflows/
     └── publication-gate.yml
 ```
 
-## Contributing
+`site/` is generated during the publication build.
 
-Contributions are welcome, especially strong sources, corrections, counterexamples, clearer executive explanations, case studies, and examples of both successful and unsuccessful AI-assisted workflows.
+## Corrections and editorial responsibility
 
-Before submitting, see [`CONTRIBUTING.md`](CONTRIBUTING.md) and run:
+The initial maintainer is **Helen Kwok**. Evidence-based corrections and counterexamples are explicitly welcome.
 
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/check_publication.py
-```
+See [`content/corrections.md`](content/corrections.md) for the correction route and [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution guidance.
 
 ## Current status
 
-**Pre-public-launch foundation.** The core message and reading path are in place. Evidence is being migrated from topic-level source registration toward claim-level traceability, and launch-critical claims still require independent human review.
+**Pre-public-launch.** The core reading route, evidence model, static publication build, and structural checks are in place. Launch-critical external claims still require independent human review, and licensing/hosting remain open decisions.
 
 ## Licence
 
