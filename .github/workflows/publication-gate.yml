@@ -25,7 +25,10 @@ jobs:
       - name: Install check dependencies
         run: python -m pip install -r requirements-dev.txt
 
-      - name: Build static publication
+      - name: Run publication regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Build static publication preview
         run: python scripts/build_site.py
 
       - name: Validate evidence structure and internal links
