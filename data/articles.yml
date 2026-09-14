@@ -101,6 +101,17 @@ articles:
     reviewed: 2026-09-14
     status: draft
 
+  - id: architecture-economics
+    title: Engineering choices can be business decisions
+    source: content/architecture-economics-and-product-decisions.md
+    slug: architecture-economics-and-product-decisions
+    section: deeper
+    order: 140
+    summary: How model routing, verification and orchestration can affect end-to-end cost, quality and commercial feasibility.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-14
+    status: research_draft
+
   - id: company-actors-instruments
     title: Company actors are not the same as company instruments
     source: content/company-actors-vs-instruments.md
