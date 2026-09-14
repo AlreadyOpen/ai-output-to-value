@@ -1,0 +1,154 @@
+# AI Output to Value
+
+**An open guide to AI-assisted work, quality, accountability, and business value.**
+
+AI tools can produce drafts, code, research, designs, reports, and prototypes quickly. That does not automatically make those outputs verified deliverables, operational capabilities, or profitable products.
+
+This project helps decision-makers separate those ideas.
+
+> **Access is not capability. Output is not completion. Activity is not business value.**
+
+## Why this project exists
+
+Business conversations about generative AI often collapse several different things into one bucket:
+
+- buying an API key or software subscription;
+- experimenting through prompt-driven or “vibe” workflows;
+- professional AI-assisted work with review and domain expertise;
+- low-value or misleading output sometimes called AI slop or workslop;
+- a working prototype;
+- a production-ready deliverable;
+- measurable business value.
+
+These are not synonyms and they should not be evaluated the same way.
+
+The goal of **AI Output to Value** is not to argue that AI is good or bad. It is to make the remaining work, evidence, ownership, risk, and economics visible so that leaders can make better decisions.
+
+## The core model
+
+The project uses a simple progression:
+
+**Access → Output → Deliverable → Capability → Outcome → Value**
+
+| Stage | What it means | What it does *not* prove |
+| --- | --- | --- |
+| **Access** | The organisation has a model, API, subscription, agent, or tool. | That the organisation knows how to use it effectively. |
+| **Output** | The system produced code, text, analysis, media, or another artefact. | That the output is correct, useful, complete, or safe. |
+| **Deliverable** | The output has been made fit for a defined purpose and acceptance criteria. | That the organisation can operate or maintain it. |
+| **Capability** | People, process, tooling, knowledge, and ownership exist to use it repeatedly. | That it produces a valuable business outcome. |
+| **Outcome** | Something useful changed: time, quality, service, throughput, risk, revenue, etc. | That the gain exceeds the full cost of achieving it. |
+| **Value** | The outcome is worth its total cost and trade-offs. | That the same approach will generalise to every task. |
+
+This progression is deliberately not a maturity score. Some tasks should stop at a prototype. Some low-risk tasks need only lightweight checking. Higher-risk or client-facing work needs stronger evidence and accountability.
+
+## What this project will explain
+
+The public guide is being organised around six questions:
+
+1. **Understand the difference** — Are we confusing a tool, a workflow, a quality judgement, and a business outcome?
+2. **From demonstration to delivery** — What has actually been shown, and what remains unverified?
+3. **Count the whole job** — Did AI remove work, or move review, correction, integration, and support work elsewhere?
+4. **Make ownership clear** — Who prepares, verifies, approves, operates, supports, and maintains the result?
+5. **Recognise genuine value** — When does AI assistance create benefits worth pursuing?
+6. **Inspect the evidence** — What supports a claim, in what context, and with what limitations?
+
+## Terminology
+
+### Vibe coding
+
+A style of software creation driven primarily through natural-language prompting and rapid iteration. The term is used inconsistently, so this project will always state the intended meaning rather than use it as a judgement of quality.
+
+### AI-assisted work
+
+Work in which AI contributes to an artefact or process while people remain responsible for defining the task, evaluating the result, and deciding whether it is fit for use. The label **AI-assisted** is descriptive, not a quality certification.
+
+### AI slop / workslop
+
+A quality problem: output that appears finished or polished but lacks sufficient substance, correctness, context, or usefulness, often shifting interpretation or cleanup work onto someone else. It can occur in code, documents, analysis, images, presentations, and other work products.
+
+### Prototype
+
+Evidence that an idea can be explored or demonstrated. A prototype can be extremely valuable without being production-ready.
+
+### Production-ready / client-ready
+
+Context-dependent claims that require explicit acceptance criteria. They should never be inferred merely because an artefact looks polished or runs successfully in one demonstration.
+
+## Principles
+
+- **Pro-AI, not credulous about AI.** Useful automation should be adopted when the evidence supports it.
+- **No anti-vibe gatekeeping.** Fast exploratory workflows are legitimate; the issue is misrepresenting their readiness or evidence.
+- **Judge fitness for purpose, not authorship.** Human work can be poor. AI work can be excellent. The origin alone is not the test.
+- **Count downstream work.** Review, correction, integration, support, maintenance, and risk transfer are part of the job.
+- **Match assurance to consequence.** A disposable prototype and a client migration guide should not have the same verification burden.
+- **Make ownership visible.** Generating an artefact does not automatically identify the person qualified to approve it.
+- **Separate evidence from anecdotes.** Practitioner stories can reveal useful failure modes, but they do not establish prevalence or causation.
+- **Preserve uncertainty.** Research findings must retain their scope, methodology, and limitations.
+- **Measure outcomes, not AI activity.** More prompts, tokens, generated code, or licences are not business-value metrics by themselves.
+
+## Evidence, not logo collecting
+
+The repository will maintain a source register rather than a conventional “awesome list”. Each important claim should be traceable through:
+
+**Claim → source → evidence type → relevant finding → scope → limitations → review date**
+
+Sources may include:
+
+- peer-reviewed or working research papers;
+- official guidance and standards;
+- empirical industry research with disclosed methodology;
+- vendor research, clearly labelled as such;
+- case studies;
+- practitioner accounts and community discussions, clearly labelled as anecdotal.
+
+A prestigious source does not make every claim in it universal. An anecdote does not become a statistic because many people relate to it.
+
+See [`docs/evidence-policy.md`](docs/evidence-policy.md) and [`data/sources.yml`](data/sources.yml).
+
+## Early cases that motivated the project
+
+Two community discussions illustrate the distinction between *producing something* and *being able to stand behind it*:
+
+- An ExperiencedDevs discussion argues that poor software can remain commercially successful because software quality is only one part of enterprise purchasing, switching cost, accountability, support, and organisational economics.
+- A consulting discussion describes a client-facing technical guide generated with AI and handed to colleagues for review after the commitment had already been made. The useful lesson is not “AI documents are bad”; it is that preparation, verification, approval, and client commitment are different responsibilities.
+
+These discussions are treated as **practitioner accounts**, not verified evidence about the named or implied companies involved.
+
+## Repository structure
+
+```text
+.
+├── README.md
+├── CONTRIBUTING.md
+├── content/
+│   └── executive-guide.md
+├── data/
+│   └── sources.yml
+└── docs/
+    ├── evidence-policy.md
+    └── positioning.md
+```
+
+A public website will sit on top of the same content and source register so that nontechnical readers do not need to navigate GitHub to use the guide.
+
+## Current status
+
+**Early foundation.** The project is establishing its editorial model, evidence policy, terminology, and first executive-facing guide before expanding the website.
+
+The first milestone is a concise, credible site that a technical professional can send to a manager without needing to explain or defend the tone.
+
+## Contributing
+
+Contributions are welcome, especially:
+
+- strong primary sources;
+- corrections or challenges to existing claims;
+- case studies with enough context to evaluate them;
+- clearer explanations for nontechnical decision-makers;
+- examples showing both successful and unsuccessful AI-assisted workflows.
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Licence
+
+A project licence has not yet been selected. Because this repository will contain both software and editorial/reference content, code and content may ultimately use different licences.
