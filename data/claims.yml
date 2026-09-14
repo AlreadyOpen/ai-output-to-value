@@ -1,13 +1,11 @@
 # Claim-level traceability for factual claims used in public-facing material.
 #
-# The source registers describe whole sources. This file records the narrower
-# relationship between a published claim and the exact part of a source that
-# supports it.
+# Source records identify publications. Claims identify the actual statement,
+# exact evidence locator, qualification, publication location, and review state.
 #
-# `reviewer` records who performed the source check. The initial entries below
-# were checked with AI assistance on 2026-09-14 and intentionally retain
-# `human_review_status: pending` rather than implying an independent human
-# review that has not yet happened.
+# Automated checks can verify structure and references. They cannot establish
+# that the evidence truly supports the prose. Human editorial review remains a
+# separate publication task.
 
 claims:
   - id: replit-plan-positioning-2026-09
@@ -15,17 +13,16 @@ claims:
     status: supported
     launch_critical: true
     evidence:
-      - source_id: replit-pricing-and-product-positioning
-        locator: Replit home/product page, pricing-plan section headed "Start Small. Scale Fast. Designed for Every Stage"; Starter and Replit Pro plan cards.
-        relevant_finding: The Starter card says "For exploring what’s possible" and the Pro card says "For commercial and professional builds".
+      - source_id: replit-home-plan-positioning
+        source_version: reviewed 2026-09-14
+        locator: Homepage pricing section "Start Small. Scale Fast. Designed for Every Stage", Starter and Replit Pro plan cards.
+        relevant_finding: Starter says "For exploring what’s possible" and Replit Pro says "For commercial and professional builds".
         qualification: This is vendor product positioning, not evidence that a free-plan result is unsuitable for clients or that a paid plan certifies professional quality.
     published_in:
       - file: content/tool-access-vs-client-readiness.md
         locator: "## A concrete example: Replit"
       - file: content/executive-guide.md
         locator: "### Replit is a useful concrete example"
-      - file: index.html
-        locator: "#evidence"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
     human_review_status: pending
@@ -35,8 +32,9 @@ claims:
     status: supported
     launch_critical: true
     evidence:
-      - source_id: replit-pricing-and-product-positioning
-        locator: Replit pricing page, note immediately below the plan cards and before the frequently asked questions.
+      - source_id: replit-pricing-agent-warning
+        source_version: reviewed 2026-09-14
+        locator: Pricing page note immediately below the plan cards and before Frequently Asked Questions.
         relevant_finding: Replit states that Agent is powered by large language models and that probabilistic behaviour means it may occasionally make mistakes.
         qualification: The warning establishes fallibility, not a measured error rate or the quality of any specific generated project.
     published_in:
@@ -44,24 +42,21 @@ claims:
         locator: "## A concrete example: Replit"
       - file: content/executive-guide.md
         locator: "### Replit is a useful concrete example"
-      - file: index.html
-        locator: "#evidence"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
     human_review_status: pending
 
   - id: dora-ai-amplifier-2025
-    claim_text: DORA's 2025 research characterises AI primarily as an amplifier of an organisation's existing strengths and weaknesses and says the greatest returns depend on the underlying organisational system rather than the tools alone.
+    claim_text: DORA's 2025 research characterises AI primarily as an amplifier of an organisation's existing strengths and weaknesses and links the greatest returns to the underlying organisational system rather than tools alone.
     status: supported
     launch_critical: true
     evidence:
       - source_id: dora-2025
-        locator: DORA Research 2025 overview page, introductory paragraph beneath "Download the 2025 DORA Report".
-        relevant_finding: The overview describes AI's primary role as an amplifier and links the greatest returns to strategic focus on the underlying organisational system.
-        qualification: DORA is industry research run by Google Cloud. This framing should not be converted into a universal staffing rule or guaranteed ROI for a particular company.
+        source_version: 2025 report landing page reviewed 2026-09-14
+        locator: DORA Research 2025 overview, introductory summary beneath the report heading.
+        relevant_finding: The overview describes AI's primary role as an amplifier and links returns to strategic focus on the underlying organisational system.
+        qualification: DORA is industry research run by Google Cloud. This framing is not a universal staffing rule or guaranteed ROI for a particular company.
     published_in:
-      - file: index.html
-        locator: "#evidence"
       - file: content/ai-does-not-eliminate-technical-capability.md
         locator: DORA discussion
     reviewer: AI-assisted initial source check
@@ -74,32 +69,74 @@ claims:
     launch_critical: true
     evidence:
       - source_id: brynjolfsson-li-raymond-generative-ai-at-work
-        locator: NBER Working Paper 31161, abstract; revision dated November 2023.
+        source_version: NBER Working Paper 31161, revision dated November 2023
+        locator: Abstract.
         relevant_finding: The abstract reports a 14% average increase in issues resolved per hour and heterogeneous effects across workers.
-        qualification: This is a specific customer-support intervention. It is not a universal productivity multiplier for software development, consulting, management, or knowledge work generally.
+        qualification: This is a specific customer-support intervention, not a universal productivity multiplier for software development, consulting, management, or knowledge work generally.
     published_in:
-      - file: index.html
-        locator: "#evidence"
       - file: data/sources.yml
-        locator: source record brynjolfsson-li-raymond-generative-ai-at-work
+        locator: brynjolfsson-li-raymond-generative-ai-at-work source record
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
     human_review_status: pending
 
   - id: uk-ai-playbook-human-control-lifecycle-2025
-    claim_text: The UK Government AI Playbook calls for meaningful human control at appropriate stages, full AI lifecycle management, appropriate skills and expertise, testing, monitoring, and clear accountability.
+    claim_text: The UK Government AI Playbook calls for meaningful human control at appropriate stages, lifecycle management, appropriate skills and expertise, testing, monitoring, and clear accountability.
     status: supported
     launch_critical: true
     evidence:
       - source_id: uk-government-ai-playbook
+        source_version: HTML playbook reviewed 2026-09-14
         locator: Principles 4, 5 and 9; sections "Accountability and responsibility" and "Governance".
         relevant_finding: The playbook describes meaningful human control, lifecycle support and maintenance, testing and monitoring, skills and expertise, and explicit responsibilities across the AI lifecycle.
-        qualification: This is UK public-sector guidance. It is useful governance guidance but not empirical proof that the same controls create financial value in every private-sector use case.
+        qualification: UK public-sector guidance; useful for governance but not empirical proof that the same controls create financial value in every private-sector use case.
     published_in:
-      - file: index.html
-        locator: "#evidence"
       - file: data/sources.yml
-        locator: source record uk-government-ai-playbook
+        locator: uk-government-ai-playbook source record
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: cloudflare-wallets-availability-2026-09
+    claim_text: Cloudflare has announced an Account Wallet and Virtual Wallet architecture, but at the review date only wallet-handle reservation is available; a reserved handle does not yet send, receive, or hold funds.
+    status: supported
+    launch_critical: false
+    availability_status: announced_full_wallet_forthcoming
+    evidence:
+      - source_id: cloudflare-wallets-docs
+        source_version: last updated 2026-08-19; reviewed 2026-09-14
+        locator: Sections "What is available today" and introductory Account Wallet / Virtual Wallet description.
+        relevant_finding: The documentation says handle reservations are available today, reserved handles do not yet allow sending, receiving, or holding funds, and describes Account Wallet / Virtual Wallet capabilities in future tense.
+        qualification: Keep this separate from the currently documented Agentic Payments protocols. Do not describe Cloudflare Wallet delegated spending as currently deployed unless the availability page changes.
+      - source_id: cloudflare-agent-identity-wallet-press-release
+        source_version: press release 2026-08-04
+        locator: Paragraph stating handle reservation opens today and full wallet access / Virtual Wallet issuance will be available in coming months.
+        relevant_finding: The announcement explicitly distinguishes immediate handle reservation from forthcoming full wallet access.
+        qualification: Product announcement contains forward-looking statements.
+    published_in:
+      - file: content/company-actors-vs-instruments.md
+        locator: Cloudflare architecture section
+      - file: content/non-human-actors-and-accountability.md
+        locator: Agent identity section
+      - file: content/assess-every-layer-of-the-company.md
+        locator: Organisational AI section
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: metr-experiment-design-2026
+    claim_text: METR said its newer developer-productivity experiment provided an unreliable signal of the current productivity effect of AI tools because of participation, task-selection, pay-rate, concurrent-agent, and time-measurement problems.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: metr-developer-productivity-experiment-design-2026
+        source_version: published 2026-02-24
+        locator: Opening paragraphs and numbered list of study-design problems.
+        relevant_finding: METR says the new experiment gives an unreliable signal and explains selection and measurement problems that make the central estimate difficult to interpret.
+        qualification: This does not provide a reliable current productivity uplift estimate and is separate from METR's task-horizon research.
+    published_in:
+      - file: data/sources.yml
+        locator: metr-developer-productivity-experiment-design-2026 source record
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
     human_review_status: pending
@@ -110,9 +147,10 @@ claims:
     launch_critical: false
     evidence:
       - source_id: linux-kernel-free-software-faq
-        locator: kernel.org FAQ, question "Is Linux Kernel Free Software?"
+        source_version: kernel.org FAQ reviewed 2026-09-14
+        locator: Question "Is Linux Kernel Free Software?"
         relevant_finding: The official kernel FAQ identifies the Linux kernel as Free Software released under GNU GPL version 2.
-        qualification: This does not imply that every Linux distribution, support contract, firmware component, operating environment, or organisational capability has zero cost.
+        qualification: This establishes licensing status only; it does not establish economic or operational value.
     published_in:
       - file: content/ai-does-not-eliminate-technical-capability.md
         locator: Linux/free-software discussion
@@ -128,9 +166,10 @@ claims:
     launch_critical: false
     evidence:
       - source_id: hbs-value-open-source-software-2024
-        locator: Harvard Business School AI Institute summary, discussion of supply-side and demand-side estimates in "Revealing Value — The Economic Power of Open Source Software".
-        relevant_finding: The study reports model-based estimates of development/replacement value far above the acquisition price of the software.
-        qualification: The estimates are model-based and are not a market capitalisation, a valuation of Linux specifically, or proof that every open-source project has high economic value.
+        source_version: HBS AI Institute summary reviewed 2026-09-14
+        locator: Discussion of supply-side and demand-side estimates in "Revealing Value — The Economic Power of Open Source Software".
+        relevant_finding: The study reports model-based development/replacement-value estimates far above the acquisition price of the shared software.
+        qualification: Editorial inference from model-based estimates; not a market capitalisation, a Linux valuation, or proof that every open-source project has high economic value.
     published_in:
       - file: content/source-code-open-source-and-ai.md
         locator: open-source economics discussion
