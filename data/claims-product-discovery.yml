@@ -19,7 +19,7 @@ claims:
         locator: "## Public guidance supporting the distinction"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
 
   - id: uk-ai-playbook-use-cases-led-by-needs
     claim_text: The UK Government AI Playbook recommends selecting AI use cases from business and user needs, pain points and inefficiencies rather than technology capability alone.
@@ -38,4 +38,4 @@ claims:
         locator: "## Public guidance supporting the distinction"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
-    human_review_status: pending
+    independent_review_status: pending
