@@ -1,116 +1,123 @@
 # Evidence policy
 
-AI Output to Value is intended to be useful in management conversations, procurement discussions, delivery reviews, and professional practice. That requires a higher standard than collecting persuasive links.
+AI Output to Value is intended for management conversations, procurement discussions, delivery reviews, and professional practice. That requires more than collecting persuasive links.
 
-The project therefore separates **evidence**, **interpretation**, **recommendation**, and **anecdote**.
+The project separates **evidence**, **interpretation**, **recommendation**, and **anecdote**. It also separates **a structurally valid preview** from **an approved release**.
 
 ## 1. Evidence classes
 
-The policy uses a small set of broad evidence classes. The structured source register may use a more specific `evidence_type` label where that improves precision; those labels must still roll up to one of these policy classes.
+The structured registries may use specific `evidence_type` labels, but they should remain recognisable as one of these broad classes.
 
 ### Research study
 
-Empirical or experimental work with a described method, sample, measures, and limitations. This includes peer-reviewed papers and clearly identified working papers.
+Empirical or experimental work with a described method, sample, measures, and limitations.
 
-**Use for:** claims about measured effects in a defined context.
+**Use for:** measured effects in a defined context.
 
-**Do not use for:** universal productivity multipliers or claims outside the study population without additional evidence.
+**Do not use for:** universal multipliers or conclusions outside the studied task without additional evidence.
 
 ### Official guidance / standard / statistics
 
-Material issued by governments, regulators, standards bodies, official statistical agencies, or other institutions with a defined public assurance or measurement role.
+Material issued by governments, regulators, standards bodies, or official statistical agencies.
 
 **Use for:** official statistics, governance expectations, lifecycle considerations, assurance practices, procurement questions, and terminology where applicable.
 
-**Do not use for:** proving a financial return that the source does not measure.
+**Do not use for:** financial return or technical effectiveness the source does not measure.
 
 ### Industry research
 
-Research, surveys, or measurement programmes produced by companies, industry organisations, foundations, or research groups.
+Research, surveys, or measurement programmes produced by companies, foundations, or industry research groups.
 
-**Use for:** observed patterns, operational metrics, practitioner data, and emerging evidence.
-
-**Requirement:** disclose who produced the work and retain important methodology and limitations.
+**Requirement:** disclose who produced it and retain material methodology and limitations.
 
 ### Vendor guidance / product documentation / announcement
 
-Material published by a company that sells the relevant product or service.
+Material published by the supplier of the relevant product or service.
 
-**Use for:** product behaviour, availability, vendor framing, implementation guidance, or clearly described internal evidence.
+**Use for:** product behaviour, interfaces, availability, vendor positioning, and implementation guidance.
 
 **Do not use for:** treating commercial positioning as independent proof of quality, ROI, or general effectiveness.
 
-For product capability, record availability explicitly when relevant: for example **announced**, **preview**, **available**, or a more precise status such as **handle reservation available / full capability forthcoming**.
+When availability matters, record it explicitly: for example **announced**, **preview**, **available**, or a more precise status.
 
 ### Case study
 
 A described implementation or outcome in a specific organisation.
 
-**Use for:** showing that an approach can work in a particular setting and identifying practical mechanisms.
+**Use for:** showing that an approach can work in that setting and identifying mechanisms.
 
-**Do not use for:** estimating prevalence or assuming generalisation.
+**Do not use for:** prevalence or automatic generalisation.
 
 ### Practitioner analysis
 
 Reasoned professional commentary by an identifiable practitioner or team.
 
-**Use for:** terminology, workflow patterns, practical distinctions, and hypotheses worth testing.
-
-**Do not use for:** quantitative prevalence claims without independent data.
+**Use for:** terminology, workflow patterns, and hypotheses worth testing.
 
 ### Practitioner account / community discussion
 
-First-person accounts, forum posts, Reddit discussions, issue threads, or similar material.
+First-person accounts, forum posts, issue threads, or community discussions.
 
-**Use for:** discovering failure modes, incentives, questions, and realistic examples.
+**Use for:** discovering failure modes, incentives, questions, and realistic scenarios.
 
-**Do not use for:** establishing that an event occurred exactly as described, identifying culpable organisations, measuring prevalence, or proving causation.
+**Do not use for:** proving that an event occurred exactly as described, measuring prevalence, or proving causation.
 
 ### Editorial recommendation / inference
 
-A recommendation or interpretation made by this project after considering evidence and practical consequences.
-
-**Use for:** decision frameworks, analogies, and conclusions that combine several sources.
+A recommendation or synthesis made by this project.
 
 **Requirement:** label it as editorial rather than presenting it as a direct research finding.
 
-### Registry labels
-
-Specific machine labels can be more detailed than the policy classes. Examples:
-
-| Registry `evidence_type` example | Policy class |
-| --- | --- |
-| `research_study`, `research_working_paper`, `research_summary` | Research study |
-| `official_statistics`, `official_guidance`, `intergovernmental_standard_guidance` | Official guidance / standard / statistics |
-| `industry_research`, `industry_research_summary`, `foundation_report_summary` | Industry research |
-| `vendor_product_documentation`, `vendor_announcement`, `vendor_guidance` | Vendor guidance / product documentation / announcement |
-| `practitioner_analysis` | Practitioner analysis |
-| `community_discussion` | Practitioner account / community discussion |
-
-The label should describe the source, not inflate its authority. Claim status and qualification still determine what can responsibly be published.
-
 ## 2. Claim statuses
 
-Important claims should use one of these statuses in working notes or structured content:
+Important factual claims may use:
 
 - **supported** — directly supported by the cited evidence within its stated scope;
 - **qualified** — supported only with material limitations or contextual conditions;
-- **contested** — credible sources or interpretations disagree;
-- **illustrative** — an example constructed to explain a concept, not an observed measurement;
+- **contested** — credible evidence or interpretations disagree;
+- **illustrative** — a constructed example rather than an observed measurement;
 - **anecdotal** — based on a practitioner account or community discussion;
-- **editorial** — a recommendation or interpretation made by this project.
+- **editorial** — a recommendation or synthesis made by this project.
 
-A source's prestige does not change the status of the claim it can support.
+A prestigious source cannot support a claim outside what it actually says.
 
-## 3. The traceability rule
+## 3. Canonical publication registries
+
+Canonical publication evidence lives under `data/`.
+
+Source records may be split across files such as:
+
+```text
+data/sources.yml
+data/sources-product-discovery.yml
+data/sources-architecture-economics.yml
+data/ai-business-capability-sources.yml
+```
+
+Claim records may likewise be split across:
+
+```text
+data/claims.yml
+data/claims-product-discovery.yml
+data/claims-architecture-economics.yml
+data/claims-ai-business-capability.yml
+```
+
+The exact filenames are less important than the contract: a canonical file under `data/` contains a top-level `sources:` or `claims:` list and is loaded through the shared publication-data loader.
+
+Both the builder and validator use [`scripts/publication_data.py`](../scripts/publication_data.py). This prevents one component from accepting evidence that another component cannot render.
+
+Files under `research/` are working notes or pointers. They are not a second publication registry.
+
+## 4. The traceability rule
 
 For each important factual claim, the project should be able to reconstruct:
 
-> **Claim → source → exact locator → relevant finding → qualification → publication location → reviewer → review date**
+> **Claim → source → source version/date → exact locator → relevant finding → qualification → publication location → reviewer → review date/status**
 
-The source register in [`data/sources.yml`](../data/sources.yml) identifies publications. The claim register in [`data/claims.yml`](../data/claims.yml) records the narrower relationship between a published sentence and the evidence that supports it.
+A broad `supports:` tag in a source record helps discovery. It is not a substitute for claim-level traceability.
 
-For launch-critical factual claims, record at minimum:
+A claim record should resemble:
 
 ```yaml
 - id: stable-claim-id
@@ -119,26 +126,41 @@ For launch-critical factual claims, record at minimum:
   launch_critical: true
   evidence:
     - source_id: registered-source-id
-      locator: Exact section, page, table, figure, paragraph, or named subsection.
-      relevant_finding: What that location actually establishes.
-      qualification: What must remain visible to avoid overclaiming.
+      source_version: version or review date used
+      locator: exact section, page, table, figure or named subsection
+      relevant_finding: what the source actually establishes
+      qualification: what must remain visible to avoid overclaiming
   published_in:
-    - file: index.html
-      locator: "#evidence"
-  reviewer: Name or transparent review role
+    - file: content/example.md
+      locator: "## Exact heading in the article"
+  reviewer: transparent reviewer or review role
   reviewed: 2026-09-14
   human_review_status: pending
 ```
 
-A broad `supports:` tag in a source record is useful for discovery, but it is **not** a substitute for claim-level traceability when a factual statement is published prominently.
+The structural checker verifies that publication locators exist. The built evidence page gives each claim a stable HTML anchor and links back to the pages using it.
 
-The `reviewer` field must not imply independent human verification when none occurred. AI-assisted source checks should be labelled as such and may retain `human_review_status: pending` until a person independently checks the source.
+## 5. Review state must be explicit
 
-## 4. Preserve scope
+A date on an article means **Last updated**, not “all factual claims approved”.
+
+Reader-facing article metadata should distinguish:
+
+- publication status, such as **Draft**, **Research draft**, **Editorial review in progress**, or **Reviewed for publication**;
+- last-updated date;
+- evidence-review state for connected claims.
+
+Machine values such as `research_draft` may remain in YAML but should be translated into normal reader-facing wording.
+
+A claim marked `human_review_status: completed` must have an inspectable reviewer and review date.
+
+The current project policy uses independent human editorial approval for launch-critical claims. This is a **chosen release control**, not a claim that humans are infallible or inherently better judges than AI. Other assurance mechanisms may also contribute, including automated checks, reproducible calculations, model-assisted review, specialist checks, and cross-method verification.
+
+## 6. Preserve scope
 
 When summarising research, retain enough context to prevent a true result from becoming a misleading generalisation.
 
-At minimum, record when available:
+Record when available:
 
 - population or sample;
 - task or domain;
@@ -147,104 +169,126 @@ At minimum, record when available:
 - measured outcome;
 - study period;
 - major limitations;
-- whether the source is peer-reviewed, a working paper, survey, case study, or vendor analysis.
+- peer-review / working-paper / survey / vendor status.
 
-For example, a measured productivity improvement in customer support should not become “AI improves worker productivity by X%” without the customer-support context.
+A measured productivity effect in customer support, for example, should remain a customer-support finding unless additional evidence supports broader use.
 
-## 5. Separate speed from value
+## 7. Separate speed, cost, and value
 
-The project should not treat any of the following as interchangeable:
+Do not treat these as interchangeable:
 
 - reduced labour hours;
-- reduced elapsed delivery time;
+- reduced elapsed time;
 - faster generation;
-- faster completion;
 - reduced cost;
 - increased capacity;
 - increased revenue;
 - increased profit;
 - reduced risk;
-- improved user or customer outcomes.
+- improved customer outcome.
 
-A source or calculation that measures one does not automatically support claims about the others.
+When using percentages, name the quantity. “Uses 75% fewer labour hours” is not the same statement as “75% faster.”
 
-When using percentages, name the quantity. “Uses 75% fewer labour hours” is different from “75% faster.”
+For commercial examples, keep **customer value**, **selling price**, **relevant delivery cost**, **contribution before fixed costs**, and **total business profit** separate.
 
-## 6. Count displaced work
+For AI-service architecture comparisons, define both the numerator and denominator of **cost per acceptable outcome**.
+
+## 8. Count displaced work
 
 When discussing productivity or savings, look for work that moved rather than disappeared:
 
-- prompt and specification preparation;
-- review and fact-checking;
+- specification and context preparation;
+- evaluation and fact-checking;
 - correction and rework;
 - testing and validation;
 - integration;
-- security and compliance work;
-- maintenance;
-- support;
+- security and compliance;
+- maintenance and support;
 - incident response;
-- downstream interpretation by colleagues or customers.
+- downstream interpretation.
 
-This is an accounting principle for the guide, not an assumption that AI necessarily increases total work.
+This is an accounting discipline, not an assumption that AI necessarily increases total work.
 
-## 7. Treat anecdotes carefully
+## 9. Treat anecdotes carefully
 
-Anecdotes can be useful when they reveal a mechanism that formal research has not yet measured well.
+Community accounts can reveal mechanisms that formal studies have not yet measured well.
 
-For community accounts:
+For practitioner accounts:
 
-- describe them as accounts, reports, or discussions;
-- avoid naming uninvolved companies based on speculation in comments;
+- describe them as accounts or discussions;
 - do not infer prevalence from votes or comment volume;
-- preserve meaningful counterarguments when they change the interpretation;
-- extract the durable management question rather than endorsing interpersonal behaviour in the story.
+- avoid identifying uninvolved organisations from speculation;
+- preserve counterarguments when they materially change interpretation;
+- extract the durable management question rather than endorsing interpersonal behaviour.
 
-## 8. Source updates and reversals matter
+Fictional teaching cases must remain visibly separate from practitioner accounts and independently observed outcomes.
 
-AI research and product availability move quickly. Later work or documentation may qualify earlier results.
+## 10. AI-assisted contributions
 
-The source register includes a `reviewed` date and may include publication dates, versions, availability status, or relationships such as `supersedes` and `qualified_by`. When a later source materially changes an earlier interpretation, the website should update the explanation rather than preserve the more convenient headline.
-
-## 9. AI-assisted contributions
-
-AI tools may be used to draft, organise, translate, search, or analyse contributions to this repository.
+AI may be used to draft, organise, translate, search, analyse, test, or review contributions.
 
 That does not change the acceptance standard:
 
 - linked sources must exist;
-- cited sources must support the associated claims;
-- summaries must preserve material qualifications;
-- generated examples must be labelled when readers could mistake them for observed cases;
-- the contributor submitting a change is responsible for what the project publishes.
+- sources must support the associated claim;
+- material qualifications must remain visible;
+- fictional/generated examples must be labelled when readers could mistake them for observed evidence;
+- publication responsibility remains explicit.
 
-AI use is neither a reason to reject a contribution nor a substitute for verification.
+AI use is neither a reason to reject work nor a substitute for evidence.
 
-## 10. Publication checks
+## 11. Preview gate versus release gate
 
-The repository includes [`scripts/build_site.py`](../scripts/build_site.py), [`scripts/check_publication.py`](../scripts/check_publication.py), and a GitHub Actions workflow.
+These are deliberately different.
 
-The structural publication gate checks:
+### Preview / structural gate
 
-- whether YAML files parse;
-- whether source, claim, and article IDs are unique;
-- whether required metadata is present;
-- whether claim evidence references registered source IDs;
-- whether claim publication targets exist;
-- whether article source files exist;
-- whether the static publication builds;
-- whether relative Markdown and HTML links resolve to repository or generated-site targets.
+[`scripts/check_publication.py`](../scripts/check_publication.py), run by [`publication-gate.yml`](../.github/workflows/publication-gate.yml), checks that the draft publication is internally consistent.
 
-These checks **cannot establish truth, source quality, or whether a source really supports a sentence**. They prevent avoidable structural publishing errors. Evidence review remains an editorial responsibility.
+It rejects, among other things:
 
-## 11. Corrections
+- invalid YAML or duplicate IDs;
+- empty required source/claim/evidence values;
+- unknown source references;
+- claim publication locators that do not exist;
+- completed review states without reviewer/date records;
+- duplicate, invalid, or reserved article slugs;
+- broken local links;
+- missing HTML fragments;
+- generated-site links that escape the deployed `site/` root;
+- missing required built pages.
 
-Corrections are part of the evidence system, not an embarrassment to hide.
+Regression tests in [`tests/test_publication_checks.py`](../tests/test_publication_checks.py) deliberately construct these failures and require the checker to reject them for the intended reason.
+
+A green preview gate means **the draft builds and passes structural controls**. It does not mean the publication has been factually approved.
+
+### Release approval gate
+
+[`scripts/check_release.py`](../scripts/check_release.py) and the manual [`release-gate.yml`](../.github/workflows/release-gate.yml) apply the project’s current release policy.
+
+At minimum:
+
+- launch-critical claims must have completed the declared editorial review;
+- the review record must be inspectable;
+- core articles must be marked ready for publication.
+
+A release gate is still not a guarantee of truth. It records that the project’s chosen publication controls have been completed.
+
+## 12. Versioned publication links
+
+The builder uses the build’s source reference when linking back to GitHub. In CI this can resolve to the commit being built rather than always pointing to moving `main`.
+
+A released guide should therefore remain auditable after later edits.
+
+## 13. Corrections
+
+Corrections are part of the evidence system.
 
 A correction should explain:
 
 1. what was wrong or misleading;
 2. what changed;
-3. which source or reasoning supports the correction;
+3. which source or reasoning supports the change;
 4. whether other pages or claims are affected.
 
 Where a disputed interpretation cannot be resolved cleanly, present the disagreement rather than forcing certainty.
