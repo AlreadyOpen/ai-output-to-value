@@ -1,5 +1,8 @@
 # Publication manifest. Markdown remains the maintained editorial source.
-# scripts/build_site.py renders these entries as normal styled HTML pages.
+# release_scope controls what enters a reviewed release artifact:
+#   guide   = boss-facing release guide
+#   policy  = publication policy/corrections needed with the guide
+#   working = deeper or advanced working material kept out of the reviewed artifact
 
 articles:
   - id: start-here
@@ -7,6 +10,7 @@ articles:
     source: START-HERE.md
     slug: start-here
     section: core
+    release_scope: guide
     order: 10
     summary: The five-minute introduction to the project's decision framework.
     maintainer: Helen Kwok
@@ -18,6 +22,7 @@ articles:
     source: content/frame-vs-finished-work.md
     slug: frame-vs-finished-work
     section: core
+    release_scope: guide
     order: 20
     summary: How to value a strong concept, scaffold or prototype without treating it as proof that the whole job is complete.
     maintainer: Helen Kwok
@@ -29,6 +34,7 @@ articles:
     source: content/tool-access-vs-client-readiness.md
     slug: tool-access-vs-client-readiness
     section: core
+    release_scope: guide
     order: 30
     summary: Tool capability, job substance, delivery capability and the substance gap.
     maintainer: Helen Kwok
@@ -40,6 +46,7 @@ articles:
     source: content/executive-guide.md
     slug: executive-guide
     section: core
+    release_scope: guide
     order: 40
     summary: The broader executive guide, including workflow accounting and commercial-value reasoning.
     maintainer: Helen Kwok
@@ -51,6 +58,7 @@ articles:
     source: content/worked-cases.md
     slug: worked-cases
     section: core
+    release_scope: guide
     order: 50
     summary: Fictional cases showing when to approve, defer, or stop additional work.
     maintainer: Helen Kwok
@@ -62,6 +70,7 @@ articles:
     source: content/meeting-brief.md
     slug: meeting-brief
     section: core
+    release_scope: guide
     order: 60
     summary: A printable set of questions for reviewing an AI-enabled proposal or deliverable.
     maintainer: Helen Kwok
@@ -73,6 +82,7 @@ articles:
     source: content/ai-does-not-eliminate-technical-capability.md
     slug: ai-does-not-eliminate-technical-capability
     section: deeper
+    release_scope: working
     order: 110
     summary: Why task automation and organisational technical capability are different claims.
     maintainer: Helen Kwok
@@ -84,6 +94,7 @@ articles:
     source: content/source-code-open-source-and-ai.md
     slug: source-code-open-source-and-ai
     section: deeper
+    release_scope: working
     order: 120
     summary: Why lower source-code production cost does not recreate mature ecosystems such as Linux.
     maintainer: Helen Kwok
@@ -95,6 +106,7 @@ articles:
     source: content/assess-every-layer-of-the-company.md
     slug: assess-every-layer-of-the-company
     section: deeper
+    release_scope: working
     order: 130
     summary: A symmetric, periodically reviewed capability map across governance, management, technical work and operations.
     maintainer: Helen Kwok
@@ -106,6 +118,7 @@ articles:
     source: content/product-ideas-vs-product-discovery.md
     slug: product-ideas-vs-product-discovery
     section: deeper
+    release_scope: working
     order: 135
     summary: Why broad ideation is useful but product opportunities still need user, workflow, feasibility, delivery and business evidence.
     maintainer: Helen Kwok
@@ -117,6 +130,7 @@ articles:
     source: content/model-capability-vs-product-strategy.md
     slug: model-capability-vs-product-strategy
     section: deeper
+    release_scope: working
     order: 137
     summary: Separating technology scouting from customer need, product design, solution architecture, delivery and business viability.
     maintainer: Helen Kwok
@@ -128,6 +142,7 @@ articles:
     source: content/architecture-economics-and-product-decisions.md
     slug: architecture-economics-and-product-decisions
     section: deeper
+    release_scope: working
     order: 140
     summary: How model routing, verification and orchestration can affect end-to-end cost, quality and commercial feasibility.
     maintainer: Helen Kwok
@@ -139,6 +154,7 @@ articles:
     source: content/ai-business-capability-and-judgement.md
     slug: ai-business-capability-and-judgement
     section: deeper
+    release_scope: working
     order: 145
     summary: Separating analysis and judgement capability from authority and accountability, including live customer interaction, persuasion, report analysis, and embodied AI.
     maintainer: Helen Kwok
@@ -150,6 +166,7 @@ articles:
     source: content/company-actors-vs-instruments.md
     slug: company-actors-vs-instruments
     section: advanced
+    release_scope: working
     order: 210
     summary: Distinguishing legal entities, human and software actors, and instruments such as credentials or wallets.
     maintainer: Helen Kwok
@@ -161,6 +178,7 @@ articles:
     source: content/non-human-actors-and-accountability.md
     slug: non-human-actors-and-accountability
     section: advanced
+    release_scope: working
     order: 220
     summary: Delegated agent authority, legal identity, evidence and accountability.
     maintainer: Helen Kwok
@@ -172,6 +190,7 @@ articles:
     source: content/representation-is-a-channel.md
     slug: representation-is-a-channel
     section: advanced
+    release_scope: working
     order: 230
     summary: Human and agent representation should be evaluated by outcomes rather than presence alone.
     maintainer: Helen Kwok
@@ -183,6 +202,7 @@ articles:
     source: content/ecommerce-and-physical-retail.md
     slug: ecommerce-and-physical-retail
     section: advanced
+    release_scope: working
     order: 240
     summary: Historical retail evidence plus a clearly labelled analogy for changing interaction channels.
     maintainer: Helen Kwok
@@ -194,6 +214,7 @@ articles:
     source: docs/evidence-policy.md
     slug: evidence-policy
     section: policy
+    release_scope: policy
     order: 310
     summary: Evidence classes, claim status, traceability, scope and correction rules.
     maintainer: Helen Kwok
@@ -205,6 +226,7 @@ articles:
     source: docs/reading-path.md
     slug: reading-path
     section: policy
+    release_scope: working
     order: 320
     summary: Core, deeper and advanced reading routes.
     maintainer: Helen Kwok
@@ -212,12 +234,13 @@ articles:
     status: active_policy
 
   - id: corrections
-    title: Corrections and editorial review
+    title: Corrections and independent review
     source: content/corrections.md
     slug: corrections
     section: policy
+    release_scope: policy
     order: 330
     summary: How to report a factual, evidence, accessibility or publication problem.
     maintainer: Helen Kwok
     reviewed: 2026-09-14
-    status: draft
+    status: active_policy
