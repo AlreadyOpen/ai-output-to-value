@@ -6,7 +6,7 @@ The project therefore separates **evidence**, **interpretation**, **recommendati
 
 ## 1. Evidence classes
 
-Every source in the register should be assigned one of the following evidence types.
+The policy uses a small set of broad evidence classes. The structured source register may use a more specific `evidence_type` label where that improves precision; those labels must still roll up to one of these policy classes.
 
 ### Research study
 
@@ -16,29 +16,31 @@ Empirical or experimental work with a described method, sample, measures, and li
 
 **Do not use for:** universal productivity multipliers or claims outside the study population without additional evidence.
 
-### Official guidance / standard
+### Official guidance / standard / statistics
 
-Guidance issued by governments, standards bodies, regulators, or other institutions with a defined policy or assurance role.
+Material issued by governments, regulators, standards bodies, official statistical agencies, or other institutions with a defined public assurance or measurement role.
 
-**Use for:** governance expectations, lifecycle considerations, assurance practices, procurement questions, and terminology where applicable.
+**Use for:** official statistics, governance expectations, lifecycle considerations, assurance practices, procurement questions, and terminology where applicable.
 
-**Do not use for:** proving that a practice produces a particular financial return unless supporting evidence is provided.
+**Do not use for:** proving a financial return that the source does not measure.
 
 ### Industry research
 
-Research, surveys, or measurement programmes produced by companies, industry organisations, or research groups.
+Research, surveys, or measurement programmes produced by companies, industry organisations, foundations, or research groups.
 
 **Use for:** observed patterns, operational metrics, practitioner data, and emerging evidence.
 
 **Requirement:** disclose who produced the work and retain important methodology and limitations.
 
-### Vendor guidance
+### Vendor guidance / product documentation / announcement
 
-Material published by a company that sells relevant products or services.
+Material published by a company that sells the relevant product or service.
 
-**Use for:** understanding the vendor's framework, implementation guidance, product behaviour, or clearly described internal evidence.
+**Use for:** product behaviour, availability, vendor framing, implementation guidance, or clearly described internal evidence.
 
-**Do not use for:** treating a vendor's commercial framing as independent proof.
+**Do not use for:** treating commercial positioning as independent proof of quality, ROI, or general effectiveness.
+
+For product capability, record availability explicitly when relevant: for example **announced**, **preview**, **available**, or a more precise status such as **handle reservation available / full capability forthcoming**.
 
 ### Case study
 
@@ -64,13 +66,28 @@ First-person accounts, forum posts, Reddit discussions, issue threads, or simila
 
 **Do not use for:** establishing that an event occurred exactly as described, identifying culpable organisations, measuring prevalence, or proving causation.
 
-### Editorial recommendation
+### Editorial recommendation / inference
 
-A recommendation made by this project after considering evidence and practical consequences.
+A recommendation or interpretation made by this project after considering evidence and practical consequences.
 
-**Use for:** decision frameworks and suggested practices.
+**Use for:** decision frameworks, analogies, and conclusions that combine several sources.
 
-**Requirement:** clearly label it as a recommendation rather than presenting it as a research finding.
+**Requirement:** label it as editorial rather than presenting it as a direct research finding.
+
+### Registry labels
+
+Specific machine labels can be more detailed than the policy classes. Examples:
+
+| Registry `evidence_type` example | Policy class |
+| --- | --- |
+| `research_study`, `research_working_paper`, `research_summary` | Research study |
+| `official_statistics`, `official_guidance`, `intergovernmental_standard_guidance` | Official guidance / standard / statistics |
+| `industry_research`, `industry_research_summary`, `foundation_report_summary` | Industry research |
+| `vendor_product_documentation`, `vendor_announcement`, `vendor_guidance` | Vendor guidance / product documentation / announcement |
+| `practitioner_analysis` | Practitioner analysis |
+| `community_discussion` | Practitioner account / community discussion |
+
+The label should describe the source, not inflate its authority. Claim status and qualification still determine what can responsibly be published.
 
 ## 2. Claim statuses
 
@@ -91,7 +108,7 @@ For each important factual claim, the project should be able to reconstruct:
 
 > **Claim → source → exact locator → relevant finding → qualification → publication location → reviewer → review date**
 
-The source registers in `data/*.yml` describe whole sources. The claim register in [`data/claims.yml`](../data/claims.yml) records the narrower relationship between a published sentence and the evidence that supports it.
+The source register in [`data/sources.yml`](../data/sources.yml) identifies publications. The claim register in [`data/claims.yml`](../data/claims.yml) records the narrower relationship between a published sentence and the evidence that supports it.
 
 For launch-critical factual claims, record at minimum:
 
@@ -138,9 +155,10 @@ For example, a measured productivity improvement in customer support should not 
 
 The project should not treat any of the following as interchangeable:
 
+- reduced labour hours;
+- reduced elapsed delivery time;
 - faster generation;
 - faster completion;
-- less total labour;
 - reduced cost;
 - increased capacity;
 - increased revenue;
@@ -148,7 +166,9 @@ The project should not treat any of the following as interchangeable:
 - reduced risk;
 - improved user or customer outcomes.
 
-A source that measures one of these does not automatically support claims about the others.
+A source or calculation that measures one does not automatically support claims about the others.
+
+When using percentages, name the quantity. “Uses 75% fewer labour hours” is different from “75% faster.”
 
 ## 6. Count displaced work
 
@@ -169,7 +189,7 @@ This is an accounting principle for the guide, not an assumption that AI necessa
 
 ## 7. Treat anecdotes carefully
 
-Anecdotes can be extremely useful when they reveal a mechanism that formal research has not yet measured well.
+Anecdotes can be useful when they reveal a mechanism that formal research has not yet measured well.
 
 For community accounts:
 
@@ -181,9 +201,9 @@ For community accounts:
 
 ## 8. Source updates and reversals matter
 
-AI research is moving quickly. Later work may qualify earlier results.
+AI research and product availability move quickly. Later work or documentation may qualify earlier results.
 
-The source register therefore includes a `reviewed` date and may include `supersedes`, `qualified_by`, or `related` relationships. When a later study materially changes how an earlier result should be understood, the website should update the explanation rather than preserve the more convenient headline.
+The source register includes a `reviewed` date and may include publication dates, versions, availability status, or relationships such as `supersedes` and `qualified_by`. When a later source materially changes an earlier interpretation, the website should update the explanation rather than preserve the more convenient headline.
 
 ## 9. AI-assisted contributions
 
@@ -201,17 +221,18 @@ AI use is neither a reason to reject a contribution nor a substitute for verific
 
 ## 10. Publication checks
 
-The repository includes [`scripts/check_publication.py`](../scripts/check_publication.py) and a GitHub Actions workflow.
+The repository includes [`scripts/build_site.py`](../scripts/build_site.py), [`scripts/check_publication.py`](../scripts/check_publication.py), and a GitHub Actions workflow.
 
 The structural publication gate checks:
 
 - whether YAML files parse;
-- whether source IDs are unique;
-- whether required source metadata is present;
-- whether claim IDs are unique;
+- whether source, claim, and article IDs are unique;
+- whether required metadata is present;
 - whether claim evidence references registered source IDs;
 - whether claim publication targets exist;
-- whether relative Markdown and HTML links point to existing files or directories.
+- whether article source files exist;
+- whether the static publication builds;
+- whether relative Markdown and HTML links resolve to repository or generated-site targets.
 
 These checks **cannot establish truth, source quality, or whether a source really supports a sentence**. They prevent avoidable structural publishing errors. Evidence review remains an editorial responsibility.
 
