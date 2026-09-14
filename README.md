@@ -16,15 +16,15 @@ If you are a business reader, do **not** read the repository front-to-back.
 
 For a meeting, use the **[one-page meeting brief](content/meeting-brief.md)**.
 
-Broader analyses cover product ideation versus discovery, model capability versus product strategy, architecture and unit economics, open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational capability. See [`docs/reading-path.md`](docs/reading-path.md).
+Broader analyses cover product ideation versus discovery, model capability versus product strategy, architecture and unit economics, AI business-facing capability and judgement, open source, technical capability, company actors and AI agents, representation channels, retail transformation, and organisational capability. See [`docs/reading-path.md`](docs/reading-path.md).
 
 ## The practical question
 
-Generative AI can produce remarkably complete software, reports, research, designs, automations, and other work at very low marginal cost.
+Generative AI can produce remarkably complete software, reports, research, designs, automations, proposals, presentations, analyses, customer interactions, and other work at very low marginal cost.
 
 The project asks:
 
-> **We bought or gained access to AI. What have we actually achieved, what remains, and what evidence connects the output to business value?**
+> **We bought or gained access to AI. What have we actually achieved, what remains, and what evidence connects the output or action to business value?**
 
 This project uses a decision framework:
 
@@ -36,11 +36,11 @@ A useful reverse-planning question is:
 
 > **What outcome do we need, and what evidence, capability, and work would make that outcome plausible?**
 
-## Three distinctions that matter
+## Four distinctions that matter
 
 ### Tool capability ≠ job substance ≠ delivery capability
 
-A capable agent may generate most of the visible artefact. That does not automatically establish that the result reflects the actual client's requirements or that the supplier can verify, operate, support, maintain, and stand behind it.
+A capable agent may generate most of the visible artefact or perform much of the workflow. That does not automatically establish that the result reflects the actual client's requirements or that the supplier can verify, operate, support, maintain, and stand behind it.
 
 ### Vibe coding, AI-assisted work, responsible practice, and slop are different dimensions
 
@@ -50,6 +50,16 @@ A capable agent may generate most of the visible artefact. That does not automat
 - **AI slop / workslop** describes a quality problem.
 
 They can overlap. A vibe-coded artefact is AI-assisted; whether it is fit for purpose is a separate assessment.
+
+### Judgement ≠ authority ≠ accountability
+
+AI systems can analyse evidence, compare options, plan, recommend, communicate, persuade, and make bounded decisions. Those are capabilities to evaluate for the task; they are not inherently human-only.
+
+- **Judgement / evaluation** asks which option appears better under the available evidence and goals.
+- **Authority** asks who or what is permitted to act or bind the organisation.
+- **Accountability / recourse** asks where responsibility for the outcome sits and who must correct failures.
+
+A human decision-maker is not automatically correct because they are human or senior. An AI system is not automatically correct because it is fast or capable. **Human-in-the-loop is a control pattern, not a quality certificate.** See [`content/ai-business-capability-and-judgement.md`](content/ai-business-capability-and-judgement.md).
 
 ### Reduced labour ≠ reduced elapsed time ≠ realised financial value
 
@@ -67,7 +77,7 @@ For important published factual claims, [`data/claims.yml`](data/claims.yml) rec
 
 See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
-The current claim register intentionally marks its initial external-source checks as **AI-assisted checks with human review pending**. The repository should not imply independent human verification that has not occurred.
+The current claim register intentionally marks its initial external-source checks as **AI-assisted checks with human editorial review pending**. This is a disclosure of the repository's present review process, not a claim that human review is inherently superior to automated or model-based assurance.
 
 ## Publication layer
 
@@ -141,7 +151,7 @@ See [`content/corrections.md`](content/corrections.md) for the correction route 
 
 ## Current status
 
-**Pre-public-launch.** The core reading route, evidence model, static publication build, and structural checks are in place. Launch-critical external claims still require independent human review, and licensing/hosting remain open decisions.
+**Pre-public-launch.** The core reading route, evidence model, static publication build, and structural checks are in place. Launch-critical external claims still require the repository's independent editorial review, and licensing/hosting remain open decisions.
 
 ## Licence
 
