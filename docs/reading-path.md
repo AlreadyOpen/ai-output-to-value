@@ -16,22 +16,22 @@ If those pages answer the reader's question, they can stop there.
 
 For a meeting, use the printable [`content/meeting-brief.md`](../content/meeting-brief.md).
 
-## Path 2 — deeper analysis
+## Path 2 — deeper analysis by decision
 
-These pages support the central argument but are not prerequisites.
+The deeper pages should each help produce a different decision artefact rather than repeat the same warning.
 
-### How do ideas become products rather than just plausible concepts?
+| Decision | Read | Practical output |
+| --- | --- | --- |
+| **Is this idea worth investigating?** | [`product-ideas-vs-product-discovery.md`](../content/product-ideas-vs-product-discovery.md) | **Opportunity hypothesis** — user, problem, evidence, current workaround, desired outcome, unknowns, cheapest next test. |
+| **Why should this AI capability be part of the product?** | [`model-capability-vs-product-strategy.md`](../content/model-capability-vs-product-strategy.md) | **Technology-choice comparison** — customer problem, required capability, evidence, alternatives, constraints, delivery model and economics. |
+| **Which technical design makes the service viable?** | [`architecture-economics-and-product-decisions.md`](../content/architecture-economics-and-product-decisions.md) | **Architecture trade-off record** — acceptance rule, attempts, routing/escalation, all-in cost per acceptable outcome, latency and failure consequence. |
+| **Who or what should analyse, decide, communicate or act?** | [`ai-business-capability-and-judgement.md`](../content/ai-business-capability-and-judgement.md) | **Authority-and-assurance map** — actor, evaluative role, authority boundary, assurance mechanism, escalation and recourse. |
 
-- [`content/product-ideas-vs-product-discovery.md`](../content/product-ideas-vs-product-discovery.md)
-- [`content/model-capability-vs-product-strategy.md`](../content/model-capability-vs-product-strategy.md)
+These four decisions are related, but they are not interchangeable:
 
-### How do technical choices change product economics?
+**opportunity evidence → technology fit → delivery architecture → actor/authority/assurance design**
 
-- [`content/architecture-economics-and-product-decisions.md`](../content/architecture-economics-and-product-decisions.md)
-
-### Can AI itself perform business-facing analysis, communication, and judgement?
-
-- [`content/ai-business-capability-and-judgement.md`](../content/ai-business-capability-and-judgement.md) — why analysis, persuasion, planning, customer interaction, and evaluative judgement should not be treated as permanent human monopolies, while authority and accountability remain separate questions.
+A team may revisit them iteratively rather than follow them as a waterfall.
 
 ### What happens to technical capability when AI gets much better?
 
@@ -49,18 +49,18 @@ These pages support the central argument but are not prerequisites.
 - [`content/representation-is-a-channel.md`](../content/representation-is-a-channel.md)
 - [`content/ecommerce-and-physical-retail.md`](../content/ecommerce-and-physical-retail.md)
 
-These are supporting analyses and analogies. They should not dominate the public landing experience.
+These supporting analyses and analogies should not dominate the public landing experience.
 
 ## Path 3 — evidence and editorial review
 
 For contributors, reviewers, researchers, and readers who want to inspect the evidence system:
 
-1. [`docs/evidence-policy.md`](evidence-policy.md) — evidence classes, claim statuses, scope, anecdotes, and corrections.
-2. [`data/claims.yml`](../data/claims.yml) — claim-level traceability.
-3. [`data/sources.yml`](../data/sources.yml) — the canonical source register.
+1. [`docs/evidence-policy.md`](evidence-policy.md) — evidence classes, canonical registry rules, review status, preview/release gates, and corrections.
+2. [`data/claims.yml`](../data/claims.yml) — the base claim registry; additional canonical topic-specific claim registries live beside it under `data/claims*.yml`.
+3. [`data/sources.yml`](../data/sources.yml) — the base source registry; additional canonical topic-specific source registries live beside it under `data/sources*.yml` and other `data/*.yml` files containing a top-level `sources:` list.
 4. [`content/corrections.md`](../content/corrections.md) — correction and editorial-review route.
 
-The publication build renders the Markdown and YAML into normal HTML pages. Raw source files remain available for inspection.
+The publication build combines those canonical registries into one reader-facing evidence page with stable claim links and article backlinks.
 
 ## Editorial rule
 
