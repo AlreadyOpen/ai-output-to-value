@@ -25,15 +25,16 @@ Please check:
 1. **Does the source exist and remain accessible?**
 2. **What type of source is it?** Research, official guidance, industry research, vendor guidance, case study, practitioner analysis, or community account?
 3. **What claim does it actually support?**
-4. **What is the scope?** Population, task, organisation, domain, or conditions?
-5. **What are the important limitations?**
-6. **Is there newer work that qualifies or supersedes it?**
+4. **Where exactly does it support that claim?** Record a page, section, table, figure, paragraph, or other stable locator when possible.
+5. **What is the scope?** Population, task, organisation, domain, or conditions?
+6. **What are the important limitations?**
+7. **Is there newer work that qualifies or supersedes it?**
 
 Do not add a source simply because its publisher is prestigious or because its headline supports the project's current position.
 
 ## Source register format
 
-Sources live in [`data/sources.yml`](data/sources.yml).
+Source records live in `data/*.yml` files.
 
 A typical entry looks like:
 
@@ -44,13 +45,41 @@ A typical entry looks like:
   url: https://example.com/source
   evidence_type: research_study
   supports:
-    - concise_claim_identifier
+    - concise_topic_identifier
   scope: What the evidence actually covers.
   limitations: What readers must know before generalising it.
   reviewed: 2026-09-14
 ```
 
-See [`docs/evidence-policy.md`](docs/evidence-policy.md) for the evidence classes and editorial rules.
+The `supports` list is a discovery aid. It does not by itself prove that a particular published sentence is supported.
+
+## Claim-level traceability
+
+Important factual claims—especially quantitative claims, legal or governance claims, current vendor/product claims, and claims used on the home page—should also be registered in [`data/claims.yml`](data/claims.yml).
+
+A typical claim record looks like:
+
+```yaml
+- id: stable-claim-id
+  claim_text: The wording the project intends to publish.
+  status: supported
+  launch_critical: true
+  evidence:
+    - source_id: registered-source-id
+      locator: Exact section, page, table, figure, or named subsection.
+      relevant_finding: What this location establishes.
+      qualification: What must remain visible to avoid overclaiming.
+  published_in:
+    - file: index.html
+      locator: "#evidence"
+  reviewer: Name or transparent review role
+  reviewed: 2026-09-14
+  human_review_status: pending
+```
+
+Do not claim a human reviewer checked a source if the check was AI-assisted only. Record that transparently and leave human review pending until it actually occurs.
+
+See [`docs/evidence-policy.md`](docs/evidence-policy.md) for evidence classes, claim statuses, and editorial rules.
 
 ## Practitioner stories and community discussions
 
@@ -102,6 +131,16 @@ Avoid:
 - universal productivity claims based on one study or case;
 - marketing language without evidence.
 
+## Reading-path discipline
+
+The first-time business reading path is intentionally narrow. New material should not automatically be added to the home page or README.
+
+Before promoting a topic into the primary path, ask whether it is necessary to answer:
+
+> **We bought or gained access to AI. What have we actually achieved, what remains, and what evidence connects the output to business value?**
+
+Broader analyses can remain valuable as deeper reading. See [`docs/reading-path.md`](docs/reading-path.md).
+
 ## Website changes
 
 For changes to `index.html` or `styles.css`:
@@ -113,6 +152,17 @@ For changes to `index.html` or `styles.css`:
 - test narrow and wide layouts;
 - avoid decorative complexity that makes the guide harder to read.
 
+## Publication checks
+
+Before submitting, run:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python scripts/check_publication.py
+```
+
+The check validates source/claim structure and local links. It does **not** determine whether a factual claim is true or whether a source is persuasive enough.
+
 ## Corrections
 
 Corrections are encouraged.
@@ -122,7 +172,7 @@ A good correction explains:
 - what is wrong or misleading;
 - what the source actually supports;
 - the proposed replacement wording;
-- whether related pages or source records should also change.
+- whether related pages, claim records, or source records should also change.
 
 If the evidence is genuinely contested, prefer showing the disagreement over forcing a false consensus.
 
