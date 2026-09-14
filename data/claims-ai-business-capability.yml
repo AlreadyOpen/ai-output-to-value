@@ -1,0 +1,70 @@
+claims:
+  - id: openai-realtime-live-conversation-capability
+    claim_text: OpenAI's realtime model documentation supports live text and audio interaction over realtime connection methods, which establishes technical conversational capability but not business effectiveness.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: openai-gpt-realtime
+        source_version: documentation reviewed 2026-09-14
+        locator: Model overview and supported connection methods.
+        relevant_finding: The documentation describes realtime text and audio input/output and realtime connection methods.
+        qualification: Technical interface capability does not establish sales, presentation, customer-service, advisory, or embodied-robot performance.
+    published_in:
+      - file: content/ai-business-capability-and-judgement.md
+        locator: "## 3. Realtime AI changes the interface, not the standard of proof"
+      - file: content/executive-guide.md
+        locator: "## 5. AI can do business work too"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: gpt4-personalised-persuasion-study-2025
+    claim_text: In a controlled debate study, personalised GPT-4 was more persuasive than the human baseline in that experimental condition, while non-personalised GPT-4 was not shown to differ significantly from the human baseline.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: nature-human-behaviour-gpt4-persuasion-2025
+        source_version: published 2025-05-19; reviewed 2026-09-14
+        locator: Main results comparing human, GPT-4, and personalised GPT-4 debate conditions.
+        relevant_finding: Personalised GPT-4 outperformed the human baseline in the studied setting; the non-personalised AI condition was not significantly different from the human baseline.
+        qualification: Structured sociopolitical debate is not commercial sales, negotiation, account management, consulting, or public speaking.
+    published_in:
+      - file: content/ai-business-capability-and-judgement.md
+        locator: "## 2. AI can participate in persuasion and customer interaction"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: llm-persuasion-meta-analysis-2025
+    claim_text: A 2025 meta-analysis found no significant overall difference between LLM and human persuasive performance across the small, heterogeneous set of eligible studies.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: scientific-reports-llm-persuasion-meta-analysis-2025
+        source_version: published 2025-12-12; reviewed 2026-09-14
+        locator: Meta-analysis results and heterogeneity discussion.
+        relevant_finding: The pooled comparison did not identify a significant overall winner between LLM and human persuasion across the included studies.
+        qualification: Only seven eligible studies were included and contexts were heterogeneous; this does not establish equivalence for a specific business task.
+    published_in:
+      - file: content/ai-business-capability-and-judgement.md
+        locator: "## 2. AI can participate in persuasion and customer interaction"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
+
+  - id: openai-responses-business-analysis-tools
+    claim_text: OpenAI's current model API supports multimodal/file inputs and tool use that can underpin business-analysis workflows, without establishing the accuracy or value of a particular analysis.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: openai-responses-api-tools
+        source_version: API reference reviewed 2026-09-14
+        locator: Response input and tool configuration reference.
+        relevant_finding: The API reference describes text, image and file inputs together with built-in and custom tool use.
+        qualification: Interface support establishes technical possibility, not completeness, correctness, speed, or business value for a specific company-report workflow.
+    published_in:
+      - file: content/ai-business-capability-and-judgement.md
+        locator: "## 4. AI can analyse company information rapidly, but analysis still needs an evaluation target"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-14
+    human_review_status: pending
