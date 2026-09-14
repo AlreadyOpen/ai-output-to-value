@@ -1,0 +1,49 @@
+sources:
+  - id: routellm-2024
+    title: RouteLLM — Learning to Route LLMs with Preference Data
+    publisher: arXiv / research preprint
+    url: https://arxiv.org/abs/2406.18665
+    evidence_type: research_preprint
+    supports:
+      - model_selection_can_trade_off_cost_and_response_quality
+      - routing_can_reduce_inference_cost_in_evaluated_settings
+    scope: Learned routing between a stronger, more expensive LLM and a weaker, cheaper LLM using preference data and benchmark evaluation.
+    limitations: Benchmark results do not establish the same savings or quality on a different customer workload, model pair, tool-using agent, or production system.
+    reviewed: 2026-09-14
+
+  - id: frugalgpt-2023-2024
+    title: FrugalGPT — How to Use Large Language Models While Reducing Cost and Improving Performance
+    publisher: Transactions on Machine Learning Research / arXiv
+    url: https://arxiv.org/abs/2305.05176
+    evidence_type: research_paper
+    supports:
+      - llm_cascades_can_trade_off_cost_and_quality
+      - different_models_can_be_combined_selectively_under_budget_constraints
+    scope: Prompt adaptation, model approximation, and model cascades evaluated across several datasets and commercial models.
+    limitations: Reported savings and accuracy changes are specific to the evaluated datasets, models, thresholds, and period; results do not prove that every multi-model architecture is cheaper or better.
+    reviewed: 2026-09-14
+
+  - id: uk-government-ai-playbook-multidisciplinary
+    title: Artificial Intelligence Playbook for the UK Government
+    publisher: UK Government
+    url: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
+    evidence_type: official_guidance
+    supports:
+      - ai_use_cases_should_be_led_by_business_and_user_needs
+      - ai_projects_need_multidisciplinary_teams
+    scope: Public-sector guidance covering AI use-case selection, multidisciplinary teams, testing, deployment, and lifecycle management.
+    limitations: Government guidance rather than empirical proof of commercial success; specific expectations may not transfer directly to every private-sector organisation.
+    reviewed: 2026-09-14
+
+  - id: nist-ai-rmf-core-map
+    title: NIST AI Risk Management Framework — MAP function
+    publisher: National Institute of Standards and Technology
+    url: https://airc.nist.gov/airmf-resources/airmf/5-sec-core/
+    evidence_type: official_framework
+    supports:
+      - business_value_or_business_use_should_be_defined
+      - intended_tasks_and_methods_should_be_defined
+      - expected_benefits_and_costs_should_be_examined
+    scope: NIST AI RMF MAP categories covering context, business value, interdisciplinary actors, intended tasks, expected benefits, and expected costs.
+    limitations: Risk-management framework rather than a product-profitability model.
+    reviewed: 2026-09-14
