@@ -1,0 +1,140 @@
+# Initial evidence register for AI Output to Value.
+#
+# This file is intentionally structured for later use by the public website.
+# Entries should preserve source type, scope, limitations, and review date.
+# See docs/evidence-policy.md.
+
+sources:
+  - id: google-cloud-vibe-coding
+    title: What is vibe coding?
+    publisher: Google Cloud
+    url: https://cloud.google.com/discover/what-is-vibe-coding
+    evidence_type: vendor_guidance
+    supports:
+      - terminology_vibe_coding
+      - distinction_between_exploratory_vibe_coding_and_reviewed_ai_assisted_development
+    scope: Conceptual and practical explanation of vibe coding and AI-assisted software development.
+    limitations: Vendor-authored guidance; useful for definitions and workflow framing, not independent evidence of business ROI.
+    reviewed: 2026-09-14
+
+  - id: ibm-vibe-coding
+    title: What is vibe coding?
+    publisher: IBM
+    url: https://www.ibm.com/think/topics/vibe-coding
+    evidence_type: vendor_guidance
+    supports:
+      - vibe_coding_overview
+      - production_readiness_requires_additional_engineering_work
+    scope: Explanation of vibe coding, validation, security, deployment, and enterprise considerations.
+    limitations: Vendor-authored guidance; should not be treated as independent outcome research.
+    reviewed: 2026-09-14
+
+  - id: dora-roi-ai-assisted-software-development
+    title: The ROI of AI-assisted software development
+    publisher: Google Cloud / DORA
+    url: https://cloud.google.com/resources/content/dora-roi-of-ai-assisted-software-development
+    evidence_type: industry_research
+    supports:
+      - coding_speed_is_not_identical_to_financial_return
+      - rework_and_redeployment_of_capacity_matter_to_roi
+    scope: Framework for connecting AI-assisted software-development productivity to business and financial outcomes.
+    limitations: Industry research published by Google Cloud; retain the report's measurement assumptions and avoid converting engineering metrics directly into universal financial gains.
+    reviewed: 2026-09-14
+
+  - id: dora-2025
+    title: 2025 DORA Report
+    publisher: Google Cloud / DORA
+    url: https://dora.dev/dora-report-2025/
+    evidence_type: industry_research
+    supports:
+      - ai_effects_depend_on_organizational_systems
+      - delivery_performance_requires_more_than_ai_tool_adoption
+    scope: Software delivery and organisational performance research with AI adoption as a major theme.
+    limitations: Observational industry research; associations and models should not automatically be read as causal effects for every organisation.
+    reviewed: 2026-09-14
+
+  - id: uk-government-ai-playbook
+    title: Artificial Intelligence Playbook for the UK Government
+    publisher: UK Government
+    url: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
+    evidence_type: official_guidance
+    supports:
+      - lifecycle_governance
+      - appropriate_expertise
+      - human_oversight
+      - testing_and_assurance
+      - procurement_and_responsible_use
+    scope: Public-sector guidance for responsible adoption and use of AI across the lifecycle.
+    limitations: Government guidance rather than empirical proof of ROI; some requirements are specific to public-sector context.
+    reviewed: 2026-09-14
+
+  - id: betterup-workslop
+    title: Workslop — The Hidden Cost of AI-Generated Busywork
+    publisher: BetterUp Labs
+    url: https://www.betterup.com/workslop
+    evidence_type: industry_research
+    supports:
+      - workslop_definition
+      - ai_output_can_shift_interpretation_and_cleanup_work_to_others
+    scope: Workplace survey and analysis conducted by BetterUp Labs with Stanford Social Media Lab.
+    limitations: Survey-based evidence in a defined population; do not generalise cost or prevalence figures to all organisations without preserving the study context.
+    reviewed: 2026-09-14
+
+  - id: brynjolfsson-li-raymond-generative-ai-at-work
+    title: Generative AI at Work
+    publisher: National Bureau of Economic Research
+    url: https://www.nber.org/papers/w31161
+    evidence_type: research_study
+    supports:
+      - generative_ai_can_improve_productivity_in_specific_work_settings
+      - effects_can_differ_across_workers
+    scope: Study of a generative-AI assistant used by customer-support agents.
+    limitations: Results apply to the studied customer-support setting and intervention; they are not a universal productivity multiplier for all knowledge work.
+    reviewed: 2026-09-14
+
+  - id: metr-2026-uplift-update
+    title: Measuring AI Ability to Complete Long Tasks — productivity uplift update
+    publisher: METR
+    url: https://metr.org/blog/2026-02-24-uplift-update/
+    evidence_type: industry_research
+    supports:
+      - later_measurement_can_qualify_earlier_ai_productivity_headlines
+      - selection_effects_can_materially_affect_estimates
+    scope: Follow-up analysis of developer productivity measurement and limitations in estimating uplift.
+    limitations: Specific to METR's study designs and participant selection; use as an example of why updated evidence and methodology matter.
+    reviewed: 2026-09-14
+
+  - id: simon-willison-not-all-ai-assisted-programming-is-vibe-coding
+    title: Not all AI-assisted programming is vibe coding
+    publisher: Simon Willison
+    url: https://simonwillison.net/2025/Mar/19/vibe-coding/
+    evidence_type: practitioner_analysis
+    supports:
+      - vibe_coding_should_not_be_used_as_a_synonym_for_all_ai_assisted_programming
+    scope: Practitioner interpretation of the term and distinction between exploratory prompting and reviewed AI-assisted development.
+    limitations: Influential practitioner commentary, not a formal standard or empirical research study.
+    reviewed: 2026-09-14
+
+  - id: reddit-experienceddevs-enterprise-slop
+    title: ExperiencedDevs discussion on enterprise software quality, incentives, and accountability
+    publisher: Reddit / r/ExperiencedDevs
+    url: https://www.reddit.com/r/ExperiencedDevs/comments/1srq3m8/slop_is_tolerated_in_the_enterprise_space_because/
+    evidence_type: community_discussion
+    supports:
+      - case_enterprise_quality_is_not_the_only_purchase_factor
+      - prompts_questions_about_switching_cost_accountability_and_commercial_incentives
+    scope: Practitioner discussion covering legacy software, enterprise purchasing, technical debt, switching costs, accountability, and business incentives.
+    limitations: Unverified practitioner accounts and opinions. Do not use to establish prevalence, identify companies, or prove that any single explanation drives enterprise purchasing.
+    reviewed: 2026-09-14
+
+  - id: reddit-consulting-ai-generated-client-guide
+    title: Consulting discussion on an AI-generated client technical guide and ownership
+    publisher: Reddit / r/consulting
+    url: https://www.reddit.com/r/consulting/comments/1t39o3p/colleague_promised_the_client_a_technical_guide/
+    evidence_type: community_discussion
+    supports:
+      - case_generation_review_approval_and_client_commitment_are_distinct_responsibilities
+      - prompts_questions_about_hidden_review_work_and_accountability
+    scope: Practitioner account of a client-facing technical deliverable generated with AI and handed to colleagues for review after a commitment was made.
+    limitations: Unverified account. It does not establish whether the guide was technically wrong or whether the client migration failed. Commenters also disagree about the best way to handle the internal escalation.
+    reviewed: 2026-09-14
