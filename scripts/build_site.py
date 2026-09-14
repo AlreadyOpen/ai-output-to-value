@@ -1,224 +1,173 @@
 #!/usr/bin/env python3
-"""Build the static publication site from maintained Markdown/YAML sources.
-
-The repository keeps editorial content in Markdown and evidence in YAML.
-This script renders normal HTML pages into site/ without client-side JavaScript.
-"""
-
+"""Build the static publication from Markdown and canonical YAML evidence."""
 from __future__ import annotations
 
 import html
+import os
 import re
 import shutil
 from pathlib import Path
 
 import markdown
-import yaml
+from publication_data import claims as load_claims
+from publication_data import load_yaml, source_map
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 REPO_URL = "https://github.com/helenkwok/ai-output-to-value"
+SOURCE_REF = os.environ.get("PUBLICATION_SOURCE_REF") or os.environ.get("GITHUB_SHA") or "main"
+STATUS = {
+    "draft": "Draft",
+    "research_draft": "Research draft",
+    "editorial_review": "Editorial review in progress",
+    "active_policy": "Active publication policy",
+    "ready": "Reviewed for publication",
+}
 
 
-def load_yaml(path: Path):
-    return yaml.safe_load(path.read_text(encoding="utf-8"))
+def status_label(value: str) -> str:
+    return STATUS.get(value, value.replace("_", " ").title())
 
 
-def page_shell(title: str, body: str, *, source: str | None = None, meta: str = "") -> str:
-    source_link = (
-        f'<a href="{REPO_URL}/blob/main/{html.escape(source)}">View source</a>' if source else ""
-    )
-    return f"""<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AI Output to Value — evidence-led guidance for business decisions about AI-assisted work.">
-  <title>{html.escape(title)} — AI Output to Value</title>
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="../publication.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="shell header-inner">
-      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a>
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="../articles/index.html">Articles</a>
-        <a href="../evidence/index.html">Evidence</a>
-        <a href="{REPO_URL}">GitHub</a>
-      </nav>
-    </div>
-  </header>
-  <details class="mobile-nav">
-    <summary>Menu</summary>
-    <nav aria-label="Mobile navigation">
-      <a href="../index.html">Home</a>
-      <a href="../articles/index.html">Articles</a>
-      <a href="../evidence/index.html">Evidence</a>
-      <a href="{REPO_URL}">GitHub</a>
-    </nav>
-  </details>
-  <main id="main" class="article-shell">
-    <article class="article-body">
-      <div class="article-meta">{meta}</div>
-      {body}
-    </article>
-    <aside class="article-aside" aria-label="Article links">
-      <strong>AI Output to Value</strong>
-      <a href="../index.html">Home</a>
-      <a href="../articles/index.html">All articles</a>
-      <a href="../evidence/index.html">Evidence</a>
-      {source_link}
-      <a href="../articles/corrections.html">Report a correction</a>
-    </aside>
-  </main>
-</body>
-</html>
-"""
+def heading_anchor(locator: str) -> str | None:
+    m = re.match(r"^#{1,6}\s+(.+?)\s*$", locator.strip())
+    if not m:
+        return None
+    text = re.sub(r"[`*_~]", "", m.group(1)).lower()
+    text = re.sub(r"[^\w\s-]", "", text, flags=re.UNICODE)
+    return re.sub(r"[-\s]+", "-", text).strip("-") or None
 
 
-def rewrite_internal_links(rendered: str, source_to_url: dict[str, str], source_path: Path) -> str:
-    """Rewrite repository-relative Markdown links for the built site.
+def page_shell(title: str, body: str, source: str | None = None, meta: str = "") -> str:
+    source_link = ""
+    if source:
+        source_link = f'<a href="{REPO_URL}/blob/{SOURCE_REF}/{html.escape(source)}">View source version</a>'
+    return f"""<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI Output to Value — evidence-led guidance for business decisions about AI-assisted work.">
+<title>{html.escape(title)} — AI Output to Value</title>
+<link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="../publication.css"></head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a></nav></div></header>
+<details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a></nav></details>
+<main id="main" class="article-shell"><article class="article-body"><div class="article-meta">{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="../articles/corrections.html">Report a correction</a></aside></main></body></html>"""
 
-    Published Markdown pages become article HTML links. Data files and other
-    repository files remain inspectable through GitHub rather than becoming
-    broken links inside the static publication.
-    """
 
-    def replace(match: re.Match[str]) -> str:
+def rewrite_links(rendered: str, mapping: dict[str, str], source_path: Path) -> str:
+    def repl(match: re.Match[str]) -> str:
         href = match.group(1)
         if href.startswith(("http://", "https://", "mailto:", "tel:", "#")):
             return match.group(0)
-
         path_part, sep, fragment = href.partition("#")
-        if not path_part:
-            return match.group(0)
-
         resolved = (source_path.parent / path_part).resolve()
         try:
             rel = resolved.relative_to(ROOT.resolve()).as_posix()
         except ValueError:
             return match.group(0)
-
-        mapped = source_to_url.get(rel)
-        if mapped:
-            suffix = f"#{fragment}" if sep else ""
-            return f'href="{mapped}{suffix}"'
-
+        if rel in mapping:
+            return f'href="{mapping[rel]}{("#" + fragment) if sep else ""}"'
         if resolved.exists():
-            suffix = f"#{fragment}" if sep else ""
-            return f'href="{REPO_URL}/blob/main/{rel}{suffix}"'
-
+            return f'href="{REPO_URL}/blob/{SOURCE_REF}/{rel}{("#" + fragment) if sep else ""}"'
         return match.group(0)
+    return re.sub(r'href="([^"]+)"', repl, rendered)
 
-    return re.sub(r'href="([^"]+)"', replace, rendered)
+
+def claims_for(source: str, records: list[dict]) -> list[dict]:
+    return [c for c in records if any(p.get("file") == source for p in c.get("published_in", []))]
+
+
+def evidence_block(records: list[dict]) -> str:
+    if not records:
+        return '<section class="article-evidence-links"><h2>Evidence connection</h2><p>No claim-level evidence records are attached to this page yet. Treat factual statements according to the visible publication status.</p></section>'
+    items = []
+    for c in records:
+        cid = html.escape(str(c.get("id", "")))
+        text = html.escape(str(c.get("claim_text", "")))
+        review = html.escape(str(c.get("human_review_status", "unspecified")))
+        items.append(f'<li><a href="../evidence/index.html#{cid}">{text}</a> <span class="evidence-review-note">(human review: {review})</span></li>')
+    return '<section class="article-evidence-links"><h2>Evidence used on this page</h2><p>Factual claims currently connected to the publication evidence register:</p><ul>' + ''.join(items) + '</ul></section>'
+
+
+def meta_for(item: dict, records: list[dict]) -> str:
+    if records:
+        pending = sum(c.get("human_review_status") != "completed" for c in records)
+        evidence_state = f"Evidence review: {pending} connected claim(s) await human approval" if pending else "Evidence review: connected claims marked complete"
+    else:
+        evidence_state = "Evidence review: no claim-level records attached yet"
+    return (f'<span class="status-label">{html.escape(status_label(str(item.get("status", "draft"))))}</span> '
+            f'&nbsp; Maintained by {html.escape(str(item.get("maintainer", "")))} · Last updated {html.escape(str(item.get("reviewed", "")))}<br>'
+            f'<span class="review-scope">{html.escape(evidence_state)}</span>')
 
 
 def render_articles() -> list[dict]:
     manifest = load_yaml(ROOT / "data" / "articles.yml")
     articles = sorted(manifest["articles"], key=lambda x: x.get("order", 9999))
-    source_to_url = {item["source"]: f'{item["slug"]}.html' for item in articles}
-
-    out = SITE / "articles"
-    out.mkdir(parents=True, exist_ok=True)
-
+    mapping = {a["source"]: f'{a["slug"]}.html' for a in articles}
+    records = load_claims(ROOT)
+    out = SITE / "articles"; out.mkdir(parents=True, exist_ok=True)
     for item in articles:
         source_path = ROOT / item["source"]
-        md = source_path.read_text(encoding="utf-8")
-        body = markdown.markdown(md, extensions=["tables", "fenced_code", "sane_lists"])
-        body = rewrite_internal_links(body, source_to_url, source_path)
-        meta = (
-            f'<span class="status-label">{html.escape(item.get("status", "draft"))}</span> '
-            f'&nbsp; Maintained by {html.escape(item.get("maintainer", ""))} · '
-            f'Reviewed {html.escape(str(item.get("reviewed", "")))}'
-        )
-        page = page_shell(item["title"], body, source=item["source"], meta=meta)
-        (out / f'{item["slug"]}.html').write_text(page, encoding="utf-8")
-
-    sections = [
-        ("core", "Core reading"),
-        ("deeper", "Deeper analysis"),
-        ("advanced", "Advanced / agentic organisations"),
-        ("policy", "Publication policy"),
-    ]
-    blocks = [
-        "<h1>Articles</h1>",
-        "<p>Start with the core route. Deeper and advanced material supports the argument but is not required for the five-minute introduction.</p>",
-    ]
-    for key, label in sections:
+        body = markdown.markdown(source_path.read_text(encoding="utf-8"), extensions=["tables", "fenced_code", "sane_lists", "toc"])
+        body = rewrite_links(body, mapping, source_path)
+        related = claims_for(item["source"], records)
+        body += evidence_block(related)
+        (out / f'{item["slug"]}.html').write_text(page_shell(item["title"], body, item["source"], meta_for(item, related)), encoding="utf-8")
+    blocks = ["<h1>Articles</h1>", "<p>Status labels describe publication state. Dates mean last updated, not that every factual claim has completed evidence review.</p>"]
+    for key, label in [("core", "Core reading"), ("deeper", "Deeper analysis"), ("advanced", "Advanced / agentic organisations"), ("policy", "Publication policy")]:
         selected = [a for a in articles if a.get("section") == key]
-        if not selected:
-            continue
-        blocks.append(f"<h2>{html.escape(label)}</h2><div class=\"evidence-grid\">")
-        for item in selected:
-            blocks.append(
-                f'<a class="source-card" href="{html.escape(item["slug"])}.html">'
-                f'<span>{html.escape(item.get("status", "draft"))}</span>'
-                f'<strong>{html.escape(item["title"])}</strong>'
-                f'<p>{html.escape(item.get("summary", ""))}</p></a>'
-            )
+        if not selected: continue
+        blocks.append(f'<h2>{label}</h2><div class="evidence-grid">')
+        for a in selected:
+            blocks.append(f'<a class="source-card" href="{html.escape(a["slug"])}.html"><span>{html.escape(status_label(str(a.get("status", "draft"))))}</span><strong>{html.escape(a["title"])}</strong><p>{html.escape(a.get("summary", ""))}</p></a>')
         blocks.append("</div>")
     (out / "index.html").write_text(page_shell("Articles", "".join(blocks)), encoding="utf-8")
     return articles
 
 
+def backlink(pub: dict, article_by_source: dict[str, dict]) -> str:
+    target, locator = str(pub.get("file", "")), str(pub.get("locator", ""))
+    article = article_by_source.get(target)
+    if article:
+        anchor = heading_anchor(locator)
+        href = f'../articles/{article["slug"]}.html' + (f'#{anchor}' if anchor else '')
+        return f'<a href="{href}">{html.escape(article["title"])}</a> — {html.escape(locator)}'
+    if target == "index.html":
+        return f'<a href="../index.html">Homepage</a> — {html.escape(locator)}'
+    return f'<a href="{REPO_URL}/blob/{SOURCE_REF}/{html.escape(target)}">{html.escape(target)}</a> — {html.escape(locator)}'
+
+
 def render_evidence() -> None:
-    sources_data = load_yaml(ROOT / "data" / "sources.yml")
-    claims_data = load_yaml(ROOT / "data" / "claims.yml")
-    sources = {s["id"]: s for s in sources_data["sources"]}
-
-    blocks = [
-        "<h1>Evidence and claims</h1>",
-        "<p>This page connects published claims to source records, exact locators, qualifications and review status. Automated checks confirm structural consistency; they do not establish factual truth.</p>",
-    ]
-    for claim in claims_data["claims"]:
-        status = html.escape(str(claim.get("status", "")))
-        review = html.escape(str(claim.get("human_review_status", "")))
-        blocks.append('<section class="evidence-record">')
-        blocks.append(
-            f'<p><span class="status-label">{status}</span> '
-            f'<span class="status-label">human review: {review}</span></p>'
-        )
-        blocks.append(f'<h2>{html.escape(claim["claim_text"])}</h2>')
-        if claim.get("availability_status"):
-            blocks.append(
-                f'<p><strong>Availability:</strong> {html.escape(str(claim["availability_status"]))}</p>'
-            )
-        for ev in claim.get("evidence", []):
+    sources, records = source_map(ROOT), load_claims(ROOT)
+    articles = load_yaml(ROOT / "data" / "articles.yml")["articles"]
+    by_source = {a["source"]: a for a in articles}
+    blocks = ["<h1>Evidence and claims</h1>", "<p>Claim records show source, locator, qualification, review state, and where each claim appears. Structural checks do not establish factual truth.</p>"]
+    for c in records:
+        cid = html.escape(str(c.get("id", "")))
+        blocks.append(f'<section class="evidence-record" id="{cid}"><p><span class="status-label">{html.escape(str(c.get("status", "")))}</span> <span class="status-label">human review: {html.escape(str(c.get("human_review_status", "")))}</span></p><h2>{html.escape(str(c.get("claim_text", "")))}</h2>')
+        blocks.append(f'<p><strong>Review record:</strong> {html.escape(str(c.get("reviewer", "")))} · {html.escape(str(c.get("reviewed", "")))}</p>')
+        if c.get("launch_critical") is not None:
+            blocks.append(f'<p><strong>Launch-critical:</strong> {"yes" if c.get("launch_critical") else "no"}</p>')
+        for ev in c.get("evidence", []):
             src = sources.get(ev.get("source_id"), {})
-            url = html.escape(src.get("url", "#"))
-            title = html.escape(src.get("title", ev.get("source_id", "Unknown source")))
-            blocks.append(f'<h3><a href="{url}">{title}</a></h3>')
-            blocks.append(f'<p><strong>Locator:</strong> {html.escape(str(ev.get("locator", "")))}</p>')
-            blocks.append(f'<p><strong>Finding:</strong> {html.escape(str(ev.get("relevant_finding", "")))}</p>')
-            blocks.append(f'<p><strong>Qualification:</strong> {html.escape(str(ev.get("qualification", "")))}</p>')
+            blocks.append(f'<h3><a href="{html.escape(str(src.get("url", "#")))}">{html.escape(str(src.get("title", ev.get("source_id", "Unknown source"))))}</a></h3>')
+            blocks.append(f'<p><strong>Source:</strong> {html.escape(str(src.get("publisher", "")))} · {html.escape(str(src.get("evidence_type", "")))}</p>')
+            if ev.get("source_version"): blocks.append(f'<p><strong>Version/date used:</strong> {html.escape(str(ev.get("source_version")))}</p>')
+            blocks.append(f'<p><strong>Locator:</strong> {html.escape(str(ev.get("locator", "")))}</p><p><strong>Finding:</strong> {html.escape(str(ev.get("relevant_finding", "")))}</p><p><strong>Qualification:</strong> {html.escape(str(ev.get("qualification", "")))}</p>')
+            if src.get("scope"): blocks.append(f'<p><strong>Source scope:</strong> {html.escape(str(src.get("scope")))}</p>')
+            if src.get("limitations"): blocks.append(f'<p><strong>Source limitations:</strong> {html.escape(str(src.get("limitations")))}</p>')
+        if c.get("published_in"):
+            blocks.append('<h3>Used in</h3><ul>' + ''.join(f'<li>{backlink(p, by_source)}</li>' for p in c["published_in"]) + '</ul>')
         blocks.append('</section>')
-
-    out = SITE / "evidence"
-    out.mkdir(parents=True, exist_ok=True)
-    page = page_shell(
-        "Evidence",
-        "".join(blocks),
-        source="data/claims.yml",
-        meta="Claim-level traceability · structural checks are not factual review",
-    )
-    (out / "index.html").write_text(page, encoding="utf-8")
+    out = SITE / "evidence"; out.mkdir(parents=True, exist_ok=True)
+    (out / "index.html").write_text(page_shell("Evidence", "".join(blocks), "data/claims.yml", "Claim-level traceability · preview build · structural checks are not factual approval"), encoding="utf-8")
 
 
 def build() -> None:
-    if SITE.exists():
-        shutil.rmtree(SITE)
+    if SITE.exists(): shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
-
-    shutil.copy2(ROOT / "index.html", SITE / "index.html")
-    shutil.copy2(ROOT / "styles.css", SITE / "styles.css")
-    shutil.copy2(ROOT / "publication.css", SITE / "publication.css")
-
-    render_articles()
-    render_evidence()
-    print(f"Built static site at {SITE}")
+    for name in ("index.html", "styles.css", "publication.css"): shutil.copy2(ROOT / name, SITE / name)
+    render_articles(); render_evidence()
+    print(f"Built static site at {SITE} using source ref {SOURCE_REF}")
 
 
-if __name__ == "__main__":
-    build()
+if __name__ == "__main__": build()
