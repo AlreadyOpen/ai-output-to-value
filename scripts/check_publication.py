@@ -18,7 +18,7 @@ DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 ROOT = Path(os.environ.get("PUBLICATION_ROOT", str(DEFAULT_ROOT))).resolve()
 DATA_DIR, SITE_DIR = ROOT / "data", ROOT / "site"
 SOURCE_REQUIRED = {"id", "title", "publisher", "url", "evidence_type", "supports", "scope", "limitations", "reviewed"}
-CLAIM_REQUIRED = {"id", "claim_text", "status", "evidence", "published_in", "reviewer", "reviewed", "human_review_status"}
+CLAIM_REQUIRED = {"id", "claim_text", "status", "evidence", "published_in", "reviewer", "reviewed", "independent_review_status"}
 EVIDENCE_REQUIRED = {"source_id", "locator", "relevant_finding", "qualification"}
 ARTICLE_REQUIRED = {"id", "title", "source", "slug", "section", "order", "summary", "maintainer", "reviewed", "status"}
 MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
@@ -129,12 +129,12 @@ def check_claims(source_ids: set[str], result: CheckResult) -> None:
                 if not target_path.exists(): result.error(f"{plabel} points to missing file: {target}")
                 elif not locator_exists(target_path, str(locator)):
                     result.error(f"{plabel} locator was not found in {target}: {locator}")
-        review = claim.get("human_review_status")
+        review = claim.get("independent_review_status")
         if review == "completed":
             if not text_ok(claim.get("reviewer")) or not text_ok(claim.get("reviewed")):
-                result.error(f"{cid}: completed human review requires reviewer and reviewed date")
+                result.error(f"{cid}: completed independent review requires reviewer and reviewed date")
         else:
-            result.warn(f"{cid}: human review is {review or 'unspecified'}")
+            result.warn(f"{cid}: independent review is {review or 'unspecified'}")
 
 
 def check_articles(result: CheckResult) -> None:
