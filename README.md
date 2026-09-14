@@ -8,7 +8,7 @@
 
 This project is part of **AlreadyOpen**: https://github.com/AlreadyOpen
 
-The repository currently remains at `helenkwok/ai-output-to-value`. A future transfer to `AlreadyOpen/ai-output-to-value` is an organisational/release decision; the publication builder already treats repository and umbrella URLs as configuration values.
+The repository currently remains at `helenkwok/ai-output-to-value`. A future transfer to `AlreadyOpen/ai-output-to-value` is an organisational/release decision; repository and umbrella URLs are configuration values in the publication builder.
 
 ## Start here
 
@@ -70,7 +70,7 @@ See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
 ## Working preview versus reviewed release
 
-The repository now has two publication modes.
+The repository has two publication modes.
 
 ### Working preview
 
@@ -94,9 +94,11 @@ This records the project's declared controls for a specific revision; it is not 
 
 ## Publication controls
 
-The preview gate runs regression tests, builds the site, and executes [`scripts/check_publication.py`](scripts/check_publication.py). Tests cover malformed evidence, missing criticality, wrong types, invalid dates/statuses/sections, missing locators/fragments, deployment-root escapes, root-relative links, and reserved slugs.
+The preview gate runs regression tests, builds the site, and executes [`scripts/check_publication.py`](scripts/check_publication.py). Tests cover malformed evidence, missing criticality, wrong types, invalid dates/statuses/sections, missing locators/fragments, deployment-root escapes, valid root-relative links, and reserved slugs.
 
 The manual release gate additionally runs [`scripts/check_release.py`](scripts/check_release.py), with direct regression tests for its approval and artifact-scope rules.
+
+The architecture example now uses consistent denominators and plain-text formula rendering; the executive guide has also been cleaned of authoring instructions and repetitive producer-identity caveats.
 
 ## Repository structure
 
@@ -133,7 +135,7 @@ The initial maintainer is **Helen Kwok**. Evidence-based corrections and counter
 
 ## Current status
 
-**Pre-public-launch / labelled pilot.** The core reading route, actor-neutral evidence model, preview/release split, stricter validators, release-scope artifact, and regression tests are in place.
+**Pre-public-launch / labelled pilot.** The core reading route, actor-neutral evidence model, preview/release split, stricter validators, release-scope artifact, structured independent-review record, and regression tests are in place.
 
 Still open before the first reviewed public release:
 
@@ -145,6 +147,8 @@ Still open before the first reviewed public release:
 - hosting/deployment choice;
 - timing of transfer to `AlreadyOpen/ai-output-to-value`;
 - the explicit decision to make the repository/publication public.
+
+A further positive real-world case can improve the guide, but it is not a substitute for finishing the release controls above.
 
 ## Licence
 
