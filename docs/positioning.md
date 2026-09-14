@@ -11,7 +11,7 @@
 Generative AI discussions often collapse different questions into one:
 
 - Can the tool produce something impressive?
-- Can a person use it effectively?
+- Can a person, agent, or hybrid workflow use it effectively?
 - Does the result contain enough substance for this particular job?
 - Is the result correct and fit for purpose?
 - Can the organisation deliver, operate, support, and maintain it?
@@ -20,15 +20,15 @@ Generative AI discussions often collapse different questions into one:
 
 The project exists to separate these questions without becoming a campaign for or against AI.
 
-A central management failure mode is now especially important: **a free or inexpensive agent can produce so much visible work that tool capability is mistaken for supplier capability**. A working application, polished report, or convincing demo may create the impression that the client job is already substantively complete.
+A central management failure mode is now especially important: **a free or inexpensive agent can produce so much visible work that tool capability is mistaken for supplier capability**. A working application, polished report, convincing presentation, analysis, or interactive agent may create the impression that the client job is already substantively complete.
 
-Sometimes it really is close to complete. Sometimes important requirements, assumptions, integrations, domain details, verification, support, or commercial obligations remain unresolved. The project does not assume either answer. It helps readers establish which claim the evidence supports.
+Sometimes it really is close to complete. Sometimes important requirements, assumptions, integrations, domain details, verification, support, authority, or commercial obligations remain unresolved. The project does not assume either answer. It helps readers establish which claim the evidence supports.
 
 ## Core message
 
 > **Access to a capable AI agent is the start of a workflow, not proof of a client-ready service or a business model.**
 
-A free agent, subscription, or API key can unlock substantial capability. The business still has to connect that capability to a real client need, sufficient job substance, a workable process, appropriate expertise, evidence, ownership, delivery, support, and economics.
+A free agent, subscription, or API key can unlock substantial capability. The business still has to connect that capability to a real client need, sufficient job substance, a workable process, appropriate expertise or decision capability, evidence, ownership, delivery, support, and economics.
 
 ## Conceptual model
 
@@ -42,13 +42,13 @@ The model exists to prevent accidental category errors.
 
 ### Tool capability
 
-Can the model or agent produce the artefact?
+Can the model or agent produce the artefact or perform the task?
 
 This can be extremely high even on a free or inexpensive tier.
 
 ### Job substance
 
-Does the artefact contain what the actual client job requires: correct problem framing, business rules, environment, integrations, constraints, evidence, edge cases, and relevant operational or regulatory considerations?
+Does the artefact or action contain what the actual client job requires: correct problem framing, business rules, environment, integrations, constraints, evidence, edge cases, and relevant operational or regulatory considerations?
 
 AI may help create this substance. The question is whether it has been established rather than assumed from the output's polish.
 
@@ -56,17 +56,17 @@ AI may help create this substance. The question is whether it has been establish
 
 Can the organisation verify, explain, deploy, support, maintain, correct, and stand behind the result repeatedly?
 
-This is organisational capability. It cannot be inferred from the agent's ability to generate the artefact.
+This is organisational capability. It cannot be inferred from the agent's ability to generate the artefact or perform one successful demonstration.
 
 ## The substance gap
 
 Generative tools can make **visible completeness arrive before verified completeness**.
 
-A weakly specified project can now acquire a polished UI, realistic copy, database, authentication, charts, business logic, and deployment very early. This is genuine progress, but some decisions may have been inferred by the model simply because the artefact had to be completed.
+A weakly specified project can now acquire a polished UI, realistic copy, database, authentication, charts, business logic, deployment, presentation, analysis, or conversational interface very early. This is genuine progress, but some decisions may have been inferred by the model simply because the artefact or interaction had to be completed.
 
 The **substance gap** is the distance between:
 
-- what the finished-looking artefact appears to establish; and
+- what the finished-looking artefact or convincing interaction appears to establish; and
 - what has actually been established for the intended client use.
 
 This is not a synonym for “AI slop”. A generated result may have a small substance gap, a large one, or none that matters for the task.
@@ -92,6 +92,7 @@ The site should not assume the reader writes code.
 - analysts;
 - researchers;
 - AI practitioners;
+- sales and customer-service teams;
 - governance, legal, security, and risk teams.
 
 Technical readers should find the guide accurate enough to trust even though it is not written primarily for them.
@@ -116,6 +117,14 @@ Terms such as “AI slop” and “workslop” may describe particular quality p
 
 Exploratory prompt-driven development can be useful and economically rational. The project should challenge unsupported claims about readiness, quality, capability, or value rather than the workflow itself.
 
+### Not human-exceptionalist
+
+The project must not use **human review**, **human judgement**, or **human presence** as automatic synonyms for correctness, professionalism, or business substance.
+
+AI systems can already perform substantial analysis, planning, comparison, communication, persuasion, customer interaction, and evaluative work. Humans can make excellent decisions and poor ones. For a defined task, the relevant question is which human, AI, automated, or hybrid process produces the best evidenced outcome.
+
+Human involvement may still be required or valuable because of law, contract, authority, independent challenge, relationship value, trust, embodiment, exception handling, or a demonstrated performance advantage. Those reasons should be stated rather than hidden behind the assumption that cognition or judgement belongs uniquely to humans.
+
 ### Not a craftsmanship manifesto
 
 Elegant code is not automatically business value, and poor-looking code does not automatically mean a product is commercially unsuccessful. Technical quality matters through consequences such as reliability, change cost, security, performance, maintainability, user outcomes, and risk.
@@ -136,6 +145,7 @@ The project should be:
 - **business-literate** — recognise incentives, switching costs, procurement, support, liability, opportunity cost, and customer value;
 - **engineering-literate** — distinguish demos, prototypes, testing, maintainability, production operations, and technical debt;
 - **evidence-led** — preserve source type, scope, and limitations;
+- **actor-neutral where appropriate** — compare human, AI, automated, and hybrid workflows by outcomes rather than status;
 - **plain-language** — explain specialist terms when they first appear;
 - **non-patronising** — avoid framing nontechnical leaders as incapable of understanding technology;
 - **practical** — turn debates into questions readers can use in meetings and decisions.
@@ -144,11 +154,21 @@ The project should be:
 
 ### Access is not capability
 
-A free account or paid licence can provide access to powerful capability without giving an organisation the people, process, context, or judgement needed to use it well for a particular job.
+A free account or paid licence can provide access to powerful capability without establishing the data, context, decision process, evidence, authority, operational support, or accountability needed to use it well for a particular job.
 
 ### Tool capability is not supplier capability
 
 The agent's ability to generate most of the visible artefact does not automatically establish client-specific substance, verification, ownership, support, or repeatable delivery.
+
+### Judgement is a capability, not a human monopoly
+
+AI systems can compare evidence, analyse alternatives, plan, recommend, handle objections, and make bounded decisions. Whether that is good enough for a particular task is an empirical question.
+
+**Authority** and **accountability** are separate questions. A system may analyse well without being authorised to bind the company. A person may hold formal authority without their judgement automatically being correct.
+
+### Human-in-the-loop is a control pattern, not a quality guarantee
+
+Human review can be valuable, required, or independent. It can also be ineffective. Automated and hybrid assurance can sometimes be stronger for defined failure modes. Choose controls based on consequence and measured performance rather than ritual.
 
 ### Polish is not proof of substance
 
@@ -198,6 +218,12 @@ Instead of assuming that a finished-looking artefact contains verified client-sp
 
 Prefer:
 
+> “Which actor or combination produces the best evidenced outcome, and where do authority and accountability sit?”
+
+Instead of assuming that either a human or an AI should win by default.
+
+Prefer:
+
 > “Which parts of the work were removed, and which moved to review or integration?”
 
 Instead of assuming AI either always saves time or never saves time.
@@ -228,21 +254,22 @@ Recommended characteristics:
 - printable/shareable one-page briefings;
 - no generic robot imagery;
 - no exaggerated transformation claims;
-- respectful treatment of both technical and nontechnical readers.
+- respectful treatment of technical, nontechnical, human, and agentic contributors.
 
 ## Suggested site architecture
 
 1. **Start here** — the core distinction in five minutes.
 2. **The model** — Access → Output → Deliverable → Capability → Outcome → Value.
 3. **Client-ready?** — tool capability, job substance, delivery capability, and the substance gap.
-4. **Ways of working** — vibe coding, AI-assisted work, agents, automation, human review.
-5. **Quality and readiness** — prototype versus client-ready/production-ready.
-6. **The whole job** — hidden and displaced work.
-7. **Business value** — outcomes, cost, capacity, revenue, risk, and measurement.
-8. **Accountability** — ownership, review, approval, maintenance, and support.
-9. **Cases** — carefully sourced scenarios and practitioner accounts.
-10. **Evidence** — transparent source register and research notes.
-11. **Use this in a meeting** — questions, checklists, and printable briefings.
+4. **Ways of working** — vibe coding, AI-assisted work, agents, automation, review and assurance.
+5. **AI as a business actor** — analysis, communication, customer interaction, judgement, authority, and accountability.
+6. **Quality and readiness** — prototype versus client-ready/production-ready.
+7. **The whole job** — hidden and displaced work.
+8. **Business value** — outcomes, cost, capacity, revenue, risk, and measurement.
+9. **Accountability** — ownership, review, approval, maintenance, support, delegated authority, and recourse.
+10. **Cases** — carefully sourced scenarios and practitioner accounts.
+11. **Evidence** — transparent source register and research notes.
+12. **Use this in a meeting** — questions, checklists, and printable briefings.
 
 ## Working lines
 
@@ -256,6 +283,8 @@ Supporting page or campaign lines:
 - **The agent can build it. Can you stand behind it?**
 - **Generated is not the same as delivered.**
 - **Polish is not proof of substance.**
+- **Judgement is not the same as authority.**
+- **Human-in-the-loop is not a quality certificate.**
 - **Make the remaining work visible.**
 - **Measure the outcome, not the AI activity.**
 - **Use AI ambitiously. Verify what matters.**
@@ -268,7 +297,8 @@ The project succeeds when a technically knowledgeable employee can send the site
 - What did the agent know, and what did it infer?
 - What remains to be checked?
 - Does the result contain enough substance for this client and job?
-- Who owns it?
+- Which actor or workflow is best for this task?
+- Where do authority, accountability, and recourse sit?
 - What work moved elsewhere?
 - What outcome are we buying?
 - What evidence would justify scaling or selling it?
