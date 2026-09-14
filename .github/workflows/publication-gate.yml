@@ -25,5 +25,8 @@ jobs:
       - name: Install check dependencies
         run: python -m pip install -r requirements-dev.txt
 
+      - name: Build static publication
+        run: python scripts/build_site.py
+
       - name: Validate evidence structure and internal links
         run: python scripts/check_publication.py
