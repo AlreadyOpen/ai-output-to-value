@@ -1,10 +1,8 @@
 # E-commerce and brick-and-mortar: channel change does not make physical presence worthless
 
-E-commerce is a useful historical analogy for the shift now happening with AI agents.
+E-commerce is a useful **historical analogy** for thinking about new agentic channels. It is not evidence that professional services, investment, or corporate representation will follow the same path.
 
 When online commerce expanded, it did not simply prove that physical retail had no value. It changed **where value sat, which activities still justified physical presence, and how customers moved between channels**.
-
-The same distinction is useful when thinking about human representatives, meetings, and AI agents.
 
 > **A channel can lose exclusivity without losing all value.**
 
@@ -12,9 +10,9 @@ The same distinction is useful when thinking about human representatives, meetin
 
 The growth of online retail is substantial, but physical retail remains economically important.
 
-In the United States, the Census Bureau reported that e-commerce accounted for **17.1% of total retail sales in Q2 2026**, after growing faster than total retail sales year-on-year. That is a large and growing share, but it also means most measured retail sales still occurred outside the Census Bureau's e-commerce category.
+In the United States, the Census Bureau reported that e-commerce accounted for **17.1% of total retail sales in Q2 2026 on a seasonally adjusted basis**, after growing faster than total retail sales year-on-year. That is a large share, but it also means most measured retail sales remained outside the Census Bureau's e-commerce category.
 
-In Australia, the Australian Bureau of Statistics reported that online sales rose from **6.3% of total retail turnover in 2019 to 11.4% in 2024**. The ABS describes the pandemic as accelerating online shopping, click-and-collect, and online food delivery, while noting that much of the increase has persisted.
+In Australia, the Australian Bureau of Statistics reported that online sales rose from **6.3% of total retail turnover in 2019 to 11.4% in 2024**. The ABS describes the pandemic as accelerating online shopping, click-and-collect, and online food delivery, while noting that much of the increase persisted.
 
 These figures illustrate a structural shift in channel usage, not a simple replacement event.
 
@@ -22,9 +20,9 @@ These figures illustrate a structural shift in channel usage, not a simple repla
 
 It would be misleading to use the survival of physical retail to claim that e-commerce had little effect.
 
-A 2022 NBER working paper by Sudheer Chava, Alexander Oettl, Manpreet Singh, and Linghang Zeng examined the rollout of a major e-commerce firm's fulfilment centres. The authors report that, in nearby areas, average brick-and-mortar store sales fell by about **4%**, employment at nearby stores fell by about **2.1%**, store exit increased, and store entry decreased. The study also found lower income for some traditional retail workers and shifts in employment toward transportation and warehousing.
+A 2022 NBER working paper by Sudheer Chava, Alexander Oettl, Manpreet Singh, and Linghang Zeng examined the rollout of a major e-commerce firm's fulfilment centres. The authors report that, in nearby areas, average brick-and-mortar store sales fell by about **4%**, employment at nearby stores fell by about **2.1%**, store exit increased, and store entry decreased.
 
-This is a useful example of **creative destruction**: a new channel can create consumer convenience, new logistics activity, and new business models while imposing real costs on incumbent formats and workers.
+This is a useful example of **creative destruction**: a new channel can create convenience, new logistics activity, and new business models while imposing real costs on incumbent formats and workers.
 
 For this project, the lesson is not that digital channels are always better. It is that **changing the channel changes the economics around the old channel**.
 
@@ -32,7 +30,7 @@ For this project, the lesson is not that digital channels are always better. It 
 
 The more interesting long-run response was not simply "online versus offline".
 
-The OECD has documented the emergence of **hybrid and omnichannel retail**. Physical stores increasingly support functions such as:
+The OECD has documented the emergence of **hybrid and omnichannel retail**. Physical stores can support functions such as:
 
 - click-and-collect;
 - returns and exchanges;
@@ -40,35 +38,20 @@ The OECD has documented the emergence of **hybrid and omnichannel retail**. Phys
 - local fulfilment;
 - immediate pickup;
 - customer service;
-- experiential retail;
 - brand presence;
 - inventory visibility across channels.
 
-The OECD's work on e-commerce business models notes that firms use existing physical infrastructure to support online ordering and fulfilment. Click-and-collect, for example, combines an online transaction with a physical pickup location and can reduce some delivery frictions.
-
-Its later work on hybrid retail likewise treats online and brick-and-mortar operations as increasingly integrated rather than as two completely separate businesses.
-
-This is a critical distinction:
+The OECD's work on e-commerce business models notes that firms use physical infrastructure to support online ordering and fulfilment. Later work on hybrid retail likewise treats online and brick-and-mortar operations as increasingly integrated rather than as completely separate businesses.
 
 > **The store did not automatically retain value merely because it was physical. It retained value where physical presence improved the customer's outcome.**
 
-## 4. Being face-to-face is similar: it is a channel, not automatic value
+## 4. Face-to-face interaction can be analysed the same way — as an analogy
 
-This is where the retail analogy connects to AI-enabled companies.
-
-A human representative meeting a customer or investor face-to-face may create significant value when the meeting improves:
-
-- trust;
-- negotiation;
-- interpretation of ambiguity;
-- relationship quality;
-- confidence in commitments;
-- strategic understanding;
-- handling of sensitive or complex issues.
+A human representative meeting a customer or investor face-to-face may create significant value when the meeting improves trust, negotiation, interpretation of ambiguity, confidence in commitments, strategic understanding, or handling of sensitive issues.
 
 But the fact that the meeting happened physically does not establish that those outcomes occurred.
 
-Likewise, a physical store may add value because a customer can try a product, collect it immediately, return it easily, or receive expert service. The value comes from the **function performed through the channel**, not from the physical channel by itself.
+Likewise, a physical store may add value because a customer can inspect a product, collect it immediately, return it easily, or receive expert service. The value comes from the **function performed through the channel**, not from the channel by itself.
 
 A useful analogy is:
 
@@ -81,69 +64,38 @@ A useful analogy is:
 | Store associate | Human operational actor |
 | Automated recommendation / shopping agent | Software operational actor |
 
-The analogy is imperfect: professional services, investment, trust, and corporate governance are not retail transactions. But it is useful for understanding how a new digital channel can reduce the exclusivity of an older one without proving the older one has zero value.
+The analogy is imperfect. Professional services, investment, trust, fiduciary duties, regulation, and corporate governance are not retail transactions.
 
-## 5. E-commerce also changed what customers expected
+## 5. E-commerce changed customer expectations
 
-Online channels increased customer expectations around:
-
-- price transparency;
-- product comparison;
-- convenience;
-- availability information;
-- delivery speed;
-- self-service;
-- access outside store opening hours.
+Online channels increased expectations around price transparency, comparison, convenience, availability information, delivery speed, self-service, and access outside store opening hours.
 
 This put pressure on physical retailers to justify the parts of the experience that could not be reproduced as easily online.
 
-The same dynamic can happen with AI agents.
+A comparable question may arise when customers use agents to compare suppliers, inspect public evidence, analyse documentation, summarise contracts, prepare questions, or request routine information.
 
-If a customer's agent can already:
+A supplier should not assume that a human sales meeting has high value merely because it is human-to-human. Human representation may remain highly valuable where it improves the outcome.
 
-- compare suppliers;
-- inspect public evidence;
-- analyse documentation;
-- summarise contracts;
-- prepare questions;
-- evaluate claims;
-- request quotes;
-- make routine purchases;
+## 6. Our interpretation: a hybrid future is one plausible scenario
 
-then a supplier cannot assume that a human sales meeting has high value merely because it is human-to-human.
+**The evidence above is evidence about retail. The following is this project's interpretation, not a forecast established by the retail studies.**
 
-The human representative may still be highly valuable, but the value has to come from what they add **beyond what the customer's own systems and agents can already do**.
+Retail offers one plausible analogy for how human and agent channels could coexist:
 
-## 6. The new equilibrium is often hybrid
+- agents may perform more research, filtering, monitoring, routine purchasing, and preparation;
+- humans may concentrate on cases where judgement, negotiation, trust, exception handling, accountability, or relationship-building materially improves the outcome;
+- software and humans may share context across the same process;
+- organisations may choose channels according to usefulness rather than tradition.
 
-Retail history suggests that the likely future is not simply:
-
-**human interaction disappears**
-
-or:
-
-**AI remains a background tool while business stays human-first**.
-
-A more plausible pattern is hybrid:
-
-- agents perform research, filtering, monitoring, routine purchasing, and preparation;
-- humans enter where judgement, negotiation, trust, exception handling, accountability, or relationship-building materially improves the outcome;
-- software and humans share context across the same process;
-- physical and digital interactions are chosen according to their usefulness rather than tradition.
-
-This resembles omnichannel retail, where customers move between web, mobile, stores, logistics, and service channels without treating each as a separate company.
+This resembles omnichannel retail conceptually, but it does **not** establish the future structure of professional services, investment, sales, or governance.
 
 ## 7. Presence is not the same thing as substance
 
-E-commerce also provides a warning against confusing **visible presence** with **business substance**.
+E-commerce provides a warning against confusing **visible presence** with **business substance**.
 
-A large physical store can still provide a poor experience, weak prices, or low convenience.
+A large physical store can provide a poor experience. A small online retailer can provide excellent value with little physical presence. Conversely, a physical store can create substantial value where inspection, immediate fulfilment, expertise, service, or experience matter.
 
-A small online retailer can provide excellent value with little physical presence.
-
-Conversely, a physical store can create substantial value where inspection, immediate fulfilment, expertise, service, or experience matter.
-
-The same applies to AI-enabled firms:
+The same analytical discipline can be applied to AI-enabled firms:
 
 - a human-heavy firm is not automatically more substantive;
 - an agent-heavy firm is not automatically thin or low quality;
@@ -156,42 +108,22 @@ The useful question is:
 
 ## 8. Connection to AI Output to Value
 
-The e-commerce analogy supports several core principles of this project:
+The retail evidence and the analogy support different kinds of statements and should remain labelled accordingly.
 
-### Channel is not value
+### Evidence-supported retail observations
 
-Store, website, video call, office meeting, agent conversation, and API are channels. Their value depends on the outcomes they help produce.
-
-### Human presence is not proof of substance
-
-A human can represent the company very effectively. But physical presence does not automatically add business value.
-
-### Digital substitution can be partial but still economically important
-
-E-commerce did not need to reach 100% of retail sales to materially change store economics, employment, pricing, logistics, and customer expectations.
-
-Likewise, AI agents do not need to replace every human interaction to change the economics of professional services, sales, procurement, customer support, or investment processes.
-
-### The surviving physical or human role may become more specialised
-
-As routine activities move to digital channels, the remaining physical or human interactions may concentrate on the cases where they add the most value.
-
-That can make those interactions **more important in some contexts**, but it does not make them universally higher-value.
-
-## 9. Evidence summary
-
-The historical record supports a nuanced conclusion:
-
-- e-commerce grew substantially and continues to grow;
-- physical retailers experienced measurable competitive pressure, sales effects, employment effects, and closures;
+- e-commerce grew substantially and continues to represent a material share of retail;
+- physical retailers experienced measurable competitive pressure in specific studies;
 - physical retail did not disappear;
-- many retailers adapted through hybrid and omnichannel models;
-- the role of physical stores changed as digital channels took over some functions;
-- value increasingly comes from how channels work together rather than from insisting one channel is inherently superior.
+- hybrid and omnichannel practices exist and use physical infrastructure alongside digital ordering.
 
-That is the analogy worth carrying into the agentic economy.
+### Editorial interpretation for agentic business
 
-> **E-commerce did not make the store meaningless. It made the store justify what the store was for. AI agents may do the same to human representation.**
+- a new digital channel can reduce the exclusivity of an older channel without proving the older channel has no value;
+- human presence should be justified by the outcome it improves, not assumed to be valuable merely because it is human;
+- hybrid human/agent interaction is one plausible future scenario, not an established consequence of the retail evidence.
+
+> **E-commerce did not make the store meaningless. It made the store justify what the store was for. Our interpretation is that AI agents may create a similar question for some forms of human representation.**
 
 ## Sources
 
