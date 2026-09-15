@@ -72,9 +72,6 @@ function MeetingBrief() {
             <Text>Next evidence / stop rule: _____________</Text>
           </div>
         </Section>
-
-        <Divider />
-        <Text>Use AI ambitiously. Keep the claims clear. Human, AI, automated and hybrid work use the same intended-use and evidence standard.</Text>
       </Stack>
     </PdfcnThemeProvider>
   )
