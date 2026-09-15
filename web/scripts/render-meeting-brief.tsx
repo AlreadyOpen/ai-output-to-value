@@ -12,7 +12,7 @@ const questions = [
   "What exactly have we demonstrated?",
   "What did the AI know, and what did it infer?",
   "What remains before the intended use?",
-  "Which work disappeared, and which work moved elsewhere?",
+  "Which work disappeared, moved elsewhere, or became the next workflow bottleneck?",
   "Which actor or combination performs this task or decision best?",
   "Where do authority, accountability, verification, operation and support sit?",
   "Which business outcome are we trying to change—including learning or uncertainty removed?",
@@ -52,6 +52,7 @@ function MeetingBrief() {
             ))}
           </div>
           <Text>Do not average the six claims. A missing decision-critical claim cannot be offset by strength somewhere else.</Text>
+          <Text>Workflow test: name the outcome, end-to-end boundary, next bottleneck, unhappy path, and outcome metric. Workflow is the process boundary—not a seventh claim.</Text>
         </Section>
 
         <Section spacing="sm">
@@ -68,10 +69,10 @@ function MeetingBrief() {
           <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
             <Text>Established: ______________________________</Text>
             <Text>Not established: __________________________</Text>
+            <Text>Workflow boundary / unhappy path: __________</Text>
             <Text>Actor / interface / authority: _____________</Text>
             <Text>Accountability / recourse: _________________</Text>
-            <Text>Next evidence: _____________________________</Text>
-            <Text>Stop rule: _________________________________</Text>
+            <Text>Next evidence / stop rule: _________________</Text>
           </div>
         </Section>
 
