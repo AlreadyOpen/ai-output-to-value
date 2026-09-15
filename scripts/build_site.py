@@ -38,6 +38,24 @@ def status_label(value: str) -> str:
     return STATUS.get(value, value.replace("_", " ").title())
 
 
+def evidence_character(item: dict) -> str:
+    article_id = str(item.get("id", ""))
+    section = str(item.get("section", ""))
+    if article_id == "worked-cases":
+        return "Evidence character: illustrative teaching cases"
+    if article_id in {"claim-card", "meeting-brief"}:
+        return "Evidence character: decision tool / editorial synthesis"
+    if section == "core":
+        return "Evidence character: editorial synthesis with linked evidence"
+    if section == "deeper":
+        return "Evidence character: working research synthesis"
+    if section == "advanced":
+        return "Evidence character: research preview"
+    if section == "policy":
+        return "Evidence character: publication policy"
+    return "Evidence character: unspecified"
+
+
 def heading_anchor(locator: str) -> str | None:
     match = re.match(r"^#{1,6}\s+(.+?)\s*$", locator.strip())
     if not match:
@@ -66,8 +84,8 @@ def page_shell(title: str, body: str, source: str | None = None, meta: str = "")
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></div></header>
 <details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></details>
-<main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
-<footer class="site-footer"><div class="shell footer-inner"><p><strong>AI Output to Value</strong> · <a href="{UMBRELLA_URL}">An AlreadyOpen project</a></p><p><a href="{REPO_URL}">GitHub</a> · <a href="../articles/corrections.html">Corrections</a></p></div></footer>
+<main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/provenance.html">Provenance</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
+<footer class="site-footer"><div class="shell footer-inner"><p><strong>AI Output to Value</strong> · <a href="{UMBRELLA_URL}">An AlreadyOpen project</a></p><p><a href="../articles/provenance.html">Provenance</a> · <a href="{REPO_URL}">GitHub</a> · <a href="../articles/corrections.html">Corrections</a></p></div></footer>
 </body></html>"""
 
 
@@ -159,6 +177,7 @@ def meta_for(item: dict, records: list[dict]) -> str:
         evidence_state = "Evidence review: no claim-level records attached yet"
     return (f'<span class="status-label">{html.escape(status_label(str(item.get("status", "draft"))))}</span> '
             f'&nbsp; Maintained by {html.escape(str(item.get("maintainer", "")))} · Last updated {html.escape(str(item.get("reviewed", "")))}<br>'
+            f'<span class="review-scope">{html.escape(evidence_character(item))}</span><br>'
             f'<span class="review-scope">{html.escape(evidence_state)}</span>')
 
 
@@ -177,9 +196,15 @@ def render_articles() -> list[dict]:
         body += evidence_block(related)
         (out / f'{item["slug"]}.html').write_text(page_shell(item["title"], body, item["source"], meta_for(item, related)), encoding="utf-8")
 
-    intro = "This release contains the reviewed guide and its publication policy." if PUBLICATION_MODE == "release" else "This preview includes working research as well as the core guide."
+    intro = "This release contains the reviewed guide and its publication policy." if PUBLICATION_MODE == "release" else "This preview includes the core guide plus clearly separated working research."
     blocks = ["<h1>Articles</h1>", f"<p>{html.escape(intro)} Status labels describe publication state; dates mean last updated.</p>"]
-    for key, label in [("core", "Core reading"), ("deeper", "Deeper analysis"), ("advanced", "Advanced / agentic organisations"), ("policy", "Publication policy")]:
+    group_labels = [
+        ("core", "Core decision guide"),
+        ("deeper", "Working analysis — not in the reviewed release"),
+        ("advanced", "Research preview — advanced / agentic organisations"),
+        ("policy", "Publication policy and provenance"),
+    ]
+    for key, label in group_labels:
         group = [article for article in articles if article.get("section") == key]
         if not group:
             continue
