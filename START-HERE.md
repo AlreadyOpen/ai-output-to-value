@@ -39,6 +39,22 @@ A simple example of the substance gap:
 
 Ask what the AI knew, what it inferred, which assumptions have been checked, what remains before the intended use, and who or what can approve and support the result.
 
+## Treat the workflow, not the isolated task, as the unit of redesign
+
+A product, feature, report, model call, or coding task can improve dramatically while the end-to-end business result barely moves.
+
+A September 2026 *Harvard Business Review* article by Masha Shunko and Serguei Netessine recommends treating the **workflow rather than the individual task** as the object of AI redesign. It describes four recurring failure patterns: accelerating activity rather than value, ignoring the unhappy path, ignoring end-to-end flow, and optimizing the wrong metric.
+
+The article's coding-agent example is especially useful: more code can be produced while the bottleneck moves into review, integration testing, security review, or deployment. The local productivity gain may be real without proving that the overall delivery cycle improved.
+
+In this project, **workflow is not a seventh claim**. It is the process boundary across which stronger claims have to be tested:
+
+**task / product output → end-to-end workflow → Deliverable → repeatable Capability → Outcome → Value**
+
+So when someone says **“the product works, but the workflow is not complete,”** the useful next questions are concrete: where does the workflow start and end, which handoffs or checks remain, what happens on the unhappy path, where will the bottleneck move, and which business outcome should improve?
+
+See [Workflow is the unit — where AI output becomes business delivery](content/workflow-not-task.md).
+
 ## Do not mix the terms
 
 **Vibe coding** describes a way of working, usually prompt-driven creation and rapid iteration.
@@ -82,7 +98,7 @@ Count specification, generation, review, correction, testing, integration, deplo
 1. **What exactly have we demonstrated?**
 2. **What did the AI know, and what did it infer?**
 3. **What remains before the intended use?**
-4. **Which work disappeared, and which work moved elsewhere?**
+4. **Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?**
 5. **Which actor or combination performs the decision or task best?**
 6. **Where do authority, accountability, approval, operation and support sit?**
 7. **Which business outcome are we trying to change?**
@@ -98,7 +114,8 @@ It is saying that **the claim should match the evidence**.
 
 1. [A strong frame is not the same as a finished job](content/frame-vs-finished-work.md)
 2. [Tool access vs client readiness](content/tool-access-vs-client-readiness.md)
-3. [Executive guide](content/executive-guide.md)
+3. [Workflow is the unit — where AI output becomes business delivery](content/workflow-not-task.md)
+4. [Executive guide](content/executive-guide.md)
 
 The broader material on AI business capability, product discovery, architecture economics, open-source economics, organisational capability, agents, representation and retail is deeper reading, not a prerequisite. See the [reading path](docs/reading-path.md).
 
