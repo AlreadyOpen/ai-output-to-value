@@ -7,58 +7,23 @@
   <title>Claim gate — AI Output to Value</title>
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../publication.css">
-  <style>
-    .gate-shell{width:min(1080px,calc(100% - 2rem));margin:0 auto;padding:3.5rem 0 6rem}.gate-intro{max-width:760px}.gate-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:2rem;align-items:start}.gate-card{border:1px solid var(--line,#deded7);border-radius:16px;background:var(--surface,#fff);padding:1.2rem}.gate-fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.gate-field{display:grid;gap:.38rem}.gate-field.full{grid-column:1/-1}.gate-field label{font-weight:700;font-size:.9rem}.gate-field input,.gate-field select,.gate-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--line,#cfd3d0);border-radius:9px;padding:.7rem .75rem;background:#fff;color:var(--ink,#10202f);font:inherit}.gate-field textarea{min-height:90px;resize:vertical}.gate-checks{display:grid;gap:.7rem;margin-top:1rem}.gate-check{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:.8rem;align-items:center;border-top:1px solid var(--line,#e3e3dd);padding-top:.7rem}.gate-check label{font-size:.94rem}.gate-status{position:sticky;top:6rem}.gate-status-box{border-radius:14px;padding:1rem 1.05rem;margin:.7rem 0 1rem;font-weight:800}.gate-status-box[data-status="PASS"]{background:#e7f5ee;color:#174f37}.gate-status-box[data-status="BLOCKED"]{background:#fae9e8;color:#7b2621}.gate-status-box[data-status="INSUFFICIENT_EVIDENCE"]{background:#fff3d8;color:#694b00}.gate-status ul{padding-left:1.2rem}.gate-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.gate-actions button,.gate-actions a{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line,#cfd3d0);border-radius:8px;padding:.62rem .82rem;background:#fff;color:var(--ink,#10202f);font:inherit;font-weight:700;text-decoration:none;cursor:pointer}.gate-actions .primary{background:var(--ink,#10202f);color:#fff}.gate-note{font-size:.9rem;color:var(--ink-soft,#5f625d)}@media(max-width:850px){.gate-grid{grid-template-columns:1fr}.gate-status{position:static}.gate-fields{grid-template-columns:1fr}.gate-field.full{grid-column:auto}.gate-check{grid-template-columns:1fr}}@media print{.site-header,.mobile-nav,.gate-actions,.gate-note{display:none!important}.gate-grid{grid-template-columns:1fr}.gate-status{position:static}.gate-shell{width:100%;padding:0}.gate-card{break-inside:avoid}}
-  </style>
+  <link rel="stylesheet" href="../ui/aiov-ui.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../index.html#interfaces">AI access</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="https://github.com/AlreadyOpen/ai-output-to-value">GitHub</a></nav></div></header>
-  <main id="main" class="gate-shell">
-    <div class="gate-intro">
-      <p class="eyebrow">Interactive decision tool</p>
-      <h1>Claim gate</h1>
-      <p>Choose the decision you are trying to make. The target decision selects the minimum claim and required checks. <strong>This is a stop rule, not a maturity score.</strong></p>
-      <p class="gate-note">The evaluator is actor-neutral: human, AI, automated and hybrid work use the same gate for the same intended decision.</p>
+  <a class="skip-link" href="#claim-gate-root">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../index.html#interfaces">AI access</a>
+        <a href="../articles/index.html">Articles</a>
+        <a href="../evidence/index.html">Evidence</a>
+        <a href="https://github.com/AlreadyOpen/ai-output-to-value">GitHub</a>
+      </nav>
     </div>
-
-    <div class="gate-grid">
-      <form id="gate-form" class="gate-card" novalidate>
-        <div class="gate-fields">
-          <div class="gate-field"><label for="project">Project / initiative</label><input id="project" name="project" required placeholder="e.g. auto-triage-bot"></div>
-          <div class="gate-field"><label for="decision">Decision sought</label><select id="decision" name="decision"></select></div>
-          <div class="gate-field full"><label for="intended-use">Intended use</label><textarea id="intended-use" name="intendedUse" placeholder="What will someone rely on this for?"></textarea></div>
-          <div class="gate-field"><label for="actor">Primary actor</label><select id="actor"><option value="human">Human</option><option value="ai-agent" selected>AI agent</option><option value="deterministic-system">Deterministic system</option><option value="specialist-tool">Specialist tool</option><option value="hybrid">Hybrid</option></select></div>
-          <div class="gate-field"><label for="channel">Interaction channel</label><select id="channel"><option value="human-ui">Human UI</option><option value="webmcp">WebMCP</option><option value="mcp">MCP</option><option value="api">API</option><option value="cli">CLI</option><option value="ide-agent">IDE agent</option><option value="other-agent-tool">Other agent tool</option><option value="hybrid">Hybrid</option><option value="other">Other</option></select></div>
-          <div class="gate-field full"><label for="authority">Authority boundary</label><textarea id="authority" placeholder="What may this actor recommend, change, send, spend, approve or commit?"></textarea></div>
-          <div class="gate-field full"><label for="accountability">Accountability / recourse</label><textarea id="accountability" placeholder="Which organisational or legal party must answer for failures and provide correction?"></textarea></div>
-          <div class="gate-field full"><label for="evidence">Evidence references</label><textarea id="evidence" placeholder="One reference per line: eval result, test run, incident record, source, measurement…"></textarea></div>
-          <div class="gate-field full"><label for="next-evidence">Next evidence that would change the decision</label><textarea id="next-evidence"></textarea></div>
-          <div class="gate-field full"><label for="stop-rule">Stop rule</label><textarea id="stop-rule" placeholder="What result, date, cost or risk threshold makes you stop or restrict the work?"></textarea></div>
-        </div>
-
-        <h2 id="gate-heading">Required checks</h2>
-        <p id="gate-description" class="gate-note"></p>
-        <div id="gate-checks" class="gate-checks"></div>
-      </form>
-
-      <aside class="gate-status gate-card" aria-live="polite">
-        <p class="eyebrow">Decision gate</p>
-        <h2 id="required-claim">Required claim</h2>
-        <div id="status-box" class="gate-status-box" data-status="INSUFFICIENT_EVIDENCE">INSUFFICIENT EVIDENCE</div>
-        <p id="status-summary"></p>
-        <ul id="status-reasons"></ul>
-        <p class="gate-note">Strong Access or Output cannot compensate for a failed decision-critical check.</p>
-        <div class="gate-actions">
-          <button class="primary" type="button" id="copy-md">Copy Markdown</button>
-          <button type="button" id="download-json">Download JSON</button>
-          <button type="button" id="print">Print</button>
-        </div>
-        <p class="gate-note"><a href="../schemas/v1/claim.schema.json">claim.schema.json</a> · <a href="../schemas/v1/decision-gates.json">gate rules</a> · <a href="../articles/claim-card.html">claim-card guidance</a></p>
-      </aside>
-    </div>
-  </main>
-  <script src="claim-gate.js" defer></script>
+  </header>
+  <div id="claim-gate-root"></div>
+  <script type="module" src="../ui/aiov-ui.js"></script>
   <script src="../webmcp.js" defer></script>
 </body>
 </html>
