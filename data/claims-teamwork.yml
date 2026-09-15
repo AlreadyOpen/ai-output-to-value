@@ -10,6 +10,8 @@ claims:
         relevant_finding: The authors explicitly state that teamwork includes preparation and follow-up as well as the live meeting or workshop, and describe AI-supported practices at each stage.
         qualification: This supports an operational framing of teamwork as a process rather than a slogan. It does not establish that every team should use AI at every stage or that the examples generalise causally to all organisations.
     published_in:
+      - file: START-HERE.md
+        locator: "## Management words need evidence too"
       - file: content/workflow-not-task.md
         locator: "## Management words are not evidence"
       - file: content/executive-guide.md
@@ -29,6 +31,8 @@ claims:
         relevant_finding: The authors identify intentionality and craft and contrast well-structured team-AI interaction with an example where little context and no predefined prompt produced poor output.
         qualification: These are the authors' management recommendations, not a validated universal formula. AI Output to Value uses the narrower lesson that collaborative processes need deliberate design and sufficient structure; it does not treat hierarchy or a named leader as proof of quality.
     published_in:
+      - file: START-HERE.md
+        locator: "## Management words need evidence too"
       - file: content/workflow-not-task.md
         locator: "## Management words are not evidence"
       - file: content/meeting-brief.md
