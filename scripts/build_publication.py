@@ -8,6 +8,7 @@ from fix_article_open_links import main as fix_article_open_links
 from publish_failure_modes import main as publish_failure_modes
 from publish_toolkit_assets import main as publish_toolkit_assets
 from refine_agent_access import main as refine_agent_access
+from refine_review_language import main as refine_review_language
 
 
 def main() -> None:
@@ -17,6 +18,7 @@ def main() -> None:
     publish_failure_modes()
     publish_toolkit_assets()
     refine_agent_access()
+    refine_review_language()
 
 
 if __name__ == "__main__":
