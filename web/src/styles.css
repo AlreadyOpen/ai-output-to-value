@@ -13,12 +13,19 @@
   --secondary-foreground: #183344;
   --muted: #eef3f1;
   --muted-foreground: #5f625d;
-  --accent: #d9eeea;
-  --accent-foreground: #07564d;
+  /*
+   * Keep shadcn/Tailwind tokens namespaced where the legacy publication shell
+   * already owns the same custom-property name. In particular, styles.css
+   * uses --accent for the strong green CTA and --radius for its card geometry.
+   * Re-declaring either here changes the legacy homepage because this compiled
+   * stylesheet loads after styles.css.
+   */
+  --ui-accent: #d9eeea;
+  --ui-accent-foreground: #07564d;
   --border: #d8dfdc;
   --input: #cfd8d4;
   --ring: #0a6c60;
-  --radius: 0.75rem;
+  --ui-radius: 0.75rem;
 }
 
 @theme inline {
@@ -34,15 +41,15 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--ui-accent);
+  --color-accent-foreground: var(--ui-accent-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--ui-radius) - 4px);
+  --radius-md: calc(var(--ui-radius) - 2px);
+  --radius-lg: var(--ui-radius);
+  --radius-xl: calc(var(--ui-radius) + 4px);
 }
 
 @layer base {
@@ -77,6 +84,11 @@
  * HTML shell is moved to React/shadcn components.
  */
 @layer components {
+  /* Keep the semantic phrase together at desktop/tablet widths. */
+  .hero h1 > span {
+    white-space: nowrap;
+  }
+
   .article-body table,
   .work-table {
     width: 100%;
@@ -135,7 +147,7 @@
 
   .article-body :not(pre) > code {
     border-radius: 0.3rem;
-    background: color-mix(in srgb, var(--accent) 55%, transparent);
+    background: color-mix(in srgb, var(--ui-accent) 55%, transparent);
     padding: 0.08rem 0.32rem;
   }
 
@@ -155,6 +167,10 @@
 }
 
 @media (max-width: 640px) {
+  .hero h1 > span {
+    white-space: normal;
+  }
+
   .article-body th:first-child,
   .article-body td:first-child {
     min-width: 7rem;
