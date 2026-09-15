@@ -77,6 +77,30 @@ function lines(value: string) {
   return value.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)
 }
 
+function objectValue(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : null
+}
+
+function textValue(value: unknown) {
+  return typeof value === "string" ? value : ""
+}
+
+function listValue(value: unknown) {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []
+}
+
+function isClaimLevel(value: unknown): value is ClaimLevel {
+  return typeof value === "string" && value in claimLabels
+}
+
+function isCheckState(value: unknown): value is CheckState {
+  return value === "unknown" || value === "pass" || value === "fail"
+}
+
+function optionOrFallback(options: { value: string }[], value: unknown, fallback: string) {
+  return typeof value === "string" && options.some((option) => option.value === value) ? value : fallback
+}
+
 function NativeFieldSelect({
   value,
   options,
@@ -116,6 +140,8 @@ function Field({ label, children, full = false }: { label: string; children: Rea
 export function ClaimGateApp() {
   const [gates, setGates] = React.useState<GateRules | null>(null)
   const [loadError, setLoadError] = React.useState<string | null>(null)
+  const [handoffMessage, setHandoffMessage] = React.useState<string | null>(null)
+  const importRef = React.useRef<HTMLInputElement>(null)
   const [state, setState] = React.useState<FormState>({
     project: "",
     decision: "",
@@ -156,6 +182,60 @@ export function ClaimGateApp() {
       })
       .catch((error) => setLoadError(error instanceof Error ? error.message : String(error)))
   }, [])
+
+  function applyClaimRecord(input: unknown, source: string) {
+    if (!gates) throw new Error("Gate rules have not loaded yet.")
+    const item = objectValue(input)
+    if (!item) throw new Error("Claim record must be a JSON object.")
+
+    const decision = textValue(item.targetDecision)
+    const nextRule = gates.decisions[decision]
+    if (!nextRule) throw new Error(`Unknown targetDecision: ${decision || "(missing)"}`)
+
+    const firstActor = Array.isArray(item.actors) ? objectValue(item.actors[0]) : null
+    const rawChecks = objectValue(item.gateChecks) ?? {}
+    const checks = Object.fromEntries(
+      nextRule.requiredChecks.map((check) => {
+        const supplied = rawChecks[check.id]
+        return [check.id, isCheckState(supplied) ? supplied : "unknown"]
+      }),
+    ) as Record<string, CheckState>
+
+    setState({
+      project: textValue(item.project),
+      decision,
+      assertedClaim: isClaimLevel(item.assertedClaimLevel) ? item.assertedClaimLevel : nextRule.requiredClaimLevel,
+      intendedUse: textValue(item.intendedUse),
+      workflowBoundary: textValue(item.workflowBoundary),
+      workflowCompletion: textValue(item.workflowCompletion),
+      downstreamHandoffs: listValue(item.downstreamHandoffs).join("\n"),
+      movedBottleneck: textValue(item.movedBottleneck),
+      unhappyPath: textValue(item.unhappyPath),
+      actor: optionOrFallback(actorOptions, firstActor?.type, "hybrid"),
+      channel: optionOrFallback(channelOptions, firstActor?.interactionChannel, "hybrid"),
+      authority: textValue(item.authority),
+      accountability: textValue(item.accountability),
+      evidence: listValue(item.evidenceRefs).join("\n"),
+      nextEvidence: textValue(item.nextEvidence),
+      stopRule: textValue(item.stopRule),
+      checks,
+    })
+    setHandoffMessage(`${source} loaded into the local form. Review or edit it before relying on the result.`)
+  }
+
+  React.useEffect(() => {
+    if (!gates) return
+    const handleAgentLoad = (event: Event) => {
+      try {
+        const detail = (event as CustomEvent<{ claim?: unknown }>).detail
+        applyClaimRecord(detail?.claim ?? detail, "Agent-prepared claim record")
+      } catch (error) {
+        setHandoffMessage(`Could not load agent record: ${error instanceof Error ? error.message : String(error)}`)
+      }
+    }
+    window.addEventListener("aiov:load-claim-record", handleAgentLoad)
+    return () => window.removeEventListener("aiov:load-claim-record", handleAgentLoad)
+  }, [gates])
 
   const rule = gates && state.decision ? gates.decisions[state.decision] : null
 
@@ -239,6 +319,25 @@ export function ClaimGateApp() {
     await navigator.clipboard.writeText(markdownSummary())
   }
 
+  async function copyJson() {
+    const item = record()
+    if (!item) return
+    await navigator.clipboard.writeText(JSON.stringify(item, null, 2))
+    setHandoffMessage("Current claim.json copied. It can be passed to an AI/MCP client or another person without changing the gate semantics.")
+  }
+
+  async function importJsonFile(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+    try {
+      applyClaimRecord(JSON.parse(await file.text()), file.name)
+    } catch (error) {
+      setHandoffMessage(`Could not import ${file.name}: ${error instanceof Error ? error.message : String(error)}`)
+    } finally {
+      event.target.value = ""
+    }
+  }
+
   function downloadJson() {
     const item = record()
     if (!item) return
@@ -265,6 +364,31 @@ export function ClaimGateApp() {
         </p>
         <p className="mt-2 text-sm text-muted-foreground">The evaluator is actor-neutral: human, AI, automated and hybrid work use the same gate for the same intended decision.</p>
         <p className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">Workflow is not a seventh claim.</strong> The optional workflow fields make the end-to-end process boundary visible without changing the deterministic gate score.</p>
+      </div>
+
+      <div className="mb-6 grid gap-3 md:grid-cols-3">
+        <div className="rounded-lg border border-border bg-card p-4">
+          <Badge variant="outline">Human</Badge>
+          <h2 className="mt-3 font-semibold">Use the visible form</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Complete or edit the record directly, then copy Markdown, export JSON, or print it.</p>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-4">
+          <Badge variant="outline">AI</Badge>
+          <h2 className="mt-3 font-semibold">Use the same gate as a tool</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Browser agents can call <code>aiov_evaluate_claim_record</code> through WebMCP. Native MCP clients can call <code>evaluate_claim_record</code>.</p>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-4">
+          <Badge variant="outline">Hybrid</Badge>
+          <h2 className="mt-3 font-semibold">Hand off the same claim.json</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Import an agent-prepared record, or let a WebMCP agent load it into this local form with <code>aiov_load_claim_gate_record</code>. A person can then inspect and edit it.</p>
+        </div>
+      </div>
+
+      <div className="mb-6 flex flex-wrap items-center gap-2" data-aiov-interactive-only>
+        <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={(event) => void importJsonFile(event)} />
+        <Button size="sm" variant="outline" onClick={() => importRef.current?.click()}>Import claim.json</Button>
+        <Button size="sm" variant="outline" onClick={() => void copyJson()} disabled={!rule}>Copy claim.json</Button>
+        {handoffMessage ? <span className="text-sm text-muted-foreground" aria-live="polite">{handoffMessage}</span> : null}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
