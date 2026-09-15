@@ -1,0 +1,17 @@
+claims:
+  - id: dora-five-software-delivery-metrics-2026
+    claim_text: DORA currently describes five software delivery performance metrics grouped into throughput and instability: change lead time, deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: dora-software-delivery-performance-metrics
+        source_version: reviewed 2026-09-15
+        locator: Sections "Throughput" and "Instability"
+        relevant_finding: DORA groups change lead time, deployment frequency, and failed deployment recovery time under throughput, and change fail rate and deployment rework rate under instability.
+        qualification: These metrics describe software delivery performance for an application or service; they are not a complete measure of customer value, AI ROI, or business profitability.
+    published_in:
+      - file: content/worked-cases.md
+        locator: "## Case 4 — a 90-day software pilot can improve speed and still worsen the system"
+    reviewer: AI-assisted initial source check against DORA's current metric guide
+    reviewed: 2026-09-15
+    independent_review_status: pending
