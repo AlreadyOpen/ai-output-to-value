@@ -146,6 +146,20 @@ Assurance should match the failure mode. It may include:
 
 > **Human-in-the-loop is an architecture choice. It is not a synonym for quality.**
 
+### AI can also be an assurance and defence actor
+
+Actor-neutral assurance also means avoiding the opposite assumption: that **AI is only the thing being supervised**.
+
+A public example comes from Taiwan's Ministry of Digital Affairs. In an August 2026 release on fraud prevention, the ministry described government and major online platforms using a combination of AI detection, automated handling, identity verification, blacklist management, user warnings, reporting mechanisms, and government-platform intelligence exchange. Reported scam patterns are turned into detection rules and model-training signals so suspicious advertisements, accounts, links, and related activity can be identified earlier.
+
+This is a **hybrid control system**, not a story in which one human reviewer is the sole source of assurance. AI can detect patterns at scale; deterministic rules and account controls can block or constrain actions; users and specialists can report or review cases; organisations and regulators retain authority, escalation, and accountability.
+
+The same evidence discipline still applies. The ministry release also relays large platform-reported takedown and blocking figures, but those figures should not be treated as an independent audit of detector accuracy. Without comparable denominators, false-positive/false-negative rates, and an evaluation design, they establish operational scale and reported activity more clearly than they establish causal effectiveness.
+
+> **The control question is not “Where is the human?” It is “Which combination of models, rules, people, automation, authority, and escalation produces the best evidenced protection for the failure mode?”**
+
+This is the same principle used elsewhere in the project: **AI can produce the work, evaluate the work, or help defend the system against AI-generated abuse. None of those roles is automatically trustworthy merely because of the actor's identity.**
+
 ## 8. Evaluate alternative actors by the same outcome where possible
 
 Useful comparison dimensions include:
@@ -203,7 +217,7 @@ For any AI-enabled business interaction or decision, produce this short map.
 | **Primary actor** | Human, model/agent, deterministic automation, or hybrid. |
 | **Evaluation role** | Who or what analyses evidence and compares options. |
 | **Authority boundary** | What the actor may recommend, communicate, spend, change, approve, or commit. |
-| **Assurance mechanism** | Tests, retrieval/provenance, automated evaluator, second model, specialist check, human approval, monitoring, or a combination. |
+| **Assurance mechanism** | Tests, retrieval/provenance, AI detector/evaluator, deterministic rule, second model, specialist check, human approval, monitoring, or a combination. |
 | **Escalation trigger** | Uncertainty, policy boundary, high consequence, customer request, abnormal condition, failed check, or other trigger. |
 | **Escalation destination** | Stronger model, specialist, manager, deterministic recovery path, another system, or human approver. |
 | **Audit evidence** | What logs, source records, calculations, decisions, or tool traces are retained. |
@@ -230,6 +244,7 @@ This principle is deliberately symmetrical. It does not assume people are obsole
 
 ## Sources and evidence boundaries
 
+- Taiwan Ministry of Digital Affairs / Administration for Digital Industries, *數位發展部強化源頭阻詐 「以AI對抗AI詐騙」*, 31 August 2026: https://moda.gov.tw/ADI/news/latest-news/20494
 - OpenAI, *GPT-Realtime*: https://developers.openai.com/api/docs/models/gpt-realtime
 - OpenAI, *Live API reference*: https://developers.openai.com/api/reference/typescript/resources/live
 - OpenAI, *Responses API reference*: https://developers.openai.com/api/reference/cli/resources/responses/methods/create
@@ -237,4 +252,4 @@ This principle is deliberately symmetrical. It does not assume people are obsole
 - Salvi, F. et al. (2025), *On the conversational persuasiveness of GPT-4*, *Nature Human Behaviour*: https://www.nature.com/articles/s41562-025-02194-6
 - Hölbling, L., Maier, S. and Feuerriegel, S. (2025), *A meta-analysis of the persuasive power of large language models*, *Scientific Reports*: https://www.nature.com/articles/s41598-025-30783-y
 
-The OpenAI documentation establishes interfaces and supported modalities/tools; it does not establish sales, presentation, or robot performance. The NBER study establishes results for a particular AI-assisted customer-support setting, not autonomous customer service generally. The persuasion studies concern controlled persuasion tasks, not commercial sales effectiveness. Claims about embodied customer-facing systems here are **capability implications and product hypotheses**, not evidence that a particular robot or agent will outperform a human professional.
+The Taiwan MODA release establishes that government and major online platforms describe AI/automation as part of a broader anti-fraud control system; its platform performance figures are reported operational figures rather than an independent audit of AI accuracy or causal effectiveness. The OpenAI documentation establishes interfaces and supported modalities/tools; it does not establish sales, presentation, or robot performance. The NBER study establishes results for a particular AI-assisted customer-support setting, not autonomous customer service generally. The persuasion studies concern controlled persuasion tasks, not commercial sales effectiveness. Claims about embodied customer-facing systems here are **capability implications and product hypotheses**, not evidence that a particular robot or agent will outperform a human professional.
