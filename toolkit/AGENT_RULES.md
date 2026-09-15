@@ -31,6 +31,23 @@ Do not assume work must progress through every claim level.
 11. State the **next evidence** that would change the decision.
 12. State a **stop or restrict rule**.
 
+## Do not accept management vocabulary as evidence
+
+If a request uses terms such as **workflow**, **teamwork**, **KPI**, **productivity**, **leadership**, or **alignment**, do not treat the term itself as an acceptance criterion or explanation.
+
+Operationalise it first:
+
+- **workflow** — trigger, completion boundary, handoffs, unhappy path, outcome;
+- **teamwork** — participants, roles, before/during/after activity, decision rights, follow-up;
+- **KPI** — exact metric definition, unit, data source, baseline, cadence, guardrails;
+- **productivity** — accepted output/outcome per relevant input, including quality and downstream rework boundary;
+- **leadership** — observable decisions, coordination, authority, escalation, accountability, capability built, outcomes;
+- **alignment** — aligned on which decision, constraint, priority, or measure, and how drift or disagreement becomes visible.
+
+A title, slogan, meeting, dashboard, or meme can frame a question. It does not prove performance.
+
+Apply this rule to executive, management, technical, operational, human, AI, and hybrid claims symmetrically.
+
 ## Software-specific guidance
 
 For exploration, a reproducible artefact plus explicit assumptions may be enough. Do not invent deployment, rollback, support, or ROI work if it would not change the exploration decision.
@@ -50,10 +67,11 @@ Do not say:
 - "The agent completed the task, therefore the job is finished."
 - "The code works locally, therefore the organisation can operate it."
 - "More code was produced, therefore the end-to-end delivery workflow improved."
+- "Management called it a KPI/productivity/teamwork problem, therefore the term is already well defined."
 
 Instead ask:
 
-> **What decision is being made, what claim is sufficient for that decision, what is the end-to-end workflow boundary, and what evidence establishes that claim across that boundary?**
+> **What decision is being made, what claim is sufficient for that decision, what is the end-to-end workflow boundary, what do the management terms mean operationally, and what evidence establishes the claim across that boundary?**
 
 ## Machine-readable record
 
