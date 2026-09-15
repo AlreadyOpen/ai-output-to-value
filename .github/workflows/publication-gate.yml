@@ -28,8 +28,11 @@ jobs:
       - name: Run publication regression tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
+      - name: Validate example claim gate
+        run: python scripts/claim_gate.py toolkit/claim.example.json --json
+
       - name: Build static publication preview
-        run: python scripts/build_site.py
+        run: python scripts/build_publication.py
 
       - name: Validate repository evidence structure and internal links
         run: python scripts/check_publication.py
@@ -40,7 +43,7 @@ jobs:
       - name: Build proposed release artifact
         env:
           PUBLICATION_MODE: release
-        run: python scripts/build_site.py
+        run: python scripts/build_publication.py
 
       - name: Validate proposed release artifact links
         run: python scripts/check_site_links.py
