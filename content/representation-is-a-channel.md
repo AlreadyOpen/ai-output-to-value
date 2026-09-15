@@ -112,9 +112,7 @@ That matters to this project because an actor-neutral standard should not secret
 
 WebMCP therefore belongs at the **channel / interface** layer. It can improve agent access to a web application, but it does not by itself establish Deliverable, Capability, Outcome, or Value.
 
-A public implementation example is [**Chisel — agentic browser CAD over WebMCP**](https://github.com/helenkwok/chisel-webmcp). It adds a WebMCP surface to an existing browser CAD application and exposes 17 CAD tools around the underlying solid-modelling workflow. Its public implementation routes consequential write operations through a shared confirmation gate and exposes visible activity/audit information.
-
-That example is useful as an implementation pattern, not as independent proof that WebMCP or agent-operated CAD is generally safe or production-ready. The important architectural point is that the **human and agent can use different interfaces over the same underlying capability while consequential actions, evidence, and outcomes remain subject to explicit controls**.
+The architectural point does not depend on a particular implementation: **humans and agents may use different interfaces over the same underlying capability while consequential actions, evidence, and outcomes remain subject to explicit controls**.
 
 WebMCP should also not be confused with backend MCP transport. It is an in-browser tool surface. The specification is still evolving, so current browser support, security guidance, and interface details should be checked before relying on it operationally.
 
@@ -258,7 +256,6 @@ And for the other side of the transaction:
 
 - WebMCP specification/explainer source: https://github.com/webmachinelearning/webmcp
 - OpenAI WebMCP Challenge resources: https://webmcp.devpost.com/resources
-- Chisel — agentic browser CAD over WebMCP: https://github.com/helenkwok/chisel-webmcp
 - Cloudflare, *Agentic Commerce*: https://www.cloudflare.com/solutions/agentic-commerce/
 - Cloudflare, *Cloudflare Gives AI Agents an Identity and a Wallet*, 4 August 2026: https://www.cloudflare.com/press/press-releases/2026/cloudflare-gives-ai-agents-an-identity-and-a-wallet/
 - Cloudflare Wallets documentation: https://developers.cloudflare.com/wallets/
@@ -271,6 +268,6 @@ And for the other side of the transaction:
 - OECD, *Unpacking E-commerce*: https://www.oecd.org/en/publications/unpacking-e-commerce_23561431-en.html
 - OECD, *SMEs in the era of hybrid retail*: https://www.oecd.org/en/publications/2023/05/smes-in-the-era-of-hybrid-retail_ea79f5fc.html
 
-WebMCP's specification/explainer supports the claim that a web page can register structured tools for agent discovery and invocation through the browser. The Devpost resource page supports the description of WebMCP as an emerging open standard effort and provides current implementation/testing resources. Chisel is a public practitioner implementation maintained by this project's author; it demonstrates one human/agent/hybrid interface pattern but is not independent evidence of WebMCP safety or business effectiveness.
+WebMCP's specification/explainer supports the claim that a web page can register structured tools for agent discovery and invocation through the browser. The Devpost resource page supports the description of WebMCP as an emerging open standard effort and provides current implementation/testing resources.
 
 Cloudflare’s material supports the claim that agents can act on behalf of customers in browsing and commerce and that agent identity can link back to the human or organisation authorising it. OpenAI's documentation establishes realtime conversational interfaces, not sales effectiveness. The persuasion research establishes capability in controlled debate settings, not commercial sales performance. The retail sources support the channel-shift analogy, but retail goods and professional or investment relationships are not identical markets.
