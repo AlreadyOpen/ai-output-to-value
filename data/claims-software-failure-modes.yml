@@ -1,0 +1,53 @@
+claims:
+  - id: owasp-top10-2025-failure-categories
+    claim_text: OWASP Top 10:2025 includes Security Misconfiguration, Insecure Design, Software or Data Integrity Failures, Security Logging and Alerting Failures, and Mishandling of Exceptional Conditions among its web-application security risk categories.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: owasp-top10-2025
+        source_version: OWASP Top 10:2025 as reviewed 2026-09-15
+        locator: 2025 Top 10 list and Introduction
+        relevant_finding: The OWASP 2025 list explicitly names these categories and describes the document as a web-application security awareness standard.
+        qualification: This supports those security categories as reference anchors. It does not validate this project's complete software failure catalogue, rank the catalogue entries, or establish prevalence for non-web systems.
+    published_in:
+      - file: content/software-failure-mode-catalogue.md
+        locator: "## Reference anchors and limits"
+    reviewer: AI-assisted initial source check against the official OWASP Top 10:2025 site
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: nist-ssdf-core-practices-2022
+    claim_text: NIST SP 800-218 SSDF Version 1.1 recommends a core set of high-level secure software development practices that can be integrated into software development lifecycle implementations.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: nist-ssdf-1-1
+        source_version: NIST SP 800-218 Version 1.1 final publication
+        locator: Abstract
+        relevant_finding: NIST describes SSDF as a core set of high-level secure software development practices intended to be integrated into each SDLC implementation.
+        qualification: SSDF is security-focused and does not define this project's Output/Deliverable/Capability model or prove fitness/value for a specific implementation.
+    published_in:
+      - file: content/software-failure-mode-catalogue.md
+        locator: "## Reference anchors and limits"
+    reviewer: AI-assisted initial source check against the NIST final publication page
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: aws-idempotency-retry-semantics
+    claim_text: AWS Builders' Library describes idempotent API design as a way to make retryable distributed operations avoid unintended additional side effects from retransmitting the same request.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: aws-idempotent-apis
+        source_version: AWS Builders' Library article as reviewed 2026-09-15
+        locator: Introduction and Reducing client complexity with idempotent API design
+        relevant_finding: The article states that an idempotent operation can be retransmitted or retried with no additional side effects and explains its usefulness for distributed workflows with ambiguous failures.
+        qualification: This is AWS practitioner guidance, not an independent benchmark and not evidence that idempotency alone makes a workflow Deliverable or Capability-ready.
+    published_in:
+      - file: content/software-failure-mode-catalogue.md
+        locator: "## Failure mode 3 — retry duplicate side effect"
+      - file: content/software-failure-mode-catalogue.md
+        locator: "## Reference anchors and limits"
+    reviewer: AI-assisted initial source check against the AWS Builders' Library article
+    reviewed: 2026-09-15
+    independent_review_status: pending
