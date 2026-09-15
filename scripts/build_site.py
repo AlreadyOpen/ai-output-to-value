@@ -26,6 +26,11 @@ STATUS = {
     "active_policy": "Active publication policy",
     "ready": "Reviewed for publication",
 }
+ARTICLE_LINK_RE = re.compile(
+    r'(?P<open><a\b[^>]*\bhref=["\']articles/(?P<slug>[a-z0-9-]+)\.html["\'][^>]*>)'
+    r'(?P<label>.*?)'</n    r'(?P<close></a>)',
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def status_label(value: str) -> str:
@@ -82,6 +87,43 @@ def selected_articles() -> list[dict]:
     if PUBLICATION_MODE == "release":
         return [article for article in articles if article.get("release_scope") in RELEASE_SCOPES]
     return articles
+
+
+def render_homepage(articles: list[dict]) -> str:
+    """Render the maintained homepage against the same article selection as the build.
+
+    Preview mode preserves all maintained links. Release mode converts links to
+    excluded working articles into explicit, non-clickable working-material
+    notes so the release artifact cannot point at pages it intentionally omits.
+    """
+    source = (ROOT / "index.html").read_text(encoding="utf-8")
+    if PUBLICATION_MODE != "release":
+        return source
+
+    manifest = load_yaml(ROOT / "data" / "articles.yml")
+    all_articles = manifest.get("articles", []) if isinstance(manifest, dict) else []
+    known_slugs = {
+        article.get("slug")
+        for article in all_articles
+        if isinstance(article, dict) and isinstance(article.get("slug"), str)
+    }
+    selected_slugs = {
+        article.get("slug")
+        for article in articles
+        if isinstance(article, dict) and isinstance(article.get("slug"), str)
+    }
+
+    def replace(match: re.Match[str]) -> str:
+        slug = match.group("slug")
+        if slug not in known_slugs or slug in selected_slugs:
+            return match.group(0)
+        label = match.group("label")
+        return (
+            f'<span class="working-material-note" data-working-article="{html.escape(slug)}">'
+            f'{label} <em>(working material; not included in this reviewed release)</em></span>'
+        )
+
+    return ARTICLE_LINK_RE.sub(replace, source)
 
 
 def claims_for(source: str, records: list[dict]) -> list[dict]:
@@ -209,9 +251,10 @@ def build() -> None:
     if SITE.exists():
         shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
-    for name in ("index.html", "styles.css", "publication.css"):
+    for name in ("styles.css", "publication.css"):
         shutil.copy2(ROOT / name, SITE / name)
     articles = render_articles()
+    (SITE / "index.html").write_text(render_homepage(articles), encoding="utf-8")
     render_evidence(articles)
     print(f"Built {PUBLICATION_MODE} site at {SITE} using source ref {SOURCE_REF}; repository {REPO_URL}; umbrella {UMBRELLA_URL}")
 
