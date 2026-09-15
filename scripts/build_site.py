@@ -86,6 +86,7 @@ def page_shell(title: str, body: str, source: str | None = None, meta: str = "")
 <details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></details>
 <main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/provenance.html">Provenance</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
 <footer class="site-footer"><div class="shell footer-inner"><p><strong>AI Output to Value</strong> · <a href="{UMBRELLA_URL}">An AlreadyOpen project</a></p><p><a href="../articles/provenance.html">Provenance</a> · <a href="{REPO_URL}">GitHub</a> · <a href="../articles/corrections.html">Corrections</a></p></div></footer>
+<script src="../webmcp.js" defer></script>
 </body></html>"""
 
 
@@ -124,6 +125,8 @@ def render_homepage(articles: list[dict]) -> str:
     notes so the release artifact cannot point at pages it intentionally omits.
     """
     source = (ROOT / "index.html").read_text(encoding="utf-8")
+    if "webmcp.js" not in source:
+        source = source.replace("</body>", '<script src="webmcp.js" defer></script>\n</body>')
     if PUBLICATION_MODE != "release":
         return source
 
@@ -285,7 +288,7 @@ def build() -> None:
     if SITE.exists():
         shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
-    for name in ("styles.css", "publication.css"):
+    for name in ("styles.css", "publication.css", "webmcp.js"):
         shutil.copy2(ROOT / name, SITE / name)
     articles = render_articles()
     (SITE / "index.html").write_text(render_homepage(articles), encoding="utf-8")
