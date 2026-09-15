@@ -1,0 +1,18 @@
+sources:
+  - id: hbr-teamwork-ai-2026
+    title: AI Can Enhance Every Stage of Teamwork—Under Two Conditions
+    publisher: Harvard Business Review
+    authors:
+      - Gabriele Rosani
+      - Elisa Farri
+    url: https://hbr.org/2026/09/ai-can-enhance-every-stage-of-teamwork-under-two-conditions
+    published: 2026-09-07
+    evidence_type: management_practitioner_analysis
+    supports:
+      - teamwork_extends_before_during_after_group_sessions
+      - ai_can_be_integrated_across_the_full_arc_of_teamwork
+      - intentionality_and_craft_are_proposed_conditions_for_effective_team_ai_use
+      - individual_ai_adoption_does_not_by_itself_establish_team_level_integration
+    scope: The article reports hands-on workshops involving more than 300 managers across 35 organisations and describes AI-supported practices before, during and after collaborative work, together with an author framework of intentionality and craft.
+    limitations: The evidence is a practitioner/research synthesis based on workshops, organisational examples and participant assessments rather than a universal controlled causal benchmark. AI Output to Value does not adopt the article's stronger claim that only a team leader has agency to change teamwork as a general governance rule.
+    reviewed: 2026-09-15
