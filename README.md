@@ -4,11 +4,9 @@
 
 > **Access is not capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
 
-## Umbrella initiative
+**Live working preview:** https://alreadyopen.github.io/ai-output-to-value/
 
-This project is part of **AlreadyOpen**: https://github.com/AlreadyOpen
-
-The repository currently remains at `helenkwok/ai-output-to-value`. A future transfer to `AlreadyOpen/ai-output-to-value` is an organisational/release decision; repository and umbrella URLs are configuration values in the publication builder.
+**Organisation:** [AlreadyOpen](https://github.com/AlreadyOpen) · **Repository:** [AlreadyOpen/ai-output-to-value](https://github.com/AlreadyOpen/ai-output-to-value)
 
 ## Start here
 
@@ -64,8 +62,6 @@ Important factual claims can be traced as:
 
 Independent review is actor-neutral. A completed review may be performed by a human, AI system, automated method, specialist toolchain, or hybrid process if it is sufficiently separate from the originating authoring step, directly checks the evidence, applies the stated criteria, and leaves an auditable record.
 
-A completed claim review must record the claim revision, source versions checked, review method, finding, and disposition. This does not require exposing private reasoning.
-
 > **Review completed is not the same as claim accepted.**
 
 `rejected` is a valid review disposition for the evidence history. A launch-critical claim can pass release approval only with an accepting disposition: `accepted`, `accepted_with_qualification`, or `revised_and_accepted`.
@@ -74,23 +70,13 @@ See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
 ## Working preview versus reviewed release
 
-The repository has two publication modes.
+The public GitHub Pages site currently deploys the **working preview** from `main`. It includes the core guide plus deeper and advanced working material, with publication and evidence-review states kept visible.
 
-### Working preview and proposed-release integrity
-
-The normal publication gate builds the full guide plus deeper and advanced working material. It validates structure, types, dates, classifications, evidence links, locators, fragments, and deployment-local links.
-
-The same normal CI run then builds again with `PUBLICATION_MODE=release` and runs [`scripts/check_site_links.py`](scripts/check_site_links.py) against the proposed release artifact.
-
-This intentionally separates two questions:
+Normal CI also builds a proposed release artifact with `PUBLICATION_MODE=release` and checks its local links independently of editorial approval. This separates two questions:
 
 > **Does the proposed release build work?**
 >
 > **Has that release been approved?**
-
-The first can pass while independent review and release approval remain pending.
-
-### Reviewed release artifact
 
 Each article declares a `release_scope`:
 
@@ -98,19 +84,13 @@ Each article declares a `release_scope`:
 - `policy` — evidence/correction policy included with the guide;
 - `working` — deeper or advanced research excluded from the reviewed release artifact.
 
-The builder uses the same selected-article manifest for the homepage. In release mode, a homepage reference to a `working` article is rendered as clearly labelled working material rather than a link to a page that the release excludes.
-
 The manual release gate additionally checks that launch-critical claims have completed independent review with inspectable records and an accepting disposition, guide pages are marked ready, policy pages are release-ready, expected release pages exist, and working pages did not enter the artifact.
-
-This records the project's declared controls for a specific revision; it is not a guarantee of truth.
 
 ## Publication controls
 
 Normal CI runs regression tests, builds and checks the working preview, then independently builds and link-checks the proposed release artifact. The artifact-only link checker is itself covered by regression tests.
 
-The manual release gate runs the same structural preparation and then executes [`scripts/check_release.py`](scripts/check_release.py). Its tests include the distinction between an accepted review and a completed-but-rejected review.
-
-The architecture example uses consistent denominators and plain-text formula rendering; the executive guide has also been cleaned of authoring instructions and repetitive producer-identity caveats.
+GitHub Pages is deployed through [`.github/workflows/pages.yml`](.github/workflows/pages.yml). Pushes to `main` automatically publish the working preview; a manual workflow run can select `release`, in which case the release-approval checks run before deployment.
 
 ## Repository structure
 
@@ -140,7 +120,8 @@ The architecture example uses consistent denominators and plain-text formula ren
 │   └── test_release_checks.py
 └── .github/workflows/
     ├── publication-gate.yml
-    └── release-gate.yml
+    ├── release-gate.yml
+    └── pages.yml
 ```
 
 ## Corrections and responsibility
@@ -149,18 +130,17 @@ The initial maintainer is **Helen Kwok**. Evidence-based corrections and counter
 
 ## Current status
 
-**Pre-public-launch / labelled pilot.** The core reading route, actor-neutral evidence model, preview/release split, stricter validators, release-scope artifact, structured independent-review record, release-artifact link checking, and regression tests are in place.
+**Public working preview / labelled pilot.** The repository is now under AlreadyOpen and the GitHub Pages preview is live.
 
-Still open before the first reviewed public release:
+Still open before the first reviewed release:
 
 - complete independent review records with accepting dispositions for launch-critical claims;
 - rendered accessibility/usability and print testing of the actual release pages;
-- external-link/source-date review;
-- metadata/social-preview assets;
-- code/content licensing;
-- hosting/deployment choice;
-- timing of transfer to `AlreadyOpen/ai-output-to-value`;
-- the explicit decision to make the repository/publication public.
+- review all external links and source dates;
+- create a dedicated social-preview image asset;
+- decide the final code/content licensing model;
+- run a small reader test of the core route and meeting brief;
+- explicitly approve and deploy the reviewed release artifact.
 
 A further positive real-world case can improve the guide, but it is not a substitute for finishing the release controls above.
 
