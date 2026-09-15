@@ -16,7 +16,15 @@ Important factual claims can be traced through the publication evidence system:
 
 The public evidence page shows the current state of that record. Pending review remains visible rather than being silently described as approved.
 
-The project also distinguishes evidence types. A measured study, official guidance, vendor documentation, an internal observation, an illustrative teaching case, and an editorial recommendation do not support the same kinds of claims.
+The project also distinguishes evidence character. A measured study, official guidance, vendor documentation, an internal observation, an illustrative teaching case, and an editorial recommendation do not support the same kinds of claims.
+
+For public material, the useful categories are:
+
+- **Public measured evidence** — inspectable research, statistics, or measured cases;
+- **Public documented evidence** — standards, guidance, policy or product documentation;
+- **Internal evidence** — measurements or observations available to authorised people inside an organisation but not suitable for public disclosure;
+- **Illustrative** — a constructed case used to teach the method;
+- **Editorial synthesis** — interpretation or recommendation made by this project.
 
 ## Independent review is actor-neutral
 
@@ -35,6 +43,8 @@ If confidential work informs a decision internally, the organisation can keep th
 If a public teaching pattern is created from confidential experience, it should be sufficiently abstracted or anonymised to protect the underlying engagement and must not be presented as independently verifiable public evidence.
 
 The fictional cases in this project are labelled **illustrative**. They should not be read as disguised client stories.
+
+The absence of named commercial engagements is therefore not treated as a defect in itself. The relevant test is whether the public claim matches the evidence that can legitimately be disclosed and whether the method can still be applied privately to confidential work.
 
 ## Corrections and challenge
 
