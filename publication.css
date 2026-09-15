@@ -121,7 +121,17 @@
   border: 1px solid var(--line, #deded7);
   vertical-align: top;
   text-align: left;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* Keep short categorical labels such as Deliverable and Capability intact. */
+.article-body th:first-child,
+.article-body td:first-child {
+  min-width: 7.5rem;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .article-body blockquote {
@@ -421,6 +431,11 @@
   .work-table th,
   .work-table td {
     padding: .6rem .65rem;
+  }
+
+  .article-body th:first-child,
+  .article-body td:first-child {
+    min-width: 7rem;
   }
 }
 
