@@ -26,13 +26,19 @@ jobs:
       - name: Run regression tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
+      - name: Build working preview for repository validation
+        run: python scripts/build_site.py
+
+      - name: Validate repository evidence structure and links
+        run: python scripts/check_publication.py
+
       - name: Build reviewed release candidate
         env:
           PUBLICATION_MODE: release
         run: python scripts/build_site.py
 
-      - name: Validate publication structure
-        run: python scripts/check_publication.py
+      - name: Validate release artifact links
+        run: python scripts/check_site_links.py
 
       - name: Enforce release approval policy and artifact scope
         run: python scripts/check_release.py
