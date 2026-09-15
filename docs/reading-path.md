@@ -9,16 +9,18 @@ Read these in order:
 1. [`START-HERE.md`](../START-HERE.md) — the core argument in about five minutes.
 2. [`content/frame-vs-finished-work.md`](../content/frame-vs-finished-work.md) — why a strong concept, scaffold, or prototype can be valuable without proving the whole job is finished.
 3. [`content/tool-access-vs-client-readiness.md`](../content/tool-access-vs-client-readiness.md) — tool capability, job substance, delivery capability, and the substance gap.
-4. [`content/executive-guide.md`](../content/executive-guide.md) — workflow accounting, ownership, quality, and business value.
-5. [`content/worked-cases.md`](../content/worked-cases.md) — fictional examples showing how the framework changes an actual decision.
+4. [`content/worked-cases.md`](../content/worked-cases.md) — fictional examples showing how the framework changes an actual decision, including software measurement and option value.
+5. [`content/claim-card.md`](../content/claim-card.md) — a copyable decision card: claim threshold, evidence character, actors, measurement, next evidence and stop rule.
 
 If those pages answer the reader's question, they can stop there.
 
 For a meeting, use the printable [`content/meeting-brief.md`](../content/meeting-brief.md).
 
-## Path 2 — deeper analysis by decision
+The core route is deliberately **decision-first**. The six claims are not a maturity score; the useful question is which claim is sufficient for the next decision.
 
-The deeper pages should each help produce a different decision artefact rather than repeat the same warning.
+## Path 2 — working analysis by decision
+
+The pages in this section are **working analysis / research preview** rather than part of the reviewed release guide. Each should help produce a different decision artefact instead of repeating the same warning.
 
 | Decision | Read | Practical output |
 | --- | --- | --- |
@@ -51,14 +53,15 @@ A team may revisit them iteratively rather than follow them as a waterfall.
 
 These supporting analyses and analogies should not dominate the public landing experience.
 
-## Path 3 — evidence and editorial review
+## Path 3 — provenance, evidence and review
 
-For contributors, reviewers, researchers, and readers who want to inspect the evidence system:
+For contributors, reviewers, researchers, and readers who want to inspect who stands behind the project and how the evidence system works:
 
-1. [`docs/evidence-policy.md`](evidence-policy.md) — evidence classes, canonical registry rules, review status, preview/release gates, and corrections.
-2. [`data/claims.yml`](../data/claims.yml) — the base claim registry; additional canonical topic-specific claim registries live beside it under `data/claims*.yml`.
-3. [`data/sources.yml`](../data/sources.yml) — the base source registry; additional canonical topic-specific source registries live beside it under `data/sources*.yml` and other `data/*.yml` files containing a top-level `sources:` list.
-4. [`content/corrections.md`](../content/corrections.md) — correction and editorial-review route.
+1. [`content/provenance.md`](../content/provenance.md) — maintainer, organisational home, confidentiality boundary, evidence character and actor-neutral review principle.
+2. [`docs/evidence-policy.md`](evidence-policy.md) — evidence classes, canonical registry rules, review status, preview/release gates, and corrections.
+3. [`data/claims.yml`](../data/claims.yml) — the base claim registry; additional canonical topic-specific claim registries live beside it under `data/claims*.yml`.
+4. [`data/sources.yml`](../data/sources.yml) — the base source registry; additional canonical topic-specific source registries live beside it under `data/sources*.yml` and other `data/*.yml` files containing a top-level `sources:` list.
+5. [`content/corrections.md`](../content/corrections.md) — correction and independent-review route.
 
 The publication build combines those canonical registries into one reader-facing evidence page with stable claim links and article backlinks.
 
@@ -68,4 +71,4 @@ The home page and `START-HERE.md` should remain narrow:
 
 > **We bought or gained access to AI. What have we actually achieved, what remains, and what evidence connects the output to business value?**
 
-Broader material belongs in deeper reading unless it is necessary to answer that question directly.
+Broader material belongs in working/research reading unless it is necessary to answer that question directly.
