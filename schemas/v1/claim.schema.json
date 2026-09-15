@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
   "title": "AI Output to Value claim record",
-  "description": "Machine-readable decision record for the AI Output to Value stop-rule framework. The producer identity does not determine the gate; the target decision does.",
+  "description": "Machine-readable decision record for the AI Output to Value stop-rule framework. The producer identity does not determine the gate; the target decision does. Workflow fields describe the end-to-end process boundary and do not create a seventh claim level.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -33,6 +33,14 @@
       "enum": ["01-access", "02-output", "03-deliverable", "04-capability", "05-outcome", "06-value"]
     },
     "intendedUse": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "workflowBoundary": { "type": "string", "maxLength": 3000 },
+    "workflowCompletion": { "type": "string", "maxLength": 2000 },
+    "downstreamHandoffs": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 1000 }
+    },
+    "movedBottleneck": { "type": "string", "maxLength": 2000 },
+    "unhappyPath": { "type": "string", "maxLength": 3000 },
     "evidenceCharacter": {
       "type": "array",
       "items": {
