@@ -6,7 +6,7 @@ claims:
     evidence:
       - source_id: webmcp-spec-browser-tools
         source_version: main branch as reviewed 2026-09-15
-        locator: Sections "Imperative Tool Registration: document.modelContext" and "Lifecycle of a Tool Call"
+        locator: 'Sections "Imperative Tool Registration: document.modelContext" and "Lifecycle of a Tool Call"'
         relevant_finding: The WebMCP explainer describes pages registering tools through document.modelContext.registerTool, followed by agent discovery, invocation, page execution, and structured responses.
         qualification: This establishes the interface model, not the security, correctness, authority, reliability, or business value of any particular WebMCP implementation.
       - source_id: webmcp-devpost-resources-2026
@@ -32,7 +32,7 @@ claims:
     evidence:
       - source_id: chisel-webmcp-public-implementation
         source_version: main branch as reviewed 2026-09-15
-        locator: README sections "The tools" and "Why every consequential tool shares one gate"; plugins/webmcp/src/gate.ts
+        locator: 'README sections "The tools" and "Why every consequential tool shares one gate"; plugins/webmcp/src/gate.ts'
         relevant_finding: The repository documents 17 CAD tools, a common registration-boundary gate, an in-page confirmation seam for writes, and an activity panel/audit trail; gate.ts implements the shared confirmation path before write handlers execute.
         qualification: This is a practitioner implementation maintained by the project author. It demonstrates an interface/control pattern but is not independent evidence of WebMCP safety, production readiness, CAD correctness across arbitrary models, or business effectiveness.
     published_in:
