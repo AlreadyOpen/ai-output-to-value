@@ -1,6 +1,6 @@
 claims:
   - id: dora-five-software-delivery-metrics-2026
-    claim_text: DORA currently describes five software delivery performance metrics grouped into throughput and instability: change lead time, deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate.
+    claim_text: "DORA currently describes five software delivery performance metrics grouped into throughput and instability: change lead time, deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate."
     status: supported
     launch_critical: false
     evidence:
