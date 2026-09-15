@@ -2,7 +2,7 @@
 
 Native Model Context Protocol access to the **AI Output to Value** decision framework.
 
-This package complements the website's WebMCP surface for IDE, desktop and terminal-agent workflows. It uses the same published `/api/v1` framework, gate, article, claim, and working failure-mode data as the browser implementation.
+This package is the practical agent interface for IDE, desktop and terminal workflows. It uses the same published `/api/v1` framework, gate, article, claim, template, and working failure-mode data as the browser implementation. WebMCP remains a progressive browser enhancement; native MCP does not depend on `document.modelContext`.
 
 ## Status
 
@@ -11,8 +11,6 @@ Early package source inside the main repository. It is **not yet published to np
 ## Transport
 
 The first supported transport is **stdio**, suitable for local MCP hosts such as IDEs and terminal agents. A remote Streamable HTTP deployment can use the same server factory later.
-
-The implementation targets the stable v2 MCP TypeScript server package.
 
 ## Run from this repository
 
@@ -37,11 +35,64 @@ AIOV_PUBLICATION_URL=https://example.test/ npm start
 - `get_stop_rule(decision_type)` — minimum sufficient claim and required checks.
 - `evaluate_claim_record(claim)` — deterministic evaluation of a structured claim record. It checks the supplied evidence state; it does not independently verify the underlying facts.
 - `get_framework()` — current six-claim framework and actor-neutral rule.
+- `get_software_outcome_template()` — DORA-based software-delivery Outcome measurement pack plus optional AI-specific leading indicators; it marks no check PASS automatically.
 - `list_articles(section?)` — articles included in the currently published artifact.
 - `search_claims(query, limit?)` — canonical claim records from the current publication artifact.
-- `search_failure_modes(query, limit?)` — search the working software/architecture failure-mode catalogue for patterns that can invalidate Deliverable or Capability claims.
+- `search_failure_modes(query, limit?)` — working software/architecture failure-mode catalogue.
 
-The failure-mode catalogue is explicitly working material. A reviewed release can exclude those entries while keeping the same endpoint/tool contract.
+> **Gate ≠ truth.** A green result means the supplied record satisfies the deterministic gate for the selected decision. It is not an audit of the underlying system or evidence.
+
+## Claude Code
+
+For a local checkout, add the stdio server to the project:
+
+```bash
+claude mcp add --scope project ai-output-to-value -- \
+  node /absolute/path/to/ai-output-to-value/packages/mcp/src/index.mjs
+
+claude mcp list
+```
+
+Claude Code's current CLI uses `--` to separate Claude's MCP options from the stdio command and arguments.
+
+## Cursor
+
+Create `.cursor/mcp.json` in the project (or `~/.cursor/mcp.json` for a personal global configuration):
+
+```json
+{
+  "mcpServers": {
+    "ai-output-to-value": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/absolute/path/to/ai-output-to-value/packages/mcp/src/index.mjs"
+      ]
+    }
+  }
+}
+```
+
+The same configuration is also available to Cursor CLI.
+
+## VS Code / GitHub Copilot
+
+For a repository-scoped MCP server in VS Code, create `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "ai-output-to-value": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/ai-output-to-value/packages/mcp/src/index.mjs"
+      ]
+    }
+  }
+}
+```
+
+Start the server from the MCP configuration UI, then use its tools from Copilot Chat in Agent mode.
 
 ## Design rule
 
@@ -49,12 +100,10 @@ The failure-mode catalogue is explicitly working material. A reviewed release ca
 
 The MCP server therefore does not impose a special penalty merely because work was AI-generated and does not treat human approval as automatic proof of quality.
 
-## Example host configuration
+For governed workflows, pin the repository to a reviewed release/tag or commit rather than assuming `main` is a reviewed instrument.
 
-After the package is published or installed locally, configure a stdio MCP host to launch:
+Current host references:
 
-```text
-node /absolute/path/to/ai-output-to-value/packages/mcp/src/index.mjs
-```
-
-Exact configuration syntax varies by host. Pin a reviewed release or commit when using the server in governed workflows.
+- Claude Code MCP: https://docs.anthropic.com/en/docs/claude-code/mcp
+- Cursor MCP: https://cursor.com/docs/mcp
+- GitHub Copilot / VS Code MCP: https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide/extend-copilot-chat-with-mcp
