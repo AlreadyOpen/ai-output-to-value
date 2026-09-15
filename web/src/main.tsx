@@ -13,7 +13,6 @@ function mountArticleTools() {
         mdPath={host.dataset.mdPath || ""}
         sourceUrl={host.dataset.sourceUrl || ""}
         title={host.dataset.title || document.title.replace(/\s+—\s+AI Output to Value$/, "")}
-        repo={host.dataset.repo || "AlreadyOpen/ai-output-to-value"}
       />,
     )
   })
