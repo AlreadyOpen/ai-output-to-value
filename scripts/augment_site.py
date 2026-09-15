@@ -18,6 +18,17 @@ FRAMEWORK = {
     "version": "1.0",
     "principle": "Use AI ambitiously. Keep the claims clear.",
     "actorNeutralRule": "Assess human, AI, automated, and hybrid work by the complete process and its results, not the identity of the producer.",
+    "workflowRule": {
+        "statement": "Workflow is the end-to-end process boundary across which the target claim must hold; it is not a seventh claim.",
+        "questions": [
+            "What outcome should this workflow produce?",
+            "Where does the workflow start, and what counts as complete?",
+            "Which handoffs, verification, integration, operation, or support steps sit downstream of the local task or product?",
+            "If AI accelerates one task, where can the bottleneck move next?",
+            "What is the unhappy path, including escalation, stop, reversal, or recovery?",
+            "Are we measuring the end-to-end outcome or only local activity?"
+        ]
+    },
     "claims": [
         {"level": "01-access", "name": "Access", "meaning": "We have a model, API, subscription, agent, or tool.", "doesNotProve": "effective use"},
         {"level": "02-output", "name": "Output", "meaning": "The system produced an artefact or performed an action.", "doesNotProve": "correctness or client fit"},
