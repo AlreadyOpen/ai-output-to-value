@@ -2,13 +2,15 @@
 
 Generative AI can create useful software, reports, research, designs and automations very quickly. It can also analyse information, prepare proposals and presentations, communicate with customers, and participate in live interactive workflows. The management mistake is not using AI aggressively. It is treating several different claims as though they were the same.
 
-> **Access is not capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
+> **Access is not operating capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
 
 ## Six different claims, not six mandatory steps
 
 This project uses a decision framework:
 
-**Access → Output → Deliverable → Capability → Outcome → Value**
+**Access → Output → Deliverable → Operating capability → Outcome → Value**
+
+The stable machine identifier for the fourth claim remains `04-capability`; **Operating capability** is the human-facing name so it is not confused with generic tool capability or delivery capability.
 
 The arrows are a memory aid, not a mandatory project lifecycle.
 
@@ -17,13 +19,13 @@ The arrows are a memory aid, not a mandatory project lifecycle.
 | **Access** | Do we have the model, agent, API, subscription or tool? |
 | **Output** | Did it generate something useful-looking or functional? |
 | **Deliverable** | Is the result fit for its intended use and acceptance criteria? |
-| **Capability** | Can the organisation repeatedly verify, operate, support, maintain and improve it? |
+| **Operating capability** | Can the organisation repeatedly verify, operate, support, maintain and improve it? |
 | **Outcome** | What actually changed: time, quality, service, throughput, risk, learning or another meaningful measure? |
 | **Value** | Was that outcome worth the full cost, risk and trade-offs? |
 
 A disposable prototype can create a valuable learning outcome without becoming an operational service. A useful reverse-planning question is:
 
-> **What outcome do we need, and what evidence, capability and work would make that outcome plausible?**
+> **What outcome do we need, and what evidence, operating capability and work would make that outcome plausible?**
 
 ## A capable agent is not automatically a capable supplier
 
@@ -32,6 +34,8 @@ Keep three ideas separate:
 1. **Tool capability** — can the AI produce the artefact or perform the task?
 2. **Job substance** — does the result contain what this particular job actually requires?
 3. **Delivery capability** — can the organisation verify, explain, deploy, support, maintain and stand behind it?
+
+These are substance dimensions, not extra rungs in the six-claim framework.
 
 A simple example of the substance gap:
 
@@ -49,7 +53,7 @@ The article's coding-agent example is especially useful: more code can be produc
 
 In this project, **workflow is not a seventh claim**. It is the process boundary across which stronger claims have to be tested:
 
-**task / product output → end-to-end workflow → Deliverable → repeatable Capability → Outcome → Value**
+**task / product output → end-to-end workflow → Deliverable → repeatable Operating capability → Outcome → Value**
 
 So when someone says **“the product works, but the workflow is not complete,”** the useful next questions are concrete: where does the workflow start and end, which handoffs or checks remain, what happens on the unhappy path, where will the bottleneck move, and which business outcome should improve?
 
@@ -109,6 +113,19 @@ Use precise units. If drafting changes from **8 labour hours to 2 labour hours**
 Those figures do not establish elapsed delivery time. Waiting, handoffs and parallel work can change calendar duration without changing summed labour hours.
 
 Count specification, generation, review, correction, testing, integration, deployment, support and maintenance at the level relevant to the decision.
+
+## Measured evidence can point in different directions
+
+The point of an evidence-led framework is not to collect only studies with the same headline. Different studies measure different tasks, populations, tools, and definitions of productivity.
+
+- In [METR's early-2025 randomized study](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/), 16 experienced open-source developers completed 246 real tasks in mature repositories. With AI tools allowed, they took **19% longer** on average. Before the tasks they expected AI to make them 24% faster, and after the study they still believed it had made them about 20% faster. That is strong evidence that perceived speed and measured speed can diverge in this setting; it is not evidence that AI slows most developers.
+- In a [controlled GitHub Copilot experiment reported by Microsoft Research](https://www.microsoft.com/en-us/research/publication/the-impact-of-ai-on-developer-productivity-evidence-from-github-copilot/), developers completing a bounded JavaScript HTTP-server task with Copilot finished about **55.8% faster** than the control group. That result is real for the study task and does not establish the same effect for mature repositories or end-to-end delivery.
+- In [Noy and Zhang's preregistered experiment published in *Science*](https://doi.org/10.1126/science.adh2586), 453 college-educated professionals completed midlevel writing tasks; ChatGPT access reduced average completion time by **40%** and increased output quality by **18%**. The result is about the selected writing tasks, not all knowledge work.
+- In [Dell'Acqua et al.'s preregistered consulting experiment](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4573321), AI assistance improved quantity, speed, and quality on tasks selected inside the model's capability frontier, while on a selected task outside that frontier AI users were **19% less likely to produce correct solutions**. The important lesson is task heterogeneity, not a universal effect size.
+
+Together these studies support a more disciplined question than “does AI improve productivity?”:
+
+> **For this task, workflow, population, tool, and decision, what outcome changed under a comparable definition?**
 
 ## Eight questions for a meeting
 
