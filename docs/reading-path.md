@@ -9,14 +9,15 @@ Read these in order:
 1. [`START-HERE.md`](../START-HERE.md) — the core argument in about five minutes.
 2. [`content/frame-vs-finished-work.md`](../content/frame-vs-finished-work.md) — why a strong concept, scaffold, or prototype can be valuable without proving the whole job is finished.
 3. [`content/tool-access-vs-client-readiness.md`](../content/tool-access-vs-client-readiness.md) — tool capability, job substance, delivery capability, and the substance gap.
-4. [`content/worked-cases.md`](../content/worked-cases.md) — fictional examples showing how the framework changes an actual decision, including software measurement and option value.
-5. [`content/claim-card.md`](../content/claim-card.md) — a copyable decision card: claim threshold, evidence character, actors, measurement, next evidence and stop rule.
+4. [`content/workflow-not-task.md`](../content/workflow-not-task.md) — why the end-to-end workflow is the unit that connects local product/task acceleration to Deliverable, Capability, Outcome and Value; includes the September 2026 HBR workflow-redesign source.
+5. [`content/worked-cases.md`](../content/worked-cases.md) — fictional examples showing how the framework changes an actual decision, including software measurement and option value.
+6. [`content/claim-card.md`](../content/claim-card.md) — a copyable decision card: claim threshold, evidence character, actors, measurement, next evidence and stop rule.
 
 If those pages answer the reader's question, they can stop there.
 
 For a meeting, use the printable [`content/meeting-brief.md`](../content/meeting-brief.md).
 
-The core route is deliberately **decision-first**. The six claims are not a maturity score; the useful question is which claim is sufficient for the next decision.
+The core route is deliberately **decision-first**. The six claims are not a maturity score; the useful question is which claim is sufficient for the next decision. **Workflow is not a seventh claim:** it is the end-to-end process boundary across which the required claim must hold.
 
 ## Path 2 — working analysis by decision
 
