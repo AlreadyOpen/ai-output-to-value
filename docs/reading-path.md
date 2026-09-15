@@ -24,14 +24,16 @@ The pages in this section are **working analysis / research preview** rather tha
 
 | Decision | Read | Practical output |
 | --- | --- | --- |
+| **Where exactly does code move from Output to Deliverable and Capability?** | [`software-architecture-worked-cases.md`](../content/software-architecture-worked-cases.md) | **Claim-boundary record** — what exists, which acceptance evidence changes the claim, and what repeated operation adds. |
+| **Which software/architecture failure mode could invalidate the next claim?** | [`software-failure-mode-catalogue.md`](../content/software-failure-mode-catalogue.md) | **Targeted verification plan** — failure mode, claim at risk, evidence pattern, fallback/recovery expectation. |
 | **Is this idea worth investigating?** | [`product-ideas-vs-product-discovery.md`](../content/product-ideas-vs-product-discovery.md) | **Opportunity hypothesis** — user, problem, evidence, current workaround, desired outcome, unknowns, cheapest next test. |
 | **Why should this AI capability be part of the product?** | [`model-capability-vs-product-strategy.md`](../content/model-capability-vs-product-strategy.md) | **Technology-choice comparison** — customer problem, required capability, evidence, alternatives, constraints, delivery model and economics. |
 | **Which technical design makes the service viable?** | [`architecture-economics-and-product-decisions.md`](../content/architecture-economics-and-product-decisions.md) | **Architecture trade-off record** — acceptance rule, attempts, routing/escalation, all-in cost per acceptable outcome, latency and failure consequence. |
 | **Who or what should analyse, decide, communicate or act?** | [`ai-business-capability-and-judgement.md`](../content/ai-business-capability-and-judgement.md) | **Authority-and-assurance map** — actor, evaluative role, authority boundary, assurance mechanism, escalation and recourse. |
 
-These four decisions are related, but they are not interchangeable:
+These decisions are related, but they are not interchangeable:
 
-**opportunity evidence → technology fit → delivery architecture → actor/authority/assurance design**
+**claim boundary → failure mode → opportunity evidence → technology fit → delivery architecture → actor/authority/assurance design**
 
 A team may revisit them iteratively rather than follow them as a waterfall.
 
