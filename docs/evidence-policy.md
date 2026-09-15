@@ -102,12 +102,16 @@ review_record:
   disposition: accepted
 ```
 
-Allowed dispositions are:
+Allowed structural dispositions are:
 
 - `accepted`;
 - `accepted_with_qualification`;
 - `revised_and_accepted`;
 - `rejected`.
+
+A completed review and an accepted claim are different states. `rejected` is valid evidence history, but a launch-critical claim may enter the reviewed release only with an accepting disposition: `accepted`, `accepted_with_qualification`, or `revised_and_accepted`.
+
+> **Review completed is not the same as claim accepted.**
 
 This record need not expose private chain-of-thought. It should expose enough process evidence to show what was checked and why the disposition is inspectable.
 
@@ -163,11 +167,17 @@ AI may be used to draft, organise, translate, search, analyse, test, or review c
 
 ## 11. Preview gate versus release gate
 
-### Working preview
+### Working preview and proposed-release integrity
 
-The normal publication gate builds the full working publication, including core, deeper, advanced, and policy material. It checks structural integrity but does not approve factual claims for release.
+The normal publication gate first builds the full working publication, including core, deeper, advanced, and policy material. It validates the canonical evidence structure and repository/publication links.
 
-The validator rejects, among other things:
+The same normal CI run then builds again with `PUBLICATION_MODE=release` and checks the generated release artifact's local links. This answers a structural question independently of editorial approval:
+
+> **Does the proposed release artifact work?**
+
+That check can and should pass while independent review is still pending.
+
+The structural validator rejects, among other things:
 
 - invalid or mistyped metadata;
 - missing explicit `launch_critical` classification;
@@ -181,9 +191,11 @@ The validator rejects, among other things:
 - broken links/fragments;
 - built links that escape the deployment root.
 
+A separate generated-site link checker validates only the actual built artifact, so an excluded working page cannot leave a broken link in the release unnoticed.
+
 Regression tests cover these failures directly.
 
-### Reviewed release artifact
+### Reviewed release artifact and approval
 
 Each article declares a `release_scope`:
 
@@ -191,11 +203,12 @@ Each article declares a `release_scope`:
 - `policy` — evidence/correction policy needed with that guide;
 - `working` — deeper or advanced material that remains available in preview/source form but is excluded from the reviewed release artifact.
 
-The release workflow builds with `PUBLICATION_MODE=release`, physically excluding `working` articles from the release artifact.
+The builder uses the same selected-article manifest when generating the release homepage. A homepage reference to excluded working material must therefore be omitted or visibly rendered as non-release working material rather than becoming a broken release link.
 
-The release gate then checks that:
+The separate release approval gate then checks that:
 
 - every launch-critical claim completed independent review with an inspectable record;
+- the operative review disposition accepts the claim for release;
 - every `guide` article is marked `ready`;
 - every included `policy` article is release-ready;
 - expected release pages exist; and
