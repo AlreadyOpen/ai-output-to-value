@@ -51,6 +51,15 @@
   color: var(--ink-soft, #5f625d);
 }
 
+/* A note inside a table card is part of that card, not floating body copy. */
+.work-table-wrap > .measure-note {
+  margin: 0;
+  padding: .9rem 1.1rem 1rem;
+  border-top: 1px solid var(--line, #e2e2dc);
+  background: rgba(16, 32, 47, .018);
+  line-height: 1.55;
+}
+
 .article-shell {
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
@@ -436,6 +445,10 @@
   .article-body th:first-child,
   .article-body td:first-child {
     min-width: 7rem;
+  }
+
+  .work-table-wrap > .measure-note {
+    padding: .75rem .65rem .85rem;
   }
 }
 
