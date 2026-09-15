@@ -39,8 +39,21 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
-      - name: Install dependencies
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Python dependencies
         run: python -m pip install -r requirements-dev.txt
+
+      - name: Install web UI dependencies
+        working-directory: web
+        run: npm install --no-audit --no-fund
+
+      - name: Sync pdfcn components
+        working-directory: web
+        run: npm run pdfcn:sync
 
       - name: Run regression tests
         run: python -m unittest discover -s tests -p 'test_*.py'
@@ -48,12 +61,16 @@ jobs:
       - name: Validate example claim gate
         run: python scripts/claim_gate.py toolkit/claim.example.json --json
 
+      - name: Type-check React UI and PDF templates
+        working-directory: web
+        run: npm run typecheck
+
       - name: Build selected publication
         env:
           PUBLICATION_REPO_URL: https://github.com/${{ github.repository }}
           PUBLICATION_UMBRELLA_URL: https://github.com/AlreadyOpen
           PUBLICATION_SOURCE_REF: ${{ github.sha }}
-        run: python scripts/build_publication.py
+        run: python scripts/build_with_ui.py
 
       - name: Validate generated artifact links
         run: python scripts/check_site_links.py
