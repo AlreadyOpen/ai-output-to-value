@@ -24,6 +24,11 @@ type FormState = {
   decision: string
   assertedClaim: ClaimLevel
   intendedUse: string
+  workflowBoundary: string
+  workflowCompletion: string
+  downstreamHandoffs: string
+  movedBottleneck: string
+  unhappyPath: string
   actor: string
   channel: string
   authority: string
@@ -116,6 +121,11 @@ export function ClaimGateApp() {
     decision: "",
     assertedClaim: "02-output",
     intendedUse: "",
+    workflowBoundary: "",
+    workflowCompletion: "",
+    downstreamHandoffs: "",
+    movedBottleneck: "",
+    unhappyPath: "",
     actor: "ai-agent",
     channel: "human-ui",
     authority: "",
@@ -203,6 +213,11 @@ export function ClaimGateApp() {
       requiredClaimLevel: rule.requiredClaimLevel,
       assertedClaimLevel: state.assertedClaim,
       intendedUse: state.intendedUse.trim(),
+      workflowBoundary: state.workflowBoundary.trim(),
+      workflowCompletion: state.workflowCompletion.trim(),
+      downstreamHandoffs: lines(state.downstreamHandoffs),
+      movedBottleneck: state.movedBottleneck.trim(),
+      unhappyPath: state.unhappyPath.trim(),
       actors: [{ type: state.actor, role: "Primary actor for the assessed workflow", interactionChannel: state.channel }],
       authority: state.authority.trim(),
       accountability: state.accountability.trim(),
@@ -217,7 +232,7 @@ export function ClaimGateApp() {
     const item = record()
     if (!item || !rule) return ""
     const rows = rule.requiredChecks.map((check) => `- **${(item.gateChecks[check.id] || "unknown").toUpperCase()}** — ${check.label}`).join("\n")
-    return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
+    return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Workflow boundary\n\n**Start / boundary:** ${item.workflowBoundary || "(not supplied)"}\n\n**What counts as complete:** ${item.workflowCompletion || "(not supplied)"}\n\n**Downstream handoffs:**\n${item.downstreamHandoffs.length ? item.downstreamHandoffs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n**Where could the bottleneck move?** ${item.movedBottleneck || "(not supplied)"}\n\n**Unhappy path:** ${item.unhappyPath || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
   }
 
   async function copyMarkdown() {
@@ -249,6 +264,7 @@ export function ClaimGateApp() {
           Choose the decision you are trying to make. The target decision selects the minimum claim and required checks. <strong className="text-foreground">This is a stop rule, not a maturity score.</strong>
         </p>
         <p className="mt-2 text-sm text-muted-foreground">The evaluator is actor-neutral: human, AI, automated and hybrid work use the same gate for the same intended decision.</p>
+        <p className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">Workflow is not a seventh claim.</strong> The optional workflow fields make the end-to-end process boundary visible without changing the deterministic gate score.</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
@@ -281,6 +297,27 @@ export function ClaimGateApp() {
             <Field label="Intended use" full>
               <Textarea value={state.intendedUse} onChange={(event) => setState({ ...state, intendedUse: event.target.value })} placeholder="What will someone rely on this for?" />
             </Field>
+
+            <div className="md:col-span-2 mt-2 rounded-lg border border-border bg-muted/30 p-4">
+              <h2 className="text-lg font-semibold">Workflow boundary <span className="text-sm font-normal text-muted-foreground">(optional; not another gate score)</span></h2>
+              <p className="mt-1 text-sm text-muted-foreground">Describe the end-to-end process when local task or product completion is not the same as business delivery.</p>
+            </div>
+            <Field label="Where does the workflow start?" full>
+              <Textarea value={state.workflowBoundary} onChange={(event) => setState({ ...state, workflowBoundary: event.target.value })} placeholder="Trigger, request, input, customer need, incident, order…" />
+            </Field>
+            <Field label="What counts as actually complete?" full>
+              <Textarea value={state.workflowCompletion} onChange={(event) => setState({ ...state, workflowCompletion: event.target.value })} placeholder="Describe the accepted end state, not only the local artefact or task." />
+            </Field>
+            <Field label="Downstream handoffs / verification / integration / operation / support" full>
+              <Textarea value={state.downstreamHandoffs} onChange={(event) => setState({ ...state, downstreamHandoffs: event.target.value })} placeholder="One downstream step per line." />
+            </Field>
+            <Field label="Where could the bottleneck move?" full>
+              <Textarea value={state.movedBottleneck} onChange={(event) => setState({ ...state, movedBottleneck: event.target.value })} placeholder="If this task becomes much faster, which downstream constraint may become dominant?" />
+            </Field>
+            <Field label="Unhappy path / escalation / stop / reversal / recovery" full>
+              <Textarea value={state.unhappyPath} onChange={(event) => setState({ ...state, unhappyPath: event.target.value })} placeholder="What happens with missing information, ambiguity, dependency failure, refusal, timeout, or an action that must be reversed?" />
+            </Field>
+
             <Field label="Authority boundary" full>
               <Textarea value={state.authority} onChange={(event) => setState({ ...state, authority: event.target.value })} placeholder="What may this actor recommend, change, send, spend, approve or commit?" />
             </Field>
