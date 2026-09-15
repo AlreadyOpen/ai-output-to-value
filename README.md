@@ -60,11 +60,15 @@ Canonical evidence lives under `data/`. Source and claim records may be split in
 
 Important factual claims can be traced as:
 
-**Claim → source/version → exact locator → relevant finding → qualification → article location → reviewer/process → independent review status → review record**
+**Claim → source/version → exact locator → relevant finding → qualification → article location → reviewer/process → independent review status → review record → disposition**
 
 Independent review is actor-neutral. A completed review may be performed by a human, AI system, automated method, specialist toolchain, or hybrid process if it is sufficiently separate from the originating authoring step, directly checks the evidence, applies the stated criteria, and leaves an auditable record.
 
 A completed claim review must record the claim revision, source versions checked, review method, finding, and disposition. This does not require exposing private reasoning.
+
+> **Review completed is not the same as claim accepted.**
+
+`rejected` is a valid review disposition for the evidence history. A launch-critical claim can pass release approval only with an accepting disposition: `accepted`, `accepted_with_qualification`, or `revised_and_accepted`.
 
 See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
@@ -72,11 +76,19 @@ See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
 The repository has two publication modes.
 
-### Working preview
+### Working preview and proposed-release integrity
 
 The normal publication gate builds the full guide plus deeper and advanced working material. It validates structure, types, dates, classifications, evidence links, locators, fragments, and deployment-local links.
 
-A green preview means the working publication is structurally consistent. It does **not** mean every factual claim or article has been approved for release.
+The same normal CI run then builds again with `PUBLICATION_MODE=release` and runs [`scripts/check_site_links.py`](scripts/check_site_links.py) against the proposed release artifact.
+
+This intentionally separates two questions:
+
+> **Does the proposed release build work?**
+>
+> **Has that release been approved?**
+
+The first can pass while independent review and release approval remain pending.
 
 ### Reviewed release artifact
 
@@ -86,19 +98,19 @@ Each article declares a `release_scope`:
 - `policy` — evidence/correction policy included with the guide;
 - `working` — deeper or advanced research excluded from the reviewed release artifact.
 
-The manual release workflow builds with `PUBLICATION_MODE=release`, so working pages are physically excluded rather than merely labelled differently.
+The builder uses the same selected-article manifest for the homepage. In release mode, a homepage reference to a `working` article is rendered as clearly labelled working material rather than a link to a page that the release excludes.
 
-The release gate checks that launch-critical claims have completed independent review with inspectable records, guide pages are marked ready, policy pages are release-ready, expected release pages exist, and working pages did not enter the artifact.
+The manual release gate additionally checks that launch-critical claims have completed independent review with inspectable records and an accepting disposition, guide pages are marked ready, policy pages are release-ready, expected release pages exist, and working pages did not enter the artifact.
 
 This records the project's declared controls for a specific revision; it is not a guarantee of truth.
 
 ## Publication controls
 
-The preview gate runs regression tests, builds the site, and executes [`scripts/check_publication.py`](scripts/check_publication.py). Tests cover malformed evidence, missing criticality, wrong types, invalid dates/statuses/sections, missing locators/fragments, deployment-root escapes, valid root-relative links, and reserved slugs.
+Normal CI runs regression tests, builds and checks the working preview, then independently builds and link-checks the proposed release artifact. The artifact-only link checker is itself covered by regression tests.
 
-The manual release gate additionally runs [`scripts/check_release.py`](scripts/check_release.py), with direct regression tests for its approval and artifact-scope rules.
+The manual release gate runs the same structural preparation and then executes [`scripts/check_release.py`](scripts/check_release.py). Its tests include the distinction between an accepted review and a completed-but-rejected review.
 
-The architecture example now uses consistent denominators and plain-text formula rendering; the executive guide has also been cleaned of authoring instructions and repetitive producer-identity caveats.
+The architecture example uses consistent denominators and plain-text formula rendering; the executive guide has also been cleaned of authoring instructions and repetitive producer-identity caveats.
 
 ## Repository structure
 
@@ -120,9 +132,11 @@ The architecture example now uses consistent denominators and plain-text formula
 │   ├── publication_data.py
 │   ├── build_site.py
 │   ├── check_publication.py
+│   ├── check_site_links.py
 │   └── check_release.py
 ├── tests/
 │   ├── test_publication_checks.py
+│   ├── test_site_links.py
 │   └── test_release_checks.py
 └── .github/workflows/
     ├── publication-gate.yml
@@ -135,11 +149,11 @@ The initial maintainer is **Helen Kwok**. Evidence-based corrections and counter
 
 ## Current status
 
-**Pre-public-launch / labelled pilot.** The core reading route, actor-neutral evidence model, preview/release split, stricter validators, release-scope artifact, structured independent-review record, and regression tests are in place.
+**Pre-public-launch / labelled pilot.** The core reading route, actor-neutral evidence model, preview/release split, stricter validators, release-scope artifact, structured independent-review record, release-artifact link checking, and regression tests are in place.
 
 Still open before the first reviewed public release:
 
-- complete independent review records for launch-critical claims;
+- complete independent review records with accepting dispositions for launch-critical claims;
 - rendered accessibility/usability and print testing of the actual release pages;
 - external-link/source-date review;
 - metadata/social-preview assets;
