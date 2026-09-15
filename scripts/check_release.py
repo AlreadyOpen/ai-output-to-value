@@ -14,6 +14,7 @@ ROOT = Path(os.environ.get("PUBLICATION_ROOT", str(DEFAULT_ROOT))).resolve()
 SITE = ROOT / "site"
 RELEASE_SCOPES = {"guide", "policy"}
 REVIEW_RECORD_REQUIRED = {"claim_revision", "source_versions_checked", "method", "finding", "disposition"}
+ACCEPTING_REVIEW_DISPOSITIONS = {"accepted", "accepted_with_qualification", "revised_and_accepted"}
 
 
 def nonempty_string(value) -> bool:
@@ -58,8 +59,15 @@ def main() -> int:
             errors.append(f"launch-critical claim has not completed independent review: {claim.get('id', '<missing id>')}")
         if not nonempty_string(claim.get("reviewer")) or not valid_date(claim.get("reviewed")):
             errors.append(f"launch-critical claim lacks an inspectable reviewer/process and valid review date: {claim.get('id', '<missing id>')}")
-        if not valid_review_record(claim.get("review_record")):
+
+        record = claim.get("review_record")
+        if not valid_review_record(record):
             errors.append(f"launch-critical claim lacks a complete independent review_record: {claim.get('id', '<missing id>')}")
+        elif record.get("disposition") not in ACCEPTING_REVIEW_DISPOSITIONS:
+            errors.append(
+                f"launch-critical claim review disposition does not accept claim: "
+                f"{claim.get('id', '<missing id>')} ({record.get('disposition')})"
+            )
 
     manifest = load_yaml(ROOT / "data" / "articles.yml")
     articles = manifest.get("articles", []) if isinstance(manifest, dict) else []
@@ -99,7 +107,7 @@ def main() -> int:
         print(f"Release approval failed with {len(errors)} blocker(s). The preview build may still be structurally valid.", file=sys.stderr)
         return 1
 
-    print("Release approval checks passed for the declared release artifact and review records. This is not a guarantee of factual truth.")
+    print("Release approval checks passed for the declared release artifact and accepted review records. This is not a guarantee of factual truth.")
     return 0
 
 
