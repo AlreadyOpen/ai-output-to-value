@@ -130,6 +130,36 @@ function buildServer() {
     }
   );
 
+  server.registerTool(
+    "search_failure_modes",
+    {
+      title: "Search software and architecture failure modes",
+      description: "Search the working failure-mode catalogue for patterns that can invalidate Deliverable or Capability claims. The catalogue is editorial operational synthesis, not a prevalence ranking.",
+      inputSchema: z.object({
+        query: z.string().min(2).max(200),
+        limit: z.number().int().min(1).max(20).default(8)
+      })
+    },
+    async ({ query, limit }) => {
+      try {
+        const payload = await fetchJson(publicationUrl, "api/v1/failure-modes.json");
+        const needle = query.toLowerCase();
+        const failureModes = (payload.failureModes || [])
+          .filter((mode) => JSON.stringify(mode).toLowerCase().includes(needle))
+          .slice(0, limit);
+        return text({
+          publicationMode: payload.publicationMode,
+          reviewState: payload.reviewState,
+          character: payload.character,
+          query,
+          failureModes
+        });
+      } catch (error) {
+        return fail(error instanceof Error ? error.message : String(error));
+      }
+    }
+  );
+
   return server;
 }
 
