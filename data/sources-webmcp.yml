@@ -1,0 +1,40 @@
+sources:
+  - id: webmcp-spec-browser-tools
+    title: WebMCP explainer and specification source
+    publisher: Web Machine Learning Community Group / webmachinelearning
+    url: https://github.com/webmachinelearning/webmcp
+    evidence_type: emerging_web_specification
+    supports:
+      - websites_can_register_structured_tools_for_agents
+      - document_modelcontext_registertool
+      - browser_agent_tool_discovery_and_invocation
+    scope: Current WebMCP specification/explainer source describing an in-browser model-context interface under document.modelContext, including tool registration, discovery, invocation, and lifecycle.
+    limitations: WebMCP is still an emerging specification effort. The specification describes an interface; it does not prove that a particular implementation is secure, correct, authorised, reliable, or commercially valuable.
+    reviewed: 2026-09-15
+
+  - id: webmcp-devpost-resources-2026
+    title: WebMCP Challenge resources
+    publisher: OpenAI / Devpost
+    url: https://webmcp.devpost.com/resources
+    evidence_type: official_challenge_resource
+    supports:
+      - webmcp_is_positioned_as_an_emerging_open_standard
+      - people_and_agents_can_use_web_apps_together
+      - webmcp_enabled_apps_can_be_tested_in_supported_browsers
+    scope: Official resources and guidance for the 2026 OpenAI WebMCP Challenge, including links to specification, browser documentation, security guidance, examples, and testing instructions.
+    limitations: Hackathon guidance and ecosystem documentation, not an independent benchmark of WebMCP safety, interoperability, reliability, or business value.
+    reviewed: 2026-09-15
+
+  - id: chisel-webmcp-public-implementation
+    title: Chisel — agentic browser CAD over WebMCP
+    publisher: Helen Kwok / GitHub
+    url: https://github.com/helenkwok/chisel-webmcp
+    evidence_type: practitioner_project
+    supports:
+      - public_example_of_webmcp_over_existing_web_application
+      - structured_cad_tools_for_agent_use
+      - explicit_confirmation_gate_for_consequential_agent_actions
+      - visible_agent_activity_and_audit_surface
+    scope: Public implementation that adds a WebMCP agent surface to an existing browser CAD application, exposing CAD operations as structured tools while retaining an in-page confirmation seam for consequential writes.
+    limitations: Author-maintained project and hackathon implementation. It is an illustrative implementation pattern, not independent evidence that WebMCP, Chisel, or agent-operated CAD is generally safe, reliable, superior to human interaction, or production-ready for a particular use.
+    reviewed: 2026-09-15
