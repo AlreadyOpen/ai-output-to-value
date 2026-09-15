@@ -12,35 +12,32 @@ const questions = [
   "What exactly have we demonstrated?",
   "What did the AI know, and what did it infer?",
   "What remains before the intended use?",
-  "Which work disappeared, moved elsewhere, or became the next workflow bottleneck?",
+  "Where did work move, and what is the next bottleneck?",
   "Which actor or combination performs this task or decision best?",
   "Where do authority, accountability, verification, operation and support sit?",
-  "Which business outcome are we trying to change—including learning or uncertainty removed?",
-  "What evidence would justify the next decision, and when should we stop?",
+  "Which business outcome are we trying to change?",
+  "What evidence justifies the next decision, and when should we stop?",
 ]
 
 const thresholds = [
-  ["Explore", "Output", "Reproduce the artefact/action and learn."],
-  ["Rely", "Deliverable", "Fit for the named use and acceptance criteria."],
-  ["Operate / sell", "Capability", "Owners, controls, fallback and operating process."],
-  ["Measure change", "Outcome", "Named measure moved versus a baseline."],
-  ["Scale / renew / stop", "Value", "Outcome is worth relevant cost, risk and alternatives."],
+  ["Explore", "Output", "Reproduce and learn."],
+  ["Rely", "Deliverable", "Fit for named use."],
+  ["Operate / sell", "Capability", "Owners, controls, fallback."],
+  ["Measure change", "Outcome", "Measure moved vs baseline."],
+  ["Scale / stop", "Value", "Outcome worth cost/risk."],
 ]
 
 function MeetingBrief() {
   return (
     <PdfcnThemeProvider>
-      <Stack gap="xs">
+      <Stack gap="sm">
         <div tw="flex items-center justify-between">
-          <div tw="flex flex-col">
-            <Text>AI Output to Value</Text>
-            <Text>One-page meeting brief</Text>
-          </div>
+          <Text>AI Output to Value — One-page meeting brief</Text>
           <Badge>Decision tool</Badge>
         </div>
         <Divider />
 
-        <Section spacing="xs">
+        <Section spacing="sm">
           <Text>Start with the decision, not the taxonomy</Text>
           <div tw="mt-1 flex flex-col gap-1">
             {thresholds.map(([decision, claim, evidence]) => (
@@ -52,26 +49,24 @@ function MeetingBrief() {
             ))}
           </div>
           <Text>Do not average claims. A missing decision-critical claim is not offset by strength elsewhere.</Text>
-          <Text>Workflow test: outcome, end-to-end boundary, next bottleneck, unhappy path, outcome metric. Workflow is the process boundary—not a seventh claim.</Text>
-          <Text>Management-word test: workflow, teamwork, KPI, productivity, leadership and alignment need an explicit process, role, metric, quality boundary or claimed outcome.</Text>
+          <Text>Workflow / management test: name the end-to-end boundary, bottleneck, unhappy path and outcome; define teamwork, KPI, productivity, leadership or alignment before using the term as evidence.</Text>
         </Section>
 
-        <Section spacing="xs">
+        <Section spacing="sm">
           <Text>Eight questions</Text>
-          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5">
+          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-0">
             {questions.map((question, index) => (
               <Text key={question}>{index + 1}. {question}</Text>
             ))}
           </div>
         </Section>
 
-        <Section spacing="xs">
+        <Section spacing="sm">
           <Text>Decision record</Text>
-          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5">
+          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-0">
             <Text>Established: __________________________</Text>
             <Text>Not established: ______________________</Text>
-            <Text>Workflow / unhappy path: ______________</Text>
-            <Text>Teamwork / KPI / productivity: _________</Text>
+            <Text>Workflow / management terms: __________</Text>
             <Text>Actor / interface / authority: __________</Text>
             <Text>Accountability / recourse: _____________</Text>
             <Text>Next evidence / stop rule: _____________</Text>
@@ -87,7 +82,7 @@ function MeetingBrief() {
 
 const pdf = await render(<MeetingBrief />, {
   size: "a4",
-  margin: { top: 22, right: 28, bottom: 22, left: 28 },
+  margin: { top: 18, right: 26, bottom: 18, left: 26 },
   tagged: true,
   lang: "en",
   metadata: {
