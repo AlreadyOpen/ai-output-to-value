@@ -15,8 +15,6 @@ claims:
         relevant_finding: The official challenge resources describe WebMCP as an emerging open standard and link specification, browser documentation, security guidance, examples, and supported testing routes.
         qualification: Challenge guidance is ecosystem documentation rather than an independent interoperability or outcome benchmark.
     published_in:
-      - file: index.html
-        locator: "Same standard does not mean the same interface."
       - file: content/representation-is-a-channel.md
         locator: "### WebMCP makes the channel distinction concrete"
       - file: content/claim-card.md
