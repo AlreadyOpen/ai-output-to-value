@@ -1,0 +1,20 @@
+name: AI Output to Value claim gate
+description: Evaluate a machine-readable claim record using the actor-neutral stop-rule decision gate.
+author: AlreadyOpen
+
+branding:
+  icon: check-square
+  color: green
+
+inputs:
+  claim:
+    description: Path to a claim JSON file in the caller repository.
+    required: true
+    default: claim.json
+
+runs:
+  using: composite
+  steps:
+    - name: Evaluate claim decision gate
+      shell: bash
+      run: python "${{ github.action_path }}/scripts/claim_gate.py" "${{ inputs.claim }}" --json
