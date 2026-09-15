@@ -1,0 +1,14 @@
+sources:
+  - id: taiwan-moda-ai-anti-fraud-2026
+    title: 數位發展部強化源頭阻詐 「以AI對抗AI詐騙」
+    publisher: Taiwan Ministry of Digital Affairs / Administration for Digital Industries
+    publication_date: 2026-08-31
+    url: https://moda.gov.tw/ADI/news/latest-news/20494
+    evidence_type: official_government_press_release
+    supports:
+      - ai_can_be_part_of_assurance_and_defensive_controls
+      - hybrid_ai_automation_identity_verification_warning_and_escalation_controls
+      - government_platform_intelligence_exchange_for_anti_fraud_detection
+    scope: Official Taiwan government release describing anti-fraud measures used with Meta, Google, LINE and TikTok, including AI detection, automated handling, identity verification, blacklists, user warnings, reporting, and government-platform intelligence exchange. It also relays operational figures reported by the platforms.
+    limitations: This is an official government press release describing a public-private anti-fraud programme and reporting platform-provided figures. It is not an independent audit of model accuracy, false-positive or false-negative rates, causal effectiveness, or the comparability of metrics across platforms.
+    reviewed: 2026-09-15
