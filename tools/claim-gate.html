@@ -22,7 +22,45 @@
       </nav>
     </div>
   </header>
-  <div id="claim-gate-root"></div>
+  <div id="claim-gate-root">
+    <main class="article-shell" style="display:block;max-width:920px;margin:0 auto;padding:3rem 1rem 5rem">
+      <article class="article-body">
+        <p class="eyebrow">Decision tool · static fallback</p>
+        <h1>Claim gate</h1>
+        <p><strong>Use the ladder as a stop rule, not a score.</strong> Start with the decision, then require the weakest claim that is sufficient for that decision. Do not average strength at one claim level into another.</p>
+        <p><strong>Gate ≠ truth.</strong> A gate result evaluates the supplied decision record. It is not an independent audit of the underlying system, measurement, or evidence.</p>
+
+        <table>
+          <thead><tr><th>Decision sought</th><th>Claim that normally matters</th></tr></thead>
+          <tbody>
+            <tr><td>Keep exploring?</td><td>02 Output</td></tr>
+            <tr><td>May someone rely on it?</td><td>03 Deliverable</td></tr>
+            <tr><td>Sell, operate, or support repeatedly?</td><td>04 Operating capability</td></tr>
+            <tr><td>Did the result change?</td><td>05 Outcome</td></tr>
+            <tr><td>Scale, renew, expand, or stop?</td><td>06 Value</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Machine-readable contract</h2>
+        <p>The interactive UI, CLI, WebMCP, native MCP and CI use the same files:</p>
+        <ul>
+          <li><a href="../schemas/v1/claim.schema.json">claim.schema.json</a></li>
+          <li><a href="../schemas/v1/decision-gates.json">decision-gates.json</a></li>
+        </ul>
+
+        <h2>Filled teaching records</h2>
+        <ul>
+          <li><a href="../samples/website-explore-pass.claim.json">Website prototype — Explore PASS</a></li>
+          <li><a href="../samples/website-operate-blocked.claim.json">Same website — Operate BLOCKED</a></li>
+          <li><a href="../samples/internal-tool-rely-pass.claim.json">Internal tool — Rely PASS</a></li>
+          <li><a href="../samples/killed-idea-outcome-pass.claim.json">Killed idea — Outcome PASS</a></li>
+        </ul>
+
+        <p>The editable form requires JavaScript. AI and terminal/IDE clients can instead evaluate the same <code>claim.json</code> through the native MCP server or deterministic CLI.</p>
+        <p><a href="https://github.com/AlreadyOpen/ai-output-to-value/tree/main/packages/mcp">Native MCP package source</a> · <a href="https://github.com/AlreadyOpen/ai-output-to-value/tree/main/toolkit">Adopter toolkit</a></p>
+      </article>
+    </main>
+  </div>
   <script type="module" src="../ui/aiov-ui.js"></script>
   <script src="../webmcp.js" defer></script>
 </body>
