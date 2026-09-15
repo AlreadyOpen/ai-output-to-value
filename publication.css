@@ -164,6 +164,109 @@
   font-size: .9rem;
 }
 
+.article-tools {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .45rem;
+  margin: -1rem 0 1.15rem;
+}
+
+.article-tool-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  min-height: 2.25rem;
+  padding: .48rem .72rem;
+  border: 1px solid var(--line, #deded7);
+  border-radius: 8px;
+  background: var(--surface, #fff);
+  color: var(--ink, #10202f);
+  font: inherit;
+  font-size: .84rem;
+  font-weight: 650;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.article-tool-button:hover,
+.article-tool-button:focus-visible {
+  border-color: var(--accent, #0a6c60);
+  color: var(--accent-dark, #07564d);
+}
+
+.article-open-menu {
+  position: relative;
+}
+
+.article-open-menu summary {
+  list-style: none;
+}
+
+.article-open-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.article-tools-menu {
+  position: absolute;
+  top: calc(100% + .4rem);
+  right: 0;
+  width: 230px;
+  padding: .38rem;
+  border: 1px solid var(--line, #deded7);
+  border-radius: 10px;
+  background: var(--surface, #fff);
+  box-shadow: 0 14px 34px rgba(17, 36, 51, .14);
+}
+
+.article-tools-menu a,
+.article-tools-menu button {
+  appearance: none;
+  display: grid;
+  grid-template-columns: 1.65rem 1fr;
+  align-items: center;
+  gap: .45rem;
+  width: 100%;
+  padding: .58rem .62rem;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ink, #10202f);
+  font: inherit;
+  font-size: .86rem;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.article-tools-menu a:hover,
+.article-tools-menu a:focus-visible,
+.article-tools-menu button:hover,
+.article-tools-menu button:focus-visible {
+  background: rgba(10, 108, 96, .08);
+  color: var(--accent-dark, #07564d);
+  outline: none;
+}
+
+.article-tools-menu a span:first-child,
+.article-tools-menu button span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 5px;
+  background: rgba(16, 32, 47, .055);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
 .review-scope,
 .evidence-review-note {
   color: var(--ink-soft, #5f625d);
@@ -298,6 +401,17 @@
     font-size: clamp(2.35rem, 12vw, 3.35rem);
   }
 
+  .article-tools {
+    justify-content: flex-start;
+    margin-top: -.45rem;
+  }
+
+  .article-tools-menu {
+    right: auto;
+    left: 0;
+    width: min(230px, calc(100vw - 2rem));
+  }
+
   .article-body table {
     font-size: .86rem;
   }
@@ -315,6 +429,7 @@
   .nav,
   .mobile-nav,
   .hero-actions,
+  .article-tools,
   .article-aside,
   footer {
     display: none !important;
