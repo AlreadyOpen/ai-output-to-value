@@ -1,0 +1,45 @@
+claims:
+  - id: webmcp-browser-agent-tools-2026
+    claim_text: WebMCP provides an in-browser mechanism for web pages to expose structured tools through document.modelContext so compatible agents can discover and invoke application actions rather than relying only on visual UI interaction.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: webmcp-spec-browser-tools
+        source_version: main branch as reviewed 2026-09-15
+        locator: Sections "Imperative Tool Registration: document.modelContext" and "Lifecycle of a Tool Call"
+        relevant_finding: The WebMCP explainer describes pages registering tools through document.modelContext.registerTool, followed by agent discovery, invocation, page execution, and structured responses.
+        qualification: This establishes the interface model, not the security, correctness, authority, reliability, or business value of any particular WebMCP implementation.
+      - source_id: webmcp-devpost-resources-2026
+        source_version: resources page reviewed 2026-09-15
+        locator: Starter guidance and Documentation sections
+        relevant_finding: The official challenge resources describe WebMCP as an emerging open standard and link specification, browser documentation, security guidance, examples, and supported testing routes.
+        qualification: Challenge guidance is ecosystem documentation rather than an independent interoperability or outcome benchmark.
+    published_in:
+      - file: index.html
+        locator: "Same standard does not mean the same interface."
+      - file: content/representation-is-a-channel.md
+        locator: "### WebMCP makes the channel distinction concrete"
+      - file: content/claim-card.md
+        locator: "## Same standard does not mean the same interface"
+    reviewer: AI-assisted initial source check against the WebMCP specification/explainer and official challenge resources
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: chisel-webmcp-interface-example-2026
+    claim_text: The public Chisel WebMCP project exposes an existing browser CAD application to agents through 17 CAD tools while routing consequential write operations through a shared human-confirmation gate and providing visible activity and audit information.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: chisel-webmcp-public-implementation
+        source_version: main branch as reviewed 2026-09-15
+        locator: README sections "The tools" and "Why every consequential tool shares one gate"; plugins/webmcp/src/gate.ts
+        relevant_finding: The repository documents 17 CAD tools, a common registration-boundary gate, an in-page confirmation seam for writes, and an activity panel/audit trail; gate.ts implements the shared confirmation path before write handlers execute.
+        qualification: This is a practitioner implementation maintained by the project author. It demonstrates an interface/control pattern but is not independent evidence of WebMCP safety, production readiness, CAD correctness across arbitrary models, or business effectiveness.
+    published_in:
+      - file: index.html
+        locator: "Chisel — public WebMCP CAD implementation"
+      - file: content/representation-is-a-channel.md
+        locator: "### WebMCP makes the channel distinction concrete"
+    reviewer: AI-assisted initial source check against the public Chisel repository
+    reviewed: 2026-09-15
+    independent_review_status: pending
