@@ -30,6 +30,25 @@ The decision gate has three states:
 
 A project with excellent **Access** and **Output** but no evidence of **Deliverable** is not "one-third complete". A failed or unknown decision-critical claim cannot be cancelled out by strength somewhere else.
 
+## Workflow is the process boundary, not another score
+
+A product, feature, model call, report, or engineering task can be excellent while the end-to-end workflow remains incomplete.
+
+**Workflow is not a seventh claim.** Use it to define the boundary across which the target claim must hold.
+
+For a relied-upon or operational decision, record:
+
+- **start / trigger** — what initiates the workflow?
+- **completion boundary** — what result counts as actually delivered rather than merely generated?
+- **handoffs / downstream work** — verification, integration, approval, execution, support, or other steps after the local task;
+- **moved bottleneck** — if this task becomes faster, where can the constraint move next?
+- **unhappy path** — what happens with missing information, ambiguity, dependency failure, refusal, timeout, rollback, escalation, or recovery?
+- **outcome metric** — what end-to-end result should improve rather than merely how much activity was produced?
+
+This makes “the product works but the workflow is incomplete” an inspectable statement rather than a vague criticism.
+
+See [Workflow is the unit — where AI output becomes business delivery](workflow-not-task.md).
+
 ## Evidence character
 
 State what kind of evidence you are using before discussing conclusions.
@@ -67,6 +86,18 @@ Confidentiality does not require pretending evidence does not exist. It requires
 **What had to be inferred or assumed:**
 
 **Known limitations / out of scope:**
+
+### Workflow boundary
+
+**Trigger / start:**
+
+**What counts as complete:**
+
+**Downstream handoffs / verification / integration / operation / support:**
+
+**Where could the bottleneck move?**
+
+**Unhappy path / escalation / stop / reversal / recovery:**
 
 ### Actors, interface, and control
 
@@ -151,4 +182,4 @@ Measure it explicitly: decision made, uncertainty removed, time to decision, cos
 
 ## The practical rule
 
-> **Use the lowest claim that is sufficient for the next decision, and stop adding process when more evidence would not change that decision.**
+> **Use the lowest claim that is sufficient for the next decision, make the end-to-end workflow boundary explicit when it matters, and stop adding process when more evidence would not change that decision.**
