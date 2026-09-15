@@ -55,6 +55,23 @@ So when someone says **“the product works, but the workflow is not complete,�
 
 See [Workflow is the unit — where AI output becomes business delivery](content/workflow-not-task.md).
 
+## Management words need evidence too
+
+The same rule applies upward through the organisation. **Workflow, teamwork, KPI, productivity, leadership, and alignment are not magic words that settle a decision.**
+
+A separate September 2026 *Harvard Business Review* article by Gabriele Rosani and Elisa Farri makes teamwork more concrete by treating it as a full arc of activity **before, during, and after** team sessions, and by proposing **intentionality** and **craft** as conditions for useful team-AI collaboration.
+
+So ask:
+
+- **teamwork:** who participates, what happens before/during/after, how are decisions made, and what follow-up turns discussion into action?
+- **KPI:** what exactly is measured, in what unit, from which data, against which baseline, and with which guardrails?
+- **productivity:** accepted output or outcome per which input, with what quality threshold and which downstream rework included?
+- **leadership / alignment:** which observable decisions, coordination, authority, capability, or outcome improved?
+
+A slogan, title, dashboard label, or boss-versus-leader meme can start a question. It is not evidence by itself.
+
+> **Apply the same standard to technical and management claims: define what the term means, define the outcome, and show the evidence.**
+
 ## Do not mix the terms
 
 **Vibe coding** describes a way of working, usually prompt-driven creation and rapid iteration.
@@ -65,7 +82,7 @@ See [Workflow is the unit — where AI output becomes business delivery](content
 
 **AI slop / workslop** describes a quality problem: output that appears finished but lacks enough substance, correctness, context or usefulness.
 
-These are not mutually exclusive categories. A vibe-coded artefact is AI-assisted; whether it is useful, responsible for its intended use, or low-value output is a separate assessment.
+These are not mutually exclusive categories. A vibe-coded artefact is AI-assisted; whether it is useful, responsible for the intended use, or low-value output is a separate assessment.
 
 ## Judgement is not the same as authority or accountability
 
