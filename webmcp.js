@@ -15,7 +15,7 @@
     "What exactly have we demonstrated?",
     "What did the AI know, and what did it infer?",
     "What remains before the intended use?",
-    "Which work disappeared, and which work moved elsewhere?",
+    "Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?",
     "Which actor or combination performs this task or decision best: human, AI, automated system, or hybrid?",
     "Where do authority, accountability, verification, approval, operation, and support sit?",
     "Which business outcome are we trying to change, including learning or uncertainty removed?",
@@ -215,16 +215,27 @@
     },
     {
       name: "aiov_get_meeting_guide",
-      description: "Read-only. Returns the eight meeting questions, deterministic decision gates, and links to the printable brief and interactive claim gate.",
+      description: "Read-only. Returns the eight meeting questions, workflow-boundary test, deterministic decision gates, and links to the printable brief and interactive claim gate.",
       inputSchema: emptySchema,
       async execute() {
         try {
           const gates = await fetchJson("api/v1/gates.json");
           return result({
             questions: MEETING_QUESTIONS,
+            workflowTest: {
+              rule: "Workflow is the end-to-end process boundary across which the target claim must hold; it is not a seventh claim.",
+              questions: [
+                "What outcome should this workflow produce?",
+                "Where does the workflow start, and what counts as complete?",
+                "If AI accelerates one task, where can the bottleneck move next?",
+                "What is the unhappy path, including escalation, stop, reversal, or recovery?",
+                "Are we measuring the outcome or only local activity?"
+              ]
+            },
             decisionGates: gates.decisions,
             printable_brief: siteUrl("articles/meeting-brief.html"),
             claim_card: siteUrl("articles/claim-card.html"),
+            workflow_guide: siteUrl("articles/workflow-not-task.html"),
             interactive_claim_gate: siteUrl("tools/claim-gate.html"),
             software_failure_catalogue: siteUrl("articles/software-failure-mode-catalogue.html"),
             software_worked_cases: siteUrl("articles/software-architecture-worked-cases.html")
