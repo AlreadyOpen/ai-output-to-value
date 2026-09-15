@@ -1,0 +1,45 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative feature-demand experiment",
+  "targetDecision": "measure-outcome",
+  "requiredClaimLevel": "05-outcome",
+  "assertedClaimLevel": "05-outcome",
+  "intendedUse": "Determine whether a proposed feature warrants further productisation by testing a specific demand hypothesis cheaply enough to support a stop/continue decision.",
+  "workflowBoundary": "A bounded prototype is shown to the defined target group; the agreed response measure is collected; the product decision is recorded.",
+  "workflowCompletion": "The experiment removes enough uncertainty to make the agreed product decision, regardless of whether the feature proceeds.",
+  "downstreamHandoffs": [
+    "Product decision recorded",
+    "No implementation backlog is created when the stop criterion is met"
+  ],
+  "movedBottleneck": "The next constraint is not implementation speed but whether the evidence is strong enough to justify further investment.",
+  "unhappyPath": "Ambiguous or biased feedback does not count as a decision-changing result; the experiment is repeated or the decision remains open.",
+  "evidenceCharacter": ["illustrative"],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "Rapid prototype generation, participant interaction, and decision analysis",
+      "interactionChannel": "hybrid"
+    }
+  ],
+  "authority": "The experiment can inform the product decision but cannot commit a production build or customer promise by itself.",
+  "accountability": "The product decision owner records the decision and the evidence basis.",
+  "outcomeMeasure": "Decision-changing learning: whether the agreed target group demonstrates sufficient demand to justify continued productisation.",
+  "baseline": "Before the experiment, the demand hypothesis was unresolved and a larger implementation commitment was being considered.",
+  "optionValue": "The experiment avoided a larger build by resolving the demand question early. The useful outcome is uncertainty removed, not a production service.",
+  "fullRelevantCostBoundary": "Prototype generation, participant recruitment/interaction, analysis, and decision time for the bounded experiment.",
+  "evidenceRefs": [
+    "Illustrative pre-agreed demand threshold",
+    "Illustrative participant-response record",
+    "Illustrative product decision log"
+  ],
+  "gateChecks": {
+    "outcome-measure-defined": "pass",
+    "baseline-defined": "pass",
+    "outcome-measured": "pass",
+    "measurement-definition-consistent": "pass",
+    "important-confounds-named": "pass"
+  },
+  "nextEvidence": "None is required for the current outcome claim. If the decision changes and scaling is later proposed, collect evidence for the Value gate rather than treating this learning outcome as proof of commercial value.",
+  "stopRule": "Stop productisation when the pre-agreed demand threshold is not reached. Do not continue merely because the prototype is cheap to build."
+}
