@@ -94,6 +94,30 @@ None of these patterns is automatically higher or lower value.
 
 The question is whether the chosen channel and actors improve the outcome while preserving appropriate authority, evidence, security, accountability, and recourse.
 
+### WebMCP makes the channel distinction concrete
+
+**Same standard does not mean the same interface.** A human may use visible controls, forms, menus, and direct manipulation. An AI agent may use a structured tool surface. A hybrid workflow may use both.
+
+WebMCP is an emerging browser interface effort that allows a web page to expose structured tools through `document.modelContext`. Compatible agents can discover those tools, call them with structured arguments, and receive structured results while the page reuses its own application logic.
+
+That matters to this project because an actor-neutral standard should not secretly mean **“the agent must imitate a human clicking the UI.”** The interaction channel can differ while the evidence standard remains the same:
+
+- did the intended action actually happen?
+- did it satisfy the same acceptance criteria?
+- was the actor authorised to perform it?
+- were consequential actions appropriately controlled?
+- is there enough audit evidence to understand what occurred?
+- can errors be detected, refused, recovered, or escalated?
+- did the workflow improve the intended outcome at an acceptable cost and risk?
+
+WebMCP therefore belongs at the **channel / interface** layer. It can improve agent access to a web application, but it does not by itself establish Deliverable, Capability, Outcome, or Value.
+
+A public implementation example is [**Chisel — agentic browser CAD over WebMCP**](https://github.com/helenkwok/chisel-webmcp). It adds a WebMCP surface to an existing browser CAD application and exposes 17 CAD tools around the underlying solid-modelling workflow. Its public implementation routes consequential write operations through a shared confirmation gate and exposes visible activity/audit information.
+
+That example is useful as an implementation pattern, not as independent proof that WebMCP or agent-operated CAD is generally safe or production-ready. The important architectural point is that the **human and agent can use different interfaces over the same underlying capability while consequential actions, evidence, and outcomes remain subject to explicit controls**.
+
+WebMCP should also not be confused with backend MCP transport. It is an in-browser tool surface. The specification is still evolving, so current browser support, security guidance, and interface details should be checked before relying on it operationally.
+
 ## 5. Do not confuse personal effort with company value
 
 A common management error is to equate visible personal effort with value:
@@ -135,7 +159,7 @@ A better model is:
 
 → **operational actors** — employees, contractors, services, and AI agents
 
-→ **representation channels** — face-to-face meetings, calls, email, web interfaces, APIs, agent protocols, kiosks, and embodied systems
+→ **representation channels** — face-to-face meetings, calls, email, web interfaces, APIs, WebMCP and other agent protocols, kiosks, and embodied systems
 
 → **instruments and infrastructure** — wallets, payment rails, identity systems, API keys, cloud platforms, databases
 
@@ -162,7 +186,7 @@ That may include:
 - structured product and pricing data;
 - machine-readable terms;
 - clear provenance for claims;
-- API-accessible service information;
+- API- or WebMCP-accessible service information and actions;
 - evidence and audit records;
 - stable identifiers;
 - explicit permissions and transaction rules;
@@ -232,6 +256,9 @@ And for the other side of the transaction:
 
 ## Primary sources and current examples
 
+- WebMCP specification/explainer source: https://github.com/webmachinelearning/webmcp
+- OpenAI WebMCP Challenge resources: https://webmcp.devpost.com/resources
+- Chisel — agentic browser CAD over WebMCP: https://github.com/helenkwok/chisel-webmcp
 - Cloudflare, *Agentic Commerce*: https://www.cloudflare.com/solutions/agentic-commerce/
 - Cloudflare, *Cloudflare Gives AI Agents an Identity and a Wallet*, 4 August 2026: https://www.cloudflare.com/press/press-releases/2026/cloudflare-gives-ai-agents-an-identity-and-a-wallet/
 - Cloudflare Wallets documentation: https://developers.cloudflare.com/wallets/
@@ -243,5 +270,7 @@ And for the other side of the transaction:
 - NBER, *Creative Destruction? Impact of E-Commerce on the Retail Sector*: https://www.nber.org/papers/w30077
 - OECD, *Unpacking E-commerce*: https://www.oecd.org/en/publications/unpacking-e-commerce_23561431-en.html
 - OECD, *SMEs in the era of hybrid retail*: https://www.oecd.org/en/publications/2023/05/smes-in-the-era-of-hybrid-retail_ea79f5fc.html
+
+WebMCP's specification/explainer supports the claim that a web page can register structured tools for agent discovery and invocation through the browser. The Devpost resource page supports the description of WebMCP as an emerging open standard effort and provides current implementation/testing resources. Chisel is a public practitioner implementation maintained by this project's author; it demonstrates one human/agent/hybrid interface pattern but is not independent evidence of WebMCP safety or business effectiveness.
 
 Cloudflare’s material supports the claim that agents can act on behalf of customers in browsing and commerce and that agent identity can link back to the human or organisation authorising it. OpenAI's documentation establishes realtime conversational interfaces, not sales effectiveness. The persuasion research establishes capability in controlled debate settings, not commercial sales performance. The retail sources support the channel-shift analogy, but retail goods and professional or investment relationships are not identical markets.
