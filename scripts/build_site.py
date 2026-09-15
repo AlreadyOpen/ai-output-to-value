@@ -28,7 +28,8 @@ STATUS = {
 }
 ARTICLE_LINK_RE = re.compile(
     r'(?P<open><a\b[^>]*\bhref=["\']articles/(?P<slug>[a-z0-9-]+)\.html["\'][^>]*>)'
-    r'(?P<label>.*?)'</n    r'(?P<close></a>)',
+    r'(?P<label>.*?)'
+    r'(?P<close></a>)',
     re.IGNORECASE | re.DOTALL,
 )
 
