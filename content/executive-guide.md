@@ -154,6 +154,20 @@ The question is not **“Where do we insert a human?”** It is:
 
 ## 7. Count the whole job — and use precise units
 
+### Treat the workflow, not the isolated task, as the unit of redesign
+
+A September 2026 *Harvard Business Review* article by Masha Shunko and Serguei Netessine recommends treating the **workflow rather than the individual task** as the object of AI redesign. The authors describe four recurring failure patterns: accelerating activity rather than value, ignoring the unhappy path, ignoring end-to-end flow, and optimizing the wrong metric.
+
+Their coding-agent example is especially relevant to technical teams: AI can increase code production while the constraint moves into code review, integration testing, security review, or deployment. The local productivity gain can be real while the end-to-end development cycle improves little unless the surrounding workflow can absorb, verify, integrate, and safely release the added output.
+
+That fits this project's claim model without adding another rung:
+
+> **Workflow is not a seventh claim. It is the end-to-end process boundary across which Output must become Deliverable, repeatable Capability, Outcome, and eventually Value.**
+
+So “the product works” and “the workflow is not complete” can both be true. The useful next questions are where the workflow starts and ends, which handoffs and verification remain, where the bottleneck moves, what the unhappy path is, and which outcome should improve.
+
+See [Workflow is the unit — where AI output becomes business delivery](workflow-not-task.md).
+
 **Illustrative labour hours, not measured results. Assume both workflows meet the same acceptance criteria.**
 
 | Work | Before | AI-assisted |
@@ -238,7 +252,7 @@ Reducing production cost can improve the opportunity. It does not guarantee dema
 1. **What exactly have we demonstrated?**
 2. **What did the AI know from supplied requirements, and what did it infer?**
 3. **What remains before the intended use?**
-4. **Which work disappeared, and which work moved elsewhere?**
+4. **Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?**
 5. **Which actor or combination performs the task or decision best?**
 6. **Where do authority, accountability, approval, operation, and support sit?**
 7. **Which business outcome are we trying to change?**
