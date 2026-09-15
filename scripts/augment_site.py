@@ -43,9 +43,19 @@ def selected_articles() -> list[dict]:
     return articles
 
 
+def json_default(value):
+    isoformat = getattr(value, "isoformat", None)
+    if callable(isoformat):
+        return isoformat()
+    raise TypeError(f"Object of type {type(value).__name__} is not JSON serializable")
+
+
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False, default=json_default) + "\n",
+        encoding="utf-8",
+    )
 
 
 def publish_api(articles: list[dict]) -> None:
