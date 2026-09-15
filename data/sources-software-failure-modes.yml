@@ -1,0 +1,35 @@
+sources:
+  - id: owasp-top10-2025
+    title: OWASP Top 10:2025
+    publisher: OWASP Foundation
+    url: https://top10.owasp.org/2025/
+    evidence_type: security_awareness_standard
+    supports:
+      - software_failure_categories_include_misconfiguration_insecure_design_integrity_logging_and_exception_handling
+    scope: The 2025 OWASP Top 10 identifies common web-application security risk categories including Security Misconfiguration, Insecure Design, Software or Data Integrity Failures, Security Logging and Alerting Failures, and Mishandling of Exceptional Conditions.
+    limitations: This is a web-application security awareness document, not an exhaustive software reliability catalogue and not evidence that every failure mode in this project's catalogue has equal prevalence or severity.
+    reviewed: 2026-09-15
+
+  - id: nist-ssdf-1-1
+    title: Secure Software Development Framework (SSDF) Version 1.1 — NIST SP 800-218
+    publisher: National Institute of Standards and Technology
+    url: https://csrc.nist.gov/pubs/sp/800/218/final
+    evidence_type: government_secure_software_framework
+    supports:
+      - secure_software_practices_should_be_integrated_across_the_software_lifecycle
+      - software_producers_should_use_repeatable_practices_to_reduce_vulnerabilities_and_address_root_causes
+    scope: NIST SP 800-218 provides a high-level set of secure software development practices that can be integrated into software development lifecycles.
+    limitations: SSDF is a security-focused framework. It does not define this project's Output/Deliverable/Capability claim model and does not by itself establish business value or operational fitness for a specific system.
+    reviewed: 2026-09-15
+
+  - id: aws-idempotent-apis
+    title: Making retries safe with idempotent APIs
+    publisher: Amazon Web Services — Builders' Library
+    url: https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
+    evidence_type: practitioner_architecture_guidance
+    supports:
+      - retryable_operations_need_semantics_that_prevent_unintended_duplicate_side_effects
+      - idempotent_api_design_can_simplify_retry_handling_in_distributed_systems
+    scope: AWS engineering guidance describes idempotency patterns for making retries safe when distributed operations can fail ambiguously.
+    limitations: This is practitioner guidance from AWS, not an independent benchmark and not proof that one idempotency mechanism is appropriate for every workflow.
+    reviewed: 2026-09-15
