@@ -22,6 +22,13 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: packages/mcp/package.json
+
       - name: Install check dependencies
         run: python -m pip install -r requirements-dev.txt
 
@@ -30,6 +37,12 @@ jobs:
 
       - name: Validate example claim gate
         run: python scripts/claim_gate.py toolkit/claim.example.json --json
+
+      - name: Test native MCP package
+        working-directory: packages/mcp
+        run: |
+          npm install --no-audit --no-fund
+          npm test
 
       - name: Build static publication preview
         run: python scripts/build_publication.py
