@@ -60,9 +60,21 @@ articles:
     section: core
     release_scope: guide
     order: 50
-    summary: Fictional cases showing when to approve, defer, or stop additional work.
+    summary: Fictional cases showing when to approve, defer, stop or scale, including software measurement and option value.
     maintainer: Helen Kwok
-    reviewed: 2026-09-14
+    reviewed: 2026-09-15
+    status: draft
+
+  - id: claim-card
+    title: Claim card — decide what evidence is enough
+    source: content/claim-card.md
+    slug: claim-card
+    section: core
+    release_scope: guide
+    order: 55
+    summary: A copyable decision card with claim thresholds, evidence character, actors, measurement, option value and stop rules.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-15
     status: draft
 
   - id: meeting-brief
@@ -72,9 +84,9 @@ articles:
     section: core
     release_scope: guide
     order: 60
-    summary: A printable set of questions for reviewing an AI-enabled proposal or deliverable.
+    summary: A printable decision-threshold brief for reviewing an AI-enabled proposal or deliverable.
     maintainer: Helen Kwok
-    reviewed: 2026-09-14
+    reviewed: 2026-09-15
     status: draft
 
   - id: ai-technical-capability
@@ -208,6 +220,18 @@ articles:
     maintainer: Helen Kwok
     reviewed: 2026-09-14
     status: draft
+
+  - id: provenance
+    title: Who stands behind this guide?
+    source: content/provenance.md
+    slug: provenance
+    section: policy
+    release_scope: policy
+    order: 305
+    summary: Maintainer, organisational home, evidence method, actor-neutral review, confidentiality and correction route.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-15
+    status: active_policy
 
   - id: evidence-policy
     title: Evidence policy
