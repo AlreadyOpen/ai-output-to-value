@@ -2,18 +2,19 @@
 
 Use this when reviewing an AI-enabled proposal, prototype, deliverable, service, or decision process.
 
-## First, name the claim
+## Start with the decision, not the taxonomy
 
-Which claim are we actually making?
+Which decision are we trying to make?
 
-- **Access** — we have the tool.
-- **Output** — it generated something useful-looking or performed a useful-looking action.
-- **Deliverable** — it is fit for a defined intended use.
-- **Capability** — we can repeatedly operate, support and improve it.
-- **Outcome** — something meaningful changed.
-- **Value** — the outcome is worth the full cost and trade-offs.
+| Decision sought | Claim that normally matters |
+| --- | --- |
+| **Keep exploring?** | **Output** — enough to learn from a reproducible artefact or action. |
+| **May someone rely on it for the named use?** | **Deliverable** — fit against explicit acceptance criteria. |
+| **May we sell, operate or support it repeatedly?** | **Capability** — owners, controls, fallback and operating process exist. |
+| **Did it change the result we care about?** | **Outcome** — the named measure moved versus a baseline. |
+| **Should we scale, renew or stop?** | **Value** — the outcome is worth full relevant cost, risk and alternatives. |
 
-These are different claims, not mandatory sequential stages.
+The six claims are not a maturity score. Strong **Access** and **Output** do not average into partial **Deliverable**.
 
 ## Eight questions
 
@@ -23,7 +24,7 @@ These are different claims, not mandatory sequential stages.
 4. **Which work disappeared, and which work moved elsewhere?**
 5. **Which actor or combination performs this task or decision best: human, AI, automated system, or hybrid?**
 6. **Where do authority, accountability, verification, approval, operation and support sit?**
-7. **Which business outcome are we trying to change?**
+7. **Which business outcome are we trying to change—including learning or uncertainty removed?**
 8. **What evidence would justify the next decision?**
 
 ## Three capabilities
@@ -34,7 +35,7 @@ These are different claims, not mandatory sequential stages.
 | **Job substance** | Does it contain what this actual job requires? |
 | **Delivery capability** | Can the organisation stand behind it? |
 
-A useful example of the substance gap:
+A useful substance-gap example:
 
 > **A contact form can look complete while enquiries never reach the business. The interface exists; the promised workflow does not.**
 
@@ -50,20 +51,13 @@ A human decision is not automatically good because a human made it. An AI decisi
 
 ## Count the whole job
 
-Track the unit you actually mean:
-
-- labour hours;
-- elapsed delivery time;
-- external spend;
-- capacity released;
-- error or incident rate;
-- throughput;
-- customer outcome;
-- revenue or margin.
+Track the unit you actually mean: labour hours, elapsed time, external spend, review/rework, incidents, throughput, customer outcome, learning, revenue or margin.
 
 Do not turn a reduction in one metric into a claim about another without evidence.
 
 ## Decision record
+
+**Evidence character:** public measured / public documented / internal / illustrative / editorial synthesis
 
 **Established:** What is already known or verified?
 
@@ -71,9 +65,13 @@ Do not turn a reduction in one metric into a claim about another without evidenc
 
 **Actor / authority:** Who or what performs the task, who may approve or commit, and where does recourse sit?
 
-**Decision:** Approve, restrict, defer, stop, or scale?
+**Decision:** Continue, restrict, rely, operate, scale, or stop?
 
 **Next evidence:** What would change the decision?
+
+**Stop rule:** What result, date, cost, or risk threshold would make us stop rather than generate more output?
+
+For a fuller reusable template, use the [Claim card](claim-card.md).
 
 ---
 
