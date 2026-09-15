@@ -13,12 +13,17 @@ type Props = {
   mdPath: string
   sourceUrl: string
   title: string
-  repo: string
 }
 
-function providerUrl(provider: string, prompt: string, repo: string) {
+type Provider = "chatgpt" | "claude" | "t3" | "copilot" | "cursor"
+
+function providerUrl(provider: Provider, mdUrl: string) {
+  // Match the Better Auth docs interaction pattern: pass the stable published
+  // Markdown URL and a short instruction, rather than embedding article text
+  // or inventing provider-specific repo/session state.
+  const prompt = `Read ${mdUrl}, I want to ask questions about it.`
   if (provider === "chatgpt") {
-    return `https://chatgpt.com/?${new URLSearchParams({ hints: "search", prompt }).toString()}`
+    return `https://chatgpt.com/?${new URLSearchParams({ hints: "search", q: prompt }).toString()}`
   }
   if (provider === "claude") {
     return `https://claude.ai/new?${new URLSearchParams({ q: prompt }).toString()}`
@@ -26,14 +31,10 @@ function providerUrl(provider: string, prompt: string, repo: string) {
   if (provider === "t3") {
     return `https://t3.chat/new?${new URLSearchParams({ q: prompt }).toString()}`
   }
-  if (provider === "cursor") {
-    return `https://cursor.com/link/prompt?${new URLSearchParams({ text: prompt }).toString()}`
-  }
   if (provider === "copilot") {
-    const open = `ghapp://session/new?${new URLSearchParams({ repo, mode: "interactive", prompt }).toString()}`
-    return `https://github.com/copilot/app/launch?${new URLSearchParams({ open }).toString()}`
+    return `https://copilot.microsoft.com/?${new URLSearchParams({ q: prompt }).toString()}`
   }
-  return "#"
+  return `https://cursor.com/link/prompt?${new URLSearchParams({ text: prompt }).toString()}`
 }
 
 async function copyText(text: string) {
@@ -52,16 +53,9 @@ async function copyText(text: string) {
   textarea.remove()
 }
 
-export function ArticleTools({ mdPath, sourceUrl, title, repo }: Props) {
+export function ArticleTools({ mdPath, sourceUrl }: Props) {
   const [copyLabel, setCopyLabel] = React.useState("Copy MD")
   const mdUrl = new URL(mdPath, window.location.href).toString()
-  const pageUrl = window.location.href.split("#")[0]
-  const prompt = [
-    `Read and discuss the AI Output to Value page \"${title}\".`,
-    "Use the published Markdown as the primary source, preserve its evidence qualifications and publication status, and distinguish source claims from your own inference.",
-    `Markdown: ${mdUrl}`,
-    `Page: ${pageUrl}`,
-  ].join("\n")
 
   async function copyMarkdown() {
     try {
@@ -88,26 +82,23 @@ export function ArticleTools({ mdPath, sourceUrl, title, repo }: Props) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={() => void copyText(mdUrl)}>Copy MD link</DropdownMenuItem>
-          <DropdownMenuLink render={<a href={mdUrl} target="_blank" rel="noreferrer" />}>
-            Open Markdown
-          </DropdownMenuLink>
-          <DropdownMenuLink render={<a href={sourceUrl} target="_blank" rel="noreferrer" />}>
+          <DropdownMenuLink render={<a href={sourceUrl} target="_blank" rel="noreferrer noopener" />}>
             GitHub
           </DropdownMenuLink>
           <DropdownMenuSeparator />
-          <DropdownMenuLink render={<a href={providerUrl("chatgpt", prompt, repo)} target="_blank" rel="noreferrer" />}>
+          <DropdownMenuLink render={<a href={providerUrl("chatgpt", mdUrl)} target="_blank" rel="noreferrer noopener" />}>
             ChatGPT
           </DropdownMenuLink>
-          <DropdownMenuLink render={<a href={providerUrl("claude", prompt, repo)} target="_blank" rel="noreferrer" />}>
+          <DropdownMenuLink render={<a href={providerUrl("claude", mdUrl)} target="_blank" rel="noreferrer noopener" />}>
             Claude
           </DropdownMenuLink>
-          <DropdownMenuLink render={<a href={providerUrl("t3", prompt, repo)} target="_blank" rel="noreferrer" />}>
+          <DropdownMenuLink render={<a href={providerUrl("t3", mdUrl)} target="_blank" rel="noreferrer noopener" />}>
             T3 Chat
           </DropdownMenuLink>
-          <DropdownMenuLink render={<a href={providerUrl("copilot", prompt, repo)} target="_blank" rel="noreferrer" />}>
-            GitHub Copilot
+          <DropdownMenuLink render={<a href={providerUrl("copilot", mdUrl)} target="_blank" rel="noreferrer noopener" />}>
+            Copilot
           </DropdownMenuLink>
-          <DropdownMenuLink render={<a href={providerUrl("cursor", prompt, repo)} target="_blank" rel="noreferrer" />}>
+          <DropdownMenuLink render={<a href={providerUrl("cursor", mdUrl)} target="_blank" rel="noreferrer noopener" />}>
             Cursor
           </DropdownMenuLink>
         </DropdownMenuContent>
