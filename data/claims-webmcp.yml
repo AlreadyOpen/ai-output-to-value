@@ -24,22 +24,3 @@ claims:
     reviewer: AI-assisted initial source check against the WebMCP specification/explainer and official challenge resources
     reviewed: 2026-09-15
     independent_review_status: pending
-
-  - id: chisel-webmcp-interface-example-2026
-    claim_text: The public Chisel WebMCP project exposes an existing browser CAD application to agents through 17 CAD tools while routing consequential write operations through a shared human-confirmation gate and providing visible activity and audit information.
-    status: supported
-    launch_critical: false
-    evidence:
-      - source_id: chisel-webmcp-public-implementation
-        source_version: main branch as reviewed 2026-09-15
-        locator: 'README sections "The tools" and "Why every consequential tool shares one gate"; plugins/webmcp/src/gate.ts'
-        relevant_finding: The repository documents 17 CAD tools, a common registration-boundary gate, an in-page confirmation seam for writes, and an activity panel/audit trail; gate.ts implements the shared confirmation path before write handlers execute.
-        qualification: This is a practitioner implementation maintained by the project author. It demonstrates an interface/control pattern but is not independent evidence of WebMCP safety, production readiness, CAD correctness across arbitrary models, or business effectiveness.
-    published_in:
-      - file: index.html
-        locator: "Chisel — public WebMCP CAD implementation"
-      - file: content/representation-is-a-channel.md
-        locator: "### WebMCP makes the channel distinction concrete"
-    reviewer: AI-assisted initial source check against the public Chisel repository
-    reviewed: 2026-09-15
-    independent_review_status: pending
