@@ -45,7 +45,7 @@ claims:
         qualification: This is AWS practitioner guidance, not an independent benchmark and not evidence that idempotency alone makes a workflow Deliverable or Capability-ready.
     published_in:
       - file: content/software-failure-mode-catalogue.md
-        locator: "## Failure mode 3 — retry duplicate side effect"
+        locator: "## Retry duplicates a side effect"
       - file: content/software-failure-mode-catalogue.md
         locator: "## Reference anchors and limits"
     reviewer: AI-assisted initial source check against the AWS Builders' Library article
