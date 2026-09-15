@@ -1,0 +1,34 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "REPLACE — project or initiative",
+  "targetDecision": "rely",
+  "requiredClaimLevel": "03-deliverable",
+  "assertedClaimLevel": "03-deliverable",
+  "intendedUse": "REPLACE — named use for which someone may rely on the result",
+  "workflowBoundary": "",
+  "workflowCompletion": "",
+  "downstreamHandoffs": [],
+  "movedBottleneck": "",
+  "unhappyPath": "",
+  "evidenceCharacter": ["internal"],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "REPLACE — primary actor or process role",
+      "interactionChannel": "hybrid"
+    }
+  ],
+  "authority": "REPLACE — what this actor/process may recommend, change, send, spend, approve or commit",
+  "accountability": "REPLACE — organisational or legal party that must answer for failures and provide correction/recourse",
+  "evidenceRefs": [],
+  "gateChecks": {
+    "intended-use-defined": "unknown",
+    "acceptance-criteria-defined": "unknown",
+    "acceptance-criteria-met": "unknown",
+    "failure-modes-tested": "unknown",
+    "limitations-stated": "unknown"
+  },
+  "nextEvidence": "REPLACE — evidence that would change the decision",
+  "stopRule": "REPLACE — result, date, cost or risk threshold that stops or restricts the work"
+}
