@@ -1,0 +1,55 @@
+claims:
+  - id: hbr-teamwork-full-arc-2026
+    claim_text: A September 2026 Harvard Business Review article describes teamwork as a full arc spanning preparation before a session, collaborative work during it, and follow-up afterward, and reports workshops in which AI was intentionally incorporated across those stages.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-teamwork-ai-2026
+        source_version: Harvard Business Review article published 2026-09-07
+        locator: Rethinking the Full Arc of Teamwork; Before; During; After
+        relevant_finding: The authors explicitly state that teamwork includes preparation and follow-up as well as the live meeting or workshop, and describe AI-supported practices at each stage.
+        qualification: This supports an operational framing of teamwork as a process rather than a slogan. It does not establish that every team should use AI at every stage or that the examples generalise causally to all organisations.
+    published_in:
+      - file: content/assess-every-layer-of-the-company.md
+        locator: "## Management words are not evidence"
+      - file: content/executive-guide.md
+        locator: "### Workflow, teamwork, KPI and productivity are not magic words"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: hbr-teamwork-intentionality-craft-2026
+    claim_text: The HBR article proposes intentionality and craft as two conditions for effective team-AI collaboration, where intentionality concerns deliberately changing how collaborative work is conducted and craft concerns providing context, prompts, roles, steps and pauses that structure the interaction.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-teamwork-ai-2026
+        source_version: Harvard Business Review article published 2026-09-07
+        locator: Two Conditions for Getting Team-AI Collaboration Right
+        relevant_finding: The authors identify intentionality and craft and contrast well-structured team-AI interaction with an example where little context and no predefined prompt produced poor output.
+        qualification: These are the authors' management recommendations, not a validated universal formula. AI Output to Value uses the narrower lesson that collaborative processes need deliberate design and sufficient structure; it does not treat hierarchy or a named leader as proof of quality.
+    published_in:
+      - file: content/assess-every-layer-of-the-company.md
+        locator: "## Management words are not evidence"
+      - file: content/meeting-brief.md
+        locator: "## Management-word test"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: hbr-individual-use-not-team-integration-2026
+    claim_text: The HBR article argues that measuring AI adoption mainly at the individual level can overstate how deeply AI is embedded in organisational work when collaborative team activities are not also considered.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-teamwork-ai-2026
+        source_version: Harvard Business Review article published 2026-09-07
+        locator: opening Town Hall example; paragraph on the collective blind spot and individual-level adoption measures
+        relevant_finding: The article contrasts frequent individual AI use with much lower use in team settings and explicitly warns that individual-level adoption measures can miss whether AI is part of collaborative work.
+        qualification: The article's opening example and cited adoption statistic should not be treated as a universal prevalence estimate for all organisations. The supported point is the measurement distinction between individual use and team-level integration.
+    published_in:
+      - file: content/assess-every-layer-of-the-company.md
+        locator: "## Management words are not evidence"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
