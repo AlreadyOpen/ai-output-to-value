@@ -43,10 +43,13 @@ def inject_preview_links() -> None:
         )
         text = text.replace(marker, replacement, 1)
 
-    text = text.replace(
-        "Compatible agents can use six read-only tools to read the framework, list and read articles, search evidence, inspect claims, and retrieve the meeting guide.",
-        "Compatible agents can use seven read-only tools to read the framework, list and read articles, search evidence, inspect claims, search the software failure-mode catalogue, and retrieve the meeting guide.",
+    old_six = "Compatible agents can use six read-only tools to read the framework, list and read articles, search evidence, inspect claims, and retrieve the meeting guide."
+    old_seven = "Compatible agents can use seven read-only tools to read the framework, list and read articles, search evidence, inspect claims, search the software failure-mode catalogue, and retrieve the meeting guide."
+    ai_hybrid = (
+        "Compatible agents can use WebMCP to read the framework and articles, search evidence and failure modes, and evaluate claim.json records against the same decision gates. "
+        "On the interactive Claim Gate page, a hybrid handoff tool can also load an agent-prepared claim.json into the local form for human inspection or editing; it does not write to the publication or a server."
     )
+    text = text.replace(old_six, ai_hybrid).replace(old_seven, ai_hybrid)
     homepage.write_text(text, encoding="utf-8")
 
 
