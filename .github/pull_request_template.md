@@ -34,6 +34,18 @@
 
 **What is the unhappy path — missing data, ambiguity, dependency failure, refusal, rollback, escalation, or recovery?**
 
+## Management terms and metrics
+
+<!-- If the change is justified using teamwork, KPI, productivity, leadership, alignment, or similar language, make the term operational rather than leaving it as a slogan. -->
+
+**Teamwork / collaboration claim (participants, before/during/after, decision rights, follow-up):**
+
+**KPI / metric definition (unit, source, baseline, cadence, guardrails):**
+
+**Productivity claim (accepted output/outcome per relevant input, including quality/rework boundary):**
+
+**Leadership / alignment claim, if relevant (observable decisions, coordination, authority, capability or outcome):**
+
 ## Actors, assurance, authority, accountability
 
 **Primary actor(s):** human / AI agent / deterministic system / specialist tool / hybrid
@@ -72,4 +84,4 @@
 
 ---
 
-A human approval click is not automatically assurance, and AI involvement is not automatically a defect. Apply the same intended-use and evidence standard to human, AI, automated, and hybrid work. Workflow is the process boundary across which the requested claim must hold; it is not a seventh claim or a reason to add process that would not change the decision.
+A human approval click is not automatically assurance, and AI involvement is not automatically a defect. Apply the same intended-use and evidence standard to human, AI, automated, and hybrid work. Workflow is the process boundary across which the requested claim must hold; it is not a seventh claim or a reason to add process that would not change the decision. Management terms such as teamwork, KPI, productivity, leadership, and alignment are not evidence until their operational meaning and relevant outcome are explicit.
