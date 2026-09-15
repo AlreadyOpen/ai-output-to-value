@@ -87,8 +87,8 @@ claims:
         relevant_finding: The playbook describes meaningful human control, lifecycle support and maintenance, testing and monitoring, skills and expertise, and explicit responsibilities across the AI lifecycle.
         qualification: UK public-sector guidance; useful for governance but not empirical proof that the same controls create financial value in every private-sector use case.
     published_in:
-      - file: index.html
-        locator: "Lifecycle governance, expertise, meaningful human control, testing, monitoring, and accountability."
+      - file: docs/framework-crosswalk.md
+        locator: "## UK Government AI Playbook"
     reviewer: AI-assisted initial source check
     reviewed: 2026-09-14
     independent_review_status: pending
