@@ -209,6 +209,18 @@ articles:
     reviewed: 2026-09-14
     status: research_draft
 
+  - id: framework-crosswalk
+    title: How AI Output to Value relates to existing AI governance frameworks
+    source: docs/framework-crosswalk.md
+    slug: framework-crosswalk
+    section: deeper
+    release_scope: working
+    order: 150
+    summary: Orientation to NIST AI RMF, ISO/IEC 42001, the UK Government AI Playbook, EU AI Act human oversight, and Australia's current AI-adoption guidance.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-16
+    status: research_draft
+
   - id: company-actors-instruments
     title: Company actors are not the same as company instruments
     source: content/company-actors-vs-instruments.md
