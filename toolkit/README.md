@@ -44,7 +44,7 @@ Human, AI and hybrid workflows operate on the same `claim.json` contract:
 - **AI** — evaluate the record through WebMCP or native MCP;
 - **hybrid** — import/export `claim.json`, or let a compatible browser agent populate the local form for inspection/editing.
 
-The tool can copy Markdown/JSON, download JSON, and print the current record.
+The tool can copy Markdown/JSON, download JSON, and print a compact decision record. Its HTML also contains a readable static fallback, schema links, decision thresholds and teaching records for no-JavaScript clients and crawlers.
 
 ## 4. Use the software Outcome pack when the decision is 05 Outcome
 
@@ -60,7 +60,15 @@ For AI-assisted delivery, the template also suggests leading indicators such as 
 
 The template marks **no gate check PASS automatically**. It helps define what to measure; it does not prove the outcome or causal attribution.
 
-## 5. Keep real evidence private with the workbook
+## 5. Count full relevant cost for 06 Value
+
+Use [`value-cost-ledger.md`](value-cost-ledger.md) when the decision is scale, renew, expand, or stop.
+
+The ledger keeps local task savings separate from total value by making the decision-relevant boundary explicit: model/API cost, licences, compute, review/correction, integration, testing/assurance, deployment, monitoring, support, rework/recovery, training/change management, procurement overhead, opportunity cost, and other material trade-offs.
+
+Do not force unlike quantities into one total unless the conversion is explicit and defensible.
+
+## 6. Keep real evidence private with the workbook
 
 Use [`private-workbook/`](private-workbook/) inside the adopting organisation. It contains:
 
@@ -79,7 +87,7 @@ The built site also publishes a downloadable ZIP at:
 
 The public project does not need access to the organisation's confidential evidence. Keep client names, contracts, production metrics, personal data, proprietary workflows, credentials and other restricted material inside the appropriate controlled systems.
 
-## 6. Add the GitHub Action
+## 7. Add the GitHub Action
 
 After checking out the caller repository:
 
@@ -94,7 +102,7 @@ For governed use, replace `@main` with a reviewed release/tag or commit SHA.
 
 The Action evaluates the supplied `claim.json`. It does **not** add extra requirements merely because code was AI-generated.
 
-## 7. Add the pull-request questions
+## 8. Add the pull-request questions
 
 This repository's [pull request template](../.github/pull_request_template.md) is intentionally actor-neutral. Adapt the same sections in adopter repositories:
 
@@ -106,19 +114,25 @@ This repository's [pull request template](../.github/pull_request_template.md) i
 - evidence and measurement;
 - next evidence and stop rule.
 
-## 8. Give agents the same rules
+## 9. Give agents the same rules
 
 Copy [`AGENT_RULES.md`](AGENT_RULES.md) into the repository guidance used by coding or terminal agents. The rules explicitly allow exploration to stop at Output while preventing an agent from declaring a higher claim without the evidence required for that decision.
 
 For native MCP setup, see [`../packages/mcp/README.md`](../packages/mcp/README.md).
 
-## 9. Use instruments to inspect claims, not to mint Value
+## 10. Use instruments to inspect claims, not to mint Value
 
 [`operating-kit.md`](operating-kit.md) lists vendor-neutral instrument classes for evaluation/trace, contract/e2e testing, operational evidence, software-delivery telemetry, and cost/value evidence.
 
 MCP servers and skills are context pipes. They can materially improve Access, Output and evidence retrieval; they do not create Value merely by being connected.
 
-## 10. Machine-readable publication data
+## 11. Place the method inside the relevant governance system
+
+See [`../docs/framework-crosswalk.md`](../docs/framework-crosswalk.md) for a short orientation to NIST AI RMF, ISO/IEC 42001, EU AI Act Article 14, and Australia's current Guidance for AI Adoption.
+
+AI Output to Value is a decision/evidence method, not a substitute for law, certification, regulator guidance, contract obligations, or sector controls.
+
+## 12. Machine-readable publication data
 
 The public site generates:
 
