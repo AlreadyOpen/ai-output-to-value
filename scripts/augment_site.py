@@ -29,6 +29,15 @@ FRAMEWORK = {
             "Are we measuring the end-to-end outcome or only local activity?"
         ]
     },
+    "managementLanguageRule": {
+        "statement": "Management vocabulary is not evidence by itself. Terms such as workflow, teamwork, KPI, productivity, leadership, and alignment must be operationalised before they justify a decision.",
+        "questions": [
+            "If teamwork is claimed, who participates, what happens before/during/after, how are decisions made, and what follow-up turns discussion into action?",
+            "If a KPI is claimed, what is the exact metric, unit, source, baseline, cadence, and guardrail?",
+            "If productivity is claimed, what accepted output or outcome is divided by which relevant input, and are quality and downstream rework included?",
+            "If leadership or alignment is claimed, which observable decisions, coordination, authority, capability, or outcome improved?"
+        ]
+    },
     "claims": [
         {"level": "01-access", "name": "Access", "meaning": "We have a model, API, subscription, agent, or tool.", "doesNotProve": "effective use"},
         {"level": "02-output", "name": "Output", "meaning": "The system produced an artefact or performed an action.", "doesNotProve": "correctness or client fit"},
@@ -129,7 +138,7 @@ def publish_toolkit() -> None:
 
 
 def inject_workflow_homepage(text: str) -> str:
-    """Surface the workflow framing on the landing page without adding a seventh claim."""
+    """Surface workflow and operational management language on the landing page."""
     text = text.replace(
         '<a href="#whole-job">The whole job</a>',
         '<a href="#whole-job">Workflow / whole job</a>',
@@ -143,6 +152,7 @@ def inject_workflow_homepage(text: str) -> str:
           <h2>Improve the end-to-end result, not only local production.</h2>
           <p>A September 2026 <em>Harvard Business Review</em> process-management article recommends treating the <strong>workflow rather than the individual task</strong> as the object of AI redesign. Its coding-agent example is especially relevant: more code can be produced while the constraint moves into review, integration testing, security review, or deployment.</p>
           <p><strong>Workflow is not a seventh claim.</strong> It is the end-to-end process boundary across which Output must become Deliverable, repeatable Capability, Outcome, and Value.</p>
+          <p>The same discipline applies to familiar management language. <strong>Teamwork, KPI, productivity, leadership, and alignment are not evidence by themselves.</strong> Define the participants/process, metric, denominator and quality boundary, authority, or claimed outcome before using the term to justify a decision.</p>
           <p>The labour-hour example alongside this section therefore measures the complete illustrated workflow, not just drafting. Waiting, handoffs, and parallel work can still change calendar duration without changing summed labour hours.</p>
           <p><a href="articles/workflow-not-task.html">Read: Workflow is the unit — where AI output becomes business delivery →</a></p>'''
     if old_intro in text:
@@ -154,15 +164,23 @@ def inject_workflow_homepage(text: str) -> str:
         1,
     )
 
-    hbr_card = '''          <a class="source-card" href="https://hbr.org/2026/09/stop-automating-old-processes-design-new-ones-instead">
+    hbr_workflow_card = '''          <a class="source-card" href="https://hbr.org/2026/09/stop-automating-old-processes-design-new-ones-instead">
             <span>Management / process source · registered claims pending independent review</span>
             <strong>Harvard Business Review — redesign the workflow, not only the task</strong>
             <p>Shunko and Netessine argue that local AI acceleration can miss value, ignore the unhappy path, move bottlenecks downstream, or optimize the wrong metric when the end-to-end workflow is not redesigned.</p>
           </a>
 '''
+    hbr_teamwork_card = '''          <a class="source-card" href="https://hbr.org/2026/09/ai-can-enhance-every-stage-of-teamwork-under-two-conditions">
+            <span>Management / teamwork source · registered claims pending independent review</span>
+            <strong>Harvard Business Review — teamwork has a before, during, and after</strong>
+            <p>Rosani and Farri operationalise teamwork across preparation, the live collaborative session, and follow-up, and propose intentionality and craft as conditions for useful team-AI collaboration.</p>
+          </a>
+'''
     dora_marker = '''          <a class="source-card" href="https://dora.dev/research/2025/dora-report/">'''
     if "Harvard Business Review — redesign the workflow" not in text and dora_marker in text:
-        text = text.replace(dora_marker, hbr_card + dora_marker, 1)
+        text = text.replace(dora_marker, hbr_workflow_card + hbr_teamwork_card + dora_marker, 1)
+    elif "Harvard Business Review — teamwork has a before" not in text and dora_marker in text:
+        text = text.replace(dora_marker, hbr_teamwork_card + dora_marker, 1)
 
     return text
 
@@ -206,7 +224,7 @@ def augment() -> None:
     publish_api(articles)
     publish_toolkit()
     inject_discovery_links()
-    print(f"Augmented {PUBLICATION_MODE} site with API, schema, claim gate, and workflow framing")
+    print(f"Augmented {PUBLICATION_MODE} site with API, schema, claim gate, workflow, and management-language framing")
 
 
 if __name__ == "__main__":
