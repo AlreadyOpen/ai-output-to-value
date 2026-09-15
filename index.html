@@ -44,6 +44,7 @@
       <a href="#client-ready">Client-ready?</a>
       <a href="#terms">The terms</a>
       <a href="#judgement">Judgement &amp; authority</a>
+      <a href="#interfaces">Human / AI interfaces</a>
       <a href="#whole-job">The whole job</a>
       <a href="#option-value">Learning / option value</a>
       <a href="#questions">Questions</a>
@@ -249,6 +250,41 @@
         <div class="section-heading narrow">
           <p><strong>Human-in-the-loop is a control pattern, not a quality guarantee.</strong> Use automated checks, models, specialists, people, or hybrid assurance according to the failure mode and consequence.</p>
           <p><a href="articles/ai-business-capability-and-judgement.html">Read the working analysis: AI can do business work too →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="interfaces">
+      <div class="shell">
+        <div class="section-heading narrow">
+          <p class="eyebrow">Human / AI / hybrid interfaces</p>
+          <h2>Same standard does not mean the same interface.</h2>
+          <p>A human can use visible controls. An agent can use a structured tool surface. A hybrid workflow can use both. Actor-neutral evaluation means applying the same intended-use, authority, evidence, failure-handling and outcome standards—not forcing every actor through the same user interface.</p>
+        </div>
+
+        <div class="term-grid">
+          <article class="term-card">
+            <span class="term-type">Human channel</span>
+            <h3>Visible UI</h3>
+            <p>Forms, menus, direct manipulation and conversation can remain the best interface for a person.</p>
+          </article>
+          <article class="term-card">
+            <span class="term-type">Agent channel</span>
+            <h3>WebMCP structured tools</h3>
+            <p>WebMCP lets a page expose structured application actions through <code>document.modelContext</code> so compatible agents can discover and invoke them instead of guessing every action from the visual UI.</p>
+          </article>
+          <article class="term-card">
+            <span class="term-type">Hybrid control</span>
+            <h3>Different interface, same claim test</h3>
+            <p>Agent actions can still require confirmation, policy checks, audit evidence, fallback or escalation when consequence or authority demands it.</p>
+          </article>
+        </div>
+
+        <div class="reading-route">
+          <strong>WebMCP changes the channel, not the claim.</strong>
+          <p>Structured agent access is useful Access/Output capability. It does not by itself establish Deliverable, organisational Capability, Outcome or Value.</p>
+          <p><a href="https://webmcp.devpost.com/resources">WebMCP resources</a> · <a href="https://github.com/helenkwok/chisel-webmcp">Chisel — public WebMCP CAD implementation</a> · <a href="articles/claim-card.html#same-standard-does-not-mean-the-same-interface">Apply the same-standard test in the claim card</a></p>
+          <p class="measure-note">Chisel is an illustrative practitioner implementation maintained by this project's author, not independent evidence of WebMCP safety or production readiness.</p>
         </div>
       </div>
     </section>
