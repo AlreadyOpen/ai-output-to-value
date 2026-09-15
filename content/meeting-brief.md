@@ -39,6 +39,22 @@ A useful substance-gap example:
 
 > **A contact form can look complete while enquiries never reach the business. The interface exists; the promised workflow does not.**
 
+## Same standard, different interfaces
+
+Actor-neutral evaluation does not require identical interaction channels.
+
+A human may use the visible UI. An agent may use a structured tool surface such as **WebMCP**. A hybrid workflow may use both.
+
+Judge each path against the same intended-use standard:
+
+- did the action actually happen?
+- did it meet the acceptance criteria?
+- was the actor authorised?
+- were consequential actions appropriately controlled?
+- can success, refusal, and failure be inspected?
+
+**WebMCP changes the interface available to an agent; it does not by itself prove Deliverable, Capability, Outcome, or Value.**
+
 ## Do not bundle judgement with authority
 
 | Question | Meaning |
@@ -63,7 +79,7 @@ Do not turn a reduction in one metric into a claim about another without evidenc
 
 **Not established:** What remains an assumption?
 
-**Actor / authority:** Who or what performs the task, who may approve or commit, and where does recourse sit?
+**Actor / interface / authority:** Who or what performs the task, through which channel (human UI / WebMCP / API / other / hybrid), who may approve or commit, and where does recourse sit?
 
 **Decision:** Continue, restrict, rely, operate, scale, or stop?
 
