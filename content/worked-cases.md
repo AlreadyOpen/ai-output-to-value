@@ -122,6 +122,68 @@ And when evaluating a positive case:
 
 ---
 
+## Case 4 — a 90-day software pilot can improve speed and still worsen the system
+
+**Evidence character: illustrative measurement case.** The numbers below are invented. The metric names come from DORA's current software-delivery performance model.
+
+DORA currently groups five software-delivery metrics into **throughput** and **instability**: change lead time, deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate.
+
+### Situation
+
+A software team introduces AI coding assistance for one service. Before rollout it records a baseline, then compares the same measures after 90 days.
+
+| Measure | Baseline | After 90 days | Direction |
+| --- | ---: | ---: | --- |
+| **Change lead time** | 3 days | 1 day | Faster |
+| **Deployment frequency** | 2 / week | 5 / week | Higher throughput |
+| **Failed deployment recovery time** | 2 h | 3 h | Worse |
+| **Change fail rate** | 8% | 14% | Worse |
+| **Deployment rework rate** | 5% | 11% | Worse |
+| **Median review wait** | 4 h | 9 h | Worse |
+| **Primary customer task completion** | 72% | 73% | Essentially flat |
+
+The team can now make changes faster and deploy more often. It also creates more failed/rework deployments, waits longer for review, and has not yet moved the customer measure materially.
+
+### Decision
+
+**Continue the pilot, but do not report "AI improved delivery by 150%" from deployment frequency alone and do not scale the rollout yet.**
+
+The next 30 days should target the review/test/release bottlenecks and keep the same customer outcome measure. A pre-agreed stop rule might be:
+
+> If instability remains materially above baseline and the customer outcome remains flat after the next review point, stop expanding the rollout and redesign the workflow before adding more seats or agents.
+
+This is the difference between **Output/throughput evidence** and **Outcome/Value evidence**.
+
+---
+
+## Case 5 — stopping a weak idea early can be a valuable outcome
+
+**Evidence character: illustrative option-value case.**
+
+### Situation
+
+A team believes a new AI workflow could become a customer product. Instead of building the full service, it spends two days producing a credible interactive prototype and uses it in a small set of structured customer conversations.
+
+The technical demonstration works. The intended buyers understand it. They also make clear that the workflow solves a low-priority problem and would not displace the process they already use.
+
+### Decision
+
+**Stop productisation. Keep the technical learning.**
+
+The prototype never becomes a deliverable, operational capability, or revenue stream. It still created a useful **Outcome**: uncertainty was removed cheaply enough to avoid a larger commitment.
+
+Useful measures for this kind of outcome include:
+
+- time to decision;
+- cost of the experiment;
+- number of important assumptions tested;
+- larger spend or elapsed time avoided;
+- whether the evidence changed the portfolio decision.
+
+> **Learning can be the outcome. "We now know not to build this" can be value.**
+
+---
+
 ## How to use the framework
 
 For any AI-enabled proposal, write down:
@@ -131,5 +193,8 @@ For any AI-enabled proposal, write down:
 3. **Not established** — which assumptions remain open?
 4. **Decision** — approve, restrict, defer, stop, or scale?
 5. **Next evidence** — what would justify changing that decision?
+6. **Stop rule** — when would further work stop being proportionate?
+
+For a reusable template, use the [Claim card](claim-card.md).
 
 That structure turns the project's distinctions into an actual management decision.
