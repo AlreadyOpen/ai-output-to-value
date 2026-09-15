@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 
 type CheckState = "unknown" | "pass" | "fail"
 type GateCheck = { id: string; label: string }
+type ClaimLevel = "01-access" | "02-output" | "03-deliverable" | "04-capability" | "05-outcome" | "06-value"
 type GateRule = {
   label: string
   description: string
@@ -17,7 +18,6 @@ type GateRule = {
   requiredChecks: GateCheck[]
 }
 type GateRules = { decisions: Record<string, GateRule> }
-type ClaimLevel = "01-access" | "02-output" | "03-deliverable" | "04-capability" | "05-outcome" | "06-value"
 
 type FormState = {
   project: string
@@ -34,6 +34,10 @@ type FormState = {
   authority: string
   accountability: string
   evidence: string
+  outcomeMeasure: string
+  baseline: string
+  fullRelevantCostBoundary: string
+  optionValue: string
   nextEvidence: string
   stopRule: string
   checks: Record<string, CheckState>
@@ -71,6 +75,29 @@ const checkOptions = [
   { value: "unknown", label: "Unknown / not evidenced" },
   { value: "pass", label: "Pass" },
   { value: "fail", label: "Fail" },
+]
+
+const samples = [
+  {
+    label: "Website — Explore PASS",
+    path: "../samples/website-explore-pass.claim.json",
+    note: "A reproducible prototype is enough for the exploration decision.",
+  },
+  {
+    label: "Same website — Operate BLOCKED",
+    path: "../samples/website-operate-blocked.claim.json",
+    note: "The visible artefact is unchanged; the requested decision is stronger.",
+  },
+  {
+    label: "Internal tool — Rely PASS",
+    path: "../samples/internal-tool-rely-pass.claim.json",
+    note: "A bounded internal use passes after its acceptance evidence is supplied.",
+  },
+  {
+    label: "Killed idea — Outcome PASS",
+    path: "../samples/killed-idea-outcome-pass.claim.json",
+    note: "Learning can be the Outcome even when productisation stops.",
+  },
 ]
 
 function lines(value: string) {
@@ -137,12 +164,8 @@ function Field({ label, children, full = false }: { label: string; children: Rea
   )
 }
 
-export function ClaimGateApp() {
-  const [gates, setGates] = React.useState<GateRules | null>(null)
-  const [loadError, setLoadError] = React.useState<string | null>(null)
-  const [handoffMessage, setHandoffMessage] = React.useState<string | null>(null)
-  const importRef = React.useRef<HTMLInputElement>(null)
-  const [state, setState] = React.useState<FormState>({
+function blankState(): FormState {
+  return {
     project: "",
     decision: "",
     assertedClaim: "02-output",
@@ -152,15 +175,27 @@ export function ClaimGateApp() {
     downstreamHandoffs: "",
     movedBottleneck: "",
     unhappyPath: "",
-    actor: "ai-agent",
+    actor: "hybrid",
     channel: "human-ui",
     authority: "",
     accountability: "",
     evidence: "",
+    outcomeMeasure: "",
+    baseline: "",
+    fullRelevantCostBoundary: "",
+    optionValue: "",
     nextEvidence: "",
     stopRule: "",
     checks: {},
-  })
+  }
+}
+
+export function ClaimGateApp() {
+  const [gates, setGates] = React.useState<GateRules | null>(null)
+  const [loadError, setLoadError] = React.useState<string | null>(null)
+  const [handoffMessage, setHandoffMessage] = React.useState<string | null>(null)
+  const importRef = React.useRef<HTMLInputElement>(null)
+  const [state, setState] = React.useState<FormState>(blankState)
 
   React.useEffect(() => {
     fetch("../schemas/v1/decision-gates.json")
@@ -171,13 +206,12 @@ export function ClaimGateApp() {
       .then((payload) => {
         const firstDecision = Object.keys(payload.decisions)[0]
         const firstRule = payload.decisions[firstDecision]
-        const checks = Object.fromEntries(firstRule.requiredChecks.map((check) => [check.id, "unknown"])) as Record<string, CheckState>
         setGates(payload)
         setState((previous) => ({
           ...previous,
           decision: firstDecision,
           assertedClaim: firstRule.requiredClaimLevel,
-          checks,
+          checks: Object.fromEntries(firstRule.requiredChecks.map((check) => [check.id, "unknown"])) as Record<string, CheckState>,
         }))
       })
       .catch((error) => setLoadError(error instanceof Error ? error.message : String(error)))
@@ -216,6 +250,10 @@ export function ClaimGateApp() {
       authority: textValue(item.authority),
       accountability: textValue(item.accountability),
       evidence: listValue(item.evidenceRefs).join("\n"),
+      outcomeMeasure: textValue(item.outcomeMeasure),
+      baseline: textValue(item.baseline),
+      fullRelevantCostBoundary: textValue(item.fullRelevantCostBoundary),
+      optionValue: textValue(item.optionValue),
       nextEvidence: textValue(item.nextEvidence),
       stopRule: textValue(item.stopRule),
       checks,
@@ -239,6 +277,12 @@ export function ClaimGateApp() {
 
   const rule = gates && state.decision ? gates.decisions[state.decision] : null
 
+  function checksFor(decision: string) {
+    if (!gates) return {}
+    const next = gates.decisions[decision]
+    return Object.fromEntries(next.requiredChecks.map((check) => [check.id, "unknown"])) as Record<string, CheckState>
+  }
+
   function updateDecision(decision: string) {
     if (!gates) return
     const next = gates.decisions[decision]
@@ -246,8 +290,41 @@ export function ClaimGateApp() {
       ...previous,
       decision,
       assertedClaim: next.requiredClaimLevel,
-      checks: Object.fromEntries(next.requiredChecks.map((check) => [check.id, "unknown"])) as Record<string, CheckState>,
+      checks: checksFor(decision),
     }))
+  }
+
+  async function loadSample(path: string, label: string) {
+    try {
+      const response = await fetch(path)
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      applyClaimRecord(await response.json(), label)
+    } catch (error) {
+      setHandoffMessage(`Could not load sample: ${error instanceof Error ? error.message : String(error)}`)
+    }
+  }
+
+  function loadSoftwareOutcomePack() {
+    if (!gates) return
+    const decision = "measure-outcome"
+    const next = gates.decisions[decision]
+    setState((previous) => ({
+      ...previous,
+      decision,
+      assertedClaim: next.requiredClaimLevel,
+      actor: "hybrid",
+      outcomeMeasure: [
+        "DORA throughput: change lead time; deployment frequency; failed deployment recovery time.",
+        "DORA instability: change fail rate; deployment rework rate.",
+        "AI-specific leading indicators when relevant: share of AI-touched changes; review wait time for AI-touched changes; revert/rollback rate for AI-touched changes.",
+      ].join("\n"),
+      baseline: "Use a comparable pre-intervention period for the same application/service and keep metric definitions consistent before and after.",
+      fullRelevantCostBoundary: "Include relevant model/tool licence or inference cost, review/correction, CI/test infrastructure, deployment/operations, support, and material incident/rework cost.",
+      nextEvidence: "Measure the same software-delivery metrics after the agreed observation window and name material confounds such as staffing, release policy, architecture, workload mix, or major platform changes.",
+      evidence: previous.evidence || "Internal delivery telemetry for the selected application/service\nChange/PR/deployment records for AI-touched changes where relevant",
+      checks: checksFor(decision),
+    }))
+    setHandoffMessage("Software Outcome pack loaded as a measurement plan. No required check was marked PASS automatically.")
   }
 
   function metadataGaps() {
@@ -272,6 +349,12 @@ export function ClaimGateApp() {
       : unknown.length || gaps.length || claimMismatch || !rule
         ? "INSUFFICIENT_EVIDENCE"
         : "PASS"
+
+  const isUntouched = !state.project.trim()
+    && !state.intendedUse.trim()
+    && !state.authority.trim()
+    && !state.accountability.trim()
+    && Object.values(state.checks).every((value) => value === "unknown")
 
   const reasons = [
     ...failed.map((check) => `Failed: ${check.label}`),
@@ -302,6 +385,10 @@ export function ClaimGateApp() {
       authority: state.authority.trim(),
       accountability: state.accountability.trim(),
       evidenceRefs: lines(state.evidence),
+      outcomeMeasure: state.outcomeMeasure.trim(),
+      baseline: state.baseline.trim(),
+      fullRelevantCostBoundary: state.fullRelevantCostBoundary.trim(),
+      optionValue: state.optionValue.trim(),
       gateChecks: state.checks,
       nextEvidence: state.nextEvidence.trim(),
       stopRule: state.stopRule.trim(),
@@ -312,7 +399,7 @@ export function ClaimGateApp() {
     const item = record()
     if (!item || !rule) return ""
     const rows = rule.requiredChecks.map((check) => `- **${(item.gateChecks[check.id] || "unknown").toUpperCase()}** — ${check.label}`).join("\n")
-    return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Workflow boundary\n\n**Start / boundary:** ${item.workflowBoundary || "(not supplied)"}\n\n**What counts as complete:** ${item.workflowCompletion || "(not supplied)"}\n\n**Downstream handoffs:**\n${item.downstreamHandoffs.length ? item.downstreamHandoffs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n**Where could the bottleneck move?** ${item.movedBottleneck || "(not supplied)"}\n\n**Unhappy path:** ${item.unhappyPath || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
+    return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n> Gate status evaluates this record only. It is not an audit of the underlying system or evidence.\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Workflow boundary\n\n**Start / boundary:** ${item.workflowBoundary || "(not supplied)"}\n\n**What counts as complete:** ${item.workflowCompletion || "(not supplied)"}\n\n**Downstream handoffs:**\n${item.downstreamHandoffs.length ? item.downstreamHandoffs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n**Where could the bottleneck move?** ${item.movedBottleneck || "(not supplied)"}\n\n**Unhappy path:** ${item.unhappyPath || "(not supplied)"}\n\n## Measurement\n\n**Outcome measure:** ${item.outcomeMeasure || "(not supplied)"}\n\n**Baseline:** ${item.baseline || "(not supplied)"}\n\n**Full relevant cost boundary:** ${item.fullRelevantCostBoundary || "(not supplied)"}\n\n**Option / learning value:** ${item.optionValue || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
   }
 
   async function copyMarkdown() {
@@ -363,8 +450,28 @@ export function ClaimGateApp() {
           Choose the decision you are trying to make. The target decision selects the minimum claim and required checks. <strong className="text-foreground">This is a stop rule, not a maturity score.</strong>
         </p>
         <p className="mt-2 text-sm text-muted-foreground">The evaluator is actor-neutral: human, AI, automated and hybrid work use the same gate for the same intended decision.</p>
-        <p className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">Workflow is not a seventh claim.</strong> The optional workflow fields make the end-to-end process boundary visible without changing the deterministic gate score.</p>
+        <p className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">Gate ≠ truth.</strong> A PASS means the supplied record is complete for this decision. It is not an audit of the underlying system, measurement, or evidence.</p>
       </div>
+
+      <Card className="mb-6 border-primary/25 bg-card">
+        <CardHeader>
+          <CardTitle>Learn the gate from a filled example</CardTitle>
+          <CardDescription>Three fictional teaching cases show PASS and BLOCKED without requiring you to start from an empty compliance form.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 sm:grid-cols-2">
+          {samples.map((sample) => (
+            <button
+              key={sample.path}
+              type="button"
+              className="rounded-lg border border-border bg-background p-4 text-left transition-colors hover:bg-accent"
+              onClick={() => void loadSample(sample.path, sample.label)}
+            >
+              <strong className="block text-sm">{sample.label}</strong>
+              <span className="mt-1 block text-xs text-muted-foreground">{sample.note}</span>
+            </button>
+          ))}
+        </CardContent>
+      </Card>
 
       <div className="mb-6 grid gap-3 md:grid-cols-3">
         <div className="rounded-lg border border-border bg-card p-4">
@@ -380,7 +487,7 @@ export function ClaimGateApp() {
         <div className="rounded-lg border border-border bg-card p-4">
           <Badge variant="outline">Hybrid</Badge>
           <h2 className="mt-3 font-semibold">Hand off the same claim.json</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Import an agent-prepared record, or let a WebMCP agent load it into this local form with <code>aiov_load_claim_gate_record</code>. A person can then inspect and edit it.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Import an agent-prepared record, or let a compatible browser agent load it into this local form. A person can then inspect and edit it.</p>
         </div>
       </div>
 
@@ -388,6 +495,7 @@ export function ClaimGateApp() {
         <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={(event) => void importJsonFile(event)} />
         <Button size="sm" variant="outline" onClick={() => importRef.current?.click()}>Import claim.json</Button>
         <Button size="sm" variant="outline" onClick={() => void copyJson()} disabled={!rule}>Copy claim.json</Button>
+        <Button size="sm" variant="secondary" onClick={loadSoftwareOutcomePack} disabled={!gates}>Load software Outcome pack</Button>
         {handoffMessage ? <span className="text-sm text-muted-foreground" aria-live="polite">{handoffMessage}</span> : null}
       </div>
 
@@ -405,12 +513,7 @@ export function ClaimGateApp() {
               <NativeFieldSelect value={state.decision} options={decisionOptions} onChange={updateDecision} ariaLabel="Decision sought" />
             </Field>
             <Field label="Claim being asserted">
-              <NativeFieldSelect
-                value={state.assertedClaim}
-                options={claimOptions}
-                onChange={(value) => setState({ ...state, assertedClaim: value as ClaimLevel })}
-                ariaLabel="Claim being asserted"
-              />
+              <NativeFieldSelect value={state.assertedClaim} options={claimOptions} onChange={(value) => setState({ ...state, assertedClaim: value as ClaimLevel })} ariaLabel="Claim being asserted" />
             </Field>
             <Field label="Primary actor">
               <NativeFieldSelect value={state.actor} options={actorOptions} onChange={(value) => setState({ ...state, actor: value })} ariaLabel="Primary actor" />
@@ -442,6 +545,23 @@ export function ClaimGateApp() {
               <Textarea value={state.unhappyPath} onChange={(event) => setState({ ...state, unhappyPath: event.target.value })} placeholder="What happens with missing information, ambiguity, dependency failure, refusal, timeout, or an action that must be reversed?" />
             </Field>
 
+            <div className="md:col-span-2 mt-2 rounded-lg border border-border bg-muted/30 p-4">
+              <h2 className="text-lg font-semibold">Measurement and economics</h2>
+              <p className="mt-1 text-sm text-muted-foreground">These fields become especially important for Outcome and Value decisions. The software pack supplies a plan, not evidence.</p>
+            </div>
+            <Field label="Outcome measure" full>
+              <Textarea value={state.outcomeMeasure} onChange={(event) => setState({ ...state, outcomeMeasure: event.target.value })} placeholder="What meaningful result should change?" />
+            </Field>
+            <Field label="Baseline / comparison" full>
+              <Textarea value={state.baseline} onChange={(event) => setState({ ...state, baseline: event.target.value })} placeholder="What is the comparable baseline or counterfactual?" />
+            </Field>
+            <Field label="Full relevant cost boundary" full>
+              <Textarea value={state.fullRelevantCostBoundary} onChange={(event) => setState({ ...state, fullRelevantCostBoundary: event.target.value })} placeholder="Which generation, review, integration, operation, support, incident, and other relevant costs count?" />
+            </Field>
+            <Field label="Option / learning value" full>
+              <Textarea value={state.optionValue} onChange={(event) => setState({ ...state, optionValue: event.target.value })} placeholder="What useful uncertainty was removed even if the work does not become operational?" />
+            </Field>
+
             <Field label="Authority boundary" full>
               <Textarea value={state.authority} onChange={(event) => setState({ ...state, authority: event.target.value })} placeholder="What may this actor recommend, change, send, spend, approve or commit?" />
             </Field>
@@ -465,12 +585,7 @@ export function ClaimGateApp() {
                 {rule?.requiredChecks.map((check) => (
                   <div key={check.id} className="grid gap-3 p-4 md:grid-cols-[minmax(0,1fr)_13rem] md:items-center">
                     <Label>{check.label}</Label>
-                    <NativeFieldSelect
-                      value={state.checks[check.id] ?? "unknown"}
-                      options={checkOptions}
-                      onChange={(value) => setState({ ...state, checks: { ...state.checks, [check.id]: value as CheckState } })}
-                      ariaLabel={check.label}
-                    />
+                    <NativeFieldSelect value={state.checks[check.id] ?? "unknown"} options={checkOptions} onChange={(value) => setState({ ...state, checks: { ...state.checks, [check.id]: value as CheckState } })} ariaLabel={check.label} />
                   </div>
                 ))}
               </div>
@@ -486,27 +601,42 @@ export function ClaimGateApp() {
           <CardContent>
             <div
               className={cn(
-                "rounded-lg px-4 py-3 text-sm font-bold",
+                "rounded-lg px-4 py-3",
                 status === "PASS" && "bg-emerald-50 text-emerald-800",
                 status === "BLOCKED" && "bg-red-50 text-red-800",
                 status === "INSUFFICIENT_EVIDENCE" && "bg-amber-50 text-amber-800",
                 status === "TOOL_ERROR" && "bg-red-50 text-red-800",
               )}
             >
-              {status.replaceAll("_", " ")}
+              <div className="text-sm font-bold">{status.replaceAll("_", " ")}</div>
+              <div className="mt-1 text-xs font-medium">
+                {status === "PASS"
+                  ? "Record complete for this decision. Not an audit of the underlying system."
+                  : "This gate evaluates the supplied record; it does not independently verify the underlying facts."}
+              </div>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
               {loadError
                 ? loadError
-                : status === "PASS"
-                  ? `The supplied record satisfies every check required for ${rule?.label}. This does not prove facts beyond the supplied evidence.`
-                  : status === "BLOCKED"
-                    ? "At least one decision-critical check explicitly failed. Strength at other claim levels does not offset it."
-                    : "No decision-critical check is recorded as failed, but the record is not sufficient to justify this decision."}
+                : isUntouched
+                  ? "Nothing is wrong. This decision is not justified yet. Load a filled example, or complete only the fields this decision actually requires."
+                  : status === "PASS"
+                    ? `The supplied record satisfies every check required for ${rule?.label}.`
+                    : status === "BLOCKED"
+                      ? "At least one decision-critical check explicitly failed. Strength at other claim levels does not offset it."
+                      : "No decision-critical check is recorded as failed, but the record is not sufficient to justify this decision."}
             </p>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm">
-              {reasons.map((reason) => <li key={reason}>{reason}</li>)}
-            </ul>
+            {!isUntouched ? (
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm">
+                {reasons.map((reason) => <li key={reason}>{reason}</li>)}
+              </ul>
+            ) : null}
+            {state.nextEvidence.trim() ? (
+              <div className="mt-4 rounded-md border border-border bg-muted/40 p-3 text-sm">
+                <strong className="block">Next evidence that would change this decision</strong>
+                <span className="mt-1 block text-muted-foreground">{state.nextEvidence}</span>
+              </div>
+            ) : null}
             <p className="mt-4 text-sm text-muted-foreground">Strong Access or Output cannot compensate for a failed decision-critical check.</p>
             <div className="mt-5 flex flex-wrap gap-2" data-aiov-interactive-only>
               <Button size="sm" onClick={() => void copyMarkdown()}>Copy Markdown</Button>
@@ -516,7 +646,8 @@ export function ClaimGateApp() {
             <p className="mt-5 text-xs text-muted-foreground">
               <a className="underline" href="../schemas/v1/claim.schema.json">claim.schema.json</a> · {" "}
               <a className="underline" href="../schemas/v1/decision-gates.json">gate rules</a> · {" "}
-              <a className="underline" href="../articles/claim-card.html">claim-card guidance</a>
+              <a className="underline" href="../templates/software-outcome-pack.json">software Outcome pack</a> · {" "}
+              <a className="underline" href="../downloads/ai-output-to-value-private-workbook.zip">private workbook</a>
             </p>
           </CardContent>
         </Card>
