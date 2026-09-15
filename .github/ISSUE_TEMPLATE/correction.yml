@@ -1,0 +1,43 @@
+name: Correction
+about: Report a factual, evidentiary, wording, link, or implementation error
+labels:
+  - correction
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve AI Output to Value. Please identify the smallest correctable claim, page, record, or implementation detail. Do not include confidential client or employer information.
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Page URL, article, claim ID, source ID, file path, or tool surface.
+      placeholder: https://alreadyopen.github.io/ai-output-to-value/... or claim-id
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What appears incorrect?
+      description: Quote or paraphrase the specific claim/behavior and explain the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or reproduction
+      description: Provide a primary source, reproducible steps, counter-measurement, screenshot description, or other inspectable evidence where possible.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed correction
+      description: Optional. State the narrower or corrected wording/behavior you think the evidence supports.
+  - type: checkboxes
+    id: confidentiality
+    attributes:
+      label: Confidentiality
+      options:
+        - label: I have not included confidential client, employer, credential, personal, or other restricted information.
+          required: true
