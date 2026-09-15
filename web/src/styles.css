@@ -176,6 +176,10 @@
     margin-inline: auto;
     padding-block: 3.5rem 6rem;
   }
+
+  .aiov-print-summary {
+    display: none;
+  }
 }
 
 @media (min-width: 960px) {
@@ -210,9 +214,187 @@
   }
 }
 
+@page {
+  size: A4 portrait;
+  margin: 12mm 14mm 14mm;
+}
+
 @media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #111827 !important;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  .site-header,
+  .skip-link,
   [data-aiov-interactive-only],
   .aiov-react-toolbar {
     display: none !important;
+  }
+
+  .aiov-gate-root {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .aiov-gate-root > :not(.aiov-print-summary) {
+    display: none !important;
+  }
+
+  .aiov-print-summary {
+    display: block !important;
+    color: #111827;
+  }
+
+  .aiov-print-summary,
+  .aiov-print-summary * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .aiov-print-header {
+    margin-bottom: 5mm;
+    padding-bottom: 4mm;
+    border-bottom: 1.5pt solid #10202f;
+  }
+
+  .aiov-print-kicker {
+    margin: 0 0 1mm;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .aiov-print-title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22pt;
+    line-height: 1.05;
+    font-weight: 600;
+  }
+
+  .aiov-print-meta {
+    margin: 2mm 0 0;
+    font-size: 9pt;
+    color: #374151;
+  }
+
+  .aiov-print-status {
+    margin: 0 0 5mm;
+    padding: 3mm 3.5mm;
+    border: 1pt solid #9ca3af;
+    border-left: 3pt solid #10202f;
+    break-inside: avoid;
+  }
+
+  .aiov-print-status strong {
+    display: block;
+    margin-bottom: 0.5mm;
+    font-size: 11pt;
+  }
+
+  .aiov-print-status p {
+    margin: 0;
+    color: #374151;
+    font-size: 8.5pt;
+  }
+
+  .aiov-print-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 6mm;
+    margin-bottom: 3mm;
+  }
+
+  .aiov-print-field {
+    margin: 0;
+    padding: 2.2mm 0;
+    border-bottom: 0.5pt solid #d1d5db;
+    break-inside: avoid;
+  }
+
+  .aiov-print-field dt,
+  .aiov-print-label {
+    margin: 0 0 0.5mm;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #4b5563;
+  }
+
+  .aiov-print-field dd,
+  .aiov-print-value {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .aiov-print-section {
+    margin-top: 4mm;
+    padding-top: 2.5mm;
+    border-top: 1pt solid #9ca3af;
+  }
+
+  .aiov-print-section > h2 {
+    margin: 0 0 2mm;
+    font-size: 11pt;
+    line-height: 1.2;
+  }
+
+  .aiov-print-section p {
+    margin: 0 0 2mm;
+  }
+
+  .aiov-print-section ul {
+    margin: 1mm 0 0;
+    padding-left: 5mm;
+  }
+
+  .aiov-print-section li {
+    margin: 0.6mm 0;
+  }
+
+  .aiov-print-check {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4mm;
+    align-items: start;
+    padding: 1.8mm 0;
+    border-bottom: 0.5pt solid #e5e7eb;
+    break-inside: avoid;
+  }
+
+  .aiov-print-check strong {
+    white-space: nowrap;
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+  }
+
+  .aiov-print-long {
+    break-inside: auto;
+  }
+
+  .aiov-print-long > * {
+    break-inside: avoid;
+  }
+
+  .aiov-print-footer {
+    margin-top: 5mm;
+    padding-top: 2mm;
+    border-top: 0.5pt solid #d1d5db;
+    color: #6b7280;
+    font-size: 7.5pt;
+  }
+
+  .aiov-print-summary a {
+    color: inherit !important;
+    text-decoration: none !important;
   }
 }
