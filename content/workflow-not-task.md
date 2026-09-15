@@ -1,6 +1,6 @@
 # Workflow is the unit: where AI output becomes business delivery
 
-**Evidence character: editorial synthesis with a Harvard Business Review management source.**
+**Evidence character: editorial synthesis with Harvard Business Review management sources.**
 
 A team can build a strong product, feature, model integration, report, or automation and still leave the surrounding business workflow incomplete.
 
@@ -102,6 +102,34 @@ A workflow may legitimately use a human approver because law, contract, policy, 
 
 The question is not simply **“is a human in the loop?”** It is **“is the authority-and-assurance design appropriate for this failure mode and consequence?”**
 
+## Management words are not evidence
+
+Terms such as **workflow**, **teamwork**, **KPI**, **productivity**, **leadership**, and **alignment** are useful shorthand. They are not self-proving explanations of why a proposal is good or why another team has failed.
+
+Before using one of these words to justify approval, rejection, investment, reorganisation, praise, or criticism, turn it into something inspectable:
+
+| Management term | Operationalise it | Evidence to look for |
+| --- | --- | --- |
+| **Workflow** | Trigger, boundary, completion condition, handoffs, unhappy path, authority, outcome | End-to-end test, process trace, runbook/recovery evidence, outcome measure |
+| **Teamwork** | Who works together, what happens before/during/after, roles, shared information, decision rights, follow-up | Collaboration artefacts, decisions, handoffs, follow-through, outcome evidence |
+| **KPI** | Exact metric definition, unit, numerator/denominator, data source, cadence, baseline, guardrails | Reproducible calculation plus evidence that the KPI is connected to the desired outcome |
+| **Productivity** | Accepted output or outcome per relevant input, with quality held explicit and downstream rework counted | Comparable whole-workflow measurement rather than local activity volume alone |
+| **Leadership** | Decisions, coordination, authority, escalation, resource allocation, accountability, learning | Inspectable decisions, operating changes, capability built, risks handled, outcomes |
+
+A separate September 2026 *Harvard Business Review* article by Gabriele Rosani and Elisa Farri is useful precisely because it makes **teamwork** more operational. Based on hands-on workshops involving more than 300 managers across 35 organisations, the authors describe a full arc of teamwork: preparation **before** a meeting or workshop, collaborative work **during** it, and reflection/follow-up **after** it. They propose **intentionality** and **craft** as conditions for useful team-AI collaboration, where the work is deliberately redesigned and the AI interaction is given enough context, roles, steps, prompts, and pauses.
+
+The narrower lesson for this project is important:
+
+> **Saying “we need teamwork” is no more complete than saying “we need AI.” Define the collaborative process, what each participant contributes, how decisions move, what happens afterward, and which result should improve.**
+
+The HBR authors frame intentionality strongly around the team leader. AI Output to Value does not generalise that into a rule that hierarchy itself proves agency, judgement, or quality. The evidence standard remains symmetric across executives, managers, specialists, technical staff, AI systems, and hybrid processes.
+
+The familiar **boss-versus-leader cart meme** is a good example of rhetoric rather than operating evidence. It is memorable because it compresses leadership into one visible contrast: riding versus pulling. But the picture cannot tell us whether work is allocated according to expertise, whether the leader's highest-value contribution is direction or manual effort, whether risk and authority are placed correctly, whether the team can handle exceptions, or whether the result is actually better.
+
+Use a meme or slogan to start a question, not to close one.
+
+> **Management vocabulary should meet the same standard as technical vocabulary: define the claim, define the process or metric, and show the evidence.**
+
 ## What a manager can ask instead of “where is the workflow?”
 
 Turn the criticism into an inspectable set of questions:
@@ -131,12 +159,13 @@ The point is to make the process boundary visible enough to test the claim.
 
 > **Do not ask only whether the product works. Ask whether the complete workflow produces a result someone can rely on—and whether the organisation can stand behind it at the level being claimed.**
 
-## Source and qualification
+## Sources and qualification
 
-Primary management source:
+Primary management sources:
 
 - Masha Shunko and Serguei Netessine, *Stop Automating Old Processes. Design New Ones Instead.*, *Harvard Business Review*, 14 September 2026: https://hbr.org/2026/09/stop-automating-old-processes-design-new-ones-instead
+- Gabriele Rosani and Elisa Farri, *AI Can Enhance Every Stage of Teamwork—Under Two Conditions*, *Harvard Business Review*, 7 September 2026: https://hbr.org/2026/09/ai-can-enhance-every-stage-of-teamwork-under-two-conditions
 
-The HBR article is a strong executive/practitioner source and reports that the authors refined their framework with companies and executive-education participants. It is not a controlled comparative study of all AI transformation programmes, and this project does not treat its examples or 4A framework as a universal standard.
+These are strong executive/practitioner sources. The workflow article reports that its authors refined their framework with companies and executive-education participants. The teamwork article reports hands-on workshops involving more than 300 managers across 35 organisations. Neither source is a universal controlled comparative benchmark, and this project does not treat either source's management framework as a universal standard.
 
 Use the [Claim card](claim-card.md) to turn the workflow boundary into a decision record, and the [One-page meeting brief](meeting-brief.md) for a shorter discussion format.
