@@ -42,11 +42,19 @@ def inject_preview_links() -> None:
 def main() -> None:
     source = yaml.safe_load((ROOT / "data" / "failure-modes.yml").read_text(encoding="utf-8"))
     modes = source.get("failure_modes", []) if isinstance(source, dict) else []
+    modes = sorted(
+        modes,
+        key=lambda item: (
+            str(item.get("title", "")).casefold(),
+            str(item.get("id", "")).casefold(),
+        ),
+    )
 
     payload = {
         "publicationMode": PUBLICATION_MODE,
         "character": source.get("character", "editorial_operational_catalogue") if isinstance(source, dict) else "editorial_operational_catalogue",
         "scope": source.get("scope", "") if isinstance(source, dict) else "",
+        "ordering": "alphanumeric by failure-mode title; order carries no prevalence, severity, likelihood, or priority meaning",
         "reviewState": "working material; excluded from reviewed release" if PUBLICATION_MODE == "release" else "working preview",
         "failureModes": [] if PUBLICATION_MODE == "release" else modes,
     }
