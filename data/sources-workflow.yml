@@ -1,0 +1,18 @@
+sources:
+  - id: hbr-workflow-redesign-2026
+    title: Stop Automating Old Processes. Design New Ones Instead.
+    publisher: Harvard Business Review
+    authors:
+      - Masha Shunko
+      - Serguei Netessine
+    url: https://hbr.org/2026/09/stop-automating-old-processes-design-new-ones-instead
+    evidence_type: management_practitioner_article
+    supports:
+      - workflow_not_task_as_unit_of_ai_redesign
+      - local_task_acceleration_can_shift_bottlenecks_downstream
+      - unhappy_path_should_be_designed_explicitly
+      - outcome_metrics_should_not_be_replaced_by_activity_metrics
+      - four_a_authority_modes_are_proposed_by_the_authors
+    scope: The September 2026 HBR article recommends treating the end-to-end workflow rather than an individual task as the object of AI redesign. It describes four recurring failure patterns in task-level automation, including local acceleration without value, neglected unhappy paths, ignored end-to-end flow, and optimization of the wrong metric. It also proposes Assist, Approve, Audit, and Automate modes for deciding where human authority remains.
+    limitations: This is a management/practitioner article, not a peer-reviewed comparative trial or universal process standard. The article reports that its framework was refined with companies and executive-education participants, but it does not publish a controlled causal evaluation of the framework. Its 4A governance model specifically frames authority around human intervention; AI Output to Value uses a broader actor-neutral separation of judgement, authority, accountability, and assurance.
+    reviewed: 2026-09-15
