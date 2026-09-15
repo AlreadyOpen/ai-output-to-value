@@ -19,8 +19,10 @@ class AiHybridClaimGateTests(unittest.TestCase):
         self.assertIn('window.addEventListener("aiov:load-claim-record"', source)
         self.assertIn("Import claim.json", source)
         self.assertIn("Copy claim.json", source)
-        self.assertIn("aiov_evaluate_claim_record", source)
-        self.assertIn("aiov_load_claim_gate_record", source)
+        self.assertIn("Agent-prepared claim record", source)
+        self.assertIn("Load software Outcome pack", source)
+        self.assertIn("website-explore-pass.claim.json", source)
+        self.assertIn("website-operate-blocked.claim.json", source)
 
     def test_claim_gate_handoff_does_not_claim_server_mutation(self):
         source = (ROOT / "webmcp.js").read_text(encoding="utf-8")
