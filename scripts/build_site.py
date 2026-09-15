@@ -32,6 +32,9 @@ ARTICLE_LINK_RE = re.compile(
     r'(?P<close></a>)',
     re.IGNORECASE | re.DOTALL,
 )
+MD_LINK_RE = re.compile(
+    r"(?P<prefix>!?\[[^\]]*\]\()(?P<href><[^>]+>|[^)\s]+)(?P<suffix>(?:\s+[\"'][^\"']*[\"'])?\))"
+)
 
 
 def status_label(value: str) -> str:
@@ -142,6 +145,37 @@ def rewrite_links(rendered: str, mapping: dict[str, str], source_path: Path) -> 
     return re.sub(r'href="([^"]+)"', replace, rendered)
 
 
+def rewrite_markdown_links(source: str, mapping: dict[str, str], source_path: Path) -> str:
+    """Make repository-relative links valid in the published /md/ copy."""
+    def replace(match: re.Match[str]) -> str:
+        href_token = match.group("href")
+        wrapped = href_token.startswith("<") and href_token.endswith(">")
+        href = href_token[1:-1] if wrapped else href_token
+        if href.startswith(("http://", "https://", "mailto:", "tel:", "#")):
+            return match.group(0)
+        path_part, sep, fragment = href.partition("#")
+        resolved = (source_path.parent / path_part).resolve()
+        try:
+            rel = resolved.relative_to(ROOT.resolve()).as_posix()
+        except ValueError:
+            return match.group(0)
+        if rel in mapping:
+            target = f'../articles/{mapping[rel]}'
+            if sep:
+                target += f'#{fragment}'
+        elif resolved.exists():
+            target = f'{REPO_URL}/blob/{SOURCE_REF}/{rel}'
+            if sep:
+                target += f'#{fragment}'
+        else:
+            return match.group(0)
+        if wrapped:
+            target = f'<{target}>'
+        return f'{match.group("prefix")}{target}{match.group("suffix")}'
+
+    return MD_LINK_RE.sub(replace, source)
+
+
 def selected_articles() -> list[dict]:
     manifest = load_yaml(ROOT / "data" / "articles.yml")
     articles = sorted(manifest["articles"], key=lambda item: item.get("order", 9999))
@@ -229,7 +263,8 @@ def render_articles() -> list[dict]:
     for item in articles:
         source_path = ROOT / item["source"]
         source_text = source_path.read_text(encoding="utf-8")
-        (md_out / f'{item["slug"]}.md').write_text(source_text, encoding="utf-8")
+        published_markdown = rewrite_markdown_links(source_text, mapping, source_path)
+        (md_out / f'{item["slug"]}.md').write_text(published_markdown, encoding="utf-8")
         body = markdown.markdown(source_text, extensions=["tables", "fenced_code", "sane_lists", "toc"])
         body = rewrite_links(body, mapping, source_path)
         related = claims_for(item["source"], records)
