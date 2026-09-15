@@ -5,6 +5,12 @@ import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  define: {
+    // Base UI ships development guards that reference process.env.NODE_ENV.
+    // This is a browser-only bundle, so replace that Node expression at build
+    // time rather than relying on a global `process` object in the browser.
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
