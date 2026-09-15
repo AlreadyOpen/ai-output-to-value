@@ -23,6 +23,13 @@ def refine(text: str) -> str:
         "registered claims pending independent review",
         "registered claims · initial source checks recorded · independent review not yet completed",
     )
+    # The canonical data still uses independent_review_status: pending. The
+    # rendered evidence register separates that from the already-recorded
+    # initial source check so readers do not interpret `pending` as `unchecked`.
+    text = text.replace(
+        '<span class="status-label">independent review: pending</span>',
+        '<span class="status-label">initial source check: recorded</span> <span class="status-label">independent review: not completed</span>',
+    )
     return text
 
 
