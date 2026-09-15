@@ -64,9 +64,11 @@ Confidentiality does not require pretending evidence does not exist. It requires
 
 **Known limitations / out of scope:**
 
-### Actors and control
+### Actors, interface, and control
 
 **Primary actor:** human / AI / automated system / hybrid
+
+**Interaction channel:** human UI / WebMCP / API / other agent tool / hybrid
 
 **Evaluation / assurance:**
 
@@ -93,6 +95,25 @@ Confidentiality does not require pretending evidence does not exist. It requires
 **Next evidence that would change the decision:**
 
 **Stop rule:** If this evidence is not reached by the agreed review point—or if a named risk/metric crosses the limit—what do we stop doing?
+
+## Same standard does not mean the same interface
+
+Actor-neutral evaluation does **not** require an AI agent to imitate a person clicking the same controls.
+
+A human may use the visible interface. An agent may use a structured tool surface such as **WebMCP**. A hybrid workflow may use both, including explicit approval or escalation for consequential actions.
+
+The interface can differ while the decision standard stays the same:
+
+- did the intended action actually happen?
+- did it meet the same acceptance criteria?
+- was the actor authorised to perform it?
+- are consequential actions appropriately controlled?
+- can the result and failures be inspected?
+- does the workflow improve the outcome at an acceptable cost and risk?
+
+WebMCP is useful here because it allows a web page to expose structured application actions to compatible agents instead of requiring the agent to infer every action from the visual UI. That is an **interaction channel**, not proof of Deliverable, Capability, Outcome, or Value.
+
+See [`representation-is-a-channel.md`](representation-is-a-channel.md) for the wider human/agent/hybrid channel model.
 
 ## Option value is a real outcome
 
