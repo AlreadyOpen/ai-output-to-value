@@ -1,0 +1,42 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative website prototype",
+  "targetDecision": "explore",
+  "requiredClaimLevel": "02-output",
+  "assertedClaimLevel": "02-output",
+  "intendedUse": "Explore whether the proposed website structure and message are understandable enough to justify further testing. The prototype is not approved as an operational customer-contact channel.",
+  "workflowBoundary": "A stakeholder opens the prototype and inspects the proposed customer journey.",
+  "workflowCompletion": "The team can reproduce the prototype, inspect the proposed flow, and record the assumptions that still need testing.",
+  "downstreamHandoffs": [
+    "Stakeholder feedback",
+    "Contact-flow verification before any reliance decision"
+  ],
+  "movedBottleneck": "If page generation becomes nearly instant, clarification of real business requirements and verification of the enquiry workflow become the next constraints.",
+  "unhappyPath": "A page or interaction may look complete while the real downstream business process has not been connected or verified.",
+  "evidenceCharacter": ["illustrative"],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "AI-assisted prototype creation and stakeholder inspection",
+      "interactionChannel": "human-ui"
+    }
+  ],
+  "authority": "Prototype-only. The record does not authorise customer reliance, production operation, or claims that enquiries reach the business.",
+  "accountability": "The project owner decides whether the exploration has produced enough learning to continue.",
+  "demonstrated": "A reproducible, inspectable prototype exists and the important assumptions are recorded.",
+  "knownLimitations": [
+    "The enquiry/contact path has not been established as an operational workflow.",
+    "Production support, monitoring, recovery, and ownership are outside this exploration decision."
+  ],
+  "evidenceRefs": [
+    "Illustrative prototype can be opened and inspected",
+    "Illustrative assumptions list is recorded with the prototype"
+  ],
+  "gateChecks": {
+    "output-reproducible": "pass",
+    "assumptions-catalogued": "pass"
+  },
+  "nextEvidence": "Before anyone may rely on the website, test the real enquiry path end to end and define acceptance criteria for the named use.",
+  "stopRule": "Stop prototype iteration if stakeholder testing no longer removes meaningful uncertainty about the proposed direction."
+}
