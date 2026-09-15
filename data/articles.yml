@@ -89,6 +89,30 @@ articles:
     reviewed: 2026-09-15
     status: draft
 
+  - id: software-architecture-worked-cases
+    title: Software and architecture worked cases — Output to Capability
+    source: content/software-architecture-worked-cases.md
+    slug: software-architecture-worked-cases
+    section: deeper
+    release_scope: working
+    order: 100
+    summary: Concrete fictional code cases showing the exact evidence transition from Output to Deliverable and Capability.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-15
+    status: research_draft
+
+  - id: software-failure-mode-catalogue
+    title: Software and architecture failure-mode catalogue
+    source: content/software-failure-mode-catalogue.md
+    slug: software-failure-mode-catalogue
+    section: deeper
+    release_scope: working
+    order: 105
+    summary: Operational failure patterns mapped to the claim they undermine and the verification evidence that can expose them.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-15
+    status: research_draft
+
   - id: ai-technical-capability
     title: AI does not eliminate technical capability
     source: content/ai-does-not-eliminate-technical-capability.md
