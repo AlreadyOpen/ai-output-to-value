@@ -1,0 +1,13 @@
+sources:
+  - id: dora-software-delivery-performance-metrics
+    title: DORA's software delivery performance metrics
+    publisher: DORA / Google Cloud
+    url: https://dora.dev/guides/dora-metrics/
+    evidence_type: industry_research_guidance
+    supports:
+      - five_current_software_delivery_performance_metrics
+      - throughput_and_instability_measurement
+      - application_level_delivery_measurement
+    scope: DORA's current guide to measuring software delivery performance using change lead time, deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate.
+    limitations: These metrics measure software delivery performance for an application or service. They do not by themselves establish product value, AI ROI, customer value, or total business profitability.
+    reviewed: 2026-09-15
