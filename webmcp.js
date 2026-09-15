@@ -1,5 +1,7 @@
-/* AI Output to Value — read-only WebMCP surface.
- * Uses the generated /api/v1 publication data rather than scraping page DOM.
+/* AI Output to Value — WebMCP surface.
+ * Most tools are read/evaluate-only and use generated /api/v1 publication data.
+ * aiov_load_claim_gate_record may populate the local Claim Gate form only; it
+ * does not mutate the publication, GitHub, review state, or any server record.
  */
 (() => {
   "use strict";
@@ -58,12 +60,73 @@
     node.textContent = message;
   }
 
+  function evaluateClaimRecord(record, gates) {
+    const decisionId = record?.targetDecision;
+    const rule = gates?.decisions?.[decisionId];
+    if (!rule) {
+      return {
+        status: "BLOCKED",
+        targetDecision: decisionId ?? null,
+        errors: [`Unknown targetDecision: ${String(decisionId)}`],
+        failedChecks: [],
+        unknownChecks: [],
+        missingFields: []
+      };
+    }
+
+    const structuralErrors = [];
+    if (record?.requiredClaimLevel !== rule.requiredClaimLevel) {
+      structuralErrors.push(`requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`);
+    }
+
+    const checks = record?.gateChecks && typeof record.gateChecks === "object" && !Array.isArray(record.gateChecks)
+      ? record.gateChecks
+      : {};
+    const failedChecks = [];
+    const unknownChecks = [];
+    const passedChecks = [];
+
+    for (const check of rule.requiredChecks ?? []) {
+      const state = checks[check.id] ?? "unknown";
+      const item = { id: check.id, label: check.label, state };
+      if (state === "fail") failedChecks.push(item);
+      else if (state === "pass") passedChecks.push(item);
+      else unknownChecks.push(item);
+    }
+
+    const requiredTextFields = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
+    const missingFields = requiredTextFields.filter((field) => !String(record?.[field] ?? "").trim());
+    if (!Array.isArray(record?.actors) || record.actors.length === 0) missingFields.push("actors");
+
+    const claimMismatch = Boolean(record?.assertedClaimLevel && record.assertedClaimLevel !== rule.requiredClaimLevel);
+    let status = "PASS";
+    if (structuralErrors.length || failedChecks.length) status = "BLOCKED";
+    else if (unknownChecks.length || missingFields.length || claimMismatch) status = "INSUFFICIENT_EVIDENCE";
+
+    return {
+      status,
+      targetDecision: decisionId,
+      decisionLabel: rule.label,
+      requiredClaimLevel: rule.requiredClaimLevel,
+      assertedClaimLevel: record?.assertedClaimLevel ?? null,
+      structuralErrors,
+      missingFields,
+      claimMismatch,
+      failedChecks,
+      unknownChecks,
+      passedChecks,
+      principle: gates?.principle ?? null,
+      interactiveClaimGate: siteUrl("tools/claim-gate.html")
+    };
+  }
+
   if (!modelContext?.registerTool) {
     runtimeStatus("WebMCP runtime: this browser does not currently expose document.modelContext. The site still publishes the same machine-readable API and normal human interface.");
     return;
   }
 
   const emptySchema = { type: "object", properties: {}, additionalProperties: false };
+  const claimObjectSchema = { type: "object", additionalProperties: true };
 
   const tools = [
     {
@@ -214,6 +277,45 @@
       }
     },
     {
+      name: "aiov_evaluate_claim_record",
+      description: "Read-only/evaluation. Evaluate a claim.json record against the same published decision-gate rules used by the interactive Claim Gate. This checks the supplied record; it does not independently verify the underlying facts.",
+      inputSchema: {
+        type: "object",
+        properties: { claim: claimObjectSchema },
+        required: ["claim"],
+        additionalProperties: false
+      },
+      async execute({ claim }) {
+        try {
+          const gates = await fetchJson("api/v1/gates.json");
+          return result(evaluateClaimRecord(claim, gates));
+        } catch (err) { return error(err instanceof Error ? err.message : String(err)); }
+      }
+    },
+    {
+      name: "aiov_load_claim_gate_record",
+      description: "Hybrid/local UI bridge. Load an agent-prepared claim.json record into the currently open interactive Claim Gate form so a person can inspect or edit it. This changes local browser form state only and does not write to a server, publication, review record, or GitHub.",
+      inputSchema: {
+        type: "object",
+        properties: { claim: claimObjectSchema },
+        required: ["claim"],
+        additionalProperties: false
+      },
+      async execute({ claim }) {
+        const host = document.getElementById("claim-gate-root");
+        if (!host) {
+          return error(`Open the interactive Claim Gate first: ${siteUrl("tools/claim-gate.html")}`);
+        }
+        window.dispatchEvent(new CustomEvent("aiov:load-claim-record", { detail: { claim } }));
+        return result({
+          loaded: true,
+          scope: "local-browser-form-only",
+          claim_gate: window.location.href,
+          message: "The claim record was handed to the local Claim Gate form. A person can inspect or edit it before relying on the result."
+        });
+      }
+    },
+    {
       name: "aiov_get_meeting_guide",
       description: "Read-only. Returns the eight meeting questions, workflow-boundary test, deterministic decision gates, and links to the printable brief and interactive claim gate.",
       inputSchema: emptySchema,
@@ -237,6 +339,8 @@
             claim_card: siteUrl("articles/claim-card.html"),
             workflow_guide: siteUrl("articles/workflow-not-task.html"),
             interactive_claim_gate: siteUrl("tools/claim-gate.html"),
+            ai_claim_gate_tool: "aiov_evaluate_claim_record",
+            hybrid_claim_gate_tool: "aiov_load_claim_gate_record",
             software_failure_catalogue: siteUrl("articles/software-failure-mode-catalogue.html"),
             software_worked_cases: siteUrl("articles/software-architecture-worked-cases.html")
           });
@@ -246,6 +350,6 @@
   ];
 
   Promise.all(tools.map((tool) => modelContext.registerTool(tool)))
-    .then(() => runtimeStatus(`WebMCP runtime: ${tools.length} read-only tools registered. They use the same /api/v1 publication data exposed to other clients.`))
+    .then(() => runtimeStatus(`WebMCP runtime: ${tools.length} tools registered. Eight are read/evaluate-only; aiov_load_claim_gate_record can populate the local Claim Gate form without server-side writes.`))
     .catch((err) => runtimeStatus(`WebMCP runtime: tool registration failed (${err instanceof Error ? err.message : String(err)}).`));
 })();
