@@ -200,6 +200,11 @@ def inject_discovery_links() -> None:
             1,
         )
     text = inject_workflow_homepage(text)
+    text = text.replace(
+        '<p><a class="button primary" href="articles/meeting-brief.html">Print the meeting brief</a></p>',
+        '<p><a class="button primary" href="downloads/ai-output-to-value-meeting-brief.pdf" target="_blank" rel="noopener">Open printable meeting brief PDF</a></p>',
+        1,
+    )
     homepage.write_text(text, encoding="utf-8")
 
     for path in (SITE / "articles").glob("*.html"):
