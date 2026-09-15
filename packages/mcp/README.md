@@ -2,7 +2,7 @@
 
 Native Model Context Protocol access to the **AI Output to Value** decision framework.
 
-This package complements the website's WebMCP surface for IDE, desktop and terminal-agent workflows. It uses the same published `/api/v1` framework, gate, article and claim data as the browser implementation.
+This package complements the website's WebMCP surface for IDE, desktop and terminal-agent workflows. It uses the same published `/api/v1` framework, gate, article, claim, and working failure-mode data as the browser implementation.
 
 ## Status
 
@@ -39,6 +39,9 @@ AIOV_PUBLICATION_URL=https://example.test/ npm start
 - `get_framework()` — current six-claim framework and actor-neutral rule.
 - `list_articles(section?)` — articles included in the currently published artifact.
 - `search_claims(query, limit?)` — canonical claim records from the current publication artifact.
+- `search_failure_modes(query, limit?)` — search the working software/architecture failure-mode catalogue for patterns that can invalidate Deliverable or Capability claims.
+
+The failure-mode catalogue is explicitly working material. A reviewed release can exclude those entries while keeping the same endpoint/tool contract.
 
 ## Design rule
 
