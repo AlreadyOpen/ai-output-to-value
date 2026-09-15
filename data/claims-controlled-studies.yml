@@ -1,0 +1,68 @@
+claims:
+  - id: metr-experienced-devs-slower-with-early-2025-ai
+    claim_text: "In METR's early-2025 randomized trial, the experienced open-source developers studied took 19% longer on assigned repository tasks when AI tools were allowed, despite expecting beforehand that AI would make them faster and later believing it had sped them up."
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: metr-early-2025-experienced-os-developers
+        source_version: reviewed 2026-09-16
+        locator: Core Result and Abstract
+        relevant_finding: The study reports a 19% increase in completion time with AI allowed; developers forecast a 24% speedup before tasks and estimated a 20% speedup after the study.
+        qualification: This is a narrow study of 16 experienced open-source developers completing 246 tasks in mature repositories using early-2025 tooling; it should not be generalized to all developers or current/future AI systems.
+    published_in:
+      - file: START-HERE.md
+        locator: "## Measured evidence can point in different directions"
+    reviewer: AI-assisted initial source check against METR's study page
+    reviewed: 2026-09-16
+    independent_review_status: pending
+
+  - id: github-copilot-http-server-faster-controlled-experiment
+    claim_text: "In a controlled GitHub Copilot experiment on a bounded JavaScript HTTP-server task, the treatment group completed the task about 55.8% faster than the control group."
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: microsoft-github-copilot-controlled-experiment
+        source_version: reviewed 2026-09-16
+        locator: Microsoft Research abstract
+        relevant_finding: The Copilot treatment group completed the specified task 55.8% faster than the control group.
+        qualification: The result is task-specific and does not establish the same effect for mature repositories, review, integration, deployment, maintenance, incidents, or business value.
+    published_in:
+      - file: START-HERE.md
+        locator: "## Measured evidence can point in different directions"
+    reviewer: AI-assisted initial source check against Microsoft Research
+    reviewed: 2026-09-16
+    independent_review_status: pending
+
+  - id: noy-zhang-writing-time-quality-rct
+    claim_text: "In Noy and Zhang's preregistered experiment on midlevel professional writing tasks, ChatGPT access reduced average completion time by 40% and increased output quality by 18%."
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: noy-zhang-writing-rct-science-2023
+        source_version: reviewed 2026-09-16
+        locator: Abstract
+        relevant_finding: The published abstract reports average time taken decreased by 40% and output quality rose by 18% for the selected writing tasks.
+        qualification: The result concerns the selected professional writing tasks and participant population, not all knowledge work or end-to-end business workflows.
+    published_in:
+      - file: START-HERE.md
+        locator: "## Measured evidence can point in different directions"
+    reviewer: AI-assisted initial source check against the Science article
+    reviewed: 2026-09-16
+    independent_review_status: pending
+
+  - id: dellacqua-jagged-frontier-effects-reverse-by-task
+    claim_text: "In the Dell'Acqua et al. consulting experiment, AI assistance improved speed, quantity, and quality on tasks selected inside the model's capability frontier, while participants using AI were 19% less likely to produce correct solutions on a selected task outside that frontier."
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: dellacqua-jagged-frontier-consultants
+        source_version: revised 2026-03-17; reviewed 2026-09-16
+        locator: Abstract
+        relevant_finding: On 18 tasks inside the selected frontier, AI users completed 12.2% more tasks and were 25.1% faster on average with improved quality; on a selected task outside the frontier, AI users were 19% less likely to produce correct solutions.
+        qualification: The experiment concerns selected management-consulting tasks and GPT-4-era tooling; it supports task heterogeneity, not a universal effect size for AI-assisted work.
+    published_in:
+      - file: START-HERE.md
+        locator: "## Measured evidence can point in different directions"
+    reviewer: AI-assisted initial source check against the revised SSRN record
+    reviewed: 2026-09-16
+    independent_review_status: pending
