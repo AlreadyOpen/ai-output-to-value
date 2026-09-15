@@ -76,7 +76,6 @@ const checkOptions = [
   { value: "pass", label: "Pass" },
   { value: "fail", label: "Fail" },
 ]
-
 const samples = [
   {
     label: "Website — Explore PASS",
@@ -128,6 +127,10 @@ function optionOrFallback(options: { value: string }[], value: unknown, fallback
   return typeof value === "string" && options.some((option) => option.value === value) ? value : fallback
 }
 
+function optionLabel(options: { value: string; label: string }[], value: string) {
+  return options.find((option) => option.value === value)?.label ?? value
+}
+
 function NativeFieldSelect({
   value,
   options,
@@ -146,9 +149,7 @@ function NativeFieldSelect({
       </SelectTrigger>
       <SelectContent>
         {options.map((item) => (
-          <SelectItem key={item.value} value={item.value}>
-            {item.label}
-          </SelectItem>
+          <SelectItem key={item.value} value={item.value}>{item.label}</SelectItem>
         ))}
       </SelectContent>
     </Select>
@@ -160,6 +161,15 @@ function Field({ label, children, full = false }: { label: string; children: Rea
     <div className={cn("grid gap-2", full && "md:col-span-2")}>
       <Label>{label}</Label>
       {children}
+    </div>
+  )
+}
+
+function PrintField({ label, value }: { label: string; value: React.ReactNode }) {
+  return (
+    <div className="aiov-print-field">
+      <dt>{label}</dt>
+      <dd>{value || "Not supplied"}</dd>
     </div>
   )
 }
@@ -279,8 +289,9 @@ export function ClaimGateApp() {
 
   function checksFor(decision: string) {
     if (!gates) return {}
-    const next = gates.decisions[decision]
-    return Object.fromEntries(next.requiredChecks.map((check) => [check.id, "unknown"])) as Record<string, CheckState>
+    return Object.fromEntries(
+      gates.decisions[decision].requiredChecks.map((check) => [check.id, "unknown"]),
+    ) as Record<string, CheckState>
   }
 
   function updateDecision(decision: string) {
@@ -398,7 +409,9 @@ export function ClaimGateApp() {
   function markdownSummary() {
     const item = record()
     if (!item || !rule) return ""
-    const rows = rule.requiredChecks.map((check) => `- **${(item.gateChecks[check.id] || "unknown").toUpperCase()}** — ${check.label}`).join("\n")
+    const rows = rule.requiredChecks
+      .map((check) => `- **${(item.gateChecks[check.id] || "unknown").toUpperCase()}** — ${check.label}`)
+      .join("\n")
     return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n> Gate status evaluates this record only. It is not an audit of the underlying system or evidence.\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Workflow boundary\n\n**Start / boundary:** ${item.workflowBoundary || "(not supplied)"}\n\n**What counts as complete:** ${item.workflowCompletion || "(not supplied)"}\n\n**Downstream handoffs:**\n${item.downstreamHandoffs.length ? item.downstreamHandoffs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n**Where could the bottleneck move?** ${item.movedBottleneck || "(not supplied)"}\n\n**Unhappy path:** ${item.unhappyPath || "(not supplied)"}\n\n## Measurement\n\n**Outcome measure:** ${item.outcomeMeasure || "(not supplied)"}\n\n**Baseline:** ${item.baseline || "(not supplied)"}\n\n**Full relevant cost boundary:** ${item.fullRelevantCostBoundary || "(not supplied)"}\n\n**Option / learning value:** ${item.optionValue || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
   }
 
@@ -440,9 +453,118 @@ export function ClaimGateApp() {
   const decisionOptions = gates
     ? Object.entries(gates.decisions).map(([value, item]) => ({ value, label: `${item.label} — ${claimLabels[item.requiredClaimLevel]}` }))
     : []
+  const actorLabel = optionLabel(actorOptions, state.actor)
+  const channelLabel = optionLabel(channelOptions, state.channel)
+  const workflowValues = [state.workflowBoundary, state.workflowCompletion, state.downstreamHandoffs, state.movedBottleneck, state.unhappyPath]
+  const measurementValues = [state.outcomeMeasure, state.baseline, state.fullRelevantCostBoundary, state.optionValue]
 
   return (
     <main className="aiov-gate-root">
+      <section className="aiov-print-summary" aria-label="Printable decision record">
+        <header className="aiov-print-header">
+          <p className="aiov-print-kicker">AI Output to Value · Decision record · Working preview</p>
+          <h1 className="aiov-print-title">{state.project.trim() || "Unnamed initiative"}</h1>
+          <p className="aiov-print-meta">
+            {rule?.label || "Decision not selected"} · Required claim: {rule ? claimLabels[rule.requiredClaimLevel] : "Not available"}
+          </p>
+        </header>
+
+        <div className="aiov-print-status">
+          <strong>{status.replaceAll("_", " ")}</strong>
+          <p>
+            {status === "PASS"
+              ? "Record complete for this decision. Not an audit of the underlying system."
+              : "This gate evaluates the supplied record; it does not independently verify the underlying facts."}
+          </p>
+        </div>
+
+        <dl className="aiov-print-grid">
+          <PrintField label="Target decision" value={rule?.label || "Not supplied"} />
+          <PrintField label="Required claim" value={rule ? claimLabels[rule.requiredClaimLevel] : "Not available"} />
+          <PrintField label="Asserted claim" value={claimLabels[state.assertedClaim]} />
+          <PrintField label="Primary actor / channel" value={`${actorLabel} · ${channelLabel}`} />
+        </dl>
+
+        <section className="aiov-print-section">
+          <h2>Intended use</h2>
+          <p className="aiov-print-value">{state.intendedUse.trim() || "Not supplied"}</p>
+        </section>
+
+        {workflowValues.some((value) => value.trim()) ? (
+          <section className="aiov-print-section">
+            <h2>Workflow boundary</h2>
+            <dl className="aiov-print-grid">
+              <PrintField label="Starts / boundary" value={state.workflowBoundary.trim() || "Not supplied"} />
+              <PrintField label="What counts as complete" value={state.workflowCompletion.trim() || "Not supplied"} />
+              <PrintField label="Possible moved bottleneck" value={state.movedBottleneck.trim() || "Not supplied"} />
+              <PrintField label="Unhappy path / recovery" value={state.unhappyPath.trim() || "Not supplied"} />
+            </dl>
+            {lines(state.downstreamHandoffs).length ? (
+              <div className="aiov-print-field">
+                <div className="aiov-print-label">Downstream handoffs / verification / integration / operation / support</div>
+                <ul>{lines(state.downstreamHandoffs).map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>
+            ) : null}
+          </section>
+        ) : null}
+
+        {measurementValues.some((value) => value.trim()) ? (
+          <section className="aiov-print-section aiov-print-long">
+            <h2>Measurement and economics</h2>
+            <dl className="aiov-print-grid">
+              <PrintField label="Outcome measure" value={state.outcomeMeasure.trim() || "Not supplied"} />
+              <PrintField label="Baseline / comparison" value={state.baseline.trim() || "Not supplied"} />
+              <PrintField label="Full relevant cost boundary" value={state.fullRelevantCostBoundary.trim() || "Not supplied"} />
+              <PrintField label="Option / learning value" value={state.optionValue.trim() || "Not supplied"} />
+            </dl>
+          </section>
+        ) : null}
+
+        <section className="aiov-print-section">
+          <h2>Required checks</h2>
+          {rule?.requiredChecks.map((check) => (
+            <div className="aiov-print-check" key={check.id}>
+              <span>{check.label}</span>
+              <strong>{(state.checks[check.id] || "unknown").replaceAll("-", " ").toUpperCase()}</strong>
+            </div>
+          ))}
+        </section>
+
+        {status !== "PASS" && !isUntouched && reasons.length ? (
+          <section className="aiov-print-section aiov-print-long">
+            <h2>Why this decision is not established</h2>
+            <ul>{reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
+          </section>
+        ) : null}
+
+        <section className="aiov-print-section">
+          <h2>Authority and accountability</h2>
+          <dl className="aiov-print-grid">
+            <PrintField label="Authority boundary" value={state.authority.trim() || "Not supplied"} />
+            <PrintField label="Accountability / recourse" value={state.accountability.trim() || "Not supplied"} />
+          </dl>
+        </section>
+
+        {lines(state.evidence).length ? (
+          <section className="aiov-print-section aiov-print-long">
+            <h2>Evidence references</h2>
+            <ul>{lines(state.evidence).map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+        ) : null}
+
+        <section className="aiov-print-section">
+          <h2>Next decision</h2>
+          <dl className="aiov-print-grid">
+            <PrintField label="Next evidence that would change this decision" value={state.nextEvidence.trim() || "Not supplied"} />
+            <PrintField label="Stop rule" value={state.stopRule.trim() || "Not supplied"} />
+          </dl>
+        </section>
+
+        <footer className="aiov-print-footer">
+          Generated from the AI Output to Value Claim Gate. Gate status evaluates the supplied decision record only; it is not independent verification of the underlying system or evidence.
+        </footer>
+      </section>
+
       <div className="mb-8 max-w-3xl">
         <Badge className="mb-3">Interactive decision tool</Badge>
         <h1 className="font-serif text-4xl font-semibold tracking-tight md:text-5xl">Claim gate</h1>
@@ -585,7 +707,12 @@ export function ClaimGateApp() {
                 {rule?.requiredChecks.map((check) => (
                   <div key={check.id} className="grid gap-3 p-4 md:grid-cols-[minmax(0,1fr)_13rem] md:items-center">
                     <Label>{check.label}</Label>
-                    <NativeFieldSelect value={state.checks[check.id] ?? "unknown"} options={checkOptions} onChange={(value) => setState({ ...state, checks: { ...state.checks, [check.id]: value as CheckState } })} ariaLabel={check.label} />
+                    <NativeFieldSelect
+                      value={state.checks[check.id] ?? "unknown"}
+                      options={checkOptions}
+                      onChange={(value) => setState({ ...state, checks: { ...state.checks, [check.id]: value as CheckState } })}
+                      ariaLabel={check.label}
+                    />
                   </div>
                 ))}
               </div>
@@ -641,7 +768,7 @@ export function ClaimGateApp() {
             <div className="mt-5 flex flex-wrap gap-2" data-aiov-interactive-only>
               <Button size="sm" onClick={() => void copyMarkdown()}>Copy Markdown</Button>
               <Button size="sm" variant="outline" onClick={downloadJson}>Download JSON</Button>
-              <Button size="sm" variant="outline" onClick={() => window.print()}>Print</Button>
+              <Button size="sm" variant="outline" disabled={isUntouched || !rule} onClick={() => window.print()}>Print decision record</Button>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">
               <a className="underline" href="../schemas/v1/claim.schema.json">claim.schema.json</a> · {" "}
