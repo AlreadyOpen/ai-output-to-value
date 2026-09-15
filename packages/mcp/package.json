@@ -1,0 +1,22 @@
+{
+  "name": "@alreadyopen/mcp-output-to-value",
+  "version": "0.1.0",
+  "description": "Actor-neutral AI Output to Value decision gates over Model Context Protocol.",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "ai-output-to-value-mcp": "src/index.mjs"
+  },
+  "scripts": {
+    "start": "node src/index.mjs",
+    "test": "node --test test/core.test.mjs && node --check src/index.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "zod": "^4.2.0"
+  },
+  "license": "MIT"
+}
