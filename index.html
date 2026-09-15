@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An open, evidence-led guide to AI-assisted work, client readiness, accountability, and business value.">
+  <meta name="description" content="An open, evidence-led decision method for separating AI access, output, deliverables, operating capability, outcomes, and value.">
   <meta name="theme-color" content="#f7f8f6">
   <link rel="canonical" href="https://alreadyopen.github.io/ai-output-to-value/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AI Output to Value">
   <meta property="og:title" content="AI Output to Value">
-  <meta property="og:description" content="Separate AI access, generated output, client-ready delivery, organisational capability, outcomes, and business value.">
+  <meta property="og:description" content="Use the six claims as a stop rule, not a score: require only the evidence sufficient for the next decision.">
   <meta property="og:url" content="https://alreadyopen.github.io/ai-output-to-value/">
   <meta name="twitter:card" content="summary">
   <title>AI Output to Value</title>
@@ -27,30 +27,21 @@
       </a>
       <nav class="nav" aria-label="Primary navigation">
         <a href="#decision">Decision first</a>
-        <a href="#model">The model</a>
-        <a href="#client-ready">Client-ready?</a>
         <a href="#questions">Questions</a>
-        <a href="#evidence">Evidence</a>
+        <a href="evidence/index.html">Evidence</a>
         <a href="articles/index.html">Articles</a>
       </nav>
     </div>
   </header>
 
   <details class="mobile-nav">
-    <summary>On this page</summary>
-    <nav aria-label="Mobile page navigation">
+    <summary>Menu</summary>
+    <nav aria-label="Mobile navigation">
       <a href="#decision">Decision first</a>
-      <a href="#model">The model</a>
-      <a href="#client-ready">Client-ready?</a>
-      <a href="#terms">The terms</a>
-      <a href="#judgement">Judgement &amp; authority</a>
-      <a href="#interfaces">Human / AI interfaces</a>
-      <a href="#whole-job">The whole job</a>
-      <a href="#option-value">Learning / option value</a>
-      <a href="#questions">Questions</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#provenance">Who stands behind it?</a>
-      <a href="articles/index.html">All articles</a>
+      <a href="#questions">Eight questions</a>
+      <a href="tools/claim-gate.html">Claim gate</a>
+      <a href="evidence/index.html">Evidence</a>
+      <a href="articles/index.html">Articles</a>
     </nav>
   </details>
 
@@ -61,19 +52,19 @@
           <p class="project-line"><a href="https://github.com/AlreadyOpen">An AlreadyOpen project</a><span class="status-label">Working preview</span></p>
           <p class="eyebrow">Open, evidence-led guidance for business decisions</p>
           <h1>From AI output to <span>business value.</span></h1>
-          <p class="lede">A free or inexpensive AI agent can generate remarkably complete work—and increasingly analyse, communicate, plan, and interact with customers. This guide helps separate what has actually been demonstrated from what still needs to be established before a client, operational, or commercial claim is made.</p>
-          <p class="hero-point">Use AI ambitiously. Keep the claims clear.</p>
+          <p class="lede">AI can produce remarkably complete-looking work. The useful management question is not how impressive the output looks, but <strong>which claim the next decision requires and what evidence actually establishes it.</strong></p>
+          <p class="hero-point">Use the ladder as a stop rule, not a score.</p>
           <div class="hero-actions">
-            <a class="button primary" href="articles/start-here.html">Read the five-minute guide</a>
-            <a class="button secondary" href="articles/claim-card.html">Use the claim card</a>
+            <a class="button primary" href="tools/claim-gate.html">Run the claim gate</a>
           </div>
+          <p class="measure-note"><a href="articles/start-here.html">Read the five-minute guide →</a></p>
         </div>
 
-        <aside class="hero-card" aria-label="Core distinctions">
+        <aside class="hero-card" aria-label="Four distinctions worth remembering">
           <p class="card-kicker">Four distinctions worth remembering</p>
           <div class="distinction">
-            <strong>Access is not capability.</strong>
-            <span>A licence—or a free agent—provides access to capability, not proof that the organisation can use it effectively for a particular job.</span>
+            <strong>Access is not operating capability.</strong>
+            <span>A licence, API, model, or agent proves access—not that the organisation can repeatedly use, verify, operate, and support it for a particular job.</span>
           </div>
           <div class="distinction">
             <strong>Output is not completion.</strong>
@@ -95,237 +86,29 @@
       <div class="shell">
         <div class="section-heading narrow">
           <p class="eyebrow">Decision first</p>
-          <h2>Use the ladder as a stop rule, not a score.</h2>
-          <p>Do not ask how many boxes a project has completed. Ask what decision is being made, then require the weakest claim that is sufficient for that decision.</p>
+          <h2>Require the weakest claim sufficient for the decision.</h2>
+          <p>Do not average the six claims into a readiness percentage. Strength at Access or Output cannot compensate for a missing decision-critical Deliverable, Operating capability, Outcome, or Value claim.</p>
         </div>
 
         <div class="work-table-wrap">
           <table class="work-table">
-            <caption>Typical decision threshold — adjust for consequence, reversibility, regulation and contract.</caption>
+            <caption>Typical decision threshold — adjust for consequence, reversibility, regulation, contract, and context.</caption>
             <thead><tr><th scope="col">Decision sought</th><th scope="col">Claim that normally matters</th></tr></thead>
             <tbody>
-              <tr><th scope="row">Keep exploring?</th><td><strong>Output</strong> — enough to reproduce the artefact/action and learn from it.</td></tr>
-              <tr><th scope="row">May someone rely on it?</th><td><strong>Deliverable</strong> — fit for the named use against explicit acceptance criteria.</td></tr>
-              <tr><th scope="row">May we sell, operate or support it repeatedly?</th><td><strong>Capability</strong> — owners, controls, fallback and operating process exist.</td></tr>
-              <tr><th scope="row">Did it change the result?</th><td><strong>Outcome</strong> — the named measure moved versus a baseline.</td></tr>
-              <tr><th scope="row">Should we scale, renew or stop?</th><td><strong>Value</strong> — the outcome is worth full relevant cost, risk and alternatives.</td></tr>
+              <tr><th scope="row">Keep exploring?</th><td><strong>02 Output</strong> — enough to reproduce or inspect the artefact/action and learn from it.</td></tr>
+              <tr><th scope="row">May someone rely on it?</th><td><strong>03 Deliverable</strong> — fit for the named use against explicit acceptance criteria.</td></tr>
+              <tr><th scope="row">May we sell, operate, or support it repeatedly?</th><td><strong>04 Operating capability</strong> — ownership, controls, fallback, recovery, maintenance, and support exist.</td></tr>
+              <tr><th scope="row">Did it change the result?</th><td><strong>05 Outcome</strong> — the named measure changed against a comparable baseline or counterfactual.</td></tr>
+              <tr><th scope="row">Should we scale, renew, expand, or stop?</th><td><strong>06 Value</strong> — the outcome is worth the full relevant cost, risk, alternatives, and trade-offs.</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="reading-route">
-          <strong>Do not average the six claims.</strong>
-          <p>Strong Access and Output do not make a project partly Deliverable. A missing decision-critical claim cannot be cancelled out by strength somewhere else.</p>
-          <p><a href="articles/claim-card.html">Open the copyable claim card →</a></p>
+          <strong>Access → Output → Deliverable → Operating capability → Outcome → Value</strong>
+          <p>The arrows are a memory aid, not six mandatory lifecycle stages. A prototype may legitimately stop at Output; a cheap experiment can create an Outcome by removing uncertainty; a stronger claim is required only when the decision requires it.</p>
+          <p><a href="articles/claim-card.html">See the claim-card method →</a> · <a href="articles/worked-cases.html">See worked decisions</a></p>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="model">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">This project's decision framework</p>
-          <h2>Six different claims a business may need to establish.</h2>
-          <p>The arrows are a memory aid, not six mandatory steps. A disposable prototype can create a valuable learning outcome without ever becoming an operational service.</p>
-        </div>
-
-        <ol class="value-chain" aria-label="Six business claims">
-          <li><span class="step-number">01</span><h3>Access</h3><p>We have a model, API, subscription, agent, or tool.</p><small>Does not prove effective use.</small></li>
-          <li><span class="step-number">02</span><h3>Output</h3><p>The system produced an artefact or performed an action.</p><small>Does not prove correctness or client fit.</small></li>
-          <li><span class="step-number">03</span><h3>Deliverable</h3><p>The result is fit for a defined intended use.</p><small>Does not prove repeatability.</small></li>
-          <li><span class="step-number">04</span><h3>Capability</h3><p>The organisation can verify, operate, support, maintain, and improve it.</p><small>Does not prove a valuable outcome.</small></li>
-          <li><span class="step-number">05</span><h3>Outcome</h3><p>Something meaningful changed.</p><small>Can include learning and uncertainty removed.</small></li>
-          <li><span class="step-number">06</span><h3>Value</h3><p>The outcome is worth the full cost, risk, and trade-offs.</p><small>Does not imply every task needs this claim.</small></li>
-        </ol>
-
-        <div class="section-heading narrow">
-          <p><strong>Reverse planning:</strong> What outcome do we need, and what evidence, capability and work would make that outcome plausible?</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="client-ready">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">The substance gap</p>
-          <h2>A capable agent is not automatically a capable supplier.</h2>
-          <p>A simple example: <strong>a contact form can look complete while enquiries never reach the business.</strong> The interface exists; the promised workflow does not.</p>
-        </div>
-
-        <div class="term-grid">
-          <article class="term-card">
-            <span class="term-type">Capability 1</span>
-            <h3>Tool capability</h3>
-            <p>Can the agent generate the website, application, report, workflow, integration, deployment, analysis, or customer response?</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Capability 2</span>
-            <h3>Job substance</h3>
-            <p>Does the result reflect the actual requirements, business rules, environment, integrations, constraints, evidence, and relevant risks?</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Capability 3</span>
-            <h3>Delivery capability</h3>
-            <p>Can the supplier verify, explain, deploy, support, maintain, correct, and stand behind the result?</p>
-          </article>
-        </div>
-
-        <div class="reading-route">
-          <strong>Recommended route</strong>
-          <ol>
-            <li><a href="articles/frame-vs-finished-work.html">A strong frame is not the same as a finished job</a></li>
-            <li><a href="articles/tool-access-vs-client-readiness.html">Tool access vs client readiness</a></li>
-            <li><a href="articles/worked-cases.html">Worked decisions</a></li>
-            <li><a href="articles/claim-card.html">Claim card</a></li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tint" id="terms">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Do not mix the terms</p>
-          <h2>They describe different dimensions, and they can overlap.</h2>
-        </div>
-
-        <div class="term-grid term-grid-four">
-          <article class="term-card">
-            <span class="term-type">Way of working</span>
-            <h3>Vibe coding</h3>
-            <p>Prompt-driven software creation and rapid iteration, sometimes with limited inspection of the generated implementation.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">AI involvement</span>
-            <h3>AI-assisted work</h3>
-            <p>AI contributed to producing or performing the work. The term alone says nothing about review, controls, or quality.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Practice</span>
-            <h3>Responsible AI-assisted practice</h3>
-            <p>The workflow includes proportionate evaluation, ownership, and controls for the intended use.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Quality problem</span>
-            <h3>AI slop / workslop</h3>
-            <p>Output that appears finished but lacks enough substance, correctness, context, or usefulness for the person who must use it.</p>
-          </article>
-        </div>
-
-        <div class="section-heading narrow">
-          <p>A vibe-coded artefact is AI-assisted. Whether it is useful, responsible for the intended use, or low-value output is a separate assessment.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="judgement">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">AI can do business work too</p>
-          <h2>Do not reserve “judgement” as a human-only category.</h2>
-          <p>AI systems can analyse evidence, compare alternatives, plan, recommend, prepare proposals, interact with customers, adapt explanations, and make bounded decisions. Humans can make excellent decisions and poor ones too. The useful question is which process performs well enough for this task.</p>
-        </div>
-
-        <div class="term-grid">
-          <article class="term-card">
-            <span class="term-type">Capability</span>
-            <h3>Judgement / evaluation</h3>
-            <p>Which option appears better under the available evidence, goals, and trade-offs?</p>
-            <p class="term-note">Can be performed by humans, AI systems, automated methods, or hybrids—and should be evaluated rather than assumed.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Permission</span>
-            <h3>Authority</h3>
-            <p>Who or what is permitted to commit money, make an offer, change a system, or bind the organisation?</p>
-            <p class="term-note">Capability does not automatically confer authority.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Responsibility</span>
-            <h3>Accountability / recourse</h3>
-            <p>Where does responsibility for the outcome sit, and who must correct failures or provide recourse?</p>
-            <p class="term-note">A human approval click is not automatically meaningful oversight.</p>
-          </article>
-        </div>
-
-        <div class="section-heading narrow">
-          <p><strong>Human-in-the-loop is a control pattern, not a quality guarantee.</strong> Use automated checks, models, specialists, people, or hybrid assurance according to the failure mode and consequence.</p>
-          <p><a href="articles/ai-business-capability-and-judgement.html">Read the working analysis: AI can do business work too →</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tint" id="interfaces">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Human / AI / hybrid interfaces</p>
-          <h2>Same standard does not mean the same interface.</h2>
-          <p>A human can use visible controls. An agent can use a structured tool surface. A hybrid workflow can use both. Actor-neutral evaluation means applying the same intended-use, authority, evidence, failure-handling and outcome standards—not forcing every actor through the same user interface.</p>
-        </div>
-
-        <div class="term-grid">
-          <article class="term-card">
-            <span class="term-type">Human channel</span>
-            <h3>Visible UI</h3>
-            <p>Forms, menus, direct manipulation and conversation can remain the best interface for a person.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Agent channel</span>
-            <h3>WebMCP structured tools</h3>
-            <p>WebMCP lets a page expose structured application actions through <code>document.modelContext</code> so compatible agents can discover and invoke them instead of guessing every action from the visual UI.</p>
-          </article>
-          <article class="term-card">
-            <span class="term-type">Hybrid control</span>
-            <h3>Different interface, same claim test</h3>
-            <p>Agent actions can still require confirmation, policy checks, audit evidence, fallback or escalation when consequence or authority demands it.</p>
-          </article>
-        </div>
-
-        <div class="reading-route">
-          <strong>WebMCP changes the channel, not the claim.</strong>
-          <p>Structured agent access is useful Access/Output capability. It does not by itself establish Deliverable, organisational Capability, Outcome or Value.</p>
-          <p><a href="https://webmcp.devpost.com/resources">WebMCP resources</a> · <a href="articles/claim-card.html#same-standard-does-not-mean-the-same-interface">Apply the same-standard test in the claim card</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="whole-job">
-      <div class="shell split">
-        <div>
-          <p class="eyebrow">Count the whole job</p>
-          <h2>Use the metric you actually mean.</h2>
-          <p>The example below uses <strong>summed labour hours</strong>. It does not claim the same percentage change in elapsed delivery time.</p>
-          <p>Waiting, handoffs, and parallel work can change calendar duration without changing total labour hours.</p>
-        </div>
-
-        <div class="work-table-wrap">
-          <table class="work-table">
-            <caption>Illustrative labour hours — not measured results. Assume both workflows meet the same acceptance criteria.</caption>
-            <thead><tr><th scope="col">Work</th><th scope="col">Before</th><th scope="col">AI-assisted</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Drafting</th><td>8 h</td><td>2 h</td></tr>
-              <tr><th scope="row">Evaluation &amp; correction</th><td>1 h</td><td>4 h</td></tr>
-              <tr><th scope="row">Integration / formatting</th><td>1 h</td><td>1 h</td></tr>
-            </tbody>
-            <tfoot><tr><th scope="row">Total labour hours</th><td>10 h</td><td>7 h</td></tr></tfoot>
-          </table>
-          <p class="measure-note"><strong>Evidence character: illustrative.</strong> Drafting uses 75% fewer labour hours. The total illustrated workflow uses 30% fewer labour hours.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tint" id="option-value">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Option value</p>
-          <h2>Learning can be the outcome.</h2>
-          <p>Cheap, fast prototyping can be valuable even when nothing reaches production. A two-day experiment that kills a weak idea, exposes a difficult integration, or changes the customer conversation can create value by removing uncertainty before a larger commitment.</p>
-        </div>
-        <div class="term-grid">
-          <article class="term-card"><span class="term-type">Outcome</span><h3>Decision made</h3><p>The experiment changed what the organisation will do next.</p></article>
-          <article class="term-card"><span class="term-type">Measure</span><h3>Uncertainty removed</h3><p>Record time to decision, assumptions tested, experiment cost and larger spend avoided.</p></article>
-          <article class="term-card"><span class="term-type">Discipline</span><h3>Stop when you know enough</h3><p>Do not force every useful prototype through production-readiness work that would not change the decision.</p></article>
-        </div>
-        <p><a href="articles/worked-cases.html#case-5-stopping-a-weak-idea-early-can-be-a-valuable-outcome">See the option-value worked decision →</a></p>
       </div>
     </section>
 
@@ -334,94 +117,38 @@
         <div class="section-heading narrow light">
           <p class="eyebrow">Use this in a meeting</p>
           <h2>Eight questions before the next decision.</h2>
+          <p>These questions apply to human, AI, automated, and hybrid work. The actor can change; the evidentiary standard for the same decision does not.</p>
         </div>
         <ol class="question-list">
-          <li><span>1</span><p><strong>What exactly have we demonstrated?</strong><br>Separate a working demo from assumptions about readiness or demand.</p></li>
-          <li><span>2</span><p><strong>What did the AI know, and what did it infer?</strong><br>Make generated assumptions visible.</p></li>
-          <li><span>3</span><p><strong>What remains before the intended use?</strong><br>Name unresolved work and decisions.</p></li>
-          <li><span>4</span><p><strong>Which work disappeared, and which work moved elsewhere?</strong><br>Look beyond generation time.</p></li>
-          <li><span>5</span><p><strong>Which actor or combination performs the task or decision best?</strong><br>Compare human, AI, automated, and hybrid processes rather than assuming the answer.</p></li>
-          <li><span>6</span><p><strong>Where do authority, accountability, verification, approval, operation, and support sit?</strong><br>Make decision rights and recourse explicit.</p></li>
+          <li><span>1</span><p><strong>What exactly have we demonstrated?</strong><br>Separate a working demo from assumptions about readiness, adoption, or demand.</p></li>
+          <li><span>2</span><p><strong>What did the AI know, and what did it infer?</strong><br>Make supplied context and generated assumptions visible.</p></li>
+          <li><span>3</span><p><strong>What remains before the intended use?</strong><br>Name unresolved work, acceptance criteria, and decisions.</p></li>
+          <li><span>4</span><p><strong>Which work disappeared, which work moved elsewhere, and where can the workflow bottleneck move?</strong><br>Look beyond local generation speed to the end-to-end result.</p></li>
+          <li><span>5</span><p><strong>Which actor or combination performs this task or decision best?</strong><br>Compare human, AI, automated, and hybrid processes rather than assuming the answer.</p></li>
+          <li><span>6</span><p><strong>Where do authority, accountability, assurance, operation, and support sit?</strong><br>Make decision rights, controls, ownership, and recourse explicit.</p></li>
           <li><span>7</span><p><strong>Which business outcome are we trying to change?</strong><br>Include learning or uncertainty removed when that is the purpose.</p></li>
-          <li><span>8</span><p><strong>What evidence would justify the next decision?</strong><br>Decide what would change the answer—and when to stop.</p></li>
+          <li><span>8</span><p><strong>What evidence would justify the next decision, and when should we stop?</strong><br>Define what would change the answer before adding more process.</p></li>
         </ol>
-        <p><a class="button primary" href="articles/meeting-brief.html">Print the meeting brief</a></p>
-      </div>
-    </section>
-
-    <section class="section" id="evidence">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Evidence, not logo collecting</p>
-          <h2>Important claims should be traceable to what the evidence actually supports.</h2>
-          <p>The publication separates source records from claim records. This public site is a working preview, so pending review states remain visible rather than being presented as completed approval.</p>
-        </div>
-
-        <div class="term-grid">
-          <article class="term-card"><span class="term-type">Public measured</span><h3>Measured research</h3><p>A defined population, method and outcome can support a bounded empirical claim.</p></article>
-          <article class="term-card"><span class="term-type">Public documented</span><h3>Guidance / documentation</h3><p>Useful for policy, product behaviour, standards and stated practices—not automatic proof of ROI.</p></article>
-          <article class="term-card"><span class="term-type">Illustrative / internal</span><h3>Keep the boundary visible</h3><p>Teaching cases are labelled illustrative. Confidential organisational evidence can stay private while the internal decision record remains inspectable.</p></article>
-        </div>
-
-        <div class="evidence-grid home-evidence-grid">
-          <a class="source-card source-card-primary" href="evidence/index.html">
-            <span>Claim-level evidence</span>
-            <strong>Inspect the evidence</strong>
-            <p>See exact claim text, source locators, qualifications, review records, and current independent-review state.</p>
-          </a>
-          <a class="source-card" href="https://dora.dev/research/2025/dora-report/">
-            <span>Industry research · registered claim pending independent review</span>
-            <strong>DORA — AI as an amplifier</strong>
-            <p>DORA's 2025 research characterises AI primarily as an amplifier of an organisation's existing strengths and weaknesses; the surrounding system matters to the return.</p>
-          </a>
-          <a class="source-card" href="https://www.nber.org/papers/w31161">
-            <span>Research study · registered claim pending independent review</span>
-            <strong>Generative AI at Work</strong>
-            <p>In the registered NBER claim, 5,179 support agents are studied and access to the assistant is associated with a 14% average increase in issues resolved per hour, with heterogeneous effects across workers.</p>
-          </a>
-          <a class="source-card" href="https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html">
-            <span>Official guidance</span>
-            <strong>UK Government — AI Playbook</strong>
-            <p>Lifecycle governance, expertise, meaningful human control, testing, monitoring, and accountability.</p>
-          </a>
-        </div>
-
-        <p class="measure-note">Vendor examples remain useful capability evidence, but they are not the foundation of the project's central argument.</p>
-      </div>
-    </section>
-
-    <section class="section section-tint" id="provenance">
-      <div class="shell">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Provenance and standing</p>
-          <h2>Who stands behind this guide?</h2>
-          <p>AI Output to Value is an open publication within AlreadyOpen. It is initially maintained by Helen Kwok. It is not presented as an industry standard, certification scheme, consultancy benchmark, or complete operating system for AI transformation.</p>
-        </div>
-        <div class="term-grid">
-          <article class="term-card"><span class="term-type">Responsibility</span><h3>Named maintenance</h3><p>The maintainer and public repository are visible. Corrections and counterexamples are part of the publication process.</p></article>
-          <article class="term-card"><span class="term-type">Review</span><h3>Actor-neutral independence</h3><p>Independent review may be human, AI, automated or hybrid when the process is sufficiently separate, inspectable and auditable.</p></article>
-          <article class="term-card"><span class="term-type">Confidentiality</span><h3>Private work stays private</h3><p>Rigour does not require publishing client names, contracts, production metrics, personal data or proprietary workflows.</p></article>
-        </div>
-        <p><a href="articles/provenance.html">Read the provenance, confidentiality and correction policy →</a></p>
+        <p><a href="downloads/ai-output-to-value-meeting-brief.pdf" target="_blank" rel="noopener">Open the printable meeting brief PDF →</a></p>
       </div>
     </section>
 
     <section class="section closing">
       <div class="shell closing-inner">
         <div>
-          <p class="eyebrow">Beyond the API key — and beyond the free agent</p>
-          <h2>Use AI ambitiously. Establish enough for the decision.</h2>
-          <p>Prototype quickly. Use inexpensive tools when they are enough. Automate technical and business-facing work when the evidence supports it. Then match the claim, evidence, assurance, authority, accountability and economics to the actual decision—without adding process that would not change the answer.</p>
+          <p class="eyebrow">Decision instrument, not maturity score</p>
+          <h2>Establish enough for the decision.</h2>
+          <p>The Claim Gate uses the same machine-readable rules for human, AI, and hybrid workflows and returns PASS, BLOCKED, or INSUFFICIENT EVIDENCE. A PASS means the supplied record is complete for that decision; it is not an audit of the underlying system.</p>
         </div>
-        <a class="button primary" href="articles/claim-card.html">Use the claim card</a>
+        <a class="button primary" href="tools/claim-gate.html">Run the claim gate</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><strong>AI Output to Value</strong> · <a href="https://github.com/AlreadyOpen">An AlreadyOpen project</a></p>
-      <p>Maintained by Helen Kwok · <a href="articles/provenance.html">Provenance</a> · <a href="articles/corrections.html">Corrections</a> · <a href="articles/evidence-policy.html">Evidence policy</a> · <a href="https://github.com/AlreadyOpen/ai-output-to-value">GitHub</a></p>
+      <p><strong>AI Output to Value</strong> · <a href="https://github.com/AlreadyOpen">An AlreadyOpen project</a> · Working preview</p>
+      <p>Maintained by Helen Kwok · <a href="articles/provenance.html">Provenance</a> · <a href="articles/evidence-policy.html">Evidence policy</a> · <a href="evidence/index.html">Evidence register</a> · <a href="https://github.com/AlreadyOpen/ai-output-to-value/tree/main/packages/mcp">AI / MCP access</a> · <a href="articles/index.html">Articles</a> · <a href="https://github.com/AlreadyOpen/ai-output-to-value">GitHub</a></p>
     </div>
   </footer>
 </body>
