@@ -1,0 +1,48 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative internal incident-summary tool",
+  "targetDecision": "rely",
+  "requiredClaimLevel": "03-deliverable",
+  "assertedClaimLevel": "03-deliverable",
+  "intendedUse": "Allow an internal operations analyst to rely on the tool to draft a structured incident summary from approved ticket fields before the summary is used in the team's internal incident review.",
+  "workflowBoundary": "Approved incident-ticket fields are supplied; the tool drafts a summary; the summary is checked against the ticket and accepted into the internal review record.",
+  "workflowCompletion": "The accepted summary matches the defined fields and does not invent unsupported incident facts.",
+  "downstreamHandoffs": [
+    "Internal incident review",
+    "Follow-up actions remain in the existing incident-management process"
+  ],
+  "movedBottleneck": "If drafting becomes faster, verification of source fields and follow-up ownership may become the dominant work.",
+  "unhappyPath": "If required fields are missing or contradictory, the tool must mark the summary incomplete rather than fill the gap with an invented fact.",
+  "evidenceCharacter": ["illustrative"],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "AI drafting with independent source-field verification",
+      "interactionChannel": "human-ui"
+    }
+  ],
+  "authority": "The tool may draft the internal summary only. It cannot close incidents, change production systems, or send external communications.",
+  "accountability": "The operations team owns the incident record and correction process.",
+  "acceptanceCriteria": [
+    "Every factual statement in the draft is traceable to an approved ticket field.",
+    "Missing or contradictory source fields are surfaced rather than silently completed.",
+    "The structured output contains the fields required by the internal incident-review template."
+  ],
+  "knownLimitations": [
+    "The record establishes the named internal drafting use only; it does not establish autonomous incident resolution."
+  ],
+  "evidenceRefs": [
+    "Illustrative acceptance test set: representative completed tickets",
+    "Illustrative negative test set: missing and contradictory fields"
+  ],
+  "gateChecks": {
+    "intended-use-defined": "pass",
+    "acceptance-criteria-defined": "pass",
+    "acceptance-criteria-met": "pass",
+    "failure-modes-tested": "pass",
+    "limitations-stated": "pass"
+  },
+  "nextEvidence": "If the organisation wants to operate the tool as a standard supported service, establish the Capability gate: ownership, monitoring, recovery, maintenance, support, and operating cost.",
+  "stopRule": "Withdraw reliance if the representative test set no longer covers the incident types being processed or if unsupported factual statements exceed the agreed tolerance."
+}
