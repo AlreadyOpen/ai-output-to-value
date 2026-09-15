@@ -22,6 +22,18 @@
 
 **Known limitations / out of scope:**
 
+## Workflow boundary
+
+<!-- Do not stop at the local product/task. Describe the end-to-end process needed for the requested decision. -->
+
+**Where does the workflow start and what counts as complete?**
+
+**Which downstream handoffs / verification / integration / operation / support steps are part of the workflow?**
+
+**If this change accelerates one task, where could the bottleneck move next?**
+
+**What is the unhappy path — missing data, ambiguity, dependency failure, refusal, rollback, escalation, or recovery?**
+
 ## Actors, assurance, authority, accountability
 
 **Primary actor(s):** human / AI agent / deterministic system / specialist tool / hybrid
@@ -50,6 +62,8 @@
 
 **Relevant operating / review / support cost:**
 
+**Outcome metric for the workflow (not only local activity):**
+
 ## Next evidence and stop rule
 
 **Next evidence that would change the decision:**
@@ -58,4 +72,4 @@
 
 ---
 
-A human approval click is not automatically assurance, and AI involvement is not automatically a defect. Apply the same intended-use and evidence standard to human, AI, automated, and hybrid work.
+A human approval click is not automatically assurance, and AI involvement is not automatically a defect. Apply the same intended-use and evidence standard to human, AI, automated, and hybrid work. Workflow is the process boundary across which the requested claim must hold; it is not a seventh claim or a reason to add process that would not change the decision.
