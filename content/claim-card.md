@@ -49,6 +49,18 @@ This makes “the product works but the workflow is incomplete” an inspectable
 
 See [Workflow is the unit — where AI output becomes business delivery](workflow-not-task.md).
 
+## Management language needs operational meaning
+
+If the proposal depends on terms such as **teamwork**, **KPI**, **productivity**, **leadership**, or **alignment**, define them before using them as evidence.
+
+- **Teamwork:** who participates, what happens before/during/after, how decisions are made, and what follow-up turns discussion into action?
+- **KPI:** exact metric, unit, numerator/denominator where relevant, data source, cadence, baseline, and guardrail?
+- **Productivity:** accepted output or outcome per which input, with what quality threshold and which rework/downstream work included?
+- **Leadership:** which decisions, coordination, authority, escalation, capability, or outcome improved?
+- **Alignment:** aligned on what decision, constraint, priority, or measurable outcome, and how would disagreement or drift become visible?
+
+These prompts apply symmetrically to executives, managers, specialists, technical teams, AI systems, and hybrid processes.
+
 ## Evidence character
 
 State what kind of evidence you are using before discussing conclusions.
@@ -98,6 +110,16 @@ Confidentiality does not require pretending evidence does not exist. It requires
 **Where could the bottleneck move?**
 
 **Unhappy path / escalation / stop / reversal / recovery:**
+
+### Management terms, if used
+
+**Teamwork / collaboration:** Who participates, before/during/after, with which decision rights and follow-up?
+
+**KPI:** Exact metric definition, unit, source, baseline, cadence and guardrails?
+
+**Productivity:** Accepted output/outcome per relevant input, including quality and rework boundary?
+
+**Leadership / alignment:** Which observable decisions, coordination, authority, capability or outcome are being claimed?
 
 ### Actors, interface, and control
 
@@ -182,4 +204,4 @@ Measure it explicitly: decision made, uncertainty removed, time to decision, cos
 
 ## The practical rule
 
-> **Use the lowest claim that is sufficient for the next decision, make the end-to-end workflow boundary explicit when it matters, and stop adding process when more evidence would not change that decision.**
+> **Use the lowest claim that is sufficient for the next decision, make the end-to-end workflow boundary explicit when it matters, require management terms to have operational meaning, and stop adding process when more evidence would not change that decision.**
