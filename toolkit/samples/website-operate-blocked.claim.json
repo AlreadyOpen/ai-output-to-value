@@ -1,0 +1,46 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative website prototype",
+  "targetDecision": "operate",
+  "requiredClaimLevel": "04-capability",
+  "assertedClaimLevel": "04-capability",
+  "intendedUse": "Operate the website as a supported customer-facing business channel, including receipt of enquiries.",
+  "workflowBoundary": "A customer submits an enquiry through the website and the business receives, routes, responds to, and can support that enquiry.",
+  "workflowCompletion": "An enquiry reaches the intended business process, failure is detectable, recovery/escalation exists, and the service can be maintained repeatedly.",
+  "downstreamHandoffs": [
+    "Enquiry delivery",
+    "Business routing and response",
+    "Monitoring and support"
+  ],
+  "movedBottleneck": "Generation speed is no longer the constraint; reliable delivery, ownership, monitoring, and support are.",
+  "unhappyPath": "The visible form can submit successfully in the browser while no authorised business recipient receives the enquiry.",
+  "evidenceCharacter": ["illustrative"],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "AI-assisted implementation with organisational operation",
+      "interactionChannel": "hybrid"
+    }
+  ],
+  "authority": "No production-operation authority is established by this sample record.",
+  "accountability": "The operating organisation would need a named owner and recourse path before production use.",
+  "knownLimitations": [
+    "The Deliverable gate has not passed because the enquiry path is not established end to end.",
+    "Operational monitoring, recovery, support ownership, and operating cost are not yet evidenced."
+  ],
+  "evidenceRefs": [
+    "Illustrative visual prototype only"
+  ],
+  "gateChecks": {
+    "deliverable-gate-passed": "fail",
+    "operational-owner-assigned": "unknown",
+    "assurance-defined": "unknown",
+    "fallback-defined": "unknown",
+    "recovery-tested": "unknown",
+    "support-maintenance-defined": "unknown",
+    "operating-cost-known": "unknown"
+  },
+  "nextEvidence": "Connect and test the real enquiry workflow, then establish ownership, monitoring, fallback/recovery, support, and the relevant operating-cost boundary.",
+  "stopRule": "Do not operate the site as a customer enquiry channel until the Deliverable gate passes and the required operational controls are evidenced."
+}
