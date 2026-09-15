@@ -1,6 +1,8 @@
 name: GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       publication_mode:
@@ -24,6 +26,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PUBLICATION_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.publication_mode || 'preview' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -43,7 +47,6 @@ jobs:
 
       - name: Build selected publication
         env:
-          PUBLICATION_MODE: ${{ inputs.publication_mode }}
           PUBLICATION_REPO_URL: https://github.com/${{ github.repository }}
           PUBLICATION_UMBRELLA_URL: https://github.com/AlreadyOpen
           PUBLICATION_SOURCE_REF: ${{ github.sha }}
@@ -53,7 +56,7 @@ jobs:
         run: python scripts/check_site_links.py
 
       - name: Enforce release approval policy
-        if: ${{ inputs.publication_mode == 'release' }}
+        if: ${{ env.PUBLICATION_MODE == 'release' }}
         run: python scripts/check_release.py
 
       - name: Configure Pages
