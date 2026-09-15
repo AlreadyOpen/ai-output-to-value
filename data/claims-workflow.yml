@@ -14,6 +14,8 @@ claims:
         locator: "## Treat the workflow, not the isolated task, as the unit of redesign"
       - file: content/workflow-not-task.md
         locator: "## Why workflow belongs in the core model"
+      - file: content/executive-guide.md
+        locator: "### Treat the workflow, not the isolated task, as the unit of redesign"
     reviewer: AI-assisted initial source check against the supplied HBR article
     reviewed: 2026-09-15
     independent_review_status: pending
@@ -33,6 +35,8 @@ claims:
         locator: "## The coding-agent example is unusually useful"
       - file: content/software-architecture-worked-cases.md
         locator: "## Case D — coding agent opens a pull request"
+      - file: content/executive-guide.md
+        locator: "### Treat the workflow, not the isolated task, as the unit of redesign"
     reviewer: AI-assisted initial source check against the supplied HBR article
     reviewed: 2026-09-15
     independent_review_status: pending
