@@ -31,6 +31,14 @@ AI Output to Value is much smaller in scope. Its **Operating capability** claim 
 
 Official source: https://www.iso.org/standard/42001
 
+## UK Government AI Playbook
+
+The UK Government AI Playbook calls for meaningful human control at appropriate stages, clear accountability, appropriate skills and expertise, testing, monitoring, and lifecycle management/support.
+
+AI Output to Value can use those controls as evidence inputs where they are relevant, while keeping three questions separate: whether a review/control is effective, who has legal or organisational authority, and where accountability/recourse sits. Its statement that **human-in-the-loop is a control pattern, not a quality guarantee** should not be read as an argument against human control where law, policy, contract, consequence, or governance requires it.
+
+Official source: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
+
 ## EU AI Act — Article 14 human oversight
 
 Article 14 of Regulation (EU) 2024/1689 requires high-risk AI systems to be designed and developed so that they can be effectively overseen by natural persons during use, with oversight measures proportionate to the risks, autonomy, and context.
