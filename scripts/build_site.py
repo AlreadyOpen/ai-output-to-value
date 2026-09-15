@@ -65,7 +65,39 @@ def heading_anchor(locator: str) -> str | None:
     return re.sub(r"[-\s]+", "-", text).strip("-") or None
 
 
-def page_shell(title: str, body: str, source: str | None = None, meta: str = "") -> str:
+def repo_slug() -> str:
+    marker = "github.com/"
+    if marker in REPO_URL:
+        return REPO_URL.rstrip("/").split(marker, 1)[1]
+    return "AlreadyOpen/ai-output-to-value"
+
+
+def article_toolbar(item: dict) -> str:
+    slug = html.escape(str(item["slug"]), quote=True)
+    title = html.escape(str(item["title"]), quote=True)
+    source = html.escape(
+        f'{REPO_URL}/blob/{SOURCE_REF}/{item["source"]}', quote=True
+    )
+    repository = html.escape(repo_slug(), quote=True)
+    return f'''<div class="article-tools" data-article-tools data-md-path="../md/{slug}.md" data-source-url="{source}" data-title="{title}" data-repo="{repository}">
+<button class="article-tool-button" type="button" data-copy-md aria-label="Copy this article as Markdown"><span aria-hidden="true">▣</span> Copy MD</button>
+<details class="article-open-menu">
+<summary class="article-tool-button">Open in <span aria-hidden="true">⌄</span></summary>
+<div class="article-tools-menu" role="menu">
+<button type="button" data-copy-md-link role="menuitem"><span aria-hidden="true">↗</span><span>Copy MD link</span></button>
+<a href="../md/{slug}.md" data-open-markdown role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">MD</span><span>Open Markdown</span></a>
+<a href="{source}" data-open-github role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">GH</span><span>GitHub</span></a>
+<a href="#" data-open-provider="chatgpt" role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">◎</span><span>ChatGPT</span></a>
+<a href="#" data-open-provider="claude" role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">A</span><span>Claude</span></a>
+<a href="#" data-open-provider="t3" role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">T3</span><span>T3 Chat</span></a>
+<a href="#" data-open-provider="copilot" role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">◈</span><span>GitHub Copilot</span></a>
+<a href="#" data-open-provider="cursor" role="menuitem" target="_blank" rel="noopener"><span aria-hidden="true">C</span><span>Cursor</span></a>
+</div>
+</details>
+</div>'''
+
+
+def page_shell(title: str, body: str, source: str | None = None, meta: str = "", tools_html: str = "") -> str:
     source_link = ""
     if source:
         source_link = f'<a href="{REPO_URL}/blob/{SOURCE_REF}/{html.escape(source)}">View source version</a>'
@@ -84,9 +116,10 @@ def page_shell(title: str, body: str, source: str | None = None, meta: str = "")
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></div></header>
 <details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></details>
-<main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/provenance.html">Provenance</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
+<main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{tools_html}{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/provenance.html">Provenance</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
 <footer class="site-footer"><div class="shell footer-inner"><p><strong>AI Output to Value</strong> · <a href="{UMBRELLA_URL}">An AlreadyOpen project</a></p><p><a href="../articles/provenance.html">Provenance</a> · <a href="{REPO_URL}">GitHub</a> · <a href="../articles/corrections.html">Corrections</a></p></div></footer>
 <script src="../webmcp.js" defer></script>
+<script src="../article-tools.js" defer></script>
 </body></html>"""
 
 
@@ -189,15 +222,28 @@ def render_articles() -> list[dict]:
     mapping = {article["source"]: f'{article["slug"]}.html' for article in articles}
     records = load_claims(ROOT)
     out = SITE / "articles"
+    md_out = SITE / "md"
     out.mkdir(parents=True, exist_ok=True)
+    md_out.mkdir(parents=True, exist_ok=True)
 
     for item in articles:
         source_path = ROOT / item["source"]
-        body = markdown.markdown(source_path.read_text(encoding="utf-8"), extensions=["tables", "fenced_code", "sane_lists", "toc"])
+        source_text = source_path.read_text(encoding="utf-8")
+        (md_out / f'{item["slug"]}.md').write_text(source_text, encoding="utf-8")
+        body = markdown.markdown(source_text, extensions=["tables", "fenced_code", "sane_lists", "toc"])
         body = rewrite_links(body, mapping, source_path)
         related = claims_for(item["source"], records)
         body += evidence_block(related)
-        (out / f'{item["slug"]}.html').write_text(page_shell(item["title"], body, item["source"], meta_for(item, related)), encoding="utf-8")
+        (out / f'{item["slug"]}.html').write_text(
+            page_shell(
+                item["title"],
+                body,
+                item["source"],
+                meta_for(item, related),
+                article_toolbar(item),
+            ),
+            encoding="utf-8",
+        )
 
     intro = "This release contains the reviewed guide and its publication policy." if PUBLICATION_MODE == "release" else "This preview includes the core guide plus clearly separated working research."
     blocks = ["<h1>Articles</h1>", f"<p>{html.escape(intro)} Status labels describe publication state; dates mean last updated.</p>"]
@@ -288,7 +334,7 @@ def build() -> None:
     if SITE.exists():
         shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
-    for name in ("styles.css", "publication.css", "webmcp.js"):
+    for name in ("styles.css", "publication.css", "webmcp.js", "article-tools.js"):
         shutil.copy2(ROOT / name, SITE / name)
     articles = render_articles()
     (SITE / "index.html").write_text(render_homepage(articles), encoding="utf-8")
