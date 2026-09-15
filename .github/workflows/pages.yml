@@ -45,12 +45,15 @@ jobs:
       - name: Run regression tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
+      - name: Validate example claim gate
+        run: python scripts/claim_gate.py toolkit/claim.example.json --json
+
       - name: Build selected publication
         env:
           PUBLICATION_REPO_URL: https://github.com/${{ github.repository }}
           PUBLICATION_UMBRELLA_URL: https://github.com/AlreadyOpen
           PUBLICATION_SOURCE_REF: ${{ github.sha }}
-        run: python scripts/build_site.py
+        run: python scripts/build_publication.py
 
       - name: Validate generated artifact links
         run: python scripts/check_site_links.py
