@@ -24,17 +24,3 @@ sources:
     scope: Official resources and guidance for the 2026 OpenAI WebMCP Challenge, including links to specification, browser documentation, security guidance, examples, and testing instructions.
     limitations: Hackathon guidance and ecosystem documentation, not an independent benchmark of WebMCP safety, interoperability, reliability, or business value.
     reviewed: 2026-09-15
-
-  - id: chisel-webmcp-public-implementation
-    title: Chisel — agentic browser CAD over WebMCP
-    publisher: Helen Kwok / GitHub
-    url: https://github.com/helenkwok/chisel-webmcp
-    evidence_type: practitioner_project
-    supports:
-      - public_example_of_webmcp_over_existing_web_application
-      - structured_cad_tools_for_agent_use
-      - explicit_confirmation_gate_for_consequential_agent_actions
-      - visible_agent_activity_and_audit_surface
-    scope: Public implementation that adds a WebMCP agent surface to an existing browser CAD application, exposing CAD operations as structured tools while retaining an in-page confirmation seam for consequential writes.
-    limitations: Author-maintained project and hackathon implementation. It is an illustrative implementation pattern, not independent evidence that WebMCP, Chisel, or agent-operated CAD is generally safe, reliable, superior to human interaction, or production-ready for a particular use.
-    reviewed: 2026-09-15
