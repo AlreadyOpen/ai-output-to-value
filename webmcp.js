@@ -182,6 +182,38 @@
       }
     },
     {
+      name: "aiov_search_failure_modes",
+      description: "Read-only. Searches the working software/architecture failure-mode catalogue for patterns that can invalidate Deliverable or Capability claims.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          query: { type: "string", minLength: 2, maxLength: 200 },
+          limit: { type: "integer", minimum: 1, maximum: 12, default: 6 }
+        },
+        required: ["query"],
+        additionalProperties: false
+      },
+      async execute({ query, limit = 6 }) {
+        const needle = String(query || "").trim().toLowerCase();
+        if (needle.length < 2) return error("query must contain at least 2 characters.");
+        try {
+          const payload = await fetchJson("api/v1/failure-modes.json");
+          const matches = (payload.failureModes || [])
+            .filter((mode) => JSON.stringify(mode).toLowerCase().includes(needle))
+            .slice(0, Math.min(Math.max(Number(limit) || 6, 1), 12));
+          return result({
+            query,
+            publicationMode: payload.publicationMode,
+            reviewState: payload.reviewState,
+            character: payload.character,
+            count: matches.length,
+            matches,
+            catalogue: siteUrl("articles/software-failure-mode-catalogue.html")
+          });
+        } catch (err) { return error(err instanceof Error ? err.message : String(err)); }
+      }
+    },
+    {
       name: "aiov_get_meeting_guide",
       description: "Read-only. Returns the eight meeting questions, deterministic decision gates, and links to the printable brief and interactive claim gate.",
       inputSchema: emptySchema,
@@ -193,7 +225,9 @@
             decisionGates: gates.decisions,
             printable_brief: siteUrl("articles/meeting-brief.html"),
             claim_card: siteUrl("articles/claim-card.html"),
-            interactive_claim_gate: siteUrl("tools/claim-gate.html")
+            interactive_claim_gate: siteUrl("tools/claim-gate.html"),
+            software_failure_catalogue: siteUrl("articles/software-failure-mode-catalogue.html"),
+            software_worked_cases: siteUrl("articles/software-architecture-worked-cases.html")
           });
         } catch (err) { return error(err instanceof Error ? err.message : String(err)); }
       }
