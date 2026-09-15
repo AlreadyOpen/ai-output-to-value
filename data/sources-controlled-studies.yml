@@ -1,0 +1,47 @@
+sources:
+  - id: metr-early-2025-experienced-os-developers
+    title: Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity
+    publisher: METR
+    url: https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
+    evidence_type: randomized_controlled_trial
+    supports:
+      - experienced_open_source_developer_task_completion_time
+      - perceived_vs_measured_ai_productivity
+    scope: Randomized controlled trial in which 16 experienced open-source developers completed 246 real tasks in mature repositories on which they had substantial prior experience, with early-2025 AI tools allowed or disallowed by task.
+    limitations: The study is a narrow snapshot of experienced open-source developers working in familiar mature repositories with early-2025 tools; it does not establish effects for most developers, other domains, future systems, or all AI-use patterns. METR later reported that its late-2025 follow-up suffered participation-selection problems that made the current productivity signal unreliable.
+    reviewed: 2026-09-16
+
+  - id: microsoft-github-copilot-controlled-experiment
+    title: The Impact of AI on Developer Productivity — Evidence from GitHub Copilot
+    publisher: Microsoft Research / GitHub
+    url: https://www.microsoft.com/en-us/research/publication/the-impact-of-ai-on-developer-productivity-evidence-from-github-copilot/
+    evidence_type: controlled_experiment
+    supports:
+      - copilot_http_server_task_completion_time
+    scope: Controlled experiment in which recruited software developers implemented an HTTP server in JavaScript, comparing a GitHub Copilot treatment group with a control group.
+    limitations: The experiment measures one bounded programming task under experimental conditions. It does not establish the same speed effect for mature repositories, end-to-end software delivery, maintenance, incidents, customer outcomes, or business value.
+    reviewed: 2026-09-16
+
+  - id: noy-zhang-writing-rct-science-2023
+    title: Experimental evidence on the productivity effects of generative artificial intelligence
+    publisher: Science
+    url: https://doi.org/10.1126/science.adh2586
+    evidence_type: randomized_controlled_trial_peer_reviewed
+    supports:
+      - professional_writing_time_and_quality
+      - heterogeneous_worker_effects
+    scope: Preregistered online experiment assigning occupation-specific, incentivized midlevel professional writing tasks to 453 college-educated professionals, with half randomly exposed to ChatGPT.
+    limitations: The results concern the selected professional writing tasks and study population. They do not establish the same effect for software engineering, operational workflows, regulated decisions, or full business value.
+    reviewed: 2026-09-16
+
+  - id: dellacqua-jagged-frontier-consultants
+    title: Navigating the Jagged Technological Frontier — Field Experimental Evidence of the Effects of Artificial Intelligence on Knowledge Worker Productivity and Quality
+    publisher: Harvard Business School / Wharton / SSRN
+    url: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4573321
+    evidence_type: preregistered_field_experiment
+    supports:
+      - jagged_frontier_task_heterogeneity
+      - consultant_productivity_and_quality_with_gpt4
+    scope: Preregistered experiment with 758 BCG knowledge workers randomly assigned to no-AI, GPT-4, or GPT-4 plus prompt-overview conditions across realistic consulting tasks.
+    limitations: The experiment uses selected management-consulting tasks and GPT-4-era tooling. Performance inside and outside the selected task frontier should not be generalized to all knowledge work, later models, or business outcomes without new evidence.
+    reviewed: 2026-09-16
