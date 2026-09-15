@@ -13,6 +13,17 @@ SITE = ROOT / "site"
 PUBLICATION_MODE = os.environ.get("PUBLICATION_MODE", "preview").strip().lower()
 
 
+def order_modes(modes: list[dict]) -> list[dict]:
+    """Return catalogue entries in neutral alphanumeric title order."""
+    return sorted(
+        modes,
+        key=lambda item: (
+            str(item.get("title", "")).casefold(),
+            str(item.get("id", "")).casefold(),
+        ),
+    )
+
+
 def inject_preview_links() -> None:
     if PUBLICATION_MODE != "preview":
         return
@@ -41,14 +52,8 @@ def inject_preview_links() -> None:
 
 def main() -> None:
     source = yaml.safe_load((ROOT / "data" / "failure-modes.yml").read_text(encoding="utf-8"))
-    modes = source.get("failure_modes", []) if isinstance(source, dict) else []
-    modes = sorted(
-        modes,
-        key=lambda item: (
-            str(item.get("title", "")).casefold(),
-            str(item.get("id", "")).casefold(),
-        ),
-    )
+    raw_modes = source.get("failure_modes", []) if isinstance(source, dict) else []
+    modes = order_modes(raw_modes)
 
     payload = {
         "publicationMode": PUBLICATION_MODE,
