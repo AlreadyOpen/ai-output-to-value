@@ -1,0 +1,74 @@
+claims:
+  - id: hbr-workflow-not-task-2026
+    claim_text: A September 2026 Harvard Business Review article recommends treating the end-to-end workflow, rather than the isolated task, as the object of AI redesign and describes task-level automation failures including local acceleration without value, ignored unhappy paths, ignored end-to-end flow, and optimization of the wrong metric.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-workflow-redesign-2026
+        source_version: Harvard Business Review article published 2026-09-14
+        locator: Redesign the Workflow, Not the Task; Four Ways AI Pilots Become Automated Messes
+        relevant_finding: The authors explicitly recommend redesigning the workflow rather than the individual task and describe four failure modes that result when AI is inserted into a task without redesigning the surrounding process.
+        qualification: This supports a management framing for workflow redesign. It does not establish that every process requires the same workflow controls or validate the six-claim AI Output to Value framework.
+    published_in:
+      - file: START-HERE.md
+        locator: "## Treat the workflow, not the isolated task, as the unit of redesign"
+      - file: content/workflow-not-task.md
+        locator: "## Why workflow belongs in the core model"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: hbr-coding-agent-bottleneck-shift-2026
+    claim_text: The same HBR article notes that coding agents can increase code production while shifting the constraint to review, integration testing, security review, or deployment, so a local productivity gain does not by itself establish improvement in the end-to-end development cycle.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-workflow-redesign-2026
+        source_version: Harvard Business Review article published 2026-09-14
+        locator: Redesign the Workflow, Not the Task; Ignoring end-to-end flow
+        relevant_finding: The article uses coding agents as an example of local acceleration moving the bottleneck downstream and says the surrounding workflow must absorb, verify, integrate, and safely deploy the added code.
+        qualification: This is a management example and not a measured benchmark of coding-agent productivity across organisations.
+    published_in:
+      - file: content/workflow-not-task.md
+        locator: "## The coding-agent example is unusually useful"
+      - file: content/software-architecture-worked-cases.md
+        locator: "## Case D — coding agent opens a pull request"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: hbr-unhappy-path-workflow-2026
+    claim_text: The HBR article recommends making the unhappy path explicit before scaling by defining how uncertainty is recognised, which conditions escalate, where authority sits, how actions can be stopped or reversed, and how corrections feed back into the process.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-workflow-redesign-2026
+        source_version: Harvard Business Review article published 2026-09-14
+        locator: Decision 3 — Design the Unhappy Path First
+        relevant_finding: The authors set out five questions covering uncertainty recognition, escalation, authority, stop/reversal, and learning from corrections.
+        qualification: These are practitioner design recommendations, not proof that one specific escalation or approval pattern is sufficient for every consequence.
+    published_in:
+      - file: content/workflow-not-task.md
+        locator: "## A workflow includes the unhappy path"
+      - file: content/meeting-brief.md
+        locator: "## Workflow test"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
+
+  - id: hbr-4a-authority-modes-2026
+    claim_text: The HBR article proposes Assist, Approve, Audit, and Automate as four modes for deciding where human authority remains, with greater human control recommended when stakes are high or actions are hard to reverse.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hbr-workflow-redesign-2026
+        source_version: Harvard Business Review article published 2026-09-14
+        locator: Decision 2 — Decide Where Human Authority Remains
+        relevant_finding: The authors define four operating modes and connect the choice to stakes and reversibility.
+        qualification: AI Output to Value does not adopt human presence as a general quality proxy. It treats this 4A model as one governance approach and separately asks where judgement, authority, accountability, assurance, and recourse should sit for the actual process.
+    published_in:
+      - file: content/workflow-not-task.md
+        locator: "## Where this project differs from HBR's 4A framing"
+    reviewer: AI-assisted initial source check against the supplied HBR article
+    reviewed: 2026-09-15
+    independent_review_status: pending
