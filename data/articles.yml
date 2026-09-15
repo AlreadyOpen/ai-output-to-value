@@ -41,6 +41,18 @@ articles:
     reviewed: 2026-09-14
     status: editorial_review
 
+  - id: workflow-not-task
+    title: Workflow is the unit — where AI output becomes business delivery
+    source: content/workflow-not-task.md
+    slug: workflow-not-task
+    section: core
+    release_scope: guide
+    order: 35
+    summary: Why local task or product acceleration must be tested across the end-to-end workflow before stronger Deliverable, Capability, Outcome, or Value claims are made.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-15
+    status: editorial_review
+
   - id: executive-guide
     title: From AI output to business value
     source: content/executive-guide.md
