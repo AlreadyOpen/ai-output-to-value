@@ -39,6 +39,22 @@ A September 2026 *Harvard Business Review* process-management article recommends
 
 **Workflow is not a seventh claim.** It is the end-to-end process boundary across which Output must become Deliverable, Capability, Outcome, and Value.
 
+## Management-word test
+
+Do not let familiar business terms close the discussion before they have been defined.
+
+| If someone says… | Ask… |
+| --- | --- |
+| **Workflow** | Where does it start, what counts as complete, and what happens on the unhappy path? |
+| **Teamwork** | Who does what before, during and after the group session, how are decisions made, and what follow-up turns discussion into action? |
+| **KPI** | What exactly is the metric, unit, data source, baseline, cadence and guardrail? |
+| **Productivity** | Productive output or outcome per which input—and are quality, rework and downstream work included? |
+| **Leadership** | Which decisions, coordination, authority, escalation or capability actually improved, and what evidence shows it? |
+
+A September 2026 *Harvard Business Review* teamwork article describes AI-supported collaboration across the full arc of **before / during / after** teamwork and proposes **intentionality** and **craft** as conditions for useful team-AI collaboration. That is useful because it turns “teamwork” into a process that can be inspected rather than a virtue word.
+
+**A slogan, title, KPI label, or boss-versus-leader meme can frame a question. It is not evidence of performance by itself.**
+
 ## Three capabilities
 
 | Capability | Question |
@@ -92,6 +108,8 @@ Do not turn a reduction in one metric into a claim about another without evidenc
 **Not established:** What remains an assumption?
 
 **Workflow boundary:** Where does the end-to-end process start, where is it complete, and where can the bottleneck or unhappy path move?
+
+**Management terms:** If the decision depends on teamwork, KPI, productivity, leadership or alignment, what exactly do those terms mean here?
 
 **Actor / interface / authority:** Who or what performs the task, through which channel (human UI / WebMCP / API / other / hybrid), who may approve or commit, and where does recourse sit?
 
