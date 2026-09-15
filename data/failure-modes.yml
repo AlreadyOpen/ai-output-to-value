@@ -1,0 +1,227 @@
+version: 1
+character: editorial_operational_catalogue
+scope: Software and architecture failure patterns used to decide what evidence is needed before claiming Deliverable or Capability. This is not a prevalence ranking and not an exhaustive security standard.
+failure_modes:
+  - id: fm-functional-facade
+    title: Functional facade
+    category: integration
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: The UI, endpoint, report, or workflow looks complete, but the promised end-to-end business action is missing or unverified.
+    why_output_can_pass: A demo can render, accept input, or return a plausible response without reaching the real downstream system.
+    deliverable_evidence:
+      - End-to-end acceptance test in the intended environment.
+      - Verification that the promised downstream side effect occurred.
+      - Negative-path test for delivery or integration failure.
+    capability_evidence:
+      - Named owner for the integration.
+      - Monitoring and alerting for failed handoffs.
+      - Recovery or replay procedure.
+    verification_patterns: [end-to-end-test, contract-test, failure-injection]
+    references: []
+
+  - id: fm-environment-config-gap
+    title: Environment and configuration gap
+    category: deployment
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: The implementation works locally or in a sandbox but fails under target credentials, network rules, configuration, data volume, or permissions.
+    why_output_can_pass: The authoring environment silently supplies defaults, broad permissions, local files, or services that are absent in the intended environment.
+    deliverable_evidence:
+      - Test in an environment materially representative of the intended use.
+      - Explicit configuration and secret dependencies.
+      - Least-privilege permissions exercised by the acceptance test.
+    capability_evidence:
+      - Repeatable configuration/deployment process.
+      - Configuration drift detection or review.
+      - Ownership for environment-specific failures.
+    verification_patterns: [representative-environment-test, configuration-review, least-privilege-test]
+    references: [owasp-top10-2025]
+
+  - id: fm-acceptance-oracle-gap
+    title: Acceptance-oracle gap
+    category: verification
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: Automated tests pass, but they do not test the real business acceptance criteria or important invariants.
+    why_output_can_pass: Generated tests can mirror the implementation, assert the happy path, or validate syntax rather than the intended outcome.
+    deliverable_evidence:
+      - Acceptance criteria written independently of the implementation.
+      - Tests or evaluations traceable to those criteria.
+      - Representative negative and boundary cases.
+    capability_evidence:
+      - Maintained regression suite tied to current contracts and business rules.
+      - Process for updating tests when requirements or interfaces change.
+    verification_patterns: [acceptance-test, invariant-check, negative-test, boundary-test]
+    references: [nist-ssdf-1-1]
+
+  - id: fm-exception-path
+    title: Exceptional-condition failure
+    category: resilience
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: The happy path works, but timeouts, malformed input, partial failure, unavailable dependencies, or unexpected state cause corruption, unsafe defaults, or fail-open behaviour.
+    why_output_can_pass: Demonstrations usually exercise the normal path and may never trigger the abnormal state.
+    deliverable_evidence:
+      - Defined expected behaviour for relevant exceptional conditions.
+      - Failure-path tests for timeouts, malformed data, partial dependency failure, and retry exhaustion where applicable.
+      - Safe error propagation or refusal behaviour.
+    capability_evidence:
+      - Operational alerts for abnormal conditions.
+      - Recovery runbook and escalation path.
+      - Incident feedback loop into tests.
+    verification_patterns: [fault-injection, negative-test, timeout-test, degraded-mode-test]
+    references: [owasp-top10-2025]
+
+  - id: fm-retry-duplicate-side-effect
+    title: Retry duplicates a side effect
+    category: distributed-systems
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: A timeout or retry can create duplicate orders, payments, notifications, records, or other non-repeatable effects.
+    why_output_can_pass: A single successful call demonstrates the action but not the semantics of ambiguous failures or retries.
+    deliverable_evidence:
+      - Explicit idempotency or deduplication contract for retryable operations.
+      - Tests showing repeated requests do not create unintended additional effects.
+      - Reconciliation behaviour for ambiguous completion.
+    capability_evidence:
+      - Persistence and expiry policy for idempotency state.
+      - Monitoring for duplicates/reconciliation failures.
+      - Runbook for repairing inconsistent state.
+    verification_patterns: [idempotency-test, retry-test, reconciliation-test]
+    references: [aws-idempotent-apis]
+
+  - id: fm-authorization-boundary
+    title: Authorization boundary gap
+    category: security
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: Authentication works, but a user or agent can read, change, or trigger resources outside the intended authority boundary.
+    why_output_can_pass: Positive-path tests often prove that an allowed actor can act, not that disallowed actors are refused.
+    deliverable_evidence:
+      - Explicit authorization policy for the intended use.
+      - Negative tests for forbidden identities, roles, tenants, objects, and actions.
+      - Server-side enforcement at the actual resource boundary.
+    capability_evidence:
+      - Auditable authorization changes.
+      - Review/monitoring for privilege drift and denied high-risk actions.
+      - Defined owner for access-policy incidents.
+    verification_patterns: [negative-authorization-test, object-level-access-test, policy-review]
+    references: [owasp-top10-2025]
+
+  - id: fm-schema-migration-semantic-loss
+    title: Schema migration preserves syntax but loses meaning
+    category: data
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: A migration executes successfully but drops, misclassifies, duplicates, truncates, or semantically changes production data.
+    why_output_can_pass: Empty or toy databases prove that statements execute, not that real invariants and historical cases survive.
+    deliverable_evidence:
+      - Migration rehearsal on representative data.
+      - Before/after row counts and domain invariants.
+      - Compatibility plan for old/new application versions during rollout where relevant.
+      - Tested forward-fix or rollback strategy.
+    capability_evidence:
+      - Repeatable migration procedure with backup/restore expectations.
+      - Operational owner and maintenance window.
+      - Monitoring for post-migration anomalies.
+    verification_patterns: [representative-data-test, invariant-check, migration-rehearsal, rollback-test]
+    references: [nist-ssdf-1-1]
+
+  - id: fm-concurrency-state-transition
+    title: Concurrency and state-transition race
+    category: distributed-systems
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: Unit tests pass sequentially, but concurrent requests produce lost updates, duplicate transitions, stale reads, or impossible state.
+    why_output_can_pass: Local demonstrations often serialize calls and use small datasets with no contention.
+    deliverable_evidence:
+      - Explicit invariants for concurrent state changes.
+      - Concurrent or property-based tests against those invariants.
+      - Appropriate transaction, locking, compare-and-set, queueing, or conflict strategy.
+    capability_evidence:
+      - Monitoring for invariant violations or abnormal conflict rates.
+      - Recovery procedure for inconsistent state.
+    verification_patterns: [concurrency-test, invariant-check, property-test]
+    references: []
+
+  - id: fm-supply-chain-integrity
+    title: Dependency and supply-chain integrity gap
+    category: supply-chain
+    substance_layer: job-substance
+    earliest_claim_at_risk: 03-deliverable
+    signal: The implementation depends on an unverified package, artifact, build step, update source, or version assumption.
+    why_output_can_pass: The dependency may resolve in one environment while the provenance, integrity, maintainability, or future resolution path remains unclear.
+    deliverable_evidence:
+      - Dependencies resolve from intended sources and versions.
+      - Integrity/provenance controls appropriate to the deployment path.
+      - Required licences and maintenance constraints are known where material.
+    capability_evidence:
+      - Repeatable build with dependency update/vulnerability process.
+      - Ownership for compromised or unavailable dependencies.
+    verification_patterns: [locked-build, provenance-check, dependency-review, reproducible-build]
+    references: [owasp-top10-2025, nist-ssdf-1-1]
+
+  - id: fm-observability-blindness
+    title: Observability and alerting blindness
+    category: operations
+    substance_layer: delivery-capability
+    earliest_claim_at_risk: 04-capability
+    signal: The service can run, but the organisation cannot reliably tell when it is failing, degrading, or violating an important invariant.
+    why_output_can_pass: A demonstration is directly observed by its builders; normal operations are not.
+    deliverable_evidence:
+      - For one-off or bounded use, sufficient evidence that the result met acceptance criteria.
+    capability_evidence:
+      - Logs/metrics/traces or equivalent signals for important failure modes.
+      - Actionable alerts with owners.
+      - Defined service indicators or operational checks appropriate to consequence.
+    verification_patterns: [monitoring-check, alert-test, synthetic-check]
+    references: [owasp-top10-2025]
+
+  - id: fm-rollback-recovery-gap
+    title: Rollback and recovery gap
+    category: operations
+    substance_layer: delivery-capability
+    earliest_claim_at_risk: 04-capability
+    signal: A change can be deployed, but there is no demonstrated way to restore service or data after a bad deployment or partial failure.
+    why_output_can_pass: Deployment success only proves the forward path once.
+    deliverable_evidence:
+      - For bounded use, known failure impact and a proportionate fallback.
+    capability_evidence:
+      - Tested rollback, forward-fix, restore, or failover path appropriate to the system.
+      - Recovery ownership and runbook.
+      - Recovery objective or practical stop/revert trigger where material.
+    verification_patterns: [rollback-test, restore-test, failover-test, game-day]
+    references: [nist-ssdf-1-1]
+
+  - id: fm-hidden-manual-step
+    title: Hidden manual or expert step
+    category: operations
+    substance_layer: delivery-capability
+    earliest_claim_at_risk: 04-capability
+    signal: The workflow appears automated or repeatable, but it depends on an undocumented person-specific intervention, local file, secret, judgement call, or recovery trick.
+    why_output_can_pass: The original builder can compensate from memory during the demonstration.
+    deliverable_evidence:
+      - The bounded result can still be accepted if the manual step is explicit and proportionate.
+    capability_evidence:
+      - Manual dependencies documented or deliberately automated.
+      - Backup owner or substitution path.
+      - Rehearsal by someone/something other than the original author where repeatability matters.
+    verification_patterns: [runbook-rehearsal, handover-test, dependency-map]
+    references: []
+
+  - id: fm-scale-cost-latency-cliff
+    title: Scale, cost, or latency cliff
+    category: economics
+    substance_layer: delivery-capability
+    earliest_claim_at_risk: 04-capability
+    signal: The workflow works at demo volume but misses latency, throughput, capacity, or cost constraints at the intended operating level.
+    why_output_can_pass: Small samples hide queueing, fan-out, context growth, retries, rate limits, and fixed/variable operating costs.
+    deliverable_evidence:
+      - Performance is adequate for the bounded intended use.
+    capability_evidence:
+      - Load/capacity test at a representative level.
+      - Cost model using the complete workflow, including retries/evaluation/fallback.
+      - Degradation or admission-control strategy where needed.
+    verification_patterns: [load-test, capacity-test, cost-per-acceptable-outcome, rate-limit-test]
+    references: []
