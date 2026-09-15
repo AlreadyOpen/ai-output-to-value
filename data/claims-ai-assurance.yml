@@ -1,0 +1,17 @@
+claims:
+  - id: ai-can-be-assurance-actor-2026
+    claim_text: Taiwan's Ministry of Digital Affairs reports that major online platforms are using AI and automation alongside identity verification, blacklists, warnings, reporting and government-platform intelligence exchange to detect and disrupt scam content and accounts; AI can therefore be part of the assurance and defensive-control layer, not only the object being reviewed.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: taiwan-moda-ai-anti-fraud-2026
+        source_version: published 2026-08-31; reviewed 2026-09-15
+        locator: Paragraphs describing AI detection, intelligence exchange, identity verification, automated handling, warnings, and platform anti-fraud measures
+        relevant_finding: The release says scam patterns reported by government are converted into AI model training and detection rules; platforms also use AI detection or automation together with identity verification, blacklist management, user warnings, takedown processes and reporting mechanisms.
+        qualification: The source establishes that these controls are being used and how the programme is described. It does not independently verify the accuracy of each AI detector, false-positive/false-negative rates, or the causal contribution of AI to the reported takedown volumes.
+    published_in:
+      - file: content/ai-business-capability-and-judgement.md
+        locator: "### AI can also be an assurance and defence actor"
+    reviewer: AI-assisted initial source check against the official Taiwan MODA release
+    reviewed: 2026-09-15
+    independent_review_status: pending
