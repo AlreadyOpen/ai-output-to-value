@@ -15,12 +15,14 @@ For a first-time business reader:
 1. **[Start here — five-minute guide](START-HERE.md)**
 2. **[A strong frame is not the same as a finished job](content/frame-vs-finished-work.md)**
 3. **[Tool access vs client readiness](content/tool-access-vs-client-readiness.md)**
-4. **[Executive guide](content/executive-guide.md)**
-5. **[Worked decisions](content/worked-cases.md)**
+4. **[Worked decisions](content/worked-cases.md)**
+5. **[Claim card — decide what evidence is enough](content/claim-card.md)**
 
 For a meeting, use the **[one-page meeting brief](content/meeting-brief.md)**.
 
-Deeper analyses cover product discovery, model strategy, architecture and unit economics, AI business-facing capability and judgement, open-source economics, organisational capability, agents, authority, representation, and changing interaction channels. See [`docs/reading-path.md`](docs/reading-path.md).
+For provenance, confidentiality and review responsibility, see **[Who stands behind this guide?](content/provenance.md)**.
+
+Deeper analyses cover product discovery, model strategy, architecture and unit economics, AI business-facing capability and judgement, open-source economics, organisational capability, agents, authority, representation, and changing interaction channels. They are deliberately separated as working/research material rather than being treated as part of the reviewed core guide. See [`docs/reading-path.md`](docs/reading-path.md).
 
 ## The practical question
 
@@ -34,7 +36,19 @@ This project uses a decision framework:
 
 **Access → Output → Deliverable → Capability → Outcome → Value**
 
-These are six different claims, not mandatory lifecycle stages.
+These are six different claims, not mandatory lifecycle stages and not a maturity score.
+
+## Decision first
+
+The ladder is a **claim filter**. Start with the decision and require the weakest claim that is sufficient for that decision:
+
+- **keep exploring?** → Output may be enough;
+- **may someone rely on it?** → Deliverable;
+- **may we sell, operate or support it repeatedly?** → Capability;
+- **did it change the result?** → Outcome;
+- **should we scale, renew or stop?** → Value.
+
+A strong Access/Output score does not average into partial Deliverable. The [claim card](content/claim-card.md) adds evidence character, actor/authority, measurement, option value and a stop rule.
 
 ## Four distinctions that matter
 
@@ -52,6 +66,12 @@ AI systems can analyse evidence, compare options, plan, recommend, communicate, 
 ### Reduced labour ≠ reduced elapsed time ≠ realised financial value
 AI may genuinely improve all three, but a gain in one metric should not silently become a claim about another.
 
+## Option value counts
+
+A prototype can create a legitimate **Outcome** by removing uncertainty even when it never becomes an operational service. "We now know not to build this" can be valuable if the experiment changed a real decision cheaply enough.
+
+The worked cases now include both a synthetic 90-day software measurement example and an option-value case where stopping productisation is the correct decision.
+
 ## Evidence model
 
 Canonical evidence lives under `data/`. Source and claim records may be split into topic-specific registries, but the builder and checker use the same loader in [`scripts/publication_data.py`](scripts/publication_data.py).
@@ -66,7 +86,15 @@ Independent review is actor-neutral. A completed review may be performed by a hu
 
 `rejected` is a valid review disposition for the evidence history. A launch-critical claim can pass release approval only with an accepting disposition: `accepted`, `accepted_with_qualification`, or `revised_and_accepted`.
 
+Evidence character is also made explicit where useful: public measured evidence, public documented evidence, internal evidence, illustrative material, or editorial synthesis.
+
 See [`docs/evidence-policy.md`](docs/evidence-policy.md).
+
+## Confidentiality
+
+Rigour does not require publishing client names, contracts, production metrics, personal data or proprietary workflows. Internal evidence can remain private while the authorised decision record stays inspectable inside the organisation.
+
+Public teaching cases in this repository are labelled **illustrative**; they are not presented as disguised client incidents. See [`content/provenance.md`](content/provenance.md).
 
 ## Working preview versus reviewed release
 
@@ -81,7 +109,7 @@ Normal CI also builds a proposed release artifact with `PUBLICATION_MODE=release
 Each article declares a `release_scope`:
 
 - `guide` — boss-facing release pages;
-- `policy` — evidence/correction policy included with the guide;
+- `policy` — evidence/provenance/correction policy included with the guide;
 - `working` — deeper or advanced research excluded from the reviewed release artifact.
 
 The manual release gate additionally checks that launch-critical claims have completed independent review with inspectable records and an accepting disposition, guide pages are marked ready, policy pages are release-ready, expected release pages exist, and working pages did not enter the artifact.
@@ -98,7 +126,7 @@ GitHub Pages is deployed through [`.github/workflows/pages.yml`](.github/workflo
 .
 ├── START-HERE.md
 ├── README.md
-├── content/                         # Core guide + deeper analyses + practical material
+├── content/                         # Core guide + decision tools + deeper analyses
 ├── data/
 │   ├── articles.yml                 # Publication manifest and release scope
 │   ├── sources*.yml                 # Canonical source registries
@@ -126,11 +154,11 @@ GitHub Pages is deployed through [`.github/workflows/pages.yml`](.github/workflo
 
 ## Corrections and responsibility
 
-The initial maintainer is **Helen Kwok**. Evidence-based corrections and counterexamples are welcome. See [`content/corrections.md`](content/corrections.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+The initial maintainer is **Helen Kwok**. Evidence-based corrections and counterexamples are welcome. See [`content/provenance.md`](content/provenance.md), [`content/corrections.md`](content/corrections.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Current status
 
-**Public working preview / labelled pilot.** The repository is now under AlreadyOpen and the GitHub Pages preview is live.
+**Public working preview / labelled pilot.** The repository is under AlreadyOpen and the GitHub Pages preview is live.
 
 Still open before the first reviewed release:
 
@@ -139,10 +167,10 @@ Still open before the first reviewed release:
 - review all external links and source dates;
 - create a dedicated social-preview image asset;
 - decide the final code/content licensing model;
-- run a small reader test of the core route and meeting brief;
+- run a small reader test of the core route, claim card and meeting brief;
 - explicitly approve and deploy the reviewed release artifact.
 
-A further positive real-world case can improve the guide, but it is not a substitute for finishing the release controls above.
+A further positive real-world case can improve the guide, but confidential commercial work is not a prerequisite for a rigorous public method.
 
 ## Licence
 
