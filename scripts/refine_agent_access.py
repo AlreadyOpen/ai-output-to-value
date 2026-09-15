@@ -9,6 +9,14 @@ SITE = ROOT / "site"
 MCP_URL = "https://github.com/AlreadyOpen/ai-output-to-value/tree/main/packages/mcp"
 
 
+def replace_obsolete_interface_links(text: str) -> str:
+    return (
+        text.replace('../index.html#interfaces', MCP_URL)
+        .replace('index.html#interfaces', MCP_URL)
+        .replace('href="#interfaces"', f'href="{MCP_URL}"')
+    )
+
+
 def main() -> None:
     homepage = SITE / "index.html"
     if not homepage.exists():
@@ -23,13 +31,7 @@ def main() -> None:
         "",
     )
 
-    # The streamlined executive landing page no longer carries a long
-    # #interfaces section. If the older builder injected that anchor, point it
-    # at the practical native-MCP setup rather than leaving a dead fragment.
-    text = text.replace(
-        '<a href="#interfaces">AI access</a>',
-        f'<a href="{MCP_URL}">AI access</a>',
-    )
+    text = replace_obsolete_interface_links(text)
 
     text = text.replace(
         '<h3>WebMCP structured tools</h3>\n            <p>WebMCP lets a page expose structured application actions through <code>document.modelContext</code> so compatible agents can discover and invoke them instead of guessing every action from the visual UI.</p>',
@@ -51,7 +53,22 @@ def main() -> None:
     )
 
     homepage.write_text(text, encoding="utf-8")
-    print("Refined homepage agent access: native MCP primary, WebMCP progressive enhancement")
+
+    # Article/evidence/tool shells were historically generated with links back
+    # to #interfaces on the homepage. The streamlined homepage deliberately no
+    # longer contains that long section, so migrate every generated link to the
+    # practical native MCP documentation instead of leaving dead fragments.
+    migrated = 0
+    for path in SITE.rglob("*.html"):
+        if path == homepage:
+            continue
+        before = path.read_text(encoding="utf-8")
+        after = replace_obsolete_interface_links(before)
+        if after != before:
+            path.write_text(after, encoding="utf-8")
+            migrated += 1
+
+    print(f"Refined agent access: native MCP primary, WebMCP progressive enhancement; migrated {migrated} page(s)")
 
 
 if __name__ == "__main__":
