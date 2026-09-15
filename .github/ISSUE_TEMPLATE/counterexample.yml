@@ -1,0 +1,50 @@
+name: Counterexample
+about: Submit a case that challenges, narrows, or falsifies a framework claim
+labels:
+  - counterexample
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Counterexamples are welcome. The aim is to find where a claim, stop rule, worked example, or wording is too broad. Keep confidential organisational evidence private; describe only what you are authorised to share.
+  - type: input
+    id: claim
+    attributes:
+      label: Claim or rule challenged
+      description: Claim ID, article heading, decision gate, or exact wording.
+      placeholder: 04-capability / article heading / claim-id
+    validations:
+      required: true
+  - type: textarea
+    id: case
+    attributes:
+      label: Counterexample
+      description: Describe the smallest case that contradicts or materially narrows the claim.
+    validations:
+      required: true
+  - type: textarea
+    id: conditions
+    attributes:
+      label: Conditions and scope
+      description: What task, workflow, population, environment, model/tool, time period, authority boundary, or other conditions matter?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence
+      description: Link primary sources or provide reproducible evidence where possible. Internal evidence may remain private; say what can be independently inspected.
+    validations:
+      required: true
+  - type: textarea
+    id: implication
+    attributes:
+      label: What should change?
+      description: Should the claim be rejected, qualified, scoped more narrowly, or left unchanged with a stronger caveat?
+  - type: checkboxes
+    id: confidentiality
+    attributes:
+      label: Confidentiality
+      options:
+        - label: I have not included confidential client, employer, credential, personal, or other restricted information.
+          required: true
