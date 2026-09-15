@@ -22,7 +22,7 @@ function buildServer() {
   const server = new McpServer(
     { name: "ai-output-to-value", version: "0.1.0" },
     {
-      instructions: "Use the target decision to select the minimum sufficient claim. Do not average claim levels and do not privilege human, AI, automated, or hybrid work by identity alone."
+      instructions: "Use the target decision to select the minimum sufficient claim. Do not average claim levels and do not privilege human, AI, automated, or hybrid work by identity alone. A gate PASS evaluates the supplied record; it is not an audit of the underlying system or evidence."
     }
   );
 
@@ -72,6 +72,22 @@ function buildServer() {
     async () => {
       try {
         return text(await fetchJson(publicationUrl, "api/v1/framework.json"));
+      } catch (error) {
+        return fail(error instanceof Error ? error.message : String(error));
+      }
+    }
+  );
+
+  server.registerTool(
+    "get_software_outcome_template",
+    {
+      title: "Get software Outcome template",
+      description: "Return the software-delivery Outcome measurement pack. It uses DORA metric names plus optional AI-specific leading indicators and does not mark any gate check as passed.",
+      inputSchema: z.object({})
+    },
+    async () => {
+      try {
+        return text(await fetchJson(publicationUrl, "templates/software-outcome-pack.json"));
       } catch (error) {
         return fail(error instanceof Error ? error.message : String(error));
       }
