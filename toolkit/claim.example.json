@@ -6,6 +6,15 @@
   "requiredClaimLevel": "03-deliverable",
   "assertedClaimLevel": "03-deliverable",
   "intendedUse": "Draft tier-1 billing responses for review before sending.",
+  "workflowBoundary": "Incoming tier-1 billing ticket and supplied account context through draft generation, verification, authorised send decision, and delivery to the customer.",
+  "workflowCompletion": "The workflow is complete when an authorised support agent has sent or rejected/escalated the response and the action is recorded.",
+  "downstreamHandoffs": [
+    "Account-data consistency check",
+    "Support-agent review and send/edit/reject decision",
+    "Escalation to the existing support workflow when the request is unsupported or uncertain"
+  ],
+  "movedBottleneck": "If draft generation becomes faster, review queue time and account-data verification may become the binding constraints.",
+  "unhappyPath": "Missing or contradictory account data, unsupported ticket categories, low-confidence drafts, or failed downstream delivery must escalate to the existing support process rather than silently completing.",
   "evidenceCharacter": ["internal"],
   "actors": [
     {
