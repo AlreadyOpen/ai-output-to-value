@@ -1,0 +1,51 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "auto-triage-bot",
+  "targetDecision": "rely",
+  "requiredClaimLevel": "03-deliverable",
+  "assertedClaimLevel": "03-deliverable",
+  "intendedUse": "Draft tier-1 billing responses for review before sending.",
+  "evidenceCharacter": ["internal"],
+  "actors": [
+    {
+      "type": "ai-agent",
+      "role": "Draft a proposed response from supplied ticket and account context.",
+      "interactionChannel": "api"
+    },
+    {
+      "type": "human",
+      "role": "Authorised support agent decides whether to send, edit, or reject the draft.",
+      "interactionChannel": "human-ui"
+    }
+  ],
+  "assurance": [
+    "Test-set evaluation against acceptance criteria",
+    "Account-data consistency check",
+    "Escalation on low confidence or unsupported request"
+  ],
+  "authority": "The AI may draft but may not send. The authorised support agent controls external communication.",
+  "accountability": "Support Team Lead owns the workflow, evaluation criteria, and corrective action.",
+  "demonstrated": "Drafts can be generated from supplied ticket and account context and evaluated against the named acceptance criteria.",
+  "inferredOrAssumed": "Unseen ticket categories may contain requirements outside the evaluation set.",
+  "knownLimitations": [
+    "No autonomous send authority",
+    "Requests outside the tested billing categories are out of scope"
+  ],
+  "acceptanceCriteria": [
+    "Balance figures agree with supplied account data",
+    "Unsupported requests escalate instead of inventing policy",
+    "Known low-confidence cases are flagged"
+  ],
+  "evidenceRefs": ["evidence/2026-09-shadow-eval.json"],
+  "gateChecks": {
+    "intended-use-defined": "pass",
+    "acceptance-criteria-defined": "pass",
+    "acceptance-criteria-met": "pass",
+    "failure-modes-tested": "pass",
+    "limitations-stated": "pass"
+  },
+  "nextEvidence": "Run a 100-case shadow evaluation on fresh tickets before widening the intended use.",
+  "stopRule": "Do not permit reliance outside the tested billing categories; stop the trial if the defined account-data error threshold is exceeded.",
+  "notes": "Illustrative adopter record. Replace thresholds and evidence references with the organisation's own decision criteria."
+}
