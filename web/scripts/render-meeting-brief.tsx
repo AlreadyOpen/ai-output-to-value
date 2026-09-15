@@ -53,6 +53,7 @@ function MeetingBrief() {
           </div>
           <Text>Do not average the six claims. A missing decision-critical claim cannot be offset by strength somewhere else.</Text>
           <Text>Workflow test: name the outcome, end-to-end boundary, next bottleneck, unhappy path, and outcome metric. Workflow is the process boundary—not a seventh claim.</Text>
+          <Text>Management-word test: workflow, teamwork, KPI, productivity, leadership and alignment are not evidence until the process, roles, metric definition, denominator/quality boundary, or claimed outcome is explicit.</Text>
         </Section>
 
         <Section spacing="sm">
@@ -70,6 +71,7 @@ function MeetingBrief() {
             <Text>Established: ______________________________</Text>
             <Text>Not established: __________________________</Text>
             <Text>Workflow boundary / unhappy path: __________</Text>
+            <Text>Teamwork / KPI / productivity definition: ___</Text>
             <Text>Actor / interface / authority: _____________</Text>
             <Text>Accountability / recourse: _________________</Text>
             <Text>Next evidence / stop rule: _________________</Text>
