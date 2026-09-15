@@ -89,6 +89,18 @@
     white-space: nowrap;
   }
 
+  /*
+   * The workflow section carries more explanatory copy than the original
+   * whole-job panel. Give the heading a deliberate measure so it balances into
+   * a few strong lines instead of a narrow five-line staircase.
+   */
+  #whole-job h2 {
+    max-width: 20ch;
+    font-size: clamp(2.8rem, 4vw, 3.75rem);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
   .article-body table,
   .work-table {
     width: 100%;
@@ -166,9 +178,21 @@
   }
 }
 
+@media (min-width: 960px) {
+  #whole-job .split {
+    grid-template-columns: minmax(0, 1fr) minmax(520px, 1.08fr);
+    gap: clamp(2.25rem, 4vw, 4rem);
+  }
+}
+
 @media (max-width: 640px) {
   .hero h1 > span {
     white-space: normal;
+  }
+
+  #whole-job h2 {
+    max-width: none;
+    font-size: clamp(2.6rem, 12vw, 3.35rem);
   }
 
   .article-body th:first-child,
