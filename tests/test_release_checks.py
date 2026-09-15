@@ -68,6 +68,19 @@ class ReleaseCheckTests(unittest.TestCase):
         result = self.run_checker()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_accepted_disposition_passes(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["review_record"]["disposition"] = "accepted"
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        result = self.run_checker()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_rejected_disposition_is_blocked(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["review_record"]["disposition"] = "rejected"
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("review disposition does not accept claim")
+
     def test_pending_critical_claim_is_blocked(self):
         data = self.read_yaml("claims.yml")
         data["claims"][0]["independent_review_status"] = "pending"
