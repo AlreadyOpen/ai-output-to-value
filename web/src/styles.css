@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f8f6;
+  --foreground: #10202f;
+  --card: #ffffff;
+  --card-foreground: #10202f;
+  --popover: #ffffff;
+  --popover-foreground: #10202f;
+  --primary: #0a6c60;
+  --primary-foreground: #ffffff;
+  --secondary: #eef3f1;
+  --secondary-foreground: #183344;
+  --muted: #eef3f1;
+  --muted-foreground: #5f625d;
+  --accent: #d9eeea;
+  --accent-foreground: #07564d;
+  --border: #d8dfdc;
+  --input: #cfd8d4;
+  --ring: #0a6c60;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background text-foreground;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ring) 55%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Progressive migration layer for the existing generated publication markup.
+ * These rules intentionally centralise fragile table/card behavior while the
+ * HTML shell is moved to React/shadcn components.
+ */
+@layer components {
+  .article-body table,
+  .work-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+  }
+
+  .article-body th,
+  .article-body td,
+  .work-table th,
+  .work-table td {
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .article-body th:first-child,
+  .article-body td:first-child {
+    min-width: 8rem;
+    overflow-wrap: normal;
+    white-space: normal;
+  }
+
+  .work-table-wrap {
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  .work-table-wrap > .measure-note {
+    margin: 0;
+    border-top: 1px solid var(--border);
+    background: color-mix(in srgb, var(--muted) 55%, white);
+    padding: 0.85rem 1.1rem 1rem;
+    line-height: 1.55;
+  }
+
+  .status-label {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .article-body pre {
+    border-radius: 0.75rem;
+    background: #112433;
+    color: #f7fbfa;
+  }
+
+  .article-body :not(pre) > code {
+    border-radius: 0.3rem;
+    background: color-mix(in srgb, var(--accent) 55%, transparent);
+    padding: 0.08rem 0.32rem;
+  }
+
+  .aiov-react-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.45rem;
+    margin: -1rem 0 1.15rem;
+  }
+
+  .aiov-gate-root {
+    width: min(70rem, calc(100% - 2rem));
+    margin-inline: auto;
+    padding-block: 3.5rem 6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .article-body th:first-child,
+  .article-body td:first-child {
+    min-width: 7rem;
+  }
+
+  .work-table-wrap > .measure-note {
+    padding-inline: 0.75rem;
+  }
+
+  .aiov-react-toolbar {
+    justify-content: flex-start;
+    margin-top: -0.35rem;
+  }
+}
+
+@media print {
+  [data-aiov-interactive-only],
+  .aiov-react-toolbar {
+    display: none !important;
+  }
+}
