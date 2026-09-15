@@ -20,19 +20,19 @@ const questions = [
 ]
 
 const thresholds = [
-  ["Explore", "Output", "Enough to reproduce the artefact/action and learn from it."],
-  ["Rely", "Deliverable", "Fit for the named use against explicit acceptance criteria."],
-  ["Operate / sell repeatedly", "Capability", "Owners, controls, fallback and operating process exist."],
-  ["Measure change", "Outcome", "The named measure moved versus a baseline."],
-  ["Scale / renew / stop", "Value", "The outcome is worth full relevant cost, risk and alternatives."],
+  ["Explore", "Output", "Reproduce the artefact/action and learn."],
+  ["Rely", "Deliverable", "Fit for the named use and acceptance criteria."],
+  ["Operate / sell", "Capability", "Owners, controls, fallback and operating process."],
+  ["Measure change", "Outcome", "Named measure moved versus a baseline."],
+  ["Scale / renew / stop", "Value", "Outcome is worth relevant cost, risk and alternatives."],
 ]
 
 function MeetingBrief() {
   return (
     <PdfcnThemeProvider>
-      <Stack gap="sm">
+      <Stack gap="xs">
         <div tw="flex items-center justify-between">
-          <div>
+          <div tw="flex flex-col">
             <Text>AI Output to Value</Text>
             <Text>One-page meeting brief</Text>
           </div>
@@ -40,41 +40,41 @@ function MeetingBrief() {
         </div>
         <Divider />
 
-        <Section spacing="sm">
+        <Section spacing="xs">
           <Text>Start with the decision, not the taxonomy</Text>
-          <div tw="mt-2 flex flex-col gap-1">
+          <div tw="mt-1 flex flex-col gap-1">
             {thresholds.map(([decision, claim, evidence]) => (
-              <div key={decision} tw="flex gap-2 rounded border border-gray-200 px-2 py-1">
+              <div key={decision} tw="flex gap-2 rounded border border-gray-200 px-2 py-0.5">
                 <Text>{decision}</Text>
                 <Text>{claim}</Text>
                 <Text>{evidence}</Text>
               </div>
             ))}
           </div>
-          <Text>Do not average the six claims. A missing decision-critical claim cannot be offset by strength somewhere else.</Text>
-          <Text>Workflow test: name the outcome, end-to-end boundary, next bottleneck, unhappy path, and outcome metric. Workflow is the process boundary—not a seventh claim.</Text>
-          <Text>Management-word test: workflow, teamwork, KPI, productivity, leadership and alignment are not evidence until the process, roles, metric definition, denominator/quality boundary, or claimed outcome is explicit.</Text>
+          <Text>Do not average claims. A missing decision-critical claim is not offset by strength elsewhere.</Text>
+          <Text>Workflow test: outcome, end-to-end boundary, next bottleneck, unhappy path, outcome metric. Workflow is the process boundary—not a seventh claim.</Text>
+          <Text>Management-word test: workflow, teamwork, KPI, productivity, leadership and alignment need an explicit process, role, metric, quality boundary or claimed outcome.</Text>
         </Section>
 
-        <Section spacing="sm">
+        <Section spacing="xs">
           <Text>Eight questions</Text>
-          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
+          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5">
             {questions.map((question, index) => (
               <Text key={question}>{index + 1}. {question}</Text>
             ))}
           </div>
         </Section>
 
-        <Section spacing="sm">
+        <Section spacing="xs">
           <Text>Decision record</Text>
-          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
-            <Text>Established: ______________________________</Text>
-            <Text>Not established: __________________________</Text>
-            <Text>Workflow boundary / unhappy path: __________</Text>
-            <Text>Teamwork / KPI / productivity definition: ___</Text>
-            <Text>Actor / interface / authority: _____________</Text>
-            <Text>Accountability / recourse: _________________</Text>
-            <Text>Next evidence / stop rule: _________________</Text>
+          <div tw="mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5">
+            <Text>Established: __________________________</Text>
+            <Text>Not established: ______________________</Text>
+            <Text>Workflow / unhappy path: ______________</Text>
+            <Text>Teamwork / KPI / productivity: _________</Text>
+            <Text>Actor / interface / authority: __________</Text>
+            <Text>Accountability / recourse: _____________</Text>
+            <Text>Next evidence / stop rule: _____________</Text>
           </div>
         </Section>
 
@@ -87,7 +87,7 @@ function MeetingBrief() {
 
 const pdf = await render(<MeetingBrief />, {
   size: "a4",
-  margin: { top: 30, right: 32, bottom: 30, left: 32 },
+  margin: { top: 22, right: 28, bottom: 22, left: 28 },
   tagged: true,
   lang: "en",
   metadata: {
