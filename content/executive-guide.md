@@ -168,6 +168,28 @@ So “the product works” and “the workflow is not complete” can both be tr
 
 See [Workflow is the unit — where AI output becomes business delivery](workflow-not-task.md).
 
+### Workflow, teamwork, KPI and productivity are not magic words
+
+Management language deserves the same discipline as technical language. A proposal does not become stronger merely because it uses words such as **workflow**, **teamwork**, **KPI**, **productivity**, **leadership**, or **alignment**.
+
+Operationalise the term before using it as evidence:
+
+| Term | What must be made explicit |
+| --- | --- |
+| **Workflow** | Trigger, end-to-end boundary, completion condition, handoffs, unhappy path, authority, outcome |
+| **Teamwork** | Participants, roles, what happens before/during/after, shared information, decision rights, follow-up |
+| **KPI** | Exact metric definition, unit, numerator/denominator where relevant, data source, cadence, baseline, guardrails |
+| **Productivity** | Valuable accepted output or outcome per relevant input, with quality and downstream rework visible |
+| **Leadership** | Decisions, coordination, authority, escalation, accountability, capability built, outcomes |
+
+A September 2026 *Harvard Business Review* article by Gabriele Rosani and Elisa Farri is useful because it turns **teamwork** into an inspectable process rather than a virtue word. Reporting hands-on workshops involving more than 300 managers across 35 organisations, the authors describe the full arc of teamwork as preparation **before**, collaborative work **during**, and reflection/follow-up **after** a meeting or workshop. They propose **intentionality** and **craft** as conditions for useful team-AI collaboration: deliberately redesign how the team activity works and provide enough context, roles, prompts, steps, and pauses for the interaction to be useful.
+
+That does not make “teamwork” a guaranteed source of value, and this project does not adopt hierarchy as a quality proxy. The point is narrower:
+
+> **If a manager invokes workflow, teamwork, KPI, productivity, or leadership, ask what the term means operationally and what evidence shows the claimed outcome.**
+
+A memorable boss-versus-leader meme can start that conversation. It cannot tell us whether responsibilities are allocated well, whether the person directing the work is contributing the highest-value activity, whether the team handles exceptions, or whether the outcome improved.
+
 **Illustrative labour hours, not measured results. Assume both workflows meet the same acceptance criteria.**
 
 | Work | Before | AI-assisted |
@@ -262,4 +284,4 @@ Reducing production cost can improve the opportunity. It does not guarantee dema
 
 ## 14. The position in one paragraph
 
-Use AI ambitiously. Prototype quickly. Use inexpensive tools when they are sufficient. Automate technical and business-facing work when evidence supports it. Do not preserve judgement as a human-only category, and do not assume an AI decision is good merely because it is automated. Match each claim to evidence, count the whole workflow, match assurance to consequence, make authority and accountability visible, and judge success by outcomes that matter.
+Use AI ambitiously. Prototype quickly. Use inexpensive tools when they are sufficient. Automate technical and business-facing work when evidence supports it. Do not preserve judgement as a human-only category, and do not assume an AI decision is good merely because it is automated. Match each claim to evidence, count the whole workflow, require management vocabulary to have operational meaning, match assurance to consequence, make authority and accountability visible, and judge success by outcomes that matter.
