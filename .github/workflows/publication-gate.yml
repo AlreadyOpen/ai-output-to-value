@@ -42,8 +42,20 @@ jobs:
           npm install --no-audit --no-fund
           npm test
 
-      - name: Build static publication preview
-        run: python scripts/build_publication.py
+      - name: Install web UI dependencies
+        working-directory: web
+        run: npm install --no-audit --no-fund
+
+      - name: Sync pdfcn components
+        working-directory: web
+        run: npm run pdfcn:sync
+
+      - name: Type-check React UI and PDF templates
+        working-directory: web
+        run: npm run typecheck
+
+      - name: Build static publication preview with UI and PDF
+        run: python scripts/build_with_ui.py
 
       - name: Validate repository evidence structure and internal links
         run: python scripts/check_publication.py
@@ -51,10 +63,10 @@ jobs:
       - name: Validate preview artifact links
         run: python scripts/check_site_links.py
 
-      - name: Build proposed release artifact
+      - name: Build proposed release artifact with UI and PDF
         env:
           PUBLICATION_MODE: release
-        run: python scripts/build_publication.py
+        run: python scripts/build_with_ui.py
 
       - name: Validate proposed release artifact links
         run: python scripts/check_site_links.py
