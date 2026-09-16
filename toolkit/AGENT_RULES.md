@@ -10,7 +10,7 @@ Do not assume work must progress through every claim level.
 
 - **02 Output** can be enough for exploration or learning.
 - **03 Deliverable** is required before someone may rely on the result for a named use.
-- **04 Capability** is required before the organisation claims it can operate, support, sell, or staff the workflow repeatedly.
+- **04 Operating capability** is required before the organisation claims it can operate, support, sell, or staff the workflow repeatedly. The stable machine identifier remains `04-capability`.
 - **05 Outcome** is required before claiming the initiative changed a measured result.
 - **06 Value** is required before claiming the evidenced outcome justified the full relevant cost, risk, alternatives, and trade-offs.
 
@@ -54,7 +54,7 @@ For exploration, a reproducible artefact plus explicit assumptions may be enough
 
 For a relied-upon Deliverable, include relevant acceptance criteria and evidence such as tests, contract checks, integration checks, error handling, known failure modes, intended-use boundaries, and the downstream workflow needed for the result to reach its intended user or system.
 
-For operational Capability, add the controls that matter to the actual failure modes: ownership, monitoring, recovery/rollback where warranted, maintenance/debugging responsibility, support/escalation, and relevant operating cost.
+For Operating capability, add the controls that matter to the actual failure modes: ownership, monitoring, recovery/rollback where warranted, maintenance/debugging responsibility, support/escalation, and relevant operating cost.
 
 When AI accelerates one software task, do not infer that the development workflow accelerated by the same amount. Check whether the constraint moved into review, integration testing, security review, deployment, support, or another downstream stage.
 
