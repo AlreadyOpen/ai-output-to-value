@@ -32,7 +32,9 @@ A free agent, subscription, or API key can unlock substantial capability. The bu
 
 ## Conceptual model
 
-**Access → Output → Deliverable → Capability → Outcome → Value**
+**Access → Output → Deliverable → Operating capability → Outcome → Value**
+
+The stable machine identifier for the fourth claim is `04-capability`.
 
 This is not a maturity ladder where every use case must reach the final stage. A prototype may intentionally stop earlier. A low-risk internal task may need little assurance. A client-facing technical instruction or regulated workflow may need substantially more.
 
@@ -259,7 +261,7 @@ Recommended characteristics:
 ## Suggested site architecture
 
 1. **Start here** — the core distinction in five minutes.
-2. **The model** — Access → Output → Deliverable → Capability → Outcome → Value.
+2. **The model** — Access → Output → Deliverable → Operating capability → Outcome → Value.
 3. **Client-ready?** — tool capability, job substance, delivery capability, and the substance gap.
 4. **Ways of working** — vibe coding, AI-assisted work, agents, automation, review and assurance.
 5. **AI as a business actor** — analysis, communication, customer interaction, judgement, authority, and accountability.
