@@ -1,7 +1,7 @@
 /* AI Output to Value — WebMCP surface.
  * Most tools are read/evaluate-only and use generated /api/v1 publication data.
- * aiov_load_claim_gate_record may populate the local Claim Gate form only; it
- * does not mutate the publication, GitHub, review state, or any server record.
+ * aiov_load_claim_gate_record may request a local Claim Gate form handoff only;
+ * it does not mutate the publication, GitHub, review state, or any server record.
  */
 (() => {
   "use strict";
@@ -48,7 +48,7 @@
   }
 
   function runtimeStatus(message) {
-    const host = document.querySelector("#interfaces .reading-route");
+    const host = document.querySelector("[data-webmcp-status-host], #interfaces .reading-route");
     if (!host) return;
     let node = document.getElementById("webmcp-runtime-status");
     if (!node) {
@@ -63,18 +63,29 @@
   function evaluateClaimRecord(record, gates) {
     const decisionId = record?.targetDecision;
     const rule = gates?.decisions?.[decisionId];
+    const structuralErrors = [];
+    const missingFields = [];
+
+    if (record?.schemaVersion !== "1.0") {
+      structuralErrors.push("schemaVersion must be '1.0'");
+    }
+
     if (!rule) {
+      structuralErrors.push(`Unknown targetDecision: ${String(decisionId)}`);
       return {
         status: "BLOCKED",
         targetDecision: decisionId ?? null,
-        errors: [`Unknown targetDecision: ${String(decisionId)}`],
+        errors: structuralErrors,
+        structuralErrors,
+        missingFields,
+        claimMismatch: false,
         failedChecks: [],
         unknownChecks: [],
-        missingFields: []
+        passedChecks: [],
+        interactiveClaimGate: siteUrl("tools/claim-gate.html")
       };
     }
 
-    const structuralErrors = [];
     if (record?.requiredClaimLevel !== rule.requiredClaimLevel) {
       structuralErrors.push(`requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`);
     }
@@ -95,10 +106,12 @@
     }
 
     const requiredTextFields = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
-    const missingFields = requiredTextFields.filter((field) => !String(record?.[field] ?? "").trim());
+    for (const field of requiredTextFields) {
+      if (!String(record?.[field] ?? "").trim()) missingFields.push(field);
+    }
     if (!Array.isArray(record?.actors) || record.actors.length === 0) missingFields.push("actors");
 
-    const claimMismatch = Boolean(record?.assertedClaimLevel && record.assertedClaimLevel !== rule.requiredClaimLevel);
+    const claimMismatch = record?.assertedClaimLevel !== rule.requiredClaimLevel;
     let status = "PASS";
     if (structuralErrors.length || failedChecks.length) status = "BLOCKED";
     else if (unknownChecks.length || missingFields.length || claimMismatch) status = "INSUFFICIENT_EVIDENCE";
@@ -109,6 +122,7 @@
       decisionLabel: rule.label,
       requiredClaimLevel: rule.requiredClaimLevel,
       assertedClaimLevel: record?.assertedClaimLevel ?? null,
+      errors: structuralErrors,
       structuralErrors,
       missingFields,
       claimMismatch,
@@ -246,7 +260,7 @@
     },
     {
       name: "aiov_search_failure_modes",
-      description: "Read-only. Searches the working software/architecture failure-mode catalogue for patterns that can invalidate Deliverable or Capability claims.",
+      description: "Read-only. Searches the working software/architecture failure-mode catalogue for patterns that can invalidate Deliverable or Operating capability claims.",
       inputSchema: {
         type: "object",
         properties: {
@@ -294,7 +308,7 @@
     },
     {
       name: "aiov_load_claim_gate_record",
-      description: "Hybrid/local UI bridge. Load an agent-prepared claim.json record into the currently open interactive Claim Gate form so a person can inspect or edit it. This changes local browser form state only and does not write to a server, publication, review record, or GitHub.",
+      description: "Hybrid/local UI bridge. Request that an agent-prepared claim.json record be loaded into the currently open interactive Claim Gate form so a person can inspect or edit it. This changes local browser form state only and does not write to a server, publication, review record, or GitHub.",
       inputSchema: {
         type: "object",
         properties: { claim: claimObjectSchema },
@@ -303,15 +317,16 @@
       },
       async execute({ claim }) {
         const host = document.getElementById("claim-gate-root");
-        if (!host) {
-          return error(`Open the interactive Claim Gate first: ${siteUrl("tools/claim-gate.html")}`);
+        if (!host || host.dataset.reactMounted !== "true") {
+          return error(`Open the interactive Claim Gate and wait for it to load first: ${siteUrl("tools/claim-gate.html")}`);
         }
         window.dispatchEvent(new CustomEvent("aiov:load-claim-record", { detail: { claim } }));
         return result({
-          loaded: true,
+          handoffRequested: true,
+          applicationConfirmed: false,
           scope: "local-browser-form-only",
           claim_gate: window.location.href,
-          message: "The claim record was handed to the local Claim Gate form. A person can inspect or edit it before relying on the result."
+          message: "The record handoff event was dispatched to the mounted Claim Gate. This tool cannot yet independently confirm that the form accepted it; inspect the visible form before relying on the handoff."
         });
       }
     },
@@ -335,7 +350,8 @@
               ]
             },
             decisionGates: gates.decisions,
-            printable_brief: siteUrl("articles/meeting-brief.html"),
+            printable_brief: siteUrl("downloads/ai-output-to-value-meeting-brief.pdf"),
+            meeting_brief_article: siteUrl("articles/meeting-brief.html"),
             claim_card: siteUrl("articles/claim-card.html"),
             workflow_guide: siteUrl("articles/workflow-not-task.html"),
             interactive_claim_gate: siteUrl("tools/claim-gate.html"),
@@ -350,6 +366,6 @@
   ];
 
   Promise.all(tools.map((tool) => modelContext.registerTool(tool)))
-    .then(() => runtimeStatus(`WebMCP runtime: ${tools.length} tools registered. Eight are read/evaluate-only; aiov_load_claim_gate_record can populate the local Claim Gate form without server-side writes.`))
+    .then(() => runtimeStatus(`WebMCP runtime: ${tools.length} tools registered. Eight are read/evaluate-only; aiov_load_claim_gate_record can request a local Claim Gate handoff without server-side writes.`))
     .catch((err) => runtimeStatus(`WebMCP runtime: tool registration failed (${err instanceof Error ? err.message : String(err)}).`));
 })();
