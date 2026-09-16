@@ -2,6 +2,7 @@
 """Refine agent-access presentation after the static homepage has been built."""
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +16,22 @@ def replace_obsolete_interface_links(text: str) -> str:
         .replace('index.html#interfaces', MCP_URL)
         .replace('href="#interfaces"', f'href="{MCP_URL}"')
     )
+
+
+def align_framework_label() -> bool:
+    """Keep the stable 04-capability ID while publishing its human-facing name."""
+    path = SITE / "api" / "v1" / "framework.json"
+    if not path.exists():
+        return False
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    changed = False
+    for claim in payload.get("claims", []):
+        if claim.get("level") == "04-capability" and claim.get("name") != "Operating capability":
+            claim["name"] = "Operating capability"
+            changed = True
+    if changed:
+        path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return changed
 
 
 def main() -> None:
@@ -68,7 +85,11 @@ def main() -> None:
             path.write_text(after, encoding="utf-8")
             migrated += 1
 
-    print(f"Refined agent access: native MCP primary, WebMCP progressive enhancement; migrated {migrated} page(s)")
+    framework_aligned = align_framework_label()
+    print(
+        "Refined agent access: native MCP primary, WebMCP progressive enhancement; "
+        f"migrated {migrated} page(s); framework label aligned={framework_aligned}"
+    )
 
 
 if __name__ == "__main__":
