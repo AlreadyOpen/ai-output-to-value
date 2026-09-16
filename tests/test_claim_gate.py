@@ -55,12 +55,47 @@ class ClaimGateTests(unittest.TestCase):
         result = evaluate(record, self.gates)
         self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
 
+    def test_not_applicable_required_check_is_insufficient_and_preserved(self):
+        record = self.base_record()
+        record["gateChecks"]["acceptance-criteria-met"] = "not-applicable"
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(result["unknownChecks"][0]["state"], "not-applicable")
+
+    def test_missing_required_text_is_insufficient_not_blocked(self):
+        record = self.base_record()
+        record["authority"] = ""
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(result["missingFields"], ["authority"])
+
+    def test_missing_actor_is_insufficient_not_silently_inferred(self):
+        record = self.base_record()
+        record["actors"] = []
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
+        self.assertIn("actors", result["missingFields"])
+
+    def test_asserted_claim_mismatch_is_insufficient(self):
+        record = self.base_record()
+        record["assertedClaimLevel"] = "02-output"
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
+        self.assertTrue(result["claimMismatch"])
+
     def test_decision_controls_required_claim(self):
         record = self.base_record()
         record["requiredClaimLevel"] = "02-output"
         result = evaluate(record, self.gates)
         self.assertEqual(result["status"], "BLOCKED")
-        self.assertIn("requiredClaimLevel must be", " ".join(result["errors"]))
+        self.assertIn("requiredClaimLevel must be", " ".join(result["structuralErrors"]))
+
+    def test_unsupported_schema_version_blocks(self):
+        record = self.base_record()
+        record["schemaVersion"] = "2.0"
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("schemaVersion" in error for error in result["structuralErrors"]))
 
     def test_producer_identity_does_not_change_gate(self):
         ai_record = self.base_record()
