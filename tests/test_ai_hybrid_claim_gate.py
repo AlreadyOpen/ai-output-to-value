@@ -36,13 +36,16 @@ class AiHybridClaimGateTests(unittest.TestCase):
         self.assertIn('fetch("../templates/software-outcome-pack.json"', source)
         self.assertIn("No actor was inferred", source)
 
-    def test_claim_gate_handoff_does_not_claim_server_mutation_or_unconfirmed_success(self):
+    def test_webmcp_handoff_requires_mounted_ready_form_and_acknowledgement(self):
         source = (ROOT / "webmcp.js").read_text(encoding="utf-8")
         self.assertIn("does not write to a server, publication, review record, or GitHub", source)
+        self.assertIn('host.dataset.claimGateReady !== "true"', source)
+        self.assertIn('window.addEventListener("aiov:claim-record-loaded"', source)
+        self.assertIn("requestId", source)
         self.assertIn("handoffRequested: true", source)
         self.assertIn("applicationConfirmed: false", source)
+        self.assertIn("applicationConfirmed: true", source)
         self.assertNotIn("loaded: true", source)
-        self.assertIn('host.dataset.reactMounted !== "true"', source)
 
     def test_meeting_guide_printable_link_targets_pdf(self):
         source = (ROOT / "webmcp.js").read_text(encoding="utf-8")
