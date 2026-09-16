@@ -1,6 +1,6 @@
 # Mild operating kit — instruments that can inspect a claim
 
-This is intentionally **not** a preferred-vendor stack. Tools, MCP servers, agents, dashboards, and repositories can increase Access and Output. They do not automatically establish Deliverable, Capability, Outcome, or Value.
+This is intentionally **not** a preferred-vendor stack. Tools, MCP servers, agents, dashboards, and repositories can increase Access and Output. They do not automatically establish Deliverable, Operating capability, Outcome, or Value.
 
 Choose instruments according to the failure mode and the decision being made.
 
@@ -8,9 +8,11 @@ Choose instruments according to the failure mode and the decision being made.
 | --- | --- | --- | --- |
 | **Access → Output** | Confirm the tool can actually produce or perform the bounded task | usage inventory, reproducible fixture, tool/API log | organisation usage inventory; API/tool logs; a saved reproducible prompt/fixture |
 | **Output → Deliverable** | Test the named acceptance criteria and important failure modes | eval/trace system, deterministic fixture, contract test, end-to-end test | Promptfoo, Langfuse, Braintrust, or in-house fixtures; API contract tests; browser/e2e tests; the enquiry actually arriving at the intended business process |
-| **Deliverable → Capability** | Show the organisation can repeatedly operate, detect, recover, support, and change the workflow | CI/CD controls, observability, runbooks, rollback/recovery tests, ownership records | existing CI/CD platform; service telemetry; incident/runbook system; recovery rehearsal |
-| **Capability → Outcome** | Measure whether the end-to-end result changed against a baseline | product/operations measurement, DORA-capable delivery telemetry, experimental or quasi-experimental comparison | application/service delivery telemetry; baseline/after measurement; DORA software-delivery metrics for software work |
+| **Deliverable → Operating capability** | Show the organisation can repeatedly operate, detect, recover, support, and change the workflow | CI/CD controls, observability, runbooks, rollback/recovery tests, ownership records | existing CI/CD platform; service telemetry; incident/runbook system; recovery rehearsal |
+| **Operating capability → Outcome** | Measure whether the end-to-end result changed against a baseline | product/operations measurement, DORA-capable delivery telemetry, experimental or quasi-experimental comparison | application/service delivery telemetry; baseline/after measurement; DORA software-delivery metrics for software work |
 | **Outcome → Value** | Account for relevant cost, risk, alternatives and trade-offs | finance/cost records, incident cost, support effort, customer/business measure, decision log | internal cost data; cloud/model/tool spend; support and rework effort; business outcome and decision records |
+
+The stable machine identifier for **Operating capability** remains `04-capability`.
 
 ## MCP and agent skills are context pipes
 
