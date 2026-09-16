@@ -134,6 +134,48 @@
     };
   }
 
+  function requestClaimGateHandoff(claim) {
+    const host = document.getElementById("claim-gate-root");
+    if (!host || host.dataset.claimGateReady !== "true") {
+      return Promise.resolve({
+        requested: false,
+        confirmed: false,
+        error: `Open the interactive Claim Gate and wait for it to load first: ${siteUrl("tools/claim-gate.html")}`
+      });
+    }
+
+    const requestId = `aiov-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    return new Promise((resolve) => {
+      let settled = false;
+      const finish = (payload) => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timer);
+        window.removeEventListener("aiov:claim-record-loaded", onAck);
+        resolve(payload);
+      };
+      const onAck = (event) => {
+        const detail = event.detail || {};
+        if (detail.requestId !== requestId) return;
+        finish({
+          requested: true,
+          confirmed: detail.accepted === true,
+          error: detail.accepted === true ? null : (detail.error || "Claim Gate rejected the record.")
+        });
+      };
+      const timer = window.setTimeout(() => {
+        finish({
+          requested: true,
+          confirmed: false,
+          error: "The Claim Gate did not acknowledge the handoff before the timeout. Inspect the visible form before relying on it."
+        });
+      }, 1000);
+
+      window.addEventListener("aiov:claim-record-loaded", onAck);
+      window.dispatchEvent(new CustomEvent("aiov:load-claim-record", { detail: { claim, requestId } }));
+    });
+  }
+
   if (!modelContext?.registerTool) {
     runtimeStatus("WebMCP runtime: this browser does not currently expose document.modelContext. The site still publishes the same machine-readable API and normal human interface.");
     return;
@@ -316,17 +358,23 @@
         additionalProperties: false
       },
       async execute({ claim }) {
-        const host = document.getElementById("claim-gate-root");
-        if (!host || host.dataset.reactMounted !== "true") {
-          return error(`Open the interactive Claim Gate and wait for it to load first: ${siteUrl("tools/claim-gate.html")}`);
+        const handoff = await requestClaimGateHandoff(claim);
+        if (!handoff.requested) return error(handoff.error);
+        if (!handoff.confirmed) {
+          return result({
+            handoffRequested: true,
+            applicationConfirmed: false,
+            scope: "local-browser-form-only",
+            claim_gate: window.location.href,
+            message: handoff.error
+          });
         }
-        window.dispatchEvent(new CustomEvent("aiov:load-claim-record", { detail: { claim } }));
         return result({
           handoffRequested: true,
-          applicationConfirmed: false,
+          applicationConfirmed: true,
           scope: "local-browser-form-only",
           claim_gate: window.location.href,
-          message: "The record handoff event was dispatched to the mounted Claim Gate. This tool cannot yet independently confirm that the form accepted it; inspect the visible form before relying on the handoff."
+          message: "The mounted Claim Gate acknowledged and applied the record. A person can inspect or edit the visible form before relying on the result."
         });
       }
     },
@@ -366,6 +414,6 @@
   ];
 
   Promise.all(tools.map((tool) => modelContext.registerTool(tool)))
-    .then(() => runtimeStatus(`WebMCP runtime: ${tools.length} tools registered. Eight are read/evaluate-only; aiov_load_claim_gate_record can request a local Claim Gate handoff without server-side writes.`))
+    .then(() => runtimeStatus(`WebMCP runtime: ${tools.length} tools registered. Eight are read/evaluate-only; aiov_load_claim_gate_record can request and confirm a local Claim Gate handoff without server-side writes.`))
     .catch((err) => runtimeStatus(`WebMCP runtime: tool registration failed (${err instanceof Error ? err.message : String(err)}).`));
 })();
