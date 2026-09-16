@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Replace article-toolbar JS placeholders with real static provider links.
+"""Make the static article toolbar fully functional before React mounts.
 
 The generated HTML must remain meaningful to crawlers and no-JS readers. The
-React toolbar enhances this markup, but it must not be responsible for turning
-`href="#"` placeholders into functioning links.
+React toolbar enhances this markup with clipboard actions, but static HTML must
+not expose controls whose interaction only exists after JavaScript executes.
 """
 from __future__ import annotations
 
@@ -22,6 +22,14 @@ SITE_URL = os.environ.get(
 
 PROVIDER_RE = re.compile(
     r'<a href="[^"]*" data-open-provider="(?P<provider>chatgpt|claude|t3|copilot|cursor)"'
+)
+COPY_MD_RE = re.compile(
+    r'<button class="article-tool-button" type="button" data-copy-md aria-label="Copy this article as Markdown">.*?</button>',
+    re.DOTALL,
+)
+COPY_MD_LINK_RE = re.compile(
+    r'\n?<button type="button" data-copy-md-link role="menuitem">.*?</button>',
+    re.DOTALL,
 )
 OPEN_MARKDOWN_RE = re.compile(
     r'\n?<a href="[^"]*" data-open-markdown role="menuitem" target="_blank" rel="noopener">.*?</a>',
@@ -51,14 +59,23 @@ def fix_article(path: Path) -> None:
     if not match:
         return
 
-    md_url = urljoin(SITE_URL, f"md/{match.group('slug')}.md")
+    slug = match.group("slug")
+    relative_md = f"../md/{slug}.md"
+    md_url = urljoin(SITE_URL, f"md/{slug}.md")
 
     def replace_provider(match: re.Match[str]) -> str:
         url = html.escape(provider_url(match.group("provider"), md_url), quote=True)
         return f'<a href="{url}" data-open-provider="{match.group("provider")}"'
 
-    text = PROVIDER_RE.sub(replace_provider, text)
+    # Clipboard actions only exist in the React enhancement. The static channel
+    # gets a real Markdown link instead of a button that would do nothing.
+    text = COPY_MD_RE.sub(
+        f'<a class="article-tool-button" href="{relative_md}" target="_blank" rel="noopener"><span aria-hidden="true">MD</span> View Markdown</a>',
+        text,
+    )
+    text = COPY_MD_LINK_RE.sub("", text)
     text = OPEN_MARKDOWN_RE.sub("", text)
+    text = PROVIDER_RE.sub(replace_provider, text)
     text = text.replace("<span>GitHub Copilot</span>", "<span>Copilot</span>")
     path.write_text(text, encoding="utf-8")
 
@@ -76,7 +93,7 @@ def main() -> None:
         if before != after:
             count += 1
 
-    print(f"Emitted static open-in provider links for {count} article page(s)")
+    print(f"Emitted no-JS-safe article tools for {count} article page(s)")
 
 
 if __name__ == "__main__":
