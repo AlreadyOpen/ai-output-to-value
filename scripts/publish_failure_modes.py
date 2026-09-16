@@ -57,6 +57,7 @@ def main() -> None:
     source = yaml.safe_load((ROOT / "data" / "failure-modes.yml").read_text(encoding="utf-8"))
     raw_modes = source.get("failure_modes", []) if isinstance(source, dict) else []
     modes = order_modes(raw_modes)
+    included = PUBLICATION_MODE != "release"
 
     payload = {
         "publicationMode": PUBLICATION_MODE,
@@ -64,7 +65,9 @@ def main() -> None:
         "scope": source.get("scope", "") if isinstance(source, dict) else "",
         "ordering": "alphanumeric by failure-mode title; order carries no prevalence, severity, likelihood, or priority meaning",
         "reviewState": "working material; excluded from reviewed release" if PUBLICATION_MODE == "release" else "working preview",
-        "failureModes": [] if PUBLICATION_MODE == "release" else modes,
+        "catalogueIncluded": included,
+        "catalogueUrl": "articles/software-failure-mode-catalogue.html" if included else None,
+        "failureModes": modes if included else [],
     }
 
     target = SITE / "api" / "v1" / "failure-modes.json"
