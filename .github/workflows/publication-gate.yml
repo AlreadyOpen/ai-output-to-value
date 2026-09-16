@@ -33,8 +33,13 @@ jobs:
       - name: Run publication regression tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
-      - name: Validate example claim gate
+      - name: Validate example claim gate core
         run: python scripts/claim_gate.py toolkit/claim.example.json --json
+
+      - name: Validate reusable claim gate Action end to end
+        uses: ./
+        with:
+          claim: toolkit/claim.example.json
 
       - name: Test native MCP package
         working-directory: packages/mcp
