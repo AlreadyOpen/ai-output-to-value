@@ -45,9 +45,9 @@ For the selected decision:
 1. State the project / initiative and intended use.
 2. Identify the required claim from the target decision.
 3. Describe the end-to-end workflow boundary when local task completion is not the same as delivery.
-4. Record actors and interaction channels separately from authority and accountability.
-5. Evaluate each required gate check as `pass`, `fail`, or `unknown` from supplied evidence.
-6. Keep missing or unverified evidence as `unknown`; do not infer PASS from confidence or plausibility.
+4. Record actors and interaction channels separately from authority and accountability. Do not silently infer an actor when none is supplied.
+5. Evaluate each required gate check from supplied evidence as `pass`, `fail`, `unknown`, or `not-applicable` where the schema allows it.
+6. Treat `unknown` and `not-applicable` on a **required** check as insufficient evidence; do not infer PASS from confidence, plausibility, or convenience.
 7. Name evidence references, next evidence that would change the decision, and the stop rule.
 8. For Outcome, define the measure, baseline/comparison, and material confounds.
 9. For Value, include the full relevant cost/risk/alternative boundary rather than local task cost alone.
@@ -56,9 +56,9 @@ For the selected decision:
 
 A deterministic gate result evaluates the supplied record.
 
-- `PASS` means the record satisfies the checks for the selected decision.
-- `BLOCKED` means at least one decision-critical check explicitly failed.
-- `INSUFFICIENT_EVIDENCE` means the decision is not yet justified by the supplied record.
+- `PASS` means the record is structurally coherent, required decision-record information is present, the asserted claim matches the selected decision, and all required checks are `pass`.
+- `BLOCKED` means a required check explicitly failed **or** the record is structurally incompatible with the gate contract, for example an unsupported schema version, unknown target decision, or wrong required-claim mapping.
+- `INSUFFICIENT_EVIDENCE` means no required check failed and the record is structurally usable, but required information/evidence is missing or unknown/not-applicable, or the asserted claim does not match the decision.
 
 A PASS is **not** an independent audit of the underlying system, measurement, source, test, or person.
 
@@ -68,11 +68,13 @@ Before claiming Deliverable or Operating capability, consider relevant failure m
 
 If the native MCP server is available, use `search_failure_modes`.
 
-For a software Outcome measurement plan, use `get_software_outcome_template` when available. The template proposes measurements; it does not mark evidence PASS automatically.
+For a software Outcome measurement plan, use `get_software_outcome_template` when available. The template proposes measurements; it does not mark evidence PASS automatically and does not choose an actor for the record.
 
 ## Human / AI / hybrid handoff
 
 Use the same `claim.json` across channels. An agent may prepare or evaluate the record; a person may inspect or edit it; CI may apply the deterministic gate. Changing the interface does not change the standard.
+
+Do not claim a local/UI handoff completed merely because an event or request was sent. Require acknowledgement from the receiving surface or describe the handoff as unconfirmed.
 
 Do not claim that a human approval click proves quality. Do not claim that an AI evaluation proves quality. State the actual assurance process and evidence.
 
@@ -83,7 +85,7 @@ When asked to apply the method, return:
 - target decision;
 - required claim;
 - gate status;
-- decision-critical PASS / FAIL / UNKNOWN checks;
+- decision-critical PASS / FAIL / UNKNOWN / NOT-APPLICABLE checks;
 - demonstrated vs inferred/assumed points;
 - workflow boundary if relevant;
 - authority and accountability boundary;
