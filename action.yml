@@ -15,6 +15,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Set up Python for the decision gate
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
     - name: Evaluate claim decision gate
       shell: bash
       run: python "${{ github.action_path }}/scripts/claim_gate.py" "${{ inputs.claim }}" --json
