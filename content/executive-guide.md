@@ -14,7 +14,9 @@ That is real capability. The management problem is treating several different ac
 
 This project uses a decision framework:
 
-**Access → Output → Deliverable → Capability → Outcome → Value**
+**Access → Output → Deliverable → Operating capability → Outcome → Value**
+
+The stable machine identifier for the fourth claim is `04-capability`.
 
 The arrows are a memory aid, not a mandatory lifecycle.
 
@@ -27,7 +29,7 @@ The system generated something or performed a task.
 ### Deliverable
 The artefact or service is fit for a defined purpose and appropriate acceptance criteria.
 
-### Capability
+### Operating capability
 The organisation can repeatedly produce, evaluate, operate, support, maintain, and improve the result.
 
 ### Outcome
@@ -162,7 +164,7 @@ Their coding-agent example is especially relevant to technical teams: AI can inc
 
 That fits this project's claim model without adding another rung:
 
-> **Workflow is not a seventh claim. It is the end-to-end process boundary across which Output must become Deliverable, repeatable Capability, Outcome, and eventually Value.**
+> **Workflow is not a seventh claim. It is the end-to-end process boundary across which Output must become Deliverable, repeatable Operating capability, Outcome, and eventually Value.**
 
 So “the product works” and “the workflow is not complete” can both be true. The useful next questions are where the workflow starts and ends, which handoffs and verification remain, where the bottleneck moves, what the unhappy path is, and which outcome should improve.
 
