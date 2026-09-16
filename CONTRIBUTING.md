@@ -125,20 +125,42 @@ Broader analyses remain available in the working preview.
 
 For publication UI changes, preserve keyboard accessibility, readable contrast, reduced-motion preferences, narrow/wide layout quality, and usable print output.
 
+Do not validate only an intermediate HTML generator. The supported publication artifact includes the Python publication layer **plus** the React/shadcn/Base UI/Tailwind enhancement, generated machine surfaces, WebMCP scope refinement, and pdfcn/Takumi PDF output.
+
 ## Publication checks
 
-Before submitting, run:
+Before submitting, run the same finished-artifact path used by CI and Pages:
 
 ```bash
 python -m pip install -r requirements-dev.txt
+
+cd web
+npm install --no-audit --no-fund
+npm run pdfcn:sync
+npm run typecheck
+cd ..
+
 python -m unittest discover -s tests -p 'test_*.py'
-python scripts/build_site.py
+python scripts/claim_gate.py toolkit/claim.example.json --json
+
+cd packages/mcp
+npm install --no-audit --no-fund
+npm test
+cd ../..
+
+python scripts/build_with_ui.py
 python scripts/check_publication.py
+python scripts/check_site_links.py
+
+PUBLICATION_MODE=release python scripts/build_with_ui.py
+python scripts/check_site_links.py
 ```
 
-The preview gate checks structure and traceability. It does not approve a release.
+`scripts/build_site.py` is an internal/intermediate publication generator used by the finished build pipeline. Do **not** treat its direct output as the deployable website or reviewed release candidate.
 
-The release workflow builds a smaller artifact using `PUBLICATION_MODE=release` and applies `scripts/check_release.py` to the declared review and artifact-scope rules.
+The preview checks structure, traceability, local links, and interaction-integrity rules. They do not approve a release.
+
+The manual release workflow uses the same `build_with_ui.py` deployable pipeline in `PUBLICATION_MODE=release` and then applies `scripts/check_release.py` to the declared review and artifact-scope rules.
 
 ## Corrections
 
