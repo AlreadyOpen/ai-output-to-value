@@ -23,7 +23,9 @@ def inject(path: Path) -> None:
     if css not in text:
         text = text.replace("</head>", f'<link rel="stylesheet" href="{css}">\n</head>', 1)
 
-    # The React Base UI toolbar replaces the old progressively-enhanced toolbar.
+    # The React/Base UI toolbar replaces the old progressively-enhanced toolbar.
+    # Remove the obsolete script reference rather than loading two competing UI
+    # implementations for the same visible controls.
     text = text.replace('<script src="../article-tools.js" defer></script>\n', "")
     text = text.replace('<script src="article-tools.js" defer></script>\n', "")
 
@@ -41,6 +43,15 @@ def inject(path: Path) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def remove_obsolete_assets() -> None:
+    # build_site/augment_site still copy these compatibility files before the
+    # React build runs. They are not part of the final publication contract and
+    # must not be shipped as apparently supported alternative implementations.
+    for path in (SITE / "article-tools.js", SITE / "tools" / "claim-gate.js"):
+        if path.exists():
+            path.unlink()
+
+
 def main() -> None:
     if not SITE.exists():
         raise SystemExit("site/ does not exist; build the publication first")
@@ -48,7 +59,8 @@ def main() -> None:
     for path in SITE.rglob("*.html"):
         inject(path)
         count += 1
-    print(f"Injected React/Tailwind/shadcn UI bundle into {count} HTML files")
+    remove_obsolete_assets()
+    print(f"Injected React/Tailwind/shadcn UI bundle into {count} HTML files and removed obsolete UI assets")
 
 
 if __name__ == "__main__":
