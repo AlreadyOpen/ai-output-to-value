@@ -1,4 +1,4 @@
-# Software and architecture worked cases — where Output becomes Deliverable and Capability
+# Software and architecture worked cases — where Output becomes Deliverable and Operating capability
 
 **Evidence character: fictional engineering cases.** The code and measurements below are constructed examples used to show claim boundaries. They are not reported incidents.
 
@@ -10,7 +10,9 @@ A useful shorthand is:
 
 **Deliverable** — evidence shows it is fit for the named intended use.
 
-**Capability** — the organisation can repeatedly verify, operate, support, recover, maintain and improve the workflow.
+**Operating capability** — the organisation can repeatedly verify, operate, support, recover, maintain and improve the workflow.
+
+The stable machine identifier for **Operating capability** remains `04-capability`.
 
 The producer can be human, AI, automated or hybrid. The transition is created by evidence and operating capability, not by producer identity.
 
@@ -86,7 +88,7 @@ If those acceptance criteria pass, the evidence can justify:
 
 That still does **not** prove the organisation has a mature migration capability.
 
-### Evidence that changes the claim to Capability
+### Evidence that changes the claim to Operating capability
 
 The stronger claim is:
 
@@ -108,7 +110,7 @@ Additional evidence now matters:
 
 **This migration meets defined production acceptance criteria** → Deliverable.
 
-**The organisation can repeatedly execute and recover this class of migration** → Capability.
+**The organisation can repeatedly execute and recover this class of migration** → Operating capability.
 
 ---
 
@@ -165,7 +167,7 @@ The acceptance evidence now includes:
 
 If those criteria pass for the named workflow, **Deliverable** is justified.
 
-### Evidence that changes the claim to Capability
+### Evidence that changes the claim to Operating capability
 
 Repeated operation needs more than the function:
 
@@ -182,7 +184,7 @@ Repeated operation needs more than the function:
 
 **The invoice workflow is correct under the defined success/failure/retry conditions** → Deliverable.
 
-**The organisation can repeatedly operate, observe, reconcile and recover the workflow** → Capability.
+**The organisation can repeatedly operate, observe, reconcile and recover the workflow** → Operating capability.
 
 ---
 
@@ -240,7 +242,7 @@ Now the claim can become:
 
 > **Deliverable: the export endpoint is fit for the named internal access model.**
 
-### Evidence that changes the claim to Capability
+### Evidence that changes the claim to Operating capability
 
 For repeated operational use, the organisation also establishes:
 
@@ -257,7 +259,7 @@ For repeated operational use, the organisation also establishes:
 
 **Allowed users can export the right resources and disallowed users are refused under tested acceptance criteria** → Deliverable.
 
-**Authorization policy, audit/review, maintenance and incident handling are repeatable** → Capability.
+**Authorization policy, audit/review, maintenance and incident handling are repeatable** → Operating capability.
 
 ---
 
@@ -311,7 +313,7 @@ For the decision **merge for the named internal use**, the PR adds or links evid
 
 The actor that produced the evidence can be human, AI, deterministic tooling or hybrid. What matters is whether the evidence directly tests the intended-use criteria.
 
-### Evidence that changes the claim to Capability
+### Evidence that changes the claim to Operating capability
 
 If the claim becomes **we can repeatedly run coding agents against this repository and safely operate the resulting delivery workflow**, the unit of evaluation changes from one PR to the whole system.
 
@@ -332,7 +334,7 @@ Relevant evidence now includes:
 
 **The PR meets acceptance criteria for the intended use** → Deliverable.
 
-**The organisation can repeatedly operate the agent-enabled delivery process with controls, recovery and ownership** → Capability.
+**The organisation can repeatedly operate the agent-enabled delivery process with controls, recovery and ownership** → Operating capability.
 
 ---
 
@@ -354,7 +356,7 @@ The exact same script can legitimately support different claims depending on the
 | --- | --- | --- |
 | **Use during a two-day internal investigation as a brainstorming aid** | **Output** | Script runs on supplied logs; assumptions visible; result is not treated as authoritative. |
 | **Allow on-call engineers to rely on ranked causes during incident triage** | **Deliverable** | Evaluation on representative incidents, acceptance/error criteria, known limits, fallback to existing triage. |
-| **Make it a standard supported incident-analysis service** | **Capability** | Operational owner, monitoring, data access controls, model/tool versioning, recovery, support and repeatable evaluation. |
+| **Make it a standard supported incident-analysis service** | **Operating capability** | Operational owner, monitoring, data access controls, model/tool versioning, recovery, support and repeatable evaluation. |
 | **Claim it reduced incident recovery time** | **Outcome** | Baseline and after measurement using the same recovery-time definition, with material confounds named. |
 | **Expand it across the organisation** | **Value** | Outcome compared with total operating/evaluation/support cost, risk and alternatives. |
 
@@ -376,7 +378,7 @@ When someone says **"done"**, ask which statement they mean:
 
 > For **this named intended use**, we have explicit acceptance criteria and evidence that the result meets them, including material failure modes and known limitations.
 
-### Capability
+### Operating capability
 
 > We can perform this repeatedly because ownership, assurance, operation, observability, recovery, maintenance and support are established at the level the consequence requires.
 
