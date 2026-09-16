@@ -45,8 +45,11 @@ class InteractionIntegrityTests(unittest.TestCase):
 
     def test_reusable_action_owns_its_python_dependency(self):
         source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        workflow = (ROOT / ".github" / "workflows" / "publication-gate.yml").read_text(encoding="utf-8")
         self.assertIn("uses: actions/setup-python@v5", source)
         self.assertIn('python-version: "3.12"', source)
+        self.assertIn("Validate reusable claim gate Action end to end", workflow)
+        self.assertIn("uses: ./", workflow)
 
     def test_mcp_package_does_not_claim_unselected_public_licence(self):
         source = (ROOT / "packages" / "mcp" / "package.json").read_text(encoding="utf-8")
@@ -54,9 +57,19 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn('"license": "UNLICENSED"', source)
 
     def test_machine_framework_publishes_operating_capability_label(self):
-        source = (ROOT / "scripts" / "refine_agent_access.py").read_text(encoding="utf-8")
-        self.assertIn('claim.get("level") == "04-capability"', source)
-        self.assertIn('claim["name"] = "Operating capability"', source)
+        source = (ROOT / "scripts" / "augment_site.py").read_text(encoding="utf-8")
+        self.assertIn('{"level": "04-capability", "name": "Operating capability"', source)
+
+    def test_failure_mode_machine_links_follow_publication_scope(self):
+        publisher = (ROOT / "scripts" / "publish_failure_modes.py").read_text(encoding="utf-8")
+        refiner = (ROOT / "scripts" / "refine_webmcp_scope.py").read_text(encoding="utf-8")
+        build = (ROOT / "scripts" / "build_publication.py").read_text(encoding="utf-8")
+        mcp = (ROOT / "packages" / "mcp" / "src" / "index.mjs").read_text(encoding="utf-8")
+        self.assertIn('"catalogueIncluded": included', publisher)
+        self.assertIn('"catalogueUrl": "articles/software-failure-mode-catalogue.html" if included else None', publisher)
+        self.assertIn("catalogue: payload.catalogueUrl ? siteUrl(payload.catalogueUrl) : null", refiner)
+        self.assertIn("refine_webmcp_scope()", build)
+        self.assertIn("catalogueUrl: payload.catalogueUrl ? new URL(payload.catalogueUrl, publicationUrl).href : null", mcp)
 
 
 if __name__ == "__main__":
