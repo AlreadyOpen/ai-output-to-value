@@ -34,7 +34,9 @@ The project asks:
 
 This project uses a decision framework:
 
-**Access → Output → Deliverable → Capability → Outcome → Value**
+**Access → Output → Deliverable → Operating capability → Outcome → Value**
+
+The stable machine identifier for **Operating capability** is `04-capability`.
 
 These are six different claims, not mandatory lifecycle stages and not a maturity score.
 
@@ -44,7 +46,7 @@ The ladder is a **claim filter**. Start with the decision and require the weakes
 
 - **keep exploring?** → Output may be enough;
 - **may someone rely on it?** → Deliverable;
-- **may we sell, operate or support it repeatedly?** → Capability;
+- **may we sell, operate or support it repeatedly?** → Operating capability;
 - **did it change the result?** → Outcome;
 - **should we scale, renew or stop?** → Value.
 
@@ -99,7 +101,7 @@ Same standard does not require the same interface.
 
 - **Human:** visible Claim Gate form.
 - **AI:** native MCP `evaluate_claim_record` or compatible browser WebMCP.
-- **Hybrid:** exchange the same `claim.json`; a compatible browser agent may populate the local form for inspection/editing.
+- **Hybrid:** exchange the same `claim.json`; a compatible browser agent may request a local form handoff, which the mounted Claim Gate must acknowledge before WebMCP reports it as applied.
 
 The practical IDE/terminal integration is the local MCP package under [`packages/mcp/`](packages/mcp/). Its README includes current Claude Code, Cursor and VS Code/GitHub Copilot examples. WebMCP remains progressive enhancement when the browser exposes `document.modelContext`.
 
@@ -133,9 +135,9 @@ Evidence character is explicit where useful: public measured evidence, public do
 
 The public GitHub Pages site currently deploys the **working preview** from `main`. It includes the core guide plus deeper and advanced working material, with publication and evidence-review states kept visible.
 
-Normal CI separately builds and link-checks a proposed release artifact. This keeps two questions distinct:
+Normal CI separately builds and interaction/link-checks a proposed release artifact. This keeps two questions distinct:
 
-> **Does the proposed release artifact structurally work?**
+> **Does the proposed release artifact structurally and operationally work?**
 >
 > **Has that artifact actually been reviewed and approved?**
 
@@ -147,9 +149,9 @@ Until that checklist is satisfied, **Working preview stays in the header**.
 
 ## Publication controls
 
-Normal CI runs regression tests, builds and checks the working preview, then independently builds and link-checks the proposed release artifact. GitHub Pages is deployed through [`.github/workflows/pages.yml`](.github/workflows/pages.yml). A release-mode deployment also runs the release-approval checks.
+Normal CI runs regression tests; exercises the reusable Claim Gate Action; tests the native MCP package; type-checks the React/Base UI layer; builds the finished preview including Tailwind, WebMCP machine surfaces and pdfcn output; validates evidence/traceability; checks interaction/link integrity; and then independently builds and checks the proposed release artifact.
 
-The toolchain now tests the deterministic gate, teaching sample outcomes, failure-mode catalogue structure, native MCP package, browser bundle suitability, shadcn/Base UI/Tailwind UI build, pdfcn meeting-brief generation, and preview/release links.
+GitHub Pages runs the same relevant evidence, interaction, Action, MCP, UI and artifact checks before it uploads a deployment. A release-mode deployment additionally runs the release-approval checks.
 
 ## Repository structure
 
