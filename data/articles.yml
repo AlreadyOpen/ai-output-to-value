@@ -48,7 +48,7 @@ articles:
     section: core
     release_scope: guide
     order: 35
-    summary: Why local task or product acceleration must be tested across the end-to-end workflow before stronger Deliverable, Capability, Outcome, or Value claims are made.
+    summary: Why local task or product acceleration must be tested across the end-to-end workflow before stronger Deliverable, Operating capability, Outcome, or Value claims are made.
     maintainer: Helen Kwok
     reviewed: 2026-09-15
     status: editorial_review
@@ -102,13 +102,13 @@ articles:
     status: draft
 
   - id: software-architecture-worked-cases
-    title: Software and architecture worked cases — Output to Capability
+    title: Software and architecture worked cases — Output to Operating capability
     source: content/software-architecture-worked-cases.md
     slug: software-architecture-worked-cases
     section: deeper
     release_scope: working
     order: 100
-    summary: Concrete fictional code cases showing the exact evidence transition from Output to Deliverable and Capability.
+    summary: Concrete fictional code cases showing the exact evidence transition from Output to Deliverable and Operating capability.
     maintainer: Helen Kwok
     reviewed: 2026-09-15
     status: research_draft
@@ -164,7 +164,7 @@ articles:
   - id: product-ideas-vs-discovery
     title: Product ideas are not product discovery
     source: content/product-ideas-vs-product-discovery.md
-    slug: product-ideas-vs-product-discovery
+    slug: product-ideas-vs-discovery
     section: deeper
     release_scope: working
     order: 135
