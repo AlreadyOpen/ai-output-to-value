@@ -48,6 +48,54 @@ test("unknown evidence remains insufficient", () => {
   assert.equal(evaluateClaim(value, gates).status, "INSUFFICIENT_EVIDENCE");
 });
 
+test("not-applicable required evidence remains insufficient and is preserved", () => {
+  const value = record();
+  value.gateChecks["acceptance-criteria-met"] = "not-applicable";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
+  assert.equal(result.unknownChecks[0].state, "not-applicable");
+});
+
+test("missing decision-record text is insufficient rather than blocked", () => {
+  const value = record();
+  value.authority = "";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
+  assert.deepEqual(result.missingFields, ["authority"]);
+});
+
+test("missing actors is insufficient rather than silently inferred", () => {
+  const value = record();
+  value.actors = [];
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
+  assert.ok(result.missingFields.includes("actors"));
+});
+
+test("asserted claim mismatch is insufficient", () => {
+  const value = record();
+  value.assertedClaimLevel = "02-output";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
+  assert.equal(result.claimMismatch, true);
+});
+
+test("required claim mapping mismatch is structurally blocked", () => {
+  const value = record();
+  value.requiredClaimLevel = "02-output";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  assert.ok(result.structuralErrors.length > 0);
+});
+
+test("unsupported schema version is structurally blocked", () => {
+  const value = record();
+  value.schemaVersion = "2.0";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  assert.ok(result.structuralErrors.some((message) => message.includes("schemaVersion")));
+});
+
 test("actor identity does not change the gate", () => {
   const ai = record();
   const human = record();
