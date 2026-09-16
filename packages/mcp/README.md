@@ -6,7 +6,7 @@ This package is the practical agent interface for IDE, desktop and terminal work
 
 ## Status
 
-Early package source inside the main repository. It is **not yet published to npm**.
+Early package source inside the main repository. It is **not yet published to npm**. No public package licence has been selected yet; `package.json` is therefore marked `UNLICENSED` until the project makes an explicit release/licensing decision.
 
 ## Transport
 
