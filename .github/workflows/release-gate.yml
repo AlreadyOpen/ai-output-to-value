@@ -20,24 +20,55 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Install check dependencies
         run: python -m pip install -r requirements-dev.txt
+
+      - name: Install web UI dependencies
+        working-directory: web
+        run: npm install --no-audit --no-fund
+
+      - name: Sync pdfcn components
+        working-directory: web
+        run: npm run pdfcn:sync
 
       - name: Run regression tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
-      - name: Build working preview for repository validation
-        run: python scripts/build_site.py
+      - name: Validate reusable claim gate Action end to end
+        uses: ./
+        with:
+          claim: toolkit/claim.example.json
+
+      - name: Test native MCP package
+        working-directory: packages/mcp
+        run: |
+          npm install --no-audit --no-fund
+          npm test
+
+      - name: Type-check React UI and PDF templates
+        working-directory: web
+        run: npm run typecheck
+
+      - name: Build working preview using the deployable pipeline
+        run: python scripts/build_with_ui.py
 
       - name: Validate repository evidence structure and links
         run: python scripts/check_publication.py
 
-      - name: Build reviewed release candidate
+      - name: Validate preview artifact interaction and links
+        run: python scripts/check_site_links.py
+
+      - name: Build reviewed release candidate using the deployable pipeline
         env:
           PUBLICATION_MODE: release
-        run: python scripts/build_site.py
+        run: python scripts/build_with_ui.py
 
-      - name: Validate release artifact links
+      - name: Validate release artifact interaction and links
         run: python scripts/check_site_links.py
 
       - name: Enforce release approval policy and artifact scope
