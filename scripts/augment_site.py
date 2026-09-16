@@ -42,7 +42,7 @@ FRAMEWORK = {
         {"level": "01-access", "name": "Access", "meaning": "We have a model, API, subscription, agent, or tool.", "doesNotProve": "effective use"},
         {"level": "02-output", "name": "Output", "meaning": "The system produced an artefact or performed an action.", "doesNotProve": "correctness or client fit"},
         {"level": "03-deliverable", "name": "Deliverable", "meaning": "The result is fit for a defined intended use.", "doesNotProve": "repeatability"},
-        {"level": "04-capability", "name": "Capability", "meaning": "The organisation can verify, operate, support, maintain, and improve it.", "doesNotProve": "a valuable outcome"},
+        {"level": "04-capability", "name": "Operating capability", "meaning": "The organisation can verify, operate, support, maintain, and improve it.", "doesNotProve": "a valuable outcome"},
         {"level": "05-outcome", "name": "Outcome", "meaning": "Something meaningful changed, including learning or uncertainty removed where that is the purpose.", "doesNotProve": "that the gain exceeds full cost"},
         {"level": "06-value", "name": "Value", "meaning": "The outcome is worth the full cost, risk, alternatives, and trade-offs.", "doesNotProve": "that every task needs this claim"}
     ],
@@ -133,12 +133,13 @@ def publish_toolkit() -> None:
 
     tools_out = SITE / "tools"
     tools_out.mkdir(parents=True, exist_ok=True)
-    for name in ("claim-gate.html", "claim-gate.js"):
-        shutil.copy2(ROOT / "tools" / name, tools_out / name)
+    # The maintained Claim Gate interaction is the React/Base UI bundle. Only
+    # the readable no-JavaScript HTML shell belongs in this toolkit stage.
+    shutil.copy2(ROOT / "tools" / "claim-gate.html", tools_out / "claim-gate.html")
 
 
 def inject_workflow_homepage(text: str) -> str:
-    """Surface workflow and operational management language on the landing page."""
+    """Surface workflow and operational management language on legacy/full landing pages."""
     text = text.replace(
         '<a href="#whole-job">The whole job</a>',
         '<a href="#whole-job">Workflow / whole job</a>',
@@ -151,7 +152,7 @@ def inject_workflow_homepage(text: str) -> str:
     new_intro = '''          <p class="eyebrow">Workflow, not isolated task</p>
           <h2>Improve the end-to-end result, not only local production.</h2>
           <p>A September 2026 <em>Harvard Business Review</em> process-management article recommends treating the <strong>workflow rather than the individual task</strong> as the object of AI redesign. Its coding-agent example is especially relevant: more code can be produced while the constraint moves into review, integration testing, security review, or deployment.</p>
-          <p><strong>Workflow is not a seventh claim.</strong> It is the end-to-end process boundary across which Output must become Deliverable, repeatable Capability, Outcome, and Value.</p>
+          <p><strong>Workflow is not a seventh claim.</strong> It is the end-to-end process boundary across which Output must become Deliverable, repeatable Operating capability, Outcome, and Value.</p>
           <p>The same discipline applies to familiar management language. <strong>Teamwork, KPI, productivity, leadership, and alignment are not evidence by themselves.</strong> Define the participants/process, metric, denominator and quality boundary, authority, or claimed outcome before using the term to justify a decision.</p>
           <p>The labour-hour example alongside this section therefore measures the complete illustrated workflow, not just drafting. Waiting, handoffs, and parallel work can still change calendar duration without changing summed labour hours.</p>
           <p><a href="articles/workflow-not-task.html">Read: Workflow is the unit — where AI output becomes business delivery →</a></p>'''
