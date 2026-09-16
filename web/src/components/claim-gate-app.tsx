@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
-type CheckState = "unknown" | "pass" | "fail"
+type CheckState = "unknown" | "pass" | "fail" | "not-applicable"
 type GateCheck = { id: string; label: string }
 type ClaimLevel = "01-access" | "02-output" | "03-deliverable" | "04-capability" | "05-outcome" | "06-value"
 type GateRule = {
@@ -18,6 +18,16 @@ type GateRule = {
   requiredChecks: GateCheck[]
 }
 type GateRules = { decisions: Record<string, GateRule> }
+type SoftwareOutcomeTemplate = {
+  targetDecision?: string
+  requiredClaimLevel?: ClaimLevel
+  recommendedRecordFields?: {
+    outcomeMeasure?: string
+    baseline?: string
+    fullRelevantCostBoundary?: string
+    nextEvidence?: string
+  }
+}
 
 type FormState = {
   project: string
@@ -47,13 +57,14 @@ const claimLabels: Record<ClaimLevel, string> = {
   "01-access": "01 Access",
   "02-output": "02 Output",
   "03-deliverable": "03 Deliverable",
-  "04-capability": "04 Capability",
+  "04-capability": "04 Operating capability",
   "05-outcome": "05 Outcome",
   "06-value": "06 Value",
 }
 
 const claimOptions = Object.entries(claimLabels).map(([value, label]) => ({ value: value as ClaimLevel, label }))
 const actorOptions = [
+  { value: "unselected", label: "Select actor" },
   { value: "human", label: "Human" },
   { value: "ai-agent", label: "AI agent" },
   { value: "deterministic-system", label: "Deterministic system" },
@@ -61,6 +72,7 @@ const actorOptions = [
   { value: "hybrid", label: "Hybrid" },
 ]
 const channelOptions = [
+  { value: "unselected", label: "Select channel" },
   { value: "human-ui", label: "Human UI" },
   { value: "webmcp", label: "WebMCP" },
   { value: "mcp", label: "MCP" },
@@ -75,6 +87,7 @@ const checkOptions = [
   { value: "unknown", label: "Unknown / not evidenced" },
   { value: "pass", label: "Pass" },
   { value: "fail", label: "Fail" },
+  { value: "not-applicable", label: "Not applicable / evidence still required" },
 ]
 const samples = [
   {
@@ -120,7 +133,7 @@ function isClaimLevel(value: unknown): value is ClaimLevel {
 }
 
 function isCheckState(value: unknown): value is CheckState {
-  return value === "unknown" || value === "pass" || value === "fail"
+  return value === "unknown" || value === "pass" || value === "fail" || value === "not-applicable"
 }
 
 function optionOrFallback(options: { value: string }[], value: unknown, fallback: string) {
@@ -129,6 +142,22 @@ function optionOrFallback(options: { value: string }[], value: unknown, fallback
 
 function optionLabel(options: { value: string; label: string }[], value: string) {
   return options.find((option) => option.value === value)?.label ?? value
+}
+
+async function copyText(text: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+  const textarea = document.createElement("textarea")
+  textarea.value = text
+  textarea.setAttribute("readonly", "")
+  textarea.style.position = "fixed"
+  textarea.style.opacity = "0"
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand("copy")
+  textarea.remove()
 }
 
 function NativeFieldSelect({
@@ -185,8 +214,8 @@ function blankState(): FormState {
     downstreamHandoffs: "",
     movedBottleneck: "",
     unhappyPath: "",
-    actor: "hybrid",
-    channel: "human-ui",
+    actor: "unselected",
+    channel: "unselected",
     authority: "",
     accountability: "",
     evidence: "",
@@ -231,10 +260,15 @@ export function ClaimGateApp() {
     if (!gates) throw new Error("Gate rules have not loaded yet.")
     const item = objectValue(input)
     if (!item) throw new Error("Claim record must be a JSON object.")
+    if (item.schemaVersion !== "1.0") throw new Error("claim.json schemaVersion must be 1.0.")
 
     const decision = textValue(item.targetDecision)
     const nextRule = gates.decisions[decision]
     if (!nextRule) throw new Error(`Unknown targetDecision: ${decision || "(missing)"}`)
+    if (item.requiredClaimLevel !== nextRule.requiredClaimLevel) {
+      throw new Error(`requiredClaimLevel must be ${nextRule.requiredClaimLevel} for targetDecision ${decision}.`)
+    }
+    if (!isClaimLevel(item.assertedClaimLevel)) throw new Error("assertedClaimLevel is missing or invalid.")
 
     const firstActor = Array.isArray(item.actors) ? objectValue(item.actors[0]) : null
     const rawChecks = objectValue(item.gateChecks) ?? {}
@@ -248,15 +282,15 @@ export function ClaimGateApp() {
     setState({
       project: textValue(item.project),
       decision,
-      assertedClaim: isClaimLevel(item.assertedClaimLevel) ? item.assertedClaimLevel : nextRule.requiredClaimLevel,
+      assertedClaim: item.assertedClaimLevel,
       intendedUse: textValue(item.intendedUse),
       workflowBoundary: textValue(item.workflowBoundary),
       workflowCompletion: textValue(item.workflowCompletion),
       downstreamHandoffs: listValue(item.downstreamHandoffs).join("\n"),
       movedBottleneck: textValue(item.movedBottleneck),
       unhappyPath: textValue(item.unhappyPath),
-      actor: optionOrFallback(actorOptions, firstActor?.type, "hybrid"),
-      channel: optionOrFallback(channelOptions, firstActor?.interactionChannel, "hybrid"),
+      actor: optionOrFallback(actorOptions, firstActor?.type, "unselected"),
+      channel: optionOrFallback(channelOptions, firstActor?.interactionChannel, "unselected"),
       authority: textValue(item.authority),
       accountability: textValue(item.accountability),
       evidence: listValue(item.evidenceRefs).join("\n"),
@@ -273,16 +307,29 @@ export function ClaimGateApp() {
 
   React.useEffect(() => {
     if (!gates) return
+    const host = document.getElementById("claim-gate-root")
+    if (host) host.dataset.claimGateReady = "true"
+
     const handleAgentLoad = (event: Event) => {
+      const detail = (event as CustomEvent<{ claim?: unknown; requestId?: string }>).detail
       try {
-        const detail = (event as CustomEvent<{ claim?: unknown }>).detail
         applyClaimRecord(detail?.claim ?? detail, "Agent-prepared claim record")
+        window.dispatchEvent(new CustomEvent("aiov:claim-record-loaded", {
+          detail: { requestId: detail?.requestId ?? null, accepted: true },
+        }))
       } catch (error) {
-        setHandoffMessage(`Could not load agent record: ${error instanceof Error ? error.message : String(error)}`)
+        const message = error instanceof Error ? error.message : String(error)
+        setHandoffMessage(`Could not load agent record: ${message}`)
+        window.dispatchEvent(new CustomEvent("aiov:claim-record-loaded", {
+          detail: { requestId: detail?.requestId ?? null, accepted: false, error: message },
+        }))
       }
     }
     window.addEventListener("aiov:load-claim-record", handleAgentLoad)
-    return () => window.removeEventListener("aiov:load-claim-record", handleAgentLoad)
+    return () => {
+      if (host) delete host.dataset.claimGateReady
+      window.removeEventListener("aiov:load-claim-record", handleAgentLoad)
+    }
   }, [gates])
 
   const rule = gates && state.decision ? gates.decisions[state.decision] : null
@@ -315,33 +362,40 @@ export function ClaimGateApp() {
     }
   }
 
-  function loadSoftwareOutcomePack() {
+  async function loadSoftwareOutcomePack() {
     if (!gates) return
-    const decision = "measure-outcome"
-    const next = gates.decisions[decision]
-    setState((previous) => ({
-      ...previous,
-      decision,
-      assertedClaim: next.requiredClaimLevel,
-      actor: "hybrid",
-      outcomeMeasure: [
-        "DORA throughput: change lead time; deployment frequency; failed deployment recovery time.",
-        "DORA instability: change fail rate; deployment rework rate.",
-        "AI-specific leading indicators when relevant: share of AI-touched changes; review wait time for AI-touched changes; revert/rollback rate for AI-touched changes.",
-      ].join("\n"),
-      baseline: "Use a comparable pre-intervention period for the same application/service and keep metric definitions consistent before and after.",
-      fullRelevantCostBoundary: "Include relevant model/tool licence or inference cost, review/correction, CI/test infrastructure, deployment/operations, support, and material incident/rework cost.",
-      nextEvidence: "Measure the same software-delivery metrics after the agreed observation window and name material confounds such as staffing, release policy, architecture, workload mix, or major platform changes.",
-      evidence: previous.evidence || "Internal delivery telemetry for the selected application/service\nChange/PR/deployment records for AI-touched changes where relevant",
-      checks: checksFor(decision),
-    }))
-    setHandoffMessage("Software Outcome pack loaded as a measurement plan. No required check was marked PASS automatically.")
+    try {
+      const response = await fetch("../templates/software-outcome-pack.json", { cache: "no-store" })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const payload = await response.json() as SoftwareOutcomeTemplate
+      const decision = payload.targetDecision || "measure-outcome"
+      const next = gates.decisions[decision]
+      if (!next) throw new Error(`Template targetDecision is not recognised: ${decision}`)
+      if (payload.requiredClaimLevel && payload.requiredClaimLevel !== next.requiredClaimLevel) {
+        throw new Error("Software Outcome template requiredClaimLevel does not match the published gate.")
+      }
+      const fields = payload.recommendedRecordFields ?? {}
+      setState((previous) => ({
+        ...previous,
+        decision,
+        assertedClaim: next.requiredClaimLevel,
+        outcomeMeasure: textValue(fields.outcomeMeasure),
+        baseline: textValue(fields.baseline),
+        fullRelevantCostBoundary: textValue(fields.fullRelevantCostBoundary),
+        nextEvidence: textValue(fields.nextEvidence),
+        checks: checksFor(decision),
+      }))
+      setHandoffMessage("Canonical software Outcome pack loaded as a measurement plan. No actor was inferred and no required check was marked PASS automatically.")
+    } catch (error) {
+      setHandoffMessage(`Could not load software Outcome pack: ${error instanceof Error ? error.message : String(error)}`)
+    }
   }
 
   function metadataGaps() {
     const gaps: string[] = []
     if (!state.project.trim()) gaps.push("Project / initiative is not named.")
     if (!state.intendedUse.trim()) gaps.push("Intended use is not defined.")
+    if (state.actor === "unselected") gaps.push("Primary actor is not recorded.")
     if (!state.authority.trim()) gaps.push("Authority boundary is not recorded.")
     if (!state.accountability.trim()) gaps.push("Accountability / recourse is not recorded.")
     if (!state.nextEvidence.trim()) gaps.push("Next evidence is not recorded.")
@@ -350,7 +404,10 @@ export function ClaimGateApp() {
   }
 
   const failed = rule?.requiredChecks.filter((check) => state.checks[check.id] === "fail") ?? []
-  const unknown = rule?.requiredChecks.filter((check) => (state.checks[check.id] ?? "unknown") === "unknown") ?? []
+  const unknown = rule?.requiredChecks.filter((check) => {
+    const value = state.checks[check.id] ?? "unknown"
+    return value !== "pass" && value !== "fail"
+  }) ?? []
   const gaps = metadataGaps()
   const claimMismatch = Boolean(rule && state.assertedClaim !== rule.requiredClaimLevel)
   const status = loadError
@@ -363,13 +420,19 @@ export function ClaimGateApp() {
 
   const isUntouched = !state.project.trim()
     && !state.intendedUse.trim()
+    && state.actor === "unselected"
     && !state.authority.trim()
     && !state.accountability.trim()
     && Object.values(state.checks).every((value) => value === "unknown")
 
   const reasons = [
     ...failed.map((check) => `Failed: ${check.label}`),
-    ...unknown.map((check) => `Missing/unknown evidence: ${check.label}`),
+    ...unknown.map((check) => {
+      const value = state.checks[check.id] ?? "unknown"
+      return value === "not-applicable"
+        ? `Required evidence marked not applicable: ${check.label}`
+        : `Missing/unknown evidence: ${check.label}`
+    }),
     ...gaps,
     ...(claimMismatch && rule
       ? [`The asserted claim (${claimLabels[state.assertedClaim]}) does not match the claim required by this target decision (${claimLabels[rule.requiredClaimLevel]}).`]
@@ -379,6 +442,13 @@ export function ClaimGateApp() {
 
   function record() {
     if (!rule) return null
+    const actors = state.actor === "unselected"
+      ? []
+      : [{
+          type: state.actor,
+          role: "Primary actor for the assessed workflow",
+          ...(state.channel === "unselected" ? {} : { interactionChannel: state.channel }),
+        }]
     return {
       $schema: new URL("../schemas/v1/claim.schema.json", window.location.href).href,
       schemaVersion: "1.0",
@@ -392,7 +462,7 @@ export function ClaimGateApp() {
       downstreamHandoffs: lines(state.downstreamHandoffs),
       movedBottleneck: state.movedBottleneck.trim(),
       unhappyPath: state.unhappyPath.trim(),
-      actors: [{ type: state.actor, role: "Primary actor for the assessed workflow", interactionChannel: state.channel }],
+      actors,
       authority: state.authority.trim(),
       accountability: state.accountability.trim(),
       evidenceRefs: lines(state.evidence),
@@ -416,14 +486,23 @@ export function ClaimGateApp() {
   }
 
   async function copyMarkdown() {
-    await navigator.clipboard.writeText(markdownSummary())
+    try {
+      await copyText(markdownSummary())
+      setHandoffMessage("Decision record Markdown copied.")
+    } catch (error) {
+      setHandoffMessage(`Could not copy Markdown: ${error instanceof Error ? error.message : String(error)}`)
+    }
   }
 
   async function copyJson() {
     const item = record()
     if (!item) return
-    await navigator.clipboard.writeText(JSON.stringify(item, null, 2))
-    setHandoffMessage("Current claim.json copied. It can be passed to an AI/MCP client or another person without changing the gate semantics.")
+    try {
+      await copyText(JSON.stringify(item, null, 2))
+      setHandoffMessage("Current claim.json copied. It can be passed to an AI/MCP client or another person without changing the gate semantics.")
+    } catch (error) {
+      setHandoffMessage(`Could not copy claim.json: ${error instanceof Error ? error.message : String(error)}`)
+    }
   }
 
   async function importJsonFile(event: React.ChangeEvent<HTMLInputElement>) {
@@ -446,7 +525,9 @@ export function ClaimGateApp() {
     const link = document.createElement("a")
     link.href = href
     link.download = `${item.project || "claim"}.claim.json`
+    document.body.appendChild(link)
     link.click()
+    link.remove()
     window.setTimeout(() => URL.revokeObjectURL(href), 1000)
   }
 
@@ -609,7 +690,7 @@ export function ClaimGateApp() {
         <div className="rounded-lg border border-border bg-card p-4">
           <Badge variant="outline">Hybrid</Badge>
           <h2 className="mt-3 font-semibold">Hand off the same claim.json</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Import an agent-prepared record, or let a compatible browser agent load it into this local form. A person can then inspect and edit it.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Import an agent-prepared record, or let a compatible browser agent request a local form handoff. The visible form remains the confirmation surface.</p>
         </div>
       </div>
 
@@ -617,7 +698,7 @@ export function ClaimGateApp() {
         <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={(event) => void importJsonFile(event)} />
         <Button size="sm" variant="outline" onClick={() => importRef.current?.click()}>Import claim.json</Button>
         <Button size="sm" variant="outline" onClick={() => void copyJson()} disabled={!rule}>Copy claim.json</Button>
-        <Button size="sm" variant="secondary" onClick={loadSoftwareOutcomePack} disabled={!gates}>Load software Outcome pack</Button>
+        <Button size="sm" variant="secondary" onClick={() => void loadSoftwareOutcomePack()} disabled={!gates}>Load software Outcome pack</Button>
         {handoffMessage ? <span className="text-sm text-muted-foreground" aria-live="polite">{handoffMessage}</span> : null}
       </div>
 
