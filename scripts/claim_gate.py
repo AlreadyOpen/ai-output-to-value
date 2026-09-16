@@ -13,20 +13,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 GATES_PATH = ROOT / "schemas" / "v1" / "decision-gates.json"
 
-REQUIRED_FIELDS = {
-    "schemaVersion",
+REQUIRED_TEXT_FIELDS = (
     "project",
-    "targetDecision",
-    "requiredClaimLevel",
-    "assertedClaimLevel",
     "intendedUse",
-    "actors",
     "authority",
     "accountability",
-    "gateChecks",
     "nextEvidence",
     "stopRule",
-}
+)
 
 
 def load_json(path: Path) -> dict:
@@ -37,40 +31,48 @@ def load_json(path: Path) -> dict:
 
 
 def evaluate(record: dict, gates: dict) -> dict:
-    errors: list[str] = []
-    missing = sorted(field for field in REQUIRED_FIELDS if field not in record)
-    if missing:
-        errors.append("missing required field(s): " + ", ".join(missing))
+    decision_id = record.get("targetDecision")
+    decisions = gates.get("decisions", {})
+    rule = decisions.get(decision_id)
+
+    structural_errors: list[str] = []
+    missing_fields: list[str] = []
 
     if record.get("schemaVersion") != "1.0":
-        errors.append("schemaVersion must be '1.0'")
+        structural_errors.append("schemaVersion must be '1.0'")
 
-    decisions = gates.get("decisions", {})
-    decision_id = record.get("targetDecision")
-    rule = decisions.get(decision_id)
     if not isinstance(rule, dict):
-        errors.append(f"unknown targetDecision: {decision_id!r}")
+        structural_errors.append(f"unknown targetDecision: {decision_id!r}")
         return {
             "status": "BLOCKED",
             "targetDecision": decision_id,
-            "errors": errors,
+            "errors": structural_errors,
+            "structuralErrors": structural_errors,
+            "missingFields": missing_fields,
+            "claimMismatch": False,
             "failedChecks": [],
             "unknownChecks": [],
+            "passedChecks": [],
         }
 
     expected_claim = rule.get("requiredClaimLevel")
     if record.get("requiredClaimLevel") != expected_claim:
-        errors.append(
+        structural_errors.append(
             f"requiredClaimLevel must be {expected_claim!r} for targetDecision {decision_id!r}"
         )
 
+    for field in REQUIRED_TEXT_FIELDS:
+        if not str(record.get(field, "")).strip():
+            missing_fields.append(field)
+
     actors = record.get("actors")
     if not isinstance(actors, list) or not actors:
-        errors.append("actors must contain at least one actor record")
+        missing_fields.append("actors")
+
+    claim_mismatch = record.get("assertedClaimLevel") != expected_claim
 
     checks = record.get("gateChecks")
     if not isinstance(checks, dict):
-        errors.append("gateChecks must be an object")
         checks = {}
 
     failed: list[dict] = []
@@ -85,11 +87,13 @@ def evaluate(record: dict, gates: dict) -> dict:
         elif value == "pass":
             passed.append(item)
         else:
+            # "unknown" and "not-applicable" both mean the evidence needed
+            # for this required gate check has not been established.
             unknown.append(item)
 
-    if errors or failed:
+    if structural_errors or failed:
         status = "BLOCKED"
-    elif unknown:
+    elif unknown or missing_fields or claim_mismatch:
         status = "INSUFFICIENT_EVIDENCE"
     else:
         status = "PASS"
@@ -100,7 +104,10 @@ def evaluate(record: dict, gates: dict) -> dict:
         "decisionLabel": rule.get("label"),
         "requiredClaimLevel": expected_claim,
         "assertedClaimLevel": record.get("assertedClaimLevel"),
-        "errors": errors,
+        "errors": structural_errors,
+        "structuralErrors": structural_errors,
+        "missingFields": missing_fields,
+        "claimMismatch": claim_mismatch,
         "failedChecks": failed,
         "unknownChecks": unknown,
         "passedChecks": passed,
@@ -127,8 +134,12 @@ def main() -> int:
     else:
         print(f"{result['status']}: {result.get('decisionLabel') or result.get('targetDecision')}")
         print(f"Required claim: {result.get('requiredClaimLevel')}")
-        for error in result.get("errors", []):
+        for error in result.get("structuralErrors", []):
             print(f"ERROR: {error}")
+        for field in result.get("missingFields", []):
+            print(f"MISSING: {field}")
+        if result.get("claimMismatch"):
+            print("MISMATCH: assertedClaimLevel does not match the claim required by targetDecision")
         for check in result.get("failedChecks", []):
             print(f"FAIL: {check['label']}")
         for check in result.get("unknownChecks", []):
