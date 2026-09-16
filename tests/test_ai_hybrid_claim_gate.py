@@ -17,12 +17,24 @@ class AiHybridClaimGateTests(unittest.TestCase):
     def test_claim_gate_accepts_agent_and_file_handoffs(self):
         source = (ROOT / "web" / "src" / "components" / "claim-gate-app.tsx").read_text(encoding="utf-8")
         self.assertIn('window.addEventListener("aiov:load-claim-record"', source)
+        self.assertIn('new CustomEvent("aiov:claim-record-loaded"', source)
+        self.assertIn('host.dataset.claimGateReady = "true"', source)
         self.assertIn("Import claim.json", source)
         self.assertIn("Copy claim.json", source)
         self.assertIn("Agent-prepared claim record", source)
         self.assertIn("Load software Outcome pack", source)
         self.assertIn("website-explore-pass.claim.json", source)
         self.assertIn("website-operate-blocked.claim.json", source)
+
+    def test_claim_gate_does_not_hide_actor_or_evidence_defaults(self):
+        source = (ROOT / "web" / "src" / "components" / "claim-gate-app.tsx").read_text(encoding="utf-8")
+        self.assertIn('actor: "unselected"', source)
+        self.assertIn('channel: "unselected"', source)
+        self.assertIn('value: "not-applicable"', source)
+        self.assertIn('value !== "pass" && value !== "fail"', source)
+        self.assertNotIn('actor: "hybrid",\n      outcomeMeasure:', source)
+        self.assertIn('fetch("../templates/software-outcome-pack.json"', source)
+        self.assertIn("No actor was inferred", source)
 
     def test_claim_gate_handoff_does_not_claim_server_mutation_or_unconfirmed_success(self):
         source = (ROOT / "webmcp.js").read_text(encoding="utf-8")
