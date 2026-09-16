@@ -150,7 +150,7 @@ function buildServer() {
     "search_failure_modes",
     {
       title: "Search software and architecture failure modes",
-      description: "Search the working failure-mode catalogue for patterns that can invalidate Deliverable or Capability claims. The catalogue is editorial operational synthesis, not a prevalence ranking.",
+      description: "Search the working failure-mode catalogue for patterns that can invalidate Deliverable or Operating capability claims. The catalogue is editorial operational synthesis, not a prevalence ranking, and may be excluded from reviewed release artifacts.",
       inputSchema: z.object({
         query: z.string().min(2).max(200),
         limit: z.number().int().min(1).max(20).default(8)
@@ -167,6 +167,8 @@ function buildServer() {
           publicationMode: payload.publicationMode,
           reviewState: payload.reviewState,
           character: payload.character,
+          catalogueIncluded: payload.catalogueIncluded === true,
+          catalogueUrl: payload.catalogueUrl ? new URL(payload.catalogueUrl, publicationUrl).href : null,
           query,
           failureModes
         });
