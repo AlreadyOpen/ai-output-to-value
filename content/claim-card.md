@@ -14,9 +14,11 @@ For a live version, use the [interactive claim gate](../tools/claim-gate.html). 
 | --- | --- | --- |
 | **Keep exploring?** | **02 Output** | Reproducible/inspectable output plus important assumptions and inferences made visible. |
 | **May someone rely on this for the named use?** | **03 Deliverable** | Intended use, acceptance criteria, evidence they were met, relevant failure/fallback checks, and stated limitations. |
-| **May we sell, operate, support, or staff this repeatedly?** | **04 Capability** | Deliverable gate plus ownership, assurance, fallback/recovery, support/maintenance, and relevant operating-cost boundary. |
+| **May we sell, operate, support, or staff this repeatedly?** | **04 Operating capability** | Deliverable gate plus ownership, assurance, fallback/recovery, support/maintenance, and relevant operating-cost boundary. |
 | **Did the initiative change the result we care about?** | **05 Outcome** | Defined outcome measure, comparable baseline, after measurement, consistent definitions, and material confounds named. |
 | **Should we scale, renew, expand, or stop?** | **06 Value** | Outcome evidence plus full relevant cost, risk/trade-offs, alternatives, and an explicit value decision rule. |
+
+The stable machine identifier for **04 Operating capability** remains `04-capability`.
 
 These are defaults, not laws. Consequence, regulation, contract, reversibility, and uncertainty can raise or lower the assurance needed.
 
@@ -25,8 +27,8 @@ These are defaults, not laws. Consequence, regulation, contract, reversibility, 
 The decision gate has three states:
 
 - **PASS** — every check required for this target decision is evidenced as passed.
-- **BLOCKED** — at least one decision-critical check explicitly failed.
-- **INSUFFICIENT EVIDENCE** — no required check is recorded as failed, but one or more required checks or decision-record fields are missing or unknown.
+- **BLOCKED** — at least one decision-critical check explicitly failed, or the record is structurally incompatible with the selected gate.
+- **INSUFFICIENT EVIDENCE** — no required check is recorded as failed, but one or more required checks or decision-record fields are missing or unknown, or the asserted claim does not match the decision.
 
 A project with excellent **Access** and **Output** but no evidence of **Deliverable** is not "one-third complete". A failed or unknown decision-critical claim cannot be cancelled out by strength somewhere else.
 
@@ -79,7 +81,7 @@ Confidentiality does not require pretending evidence does not exist. It requires
 
 **Decision sought:** explore / rely / operate / measure outcome / scale-renew-stop
 
-**Required claim:** 02 Output / 03 Deliverable / 04 Capability / 05 Outcome / 06 Value
+**Required claim:** 02 Output / 03 Deliverable / 04 Operating capability / 05 Outcome / 06 Value
 
 **Claim being asserted:**
 
@@ -184,7 +186,7 @@ The interface can differ while the decision standard stays the same:
 - can the result and failures be inspected?
 - does the workflow improve the outcome at an acceptable cost and risk?
 
-WebMCP is an **interaction channel**, not proof of Deliverable, Capability, Outcome, or Value.
+WebMCP is an **interaction channel**, not proof of Deliverable, Operating capability, Outcome, or Value.
 
 See [`representation-is-a-channel.md`](representation-is-a-channel.md) for the wider human/agent/hybrid channel model.
 
@@ -198,7 +200,7 @@ A prototype can be valuable because it answers a question cheaply:
 - an integration is easier or harder than expected;
 - a team can stop a bad idea before a larger commitment.
 
-That is not a failure to reach **Capability** or **Value**. It can be a legitimate **Outcome** if the learning changes a real decision.
+That is not a failure to reach **Operating capability** or **Value**. It can be a legitimate **Outcome** if the learning changes a real decision.
 
 Measure it explicitly: decision made, uncertainty removed, time to decision, cost of the test, or larger spend avoided.
 
