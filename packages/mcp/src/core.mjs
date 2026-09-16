@@ -7,25 +7,46 @@ export async function fetchJson(baseUrl, path) {
   return response.json();
 }
 
+const REQUIRED_TEXT_FIELDS = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
+
 export function evaluateClaim(record, gates) {
   const decisionId = record?.targetDecision;
   const rule = gates?.decisions?.[decisionId];
+  const structuralErrors = [];
+  const missingFields = [];
+
+  if (record?.schemaVersion !== "1.0") {
+    structuralErrors.push("schemaVersion must be '1.0'");
+  }
+
   if (!rule) {
+    structuralErrors.push(`Unknown targetDecision: ${String(decisionId)}`);
     return {
       status: "BLOCKED",
       targetDecision: decisionId ?? null,
-      errors: [`Unknown targetDecision: ${String(decisionId)}`],
+      errors: structuralErrors,
+      structuralErrors,
+      missingFields,
+      claimMismatch: false,
       failedChecks: [],
-      unknownChecks: []
+      unknownChecks: [],
+      passedChecks: []
     };
   }
 
-  const errors = [];
   if (record?.requiredClaimLevel !== rule.requiredClaimLevel) {
-    errors.push(`requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`);
+    structuralErrors.push(`requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`);
   }
 
-  const checks = record?.gateChecks && typeof record.gateChecks === "object" ? record.gateChecks : {};
+  for (const field of REQUIRED_TEXT_FIELDS) {
+    if (!String(record?.[field] ?? "").trim()) missingFields.push(field);
+  }
+  if (!Array.isArray(record?.actors) || record.actors.length === 0) missingFields.push("actors");
+
+  const claimMismatch = record?.assertedClaimLevel !== rule.requiredClaimLevel;
+  const checks = record?.gateChecks && typeof record.gateChecks === "object" && !Array.isArray(record.gateChecks)
+    ? record.gateChecks
+    : {};
   const failedChecks = [];
   const unknownChecks = [];
   const passedChecks = [];
@@ -38,15 +59,9 @@ export function evaluateClaim(record, gates) {
     else unknownChecks.push(result);
   }
 
-  const requiredTextFields = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
-  for (const field of requiredTextFields) {
-    if (!String(record?.[field] ?? "").trim()) errors.push(`Missing required decision-record field: ${field}`);
-  }
-  if (!Array.isArray(record?.actors) || record.actors.length === 0) errors.push("actors must contain at least one actor record");
-
   let status = "PASS";
-  if (failedChecks.length || errors.length) status = "BLOCKED";
-  else if (unknownChecks.length) status = "INSUFFICIENT_EVIDENCE";
+  if (structuralErrors.length || failedChecks.length) status = "BLOCKED";
+  else if (unknownChecks.length || missingFields.length || claimMismatch) status = "INSUFFICIENT_EVIDENCE";
 
   return {
     status,
@@ -54,7 +69,10 @@ export function evaluateClaim(record, gates) {
     decisionLabel: rule.label,
     requiredClaimLevel: rule.requiredClaimLevel,
     assertedClaimLevel: record?.assertedClaimLevel ?? null,
-    errors,
+    errors: structuralErrors,
+    structuralErrors,
+    missingFields,
+    claimMismatch,
     failedChecks,
     unknownChecks,
     passedChecks,
