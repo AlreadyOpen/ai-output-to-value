@@ -21,12 +21,15 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn('SITE / "tools" / "claim-gate.js"', source)
         self.assertIn("path.unlink()", source)
 
-    def test_webmcp_does_not_claim_unconfirmed_local_handoff(self):
+    def test_webmcp_claim_gate_handoff_is_acknowledged_not_assumed(self):
         source = (ROOT / "webmcp.js").read_text(encoding="utf-8")
         self.assertNotIn("loaded: true", source)
+        self.assertIn("requestClaimGateHandoff", source)
+        self.assertIn('window.addEventListener("aiov:claim-record-loaded"', source)
         self.assertIn("handoffRequested: true", source)
         self.assertIn("applicationConfirmed: false", source)
-        self.assertIn("cannot yet independently confirm", source)
+        self.assertIn("applicationConfirmed: true", source)
+        self.assertIn("did not acknowledge the handoff before the timeout", source)
 
     def test_claim_gate_preserves_schema_evidence_state(self):
         source = (ROOT / "web" / "src" / "components" / "claim-gate-app.tsx").read_text(encoding="utf-8")
