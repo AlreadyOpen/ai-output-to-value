@@ -9,7 +9,7 @@ Read these in order:
 1. [`START-HERE.md`](../START-HERE.md) — the core argument in about five minutes.
 2. [`content/frame-vs-finished-work.md`](../content/frame-vs-finished-work.md) — why a strong concept, scaffold, or prototype can be valuable without proving the whole job is finished.
 3. [`content/tool-access-vs-client-readiness.md`](../content/tool-access-vs-client-readiness.md) — tool capability, job substance, delivery capability, and the substance gap.
-4. [`content/workflow-not-task.md`](../content/workflow-not-task.md) — why the end-to-end workflow is the unit that connects local product/task acceleration to Deliverable, Capability, Outcome and Value; includes the September 2026 HBR workflow-redesign source.
+4. [`content/workflow-not-task.md`](../content/workflow-not-task.md) — why the end-to-end workflow is the unit that connects local product/task acceleration to Deliverable, Operating capability, Outcome and Value; includes the September 2026 HBR workflow-redesign source.
 5. [`content/worked-cases.md`](../content/worked-cases.md) — fictional examples showing how the framework changes an actual decision, including software measurement and option value.
 6. [`content/claim-card.md`](../content/claim-card.md) — a copyable decision card: claim threshold, evidence character, actors, measurement, next evidence and stop rule.
 
@@ -25,7 +25,7 @@ The pages in this section are **working analysis / research preview** rather tha
 
 | Decision | Read | Practical output |
 | --- | --- | --- |
-| **Where exactly does code move from Output to Deliverable and Capability?** | [`software-architecture-worked-cases.md`](../content/software-architecture-worked-cases.md) | **Claim-boundary record** — what exists, which acceptance evidence changes the claim, and what repeated operation adds. |
+| **Where exactly does code move from Output to Deliverable and Operating capability?** | [`software-architecture-worked-cases.md`](../content/software-architecture-worked-cases.md) | **Claim-boundary record** — what exists, which acceptance evidence changes the claim, and what repeated operation adds. |
 | **Which software/architecture failure mode could invalidate the next claim?** | [`software-failure-mode-catalogue.md`](../content/software-failure-mode-catalogue.md) | **Targeted verification plan** — failure mode, claim at risk, evidence pattern, fallback/recovery expectation. |
 | **Is this idea worth investigating?** | [`product-ideas-vs-product-discovery.md`](../content/product-ideas-vs-product-discovery.md) | **Opportunity hypothesis** — user, problem, evidence, current workaround, desired outcome, unknowns, cheapest next test. |
 | **Why should this AI capability be part of the product?** | [`model-capability-vs-product-strategy.md`](../content/model-capability-vs-product-strategy.md) | **Technology-choice comparison** — customer problem, required capability, evidence, alternatives, constraints, delivery model and economics. |
