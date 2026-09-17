@@ -43,8 +43,44 @@ def valid_review_record(record) -> bool:
     return isinstance(versions, list) and bool(versions) and all(nonempty_string(value) for value in versions)
 
 
+def published_files(claim: dict) -> set[str]:
+    files: set[str] = set()
+    publications = claim.get("published_in")
+    if not isinstance(publications, list):
+        return files
+    for publication in publications:
+        if isinstance(publication, dict) and nonempty_string(publication.get("file")):
+            files.add(publication["file"])
+    return files
+
+
 def main() -> int:
     errors: list[str] = []
+
+    manifest = load_yaml(ROOT / "data" / "articles.yml")
+    articles = manifest.get("articles", []) if isinstance(manifest, dict) else []
+    expected_release_slugs: set[str] = set()
+    working_slugs: set[str] = set()
+    release_sources: set[str] = set()
+
+    for article in articles:
+        if not isinstance(article, dict):
+            continue
+        scope = article.get("release_scope")
+        slug = article.get("slug")
+        source = article.get("source")
+        if scope in RELEASE_SCOPES and nonempty_string(source):
+            release_sources.add(source)
+        if scope in RELEASE_SCOPES and nonempty_string(slug):
+            expected_release_slugs.add(slug)
+            if scope == "guide" and article.get("status") != "ready":
+                errors.append(f"guide article is not marked ready for publication: {article.get('id')} (status={article.get('status')})")
+            if scope == "policy" and article.get("status") not in {"active_policy", "ready"}:
+                errors.append(f"policy article is not release-ready: {article.get('id')} (status={article.get('status')})")
+        elif scope == "working" and nonempty_string(slug):
+            working_slugs.add(slug)
+        elif scope not in {"guide", "policy", "working"}:
+            errors.append(f"article has unknown release_scope: {article.get('id')} ({scope})")
 
     for _, claim in load_claim_records(ROOT):
         if not isinstance(claim, dict):
@@ -53,8 +89,17 @@ def main() -> int:
         if not isinstance(critical, bool):
             errors.append(f"claim lacks explicit Boolean launch_critical classification: {claim.get('id', '<missing id>')}")
             continue
-        if not critical:
+
+        release_published = bool(published_files(claim) & release_sources)
+        effective_critical = critical or release_published
+        if not effective_critical:
             continue
+
+        if release_published and critical is False:
+            errors.append(
+                f"release-published claim cannot opt out with launch_critical: false: {claim.get('id', '<missing id>')}"
+            )
+
         if claim.get("independent_review_status") != "completed":
             errors.append(f"launch-critical claim has not completed independent review: {claim.get('id', '<missing id>')}")
         if not nonempty_string(claim.get("reviewer")) or not valid_date(claim.get("reviewed")):
@@ -68,27 +113,6 @@ def main() -> int:
                 f"launch-critical claim review disposition does not accept claim: "
                 f"{claim.get('id', '<missing id>')} ({record.get('disposition')})"
             )
-
-    manifest = load_yaml(ROOT / "data" / "articles.yml")
-    articles = manifest.get("articles", []) if isinstance(manifest, dict) else []
-    expected_release_slugs: set[str] = set()
-    working_slugs: set[str] = set()
-
-    for article in articles:
-        if not isinstance(article, dict):
-            continue
-        scope = article.get("release_scope")
-        slug = article.get("slug")
-        if scope in RELEASE_SCOPES and nonempty_string(slug):
-            expected_release_slugs.add(slug)
-            if scope == "guide" and article.get("status") != "ready":
-                errors.append(f"guide article is not marked ready for publication: {article.get('id')} (status={article.get('status')})")
-            if scope == "policy" and article.get("status") not in {"active_policy", "ready"}:
-                errors.append(f"policy article is not release-ready: {article.get('id')} (status={article.get('status')})")
-        elif scope == "working" and nonempty_string(slug):
-            working_slugs.add(slug)
-        elif scope not in {"guide", "policy", "working"}:
-            errors.append(f"article has unknown release_scope: {article.get('id')} ({scope})")
 
     article_dir = SITE / "articles"
     if article_dir.exists():
