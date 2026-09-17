@@ -102,6 +102,55 @@ For governed use, replace `@main` with a reviewed release/tag or commit SHA.
 
 The Action evaluates the supplied `claim.json`. It does **not** add extra requirements merely because code was AI-generated.
 
+By default the step fails when the gate does not return `PASS`. Set `fail-on-block: 'false'` to read the result and let the calling workflow decide — **only the exact value `false` disables failure**, so a typo such as `yes` or an empty value keeps the protective behaviour. A missing or malformed claim record always fails the step, because there is no result to report.
+
+The Action exposes the gate result as step outputs, so a caller can branch on the verdict instead of parsing stdout:
+
+```yaml
+- name: AI Output to Value decision gate
+  id: gate
+  uses: AlreadyOpen/ai-output-to-value@main
+  with:
+    claim: governance/claim.json
+    fail-on-block: 'false'
+
+- name: Require Operating capability before release
+  if: steps.gate.outputs.status != 'PASS'
+  env:
+    GATE_STATUS: ${{ steps.gate.outputs.status }}
+    GATE_DECISION: ${{ steps.gate.outputs.target-decision }}
+    GATE_REQUIRED: ${{ steps.gate.outputs.required-claim-level }}
+    GATE_FAILED: ${{ steps.gate.outputs.failed-check-count }}
+    GATE_UNKNOWN: ${{ steps.gate.outputs.unknown-check-count }}
+  run: |
+    echo "Gate returned $GATE_STATUS for $GATE_DECISION"
+    echo "Required claim: $GATE_REQUIRED"
+    echo "$GATE_FAILED failed, $GATE_UNKNOWN unknown"
+    exit 1
+```
+
+> **Read outputs through `env:`, never by interpolating `${{ }}` into a `run:` block.**
+> `target-decision` is echoed from the claim record, which in an adopter repository
+> is written by whoever opened the pull request. GitHub substitutes an expression as
+> *text* before the shell parses it, so a record containing `$(...)` in that field
+> executes on your runner. Through `env:` the same value arrives as data and is
+> printed inertly.
+
+| Output | Meaning |
+| --- | --- |
+| `status` | `PASS`, `BLOCKED` or `INSUFFICIENT_EVIDENCE` |
+| `target-decision` | Identifier of the decision evaluated |
+| `decision-label` | Human-facing label for that decision |
+| `required-claim-level` | Weakest claim level sufficient for the decision |
+| `asserted-claim-level` | Claim level asserted by the record |
+| `claim-mismatch` | `true` when the asserted level does not match the required one |
+| `failed-check-count` / `unknown-check-count` / `passed-check-count` | Check tallies |
+| `result-json` | The complete result as compact JSON |
+
+The step also writes a short verdict to the job summary.
+
+**Gate ≠ truth.** A `PASS` output reports that the *supplied record* satisfies the deterministic checks for the selected decision. It is not an audit of the underlying system, measurement, people, or evidence references.
+
 ## 8. Add the pull-request questions
 
 This repository's [pull request template](../.github/pull_request_template.md) is intentionally actor-neutral. Adapt the same sections in adopter repositories:

@@ -11,14 +11,167 @@ inputs:
     description: Path to a claim JSON file in the caller repository.
     required: true
     default: claim.json
+  fail-on-block:
+    description: >-
+      Fail the step when the gate does not return PASS. Set to 'false' to let the
+      calling workflow read the outputs and decide what to do itself. A malformed
+      or unreadable claim record always fails the step regardless of this input.
+    required: false
+    default: 'true'
+
+outputs:
+  status:
+    description: PASS, BLOCKED or INSUFFICIENT_EVIDENCE.
+    value: ${{ steps.gate.outputs.status }}
+  target-decision:
+    description: Identifier of the decision the record was evaluated against.
+    value: ${{ steps.gate.outputs.target-decision }}
+  decision-label:
+    description: Human-facing label for the target decision.
+    value: ${{ steps.gate.outputs.decision-label }}
+  required-claim-level:
+    description: Weakest claim level sufficient for the target decision.
+    value: ${{ steps.gate.outputs.required-claim-level }}
+  asserted-claim-level:
+    description: Claim level asserted by the supplied record.
+    value: ${{ steps.gate.outputs.asserted-claim-level }}
+  claim-mismatch:
+    description: 'true when assertedClaimLevel does not match the claim required by targetDecision.'
+    value: ${{ steps.gate.outputs.claim-mismatch }}
+  failed-check-count:
+    description: Number of checks that failed.
+    value: ${{ steps.gate.outputs.failed-check-count }}
+  unknown-check-count:
+    description: Number of checks that could not be determined from the record.
+    value: ${{ steps.gate.outputs.unknown-check-count }}
+  passed-check-count:
+    description: Number of checks that passed.
+    value: ${{ steps.gate.outputs.passed-check-count }}
+  result-json:
+    description: >-
+      The complete gate result as compact JSON. A PASS reports only that the
+      supplied record satisfies the deterministic checks for the selected
+      decision; it is not an audit of the underlying system or evidence.
+    value: ${{ steps.gate.outputs.result-json }}
 
 runs:
   using: composite
   steps:
     - name: Set up Python for the decision gate
-      uses: actions/setup-python@v5
+      # v5.6.0 — pinned to an immutable commit so downstream callers of this
+      # action cannot be moved onto new code by a tag being repointed.
+      uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
       with:
         python-version: "3.12"
     - name: Evaluate claim decision gate
+      id: gate
       shell: bash
-      run: python "${{ github.action_path }}/scripts/claim_gate.py" "${{ inputs.claim }}" --json
+      env:
+        GATE_SCRIPT: ${{ github.action_path }}/scripts/claim_gate.py
+        CLAIM_PATH: ${{ inputs.claim }}
+        FAIL_ON_BLOCK: ${{ inputs.fail-on-block }}
+      run: |
+        set -uo pipefail
+        result_file="${RUNNER_TEMP:-${TMPDIR:-/tmp}}/claim-gate-result.json"
+
+        set +e
+        python "$GATE_SCRIPT" "$CLAIM_PATH" --json > "$result_file"
+        gate_exit=$?
+        set -e
+
+        cat "$result_file"
+
+        RESULT_FILE="$result_file" GATE_EXIT="$gate_exit" python - <<'PY'
+        import json, os, secrets, sys
+
+        result_file = os.environ["RESULT_FILE"]
+        gate_exit = int(os.environ["GATE_EXIT"])
+        # Fail closed: only an explicit 'false' disables failure, so a typo
+        # ("yes", "1", "") keeps the protective behaviour rather than dropping it.
+        fail_on_block = os.environ.get("FAIL_ON_BLOCK", "true").strip().lower() != "false"
+        out = os.environ["GITHUB_OUTPUT"]
+        summary = os.environ.get("GITHUB_STEP_SUMMARY")
+
+        try:
+            with open(result_file, encoding="utf-8") as fh:
+                result = json.load(fh)
+        except (OSError, ValueError):
+            # Exit 2 from the gate: the record could not be read or parsed, so
+            # there is no result to report. Always fatal.
+            print(
+                "::error::claim gate did not produce a result record; "
+                f"the record at '{os.environ.get('CLAIM_PATH')}' is missing or malformed",
+                file=sys.stderr,
+            )
+            raise SystemExit(gate_exit or 2)
+
+        # Values below are copied from a claim record, which in an adopter
+        # repository is controlled by whoever opened the pull request. A static
+        # heredoc delimiter would let a record close the block and append its own
+        # output lines (GITHUB_OUTPUT is last-write-wins, so a later status= wins).
+        delimiter = f"ghadelim_{secrets.token_hex(16)}"
+
+        def write(fh, key, value):
+            value = "" if value is None else str(value)
+            if delimiter in value:
+                raise SystemExit(f"::error::claim record contains the output delimiter; refusing to write outputs")
+            if "\n" in value or "\r" in value:
+                fh.write(f"{key}<<{delimiter}\n{value}\n{delimiter}\n")
+            else:
+                fh.write(f"{key}={value}\n")
+
+        def scalar(value):
+            """Collapse whitespace in single-line outputs.
+
+            `asserted-claim-level` and friends are echoed straight from the record
+            and have no legitimate newline, so flattening them removes the
+            injection surface entirely rather than relying on the delimiter alone.
+            """
+            if value is None:
+                return ""
+            return " ".join(str(value).split())
+
+        status = result.get("status", "")
+        pairs = {
+            "status": scalar(status),
+            "target-decision": scalar(result.get("targetDecision")),
+            "decision-label": scalar(result.get("decisionLabel")),
+            "required-claim-level": scalar(result.get("requiredClaimLevel")),
+            "asserted-claim-level": scalar(result.get("assertedClaimLevel")),
+            "claim-mismatch": "true" if result.get("claimMismatch") else "false",
+            "failed-check-count": len(result.get("failedChecks") or []),
+            "unknown-check-count": len(result.get("unknownChecks") or []),
+            "passed-check-count": len(result.get("passedChecks") or []),
+            "result-json": json.dumps(result, ensure_ascii=False, separators=(",", ":")),
+        }
+        with open(out, "a", encoding="utf-8") as fh:
+            for key, value in pairs.items():
+                write(fh, key, value)
+
+        # `targetDecision` is echoed back verbatim by the gate when it matches no
+        # known decision, so the label is claim-controlled text. Flatten it and
+        # strip backticks: a newline would forge a `::error::` annotation or a
+        # Markdown heading in the job summary, and a backtick would break out of
+        # the code span it is rendered in.
+        label = scalar(result.get("decisionLabel") or result.get("targetDecision") or "(no decision)")
+        label = label.replace("`", "'")[:200] or "(no decision)"
+
+        if summary:
+            with open(summary, "a", encoding="utf-8") as fh:
+                fh.write(f"### Claim gate: `{status}`\n\n")
+                fh.write(f"- Decision: `{label}`\n")
+                fh.write(f"- Required claim: `{scalar(result.get('requiredClaimLevel'))}`\n")
+                fh.write(f"- Asserted claim: `{scalar(result.get('assertedClaimLevel'))}`\n")
+                fh.write(
+                    f"- Checks: {len(result.get('passedChecks') or [])} passed, "
+                    f"{len(result.get('failedChecks') or [])} failed, "
+                    f"{len(result.get('unknownChecks') or [])} unknown\n"
+                )
+
+        if status != "PASS":
+            message = f"claim gate returned {status} for {label}"
+            if fail_on_block:
+                print(f"::error::{message}", file=sys.stderr)
+                raise SystemExit(gate_exit or 1)
+            print(f"::warning::{message} (fail-on-block is false)", file=sys.stderr)
+        PY

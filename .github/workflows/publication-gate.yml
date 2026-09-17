@@ -13,17 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
 
@@ -37,9 +37,41 @@ jobs:
         run: python scripts/claim_gate.py toolkit/claim.example.json --json
 
       - name: Validate reusable claim gate Action end to end
+        id: gate_pass
         uses: ./
         with:
           claim: toolkit/claim.example.json
+
+      - name: Check the Action published a PASS verdict as outputs
+        # Outputs carry text from the claim record, so pass them through env
+        # rather than interpolating `${{ }}` into the shell.
+        env:
+          GATE_STATUS: ${{ steps.gate_pass.outputs.status }}
+          GATE_REQUIRED: ${{ steps.gate_pass.outputs.required-claim-level }}
+          GATE_MISMATCH: ${{ steps.gate_pass.outputs.claim-mismatch }}
+          GATE_JSON: ${{ steps.gate_pass.outputs.result-json }}
+        run: |
+          test "$GATE_STATUS" = "PASS"
+          test -n "$GATE_REQUIRED"
+          test "$GATE_MISMATCH" = "false"
+          printf '%s' "$GATE_JSON" | python -c "import json,sys; assert json.load(sys.stdin)['status'] == 'PASS'"
+
+      - name: Validate the Action reports a blocked record without failing the job
+        id: gate_blocked
+        uses: ./
+        with:
+          claim: toolkit/samples/website-operate-blocked.claim.json
+          fail-on-block: 'false'
+
+      - name: Check a blocked verdict is still readable by the caller
+        env:
+          GATE_STATUS: ${{ steps.gate_blocked.outputs.status }}
+          GATE_REQUIRED: ${{ steps.gate_blocked.outputs.required-claim-level }}
+          GATE_FAILED: ${{ steps.gate_blocked.outputs.failed-check-count }}
+        run: |
+          test "$GATE_STATUS" = "BLOCKED"
+          test "$GATE_REQUIRED" = "04-capability"
+          test "$GATE_FAILED" -ge 1
 
       - name: Test native MCP package
         working-directory: packages/mcp
