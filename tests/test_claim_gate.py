@@ -100,6 +100,20 @@ class ClaimGateTests(unittest.TestCase):
         self.assertEqual(result["status"], "BLOCKED")
         self.assertIn("gateChecks", " ".join(result["structuralErrors"]))
 
+    def test_schema_rejects_undeclared_top_level_properties(self):
+        record = self.base_record()
+        record["unexpectedField"] = "not in claim.schema.json"
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertIn("Additional properties", " ".join(result["structuralErrors"]))
+
+    def test_schema_enforces_field_length_constraints(self):
+        record = self.base_record()
+        record["authority"] = "x" * 1001
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertIn("authority", " ".join(result["structuralErrors"]))
+
     def test_asserted_claim_mismatch_is_insufficient(self):
         record = self.base_record()
         record["assertedClaimLevel"] = "02-output"
