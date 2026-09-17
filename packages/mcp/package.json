@@ -4,6 +4,11 @@
   "description": "Actor-neutral AI Output to Value decision gates over Model Context Protocol.",
   "type": "module",
   "private": true,
+  "files": [
+    "src",
+    "schemas",
+    "README.md"
+  ],
   "bin": {
     "ai-output-to-value-mcp": "src/index.mjs"
   },
