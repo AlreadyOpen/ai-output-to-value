@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import re
 import unittest
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,10 +49,56 @@ class InteractionIntegrityTests(unittest.TestCase):
     def test_reusable_action_owns_its_python_dependency(self):
         source = (ROOT / "action.yml").read_text(encoding="utf-8")
         workflow = (ROOT / ".github" / "workflows" / "publication-gate.yml").read_text(encoding="utf-8")
-        self.assertIn("uses: actions/setup-python@v5", source)
         self.assertIn('python-version: "3.12"', source)
         self.assertIn("Validate reusable claim gate Action end to end", workflow)
         self.assertIn("uses: ./", workflow)
+
+    def test_third_party_actions_are_pinned_to_commit_shas(self):
+        """A version tag can be repointed at new code; a commit SHA cannot.
+
+        This matters most for `action.yml`, which downstream repositories execute,
+        but the same standard applies to this repository's own publication and
+        release workflows. Local `./` references are the action under test.
+        """
+        sources = [ROOT / "action.yml", *sorted((ROOT / ".github" / "workflows").glob("*.yml"))]
+        checked = 0
+        for source in sources:
+            for reference in re.findall(r"uses:\s*(\S+)", source.read_text(encoding="utf-8")):
+                if reference.startswith((".", "/")):
+                    continue
+                checked += 1
+                with self.subTest(source=source.name, reference=reference):
+                    self.assertRegex(
+                        reference,
+                        r"^[\w.-]+/[\w.-]+@[0-9a-f]{40}$",
+                        f"{source.name}: {reference} is not pinned to a commit SHA",
+                    )
+        self.assertGreater(checked, 0, "no third-party action references found")
+
+    def test_reusable_action_exposes_gate_result_as_outputs(self):
+        action = yaml.safe_load((ROOT / "action.yml").read_text(encoding="utf-8"))
+        outputs = action.get("outputs") or {}
+        for name in (
+            "status",
+            "target-decision",
+            "decision-label",
+            "required-claim-level",
+            "asserted-claim-level",
+            "claim-mismatch",
+            "failed-check-count",
+            "unknown-check-count",
+            "passed-check-count",
+            "result-json",
+        ):
+            with self.subTest(output=name):
+                self.assertIn(name, outputs)
+                self.assertIn("description", outputs[name])
+                self.assertIn("steps.gate.outputs.", outputs[name]["value"])
+
+        # A caller must be able to read a BLOCKED verdict, so the gate step has to
+        # publish its outputs before the action decides whether to fail.
+        self.assertIn("fail-on-block", action.get("inputs") or {})
+        self.assertEqual(action["inputs"]["fail-on-block"]["default"], "true")
 
     def test_mcp_package_does_not_claim_unselected_public_licence(self):
         source = (ROOT / "packages" / "mcp" / "package.json").read_text(encoding="utf-8")
