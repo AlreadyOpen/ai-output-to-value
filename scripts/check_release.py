@@ -43,14 +43,28 @@ def valid_review_record(record) -> bool:
     return isinstance(versions, list) and bool(versions) and all(nonempty_string(value) for value in versions)
 
 
+def canonical_repository_path(value) -> str | None:
+    """Normalize a repository-relative path so aliases cannot change release scope."""
+    if not nonempty_string(value):
+        return None
+    try:
+        resolved = (ROOT / value).resolve()
+        return resolved.relative_to(ROOT).as_posix()
+    except (OSError, ValueError):
+        return None
+
+
 def published_files(claim: dict) -> set[str]:
     files: set[str] = set()
     publications = claim.get("published_in")
     if not isinstance(publications, list):
         return files
     for publication in publications:
-        if isinstance(publication, dict) and nonempty_string(publication.get("file")):
-            files.add(publication["file"])
+        if not isinstance(publication, dict):
+            continue
+        normalized = canonical_repository_path(publication.get("file"))
+        if normalized:
+            files.add(normalized)
     return files
 
 
@@ -70,7 +84,11 @@ def main() -> int:
         slug = article.get("slug")
         source = article.get("source")
         if scope in RELEASE_SCOPES and nonempty_string(source):
-            release_sources.add(source)
+            normalized_source = canonical_repository_path(source)
+            if normalized_source:
+                release_sources.add(normalized_source)
+            else:
+                errors.append(f"release article source escapes publication root: {article.get('id')} ({source})")
         if scope in RELEASE_SCOPES and nonempty_string(slug):
             expected_release_slugs.add(slug)
             if scope == "guide" and article.get("status") != "ready":
