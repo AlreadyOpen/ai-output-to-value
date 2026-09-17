@@ -21,7 +21,7 @@ DATA_DIR, SITE_DIR = ROOT / "data", ROOT / "site"
 
 SOURCE_REQUIRED = {"id", "title", "publisher", "url", "evidence_type", "supports", "scope", "limitations", "reviewed"}
 CLAIM_REQUIRED = {"id", "claim_text", "status", "launch_critical", "evidence", "published_in", "reviewer", "reviewed", "independent_review_status"}
-EVIDENCE_REQUIRED = {"source_id", "locator", "relevant_finding", "qualification"}
+EVIDENCE_REQUIRED = {"source_id", "source_version", "locator", "relevant_finding", "qualification"}
 ARTICLE_REQUIRED = {"id", "title", "source", "slug", "section", "order", "summary", "maintainer", "reviewed", "status", "release_scope"}
 REVIEW_RECORD_REQUIRED = {"claim_revision", "source_versions_checked", "method", "finding", "disposition"}
 
