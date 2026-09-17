@@ -116,12 +116,25 @@ The Action exposes the gate result as step outputs, so a caller can branch on th
 
 - name: Require Operating capability before release
   if: steps.gate.outputs.status != 'PASS'
+  env:
+    GATE_STATUS: ${{ steps.gate.outputs.status }}
+    GATE_DECISION: ${{ steps.gate.outputs.target-decision }}
+    GATE_REQUIRED: ${{ steps.gate.outputs.required-claim-level }}
+    GATE_FAILED: ${{ steps.gate.outputs.failed-check-count }}
+    GATE_UNKNOWN: ${{ steps.gate.outputs.unknown-check-count }}
   run: |
-    echo "Gate returned ${{ steps.gate.outputs.status }} for ${{ steps.gate.outputs.decision-label }}"
-    echo "Required claim: ${{ steps.gate.outputs.required-claim-level }}"
-    echo "${{ steps.gate.outputs.failed-check-count }} failed, ${{ steps.gate.outputs.unknown-check-count }} unknown"
+    echo "Gate returned $GATE_STATUS for $GATE_DECISION"
+    echo "Required claim: $GATE_REQUIRED"
+    echo "$GATE_FAILED failed, $GATE_UNKNOWN unknown"
     exit 1
 ```
+
+> **Read outputs through `env:`, never by interpolating `${{ }}` into a `run:` block.**
+> `target-decision` is echoed from the claim record, which in an adopter repository
+> is written by whoever opened the pull request. GitHub substitutes an expression as
+> *text* before the shell parses it, so a record containing `$(...)` in that field
+> executes on your runner. Through `env:` the same value arrives as data and is
+> printed inertly.
 
 | Output | Meaning |
 | --- | --- |

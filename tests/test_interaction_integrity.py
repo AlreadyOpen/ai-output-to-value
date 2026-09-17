@@ -131,6 +131,28 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn('label.replace("`", "\'")', source)
         self.assertIn("- Decision: `{label}`", source)
 
+    def test_documented_adoption_example_does_not_interpolate_into_shell(self):
+        """The documented example is what adopters copy, so it must be the safe form.
+
+        GitHub substitutes an expression as text before the shell parses it, and
+        `target-decision` is echoed from the claim record, which in an adopter
+        repository is written by whoever opened the pull request.
+        """
+        import re
+
+        text = (ROOT / "toolkit" / "README.md").read_text(encoding="utf-8")
+        for block in re.findall(r"```yaml\n(.*?)```", text, re.S):
+            if "run:" not in block:
+                continue
+            run_body = block.split("run:", 1)[1]
+            # Stop at the next top-level key so an `env:` block above is not scanned.
+            with self.subTest(block=run_body.strip().splitlines()[0][:40]):
+                self.assertNotIn(
+                    "${{",
+                    run_body,
+                    "documented run: block interpolates an expression into the shell",
+                )
+
     def test_action_fail_on_block_fails_closed(self):
         """Only an explicit 'false' may disable failure; a typo must not."""
         source = (ROOT / "action.yml").read_text(encoding="utf-8")
