@@ -117,6 +117,20 @@ class InteractionIntegrityTests(unittest.TestCase):
             with self.subTest(output=output):
                 self.assertIn(f'"{output}": scalar(', source)
 
+    def test_action_sanitises_claim_controlled_label(self):
+        """`targetDecision` is echoed verbatim when it matches no known decision.
+
+        A newline in it would forge a `::error::` annotation or a Markdown heading
+        in the job summary, because both are parsed only at the start of a line.
+        """
+        source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        self.assertIn(
+            'label = scalar(result.get("decisionLabel") or result.get("targetDecision")',
+            source,
+        )
+        self.assertIn('label.replace("`", "\'")', source)
+        self.assertIn("- Decision: `{label}`", source)
+
     def test_action_fail_on_block_fails_closed(self):
         """Only an explicit 'false' may disable failure; a typo must not."""
         source = (ROOT / "action.yml").read_text(encoding="utf-8")

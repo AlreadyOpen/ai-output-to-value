@@ -148,14 +148,20 @@ runs:
             for key, value in pairs.items():
                 write(fh, key, value)
 
-        label = result.get("decisionLabel") or result.get("targetDecision") or "(no decision)"
+        # `targetDecision` is echoed back verbatim by the gate when it matches no
+        # known decision, so the label is claim-controlled text. Flatten it and
+        # strip backticks: a newline would forge a `::error::` annotation or a
+        # Markdown heading in the job summary, and a backtick would break out of
+        # the code span it is rendered in.
+        label = scalar(result.get("decisionLabel") or result.get("targetDecision") or "(no decision)")
+        label = label.replace("`", "'")[:200] or "(no decision)"
 
         if summary:
             with open(summary, "a", encoding="utf-8") as fh:
                 fh.write(f"### Claim gate: `{status}`\n\n")
-                fh.write(f"- Decision: {label}\n")
-                fh.write(f"- Required claim: {result.get('requiredClaimLevel')}\n")
-                fh.write(f"- Asserted claim: {result.get('assertedClaimLevel')}\n")
+                fh.write(f"- Decision: `{label}`\n")
+                fh.write(f"- Required claim: `{scalar(result.get('requiredClaimLevel'))}`\n")
+                fh.write(f"- Asserted claim: `{scalar(result.get('assertedClaimLevel'))}`\n")
                 fh.write(
                     f"- Checks: {len(result.get('passedChecks') or [])} passed, "
                     f"{len(result.get('failedChecks') or [])} failed, "
