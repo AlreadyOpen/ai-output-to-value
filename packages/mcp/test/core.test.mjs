@@ -56,20 +56,59 @@ test("not-applicable required evidence remains insufficient and is preserved", (
   assert.equal(result.unknownChecks[0].state, "not-applicable");
 });
 
-test("missing decision-record text is insufficient rather than blocked", () => {
+test("empty decision-record text is structurally blocked by schema", () => {
   const value = record();
   value.authority = "";
   const result = evaluateClaim(value, gates);
-  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
+  assert.equal(result.status, "BLOCKED");
   assert.deepEqual(result.missingFields, ["authority"]);
+  assert.ok(result.structuralErrors.some((message) => message.includes("authority")));
 });
 
-test("missing actors is insufficient rather than silently inferred", () => {
+test("non-string required fields are structurally blocked by schema", () => {
+  const value = record();
+  value.authority = [];
+  value.accountability = false;
+  value.stopRule = 0;
+  value.intendedUse = {};
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  for (const field of ["authority", "accountability", "stopRule", "intendedUse"]) {
+    assert.ok(result.structuralErrors.some((message) => message.includes(field)), field);
+  }
+});
+
+test("empty actors list is structurally blocked by schema", () => {
   const value = record();
   value.actors = [];
   const result = evaluateClaim(value, gates);
-  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
-  assert.ok(result.missingFields.includes("actors"));
+  assert.equal(result.status, "BLOCKED");
+  assert.deepEqual(result.missingFields, ["actors"]);
+  assert.ok(result.structuralErrors.some((message) => message.includes("actors")));
+});
+
+test("invalid check state is structurally blocked by schema", () => {
+  const value = record();
+  value.gateChecks["acceptance-criteria-met"] = "maybe";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  assert.ok(result.structuralErrors.some((message) => message.includes("gateChecks")));
+});
+
+test("schema rejects undeclared top-level properties", () => {
+  const value = record();
+  value.unexpectedField = "not in claim.schema.json";
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  assert.ok(result.structuralErrors.some((message) => message.includes("additional properties")));
+});
+
+test("schema enforces field length constraints", () => {
+  const value = record();
+  value.authority = "x".repeat(1001);
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  assert.ok(result.structuralErrors.some((message) => message.includes("authority")));
 });
 
 test("asserted claim mismatch is insufficient", () => {
@@ -94,6 +133,15 @@ test("unsupported schema version is structurally blocked", () => {
   const result = evaluateClaim(value, gates);
   assert.equal(result.status, "BLOCKED");
   assert.ok(result.structuralErrors.some((message) => message.includes("schemaVersion")));
+});
+
+test("non-string target decision returns structured block", () => {
+  const value = record();
+  value.targetDecision = [];
+  const result = evaluateClaim(value, gates);
+  assert.equal(result.status, "BLOCKED");
+  assert.deepEqual(result.targetDecision, []);
+  assert.ok(result.structuralErrors.some((message) => message.includes("targetDecision")));
 });
 
 test("actor identity does not change the gate", () => {
