@@ -1,4 +1,19 @@
+import { readFileSync } from "node:fs";
+
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
+
 export const DEFAULT_PUBLICATION_URL = "https://alreadyopen.github.io/ai-output-to-value/";
+
+const claimSchema = JSON.parse(
+  readFileSync(new URL("../../../schemas/v1/claim.schema.json", import.meta.url), "utf8")
+);
+const bundledGates = JSON.parse(
+  readFileSync(new URL("../../../schemas/v1/decision-gates.json", import.meta.url), "utf8")
+);
+const ajv = new Ajv2020({ allErrors: true, strict: false });
+addFormats(ajv);
+const validateClaim = ajv.compile(claimSchema);
 
 export async function fetchJson(baseUrl, path) {
   const url = new URL(path, baseUrl).href;
@@ -7,20 +22,37 @@ export async function fetchJson(baseUrl, path) {
   return response.json();
 }
 
+export function loadBundledGates() {
+  return bundledGates;
+}
+
 const REQUIRED_TEXT_FIELDS = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
+
+function schemaErrors(record) {
+  validateClaim(record);
+  return (validateClaim.errors ?? []).map((error) => {
+    const location = error.instancePath ? error.instancePath.replace(/^\//, "") : "<root>";
+    return `claim.schema.json ${location}: ${error.message}`;
+  });
+}
+
+function resultMetadata(gates) {
+  const principle = gates?.principle ?? null;
+  return {
+    gateVersion: gates?.version ?? null,
+    principle,
+    rule: principle
+  };
+}
 
 export function evaluateClaim(record, gates) {
   const decisionId = record?.targetDecision;
-  const rule = gates?.decisions?.[decisionId];
-  const structuralErrors = [];
+  const rule = typeof decisionId === "string" ? gates?.decisions?.[decisionId] : undefined;
+  const structuralErrors = schemaErrors(record);
   const missingFields = [];
 
-  if (record?.schemaVersion !== "1.0") {
-    structuralErrors.push("schemaVersion must be '1.0'");
-  }
-
   if (!rule) {
-    structuralErrors.push(`Unknown targetDecision: ${String(decisionId)}`);
+    structuralErrors.push(`unknown targetDecision: ${JSON.stringify(decisionId)}`);
     return {
       status: "BLOCKED",
       targetDecision: decisionId ?? null,
@@ -30,18 +62,20 @@ export function evaluateClaim(record, gates) {
       claimMismatch: false,
       failedChecks: [],
       unknownChecks: [],
-      passedChecks: []
+      passedChecks: [],
+      ...resultMetadata(gates)
     };
   }
 
   if (record?.requiredClaimLevel !== rule.requiredClaimLevel) {
-    structuralErrors.push(`requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`);
+    const message = `requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`;
+    if (!structuralErrors.includes(message)) structuralErrors.push(message);
   }
 
   for (const field of REQUIRED_TEXT_FIELDS) {
-    if (!String(record?.[field] ?? "").trim()) missingFields.push(field);
+    if (typeof record?.[field] === "string" && !record[field].trim()) missingFields.push(field);
   }
-  if (!Array.isArray(record?.actors) || record.actors.length === 0) missingFields.push("actors");
+  if (Array.isArray(record?.actors) && record.actors.length === 0) missingFields.push("actors");
 
   const claimMismatch = record?.assertedClaimLevel !== rule.requiredClaimLevel;
   const checks = record?.gateChecks && typeof record.gateChecks === "object" && !Array.isArray(record.gateChecks)
@@ -76,12 +110,17 @@ export function evaluateClaim(record, gates) {
     failedChecks,
     unknownChecks,
     passedChecks,
-    principle: gates?.principle ?? null
+    ...resultMetadata(gates)
   };
 }
 
 export function getStopRule(gates, decisionType) {
   const rule = gates?.decisions?.[decisionType];
   if (!rule) throw new Error(`Unknown decision type: ${decisionType}`);
-  return { decisionType, ...rule, principle: gates.principle };
+  return {
+    decisionType,
+    ...rule,
+    gateVersion: gates?.version ?? null,
+    principle: gates.principle
+  };
 }
