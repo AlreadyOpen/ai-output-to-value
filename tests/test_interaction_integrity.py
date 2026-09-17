@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import re
 import unittest
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,10 +49,133 @@ class InteractionIntegrityTests(unittest.TestCase):
     def test_reusable_action_owns_its_python_dependency(self):
         source = (ROOT / "action.yml").read_text(encoding="utf-8")
         workflow = (ROOT / ".github" / "workflows" / "publication-gate.yml").read_text(encoding="utf-8")
-        self.assertIn("uses: actions/setup-python@v5", source)
         self.assertIn('python-version: "3.12"', source)
         self.assertIn("Validate reusable claim gate Action end to end", workflow)
         self.assertIn("uses: ./", workflow)
+
+    def test_third_party_actions_are_pinned_to_commit_shas(self):
+        """A version tag can be repointed at new code; a commit SHA cannot.
+
+        This matters most for `action.yml`, which downstream repositories execute,
+        but the same standard applies to this repository's own publication and
+        release workflows. Local `./` references are the action under test.
+        """
+        sources = [ROOT / "action.yml", *sorted((ROOT / ".github" / "workflows").glob("*.yml"))]
+        checked = 0
+        for source in sources:
+            for reference in re.findall(r"uses:\s*(\S+)", source.read_text(encoding="utf-8")):
+                if reference.startswith((".", "/")):
+                    continue
+                checked += 1
+                with self.subTest(source=source.name, reference=reference):
+                    self.assertRegex(
+                        reference,
+                        r"^[\w.-]+/[\w.-]+@[0-9a-f]{40}$",
+                        f"{source.name}: {reference} is not pinned to a commit SHA",
+                    )
+        self.assertGreater(checked, 0, "no third-party action references found")
+
+    def test_reusable_action_exposes_gate_result_as_outputs(self):
+        action = yaml.safe_load((ROOT / "action.yml").read_text(encoding="utf-8"))
+        outputs = action.get("outputs") or {}
+        for name in (
+            "status",
+            "target-decision",
+            "decision-label",
+            "required-claim-level",
+            "asserted-claim-level",
+            "claim-mismatch",
+            "failed-check-count",
+            "unknown-check-count",
+            "passed-check-count",
+            "result-json",
+        ):
+            with self.subTest(output=name):
+                self.assertIn(name, outputs)
+                self.assertIn("description", outputs[name])
+                self.assertIn("steps.gate.outputs.", outputs[name]["value"])
+
+        # A caller must be able to read a BLOCKED verdict, so the gate step has to
+        # publish its outputs before the action decides whether to fail.
+        self.assertIn("fail-on-block", action.get("inputs") or {})
+        self.assertEqual(action["inputs"]["fail-on-block"]["default"], "true")
+
+    def test_action_output_writer_resists_claim_record_injection(self):
+        """A claim record is attacker-controlled in an adopter's pull request.
+
+        GITHUB_OUTPUT is last-write-wins, so a record that can close the heredoc
+        and append `status=PASS` turns a BLOCKED verdict green for any consumer
+        branching on the output.
+        """
+        source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        self.assertIn("secrets.token_hex", source)
+        self.assertNotIn('delim = "ghadelim_claim_gate"', source)
+        self.assertIn("if delimiter in value:", source)
+        # Single-line outputs are flattened, so a newline cannot start a new pair.
+        self.assertIn("def scalar(value):", source)
+        for output in ("status", "target-decision", "asserted-claim-level"):
+            with self.subTest(output=output):
+                self.assertIn(f'"{output}": scalar(', source)
+
+    def test_action_sanitises_claim_controlled_label(self):
+        """`targetDecision` is echoed verbatim when it matches no known decision.
+
+        A newline in it would forge a `::error::` annotation or a Markdown heading
+        in the job summary, because both are parsed only at the start of a line.
+        """
+        source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        self.assertIn(
+            'label = scalar(result.get("decisionLabel") or result.get("targetDecision")',
+            source,
+        )
+        self.assertIn('label.replace("`", "\'")', source)
+        self.assertIn("- Decision: `{label}`", source)
+
+    def test_documented_adoption_example_does_not_interpolate_into_shell(self):
+        """The documented example is what adopters copy, so it must be the safe form.
+
+        GitHub substitutes an expression as text before the shell parses it, and
+        `target-decision` is echoed from the claim record, which in an adopter
+        repository is written by whoever opened the pull request.
+        """
+        import re
+
+        text = (ROOT / "toolkit" / "README.md").read_text(encoding="utf-8")
+        for block in re.findall(r"```yaml\n(.*?)```", text, re.S):
+            if "run:" not in block:
+                continue
+            run_body = block.split("run:", 1)[1]
+            # Stop at the next top-level key so an `env:` block above is not scanned.
+            with self.subTest(block=run_body.strip().splitlines()[0][:40]):
+                self.assertNotIn(
+                    "${{",
+                    run_body,
+                    "documented run: block interpolates an expression into the shell",
+                )
+
+    def test_action_fail_on_block_fails_closed(self):
+        """Only an explicit 'false' may disable failure; a typo must not."""
+        source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        self.assertIn('!= "false"', source)
+        self.assertNotIn('== "true"', source)
+
+    def test_workflows_do_not_interpolate_outputs_into_shell(self):
+        """Step outputs carry claim-record text; pass them through env instead."""
+        import yaml as _yaml
+
+        for path in sorted((ROOT / ".github" / "workflows").glob("*.yml")):
+            document = _yaml.safe_load(path.read_text(encoding="utf-8"))
+            for job in (document.get("jobs") or {}).values():
+                for step in job.get("steps") or []:
+                    script = step.get("run")
+                    if not script:
+                        continue
+                    with self.subTest(workflow=path.name, step=step.get("name")):
+                        self.assertNotIn(
+                            "${{",
+                            script,
+                            f"{path.name}: '{step.get('name')}' interpolates an expression into the shell",
+                        )
 
     def test_mcp_package_does_not_claim_unselected_public_licence(self):
         source = (ROOT / "packages" / "mcp" / "package.json").read_text(encoding="utf-8")
