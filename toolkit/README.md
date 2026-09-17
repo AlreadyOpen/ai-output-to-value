@@ -102,7 +102,7 @@ For governed use, replace `@main` with a reviewed release/tag or commit SHA.
 
 The Action evaluates the supplied `claim.json`. It does **not** add extra requirements merely because code was AI-generated.
 
-By default the step fails when the gate does not return `PASS`. Set `fail-on-block: 'false'` to read the result and let the calling workflow decide. A missing or malformed claim record always fails the step, because there is no result to report.
+By default the step fails when the gate does not return `PASS`. Set `fail-on-block: 'false'` to read the result and let the calling workflow decide — **only the exact value `false` disables failure**, so a typo such as `yes` or an empty value keeps the protective behaviour. A missing or malformed claim record always fails the step, because there is no result to report.
 
 The Action exposes the gate result as step outputs, so a caller can branch on the verdict instead of parsing stdout:
 

@@ -43,11 +43,18 @@ jobs:
           claim: toolkit/claim.example.json
 
       - name: Check the Action published a PASS verdict as outputs
+        # Outputs carry text from the claim record, so pass them through env
+        # rather than interpolating `${{ }}` into the shell.
+        env:
+          GATE_STATUS: ${{ steps.gate_pass.outputs.status }}
+          GATE_REQUIRED: ${{ steps.gate_pass.outputs.required-claim-level }}
+          GATE_MISMATCH: ${{ steps.gate_pass.outputs.claim-mismatch }}
+          GATE_JSON: ${{ steps.gate_pass.outputs.result-json }}
         run: |
-          test "${{ steps.gate_pass.outputs.status }}" = "PASS"
-          test -n "${{ steps.gate_pass.outputs.required-claim-level }}"
-          test "${{ steps.gate_pass.outputs.claim-mismatch }}" = "false"
-          echo '${{ steps.gate_pass.outputs.result-json }}' | python -c "import json,sys; assert json.load(sys.stdin)['status'] == 'PASS'"
+          test "$GATE_STATUS" = "PASS"
+          test -n "$GATE_REQUIRED"
+          test "$GATE_MISMATCH" = "false"
+          printf '%s' "$GATE_JSON" | python -c "import json,sys; assert json.load(sys.stdin)['status'] == 'PASS'"
 
       - name: Validate the Action reports a blocked record without failing the job
         id: gate_blocked
@@ -57,10 +64,14 @@ jobs:
           fail-on-block: 'false'
 
       - name: Check a blocked verdict is still readable by the caller
+        env:
+          GATE_STATUS: ${{ steps.gate_blocked.outputs.status }}
+          GATE_REQUIRED: ${{ steps.gate_blocked.outputs.required-claim-level }}
+          GATE_FAILED: ${{ steps.gate_blocked.outputs.failed-check-count }}
         run: |
-          test "${{ steps.gate_blocked.outputs.status }}" = "BLOCKED"
-          test "${{ steps.gate_blocked.outputs.required-claim-level }}" = "04-capability"
-          test "${{ steps.gate_blocked.outputs.failed-check-count }}" -ge 1
+          test "$GATE_STATUS" = "BLOCKED"
+          test "$GATE_REQUIRED" = "04-capability"
+          test "$GATE_FAILED" -ge 1
 
       - name: Test native MCP package
         working-directory: packages/mcp

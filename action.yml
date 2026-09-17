@@ -82,11 +82,13 @@ runs:
         cat "$result_file"
 
         RESULT_FILE="$result_file" GATE_EXIT="$gate_exit" python - <<'PY'
-        import json, os, sys
+        import json, os, secrets, sys
 
         result_file = os.environ["RESULT_FILE"]
         gate_exit = int(os.environ["GATE_EXIT"])
-        fail_on_block = os.environ.get("FAIL_ON_BLOCK", "true").strip().lower() == "true"
+        # Fail closed: only an explicit 'false' disables failure, so a typo
+        # ("yes", "1", "") keeps the protective behaviour rather than dropping it.
+        fail_on_block = os.environ.get("FAIL_ON_BLOCK", "true").strip().lower() != "false"
         out = os.environ["GITHUB_OUTPUT"]
         summary = os.environ.get("GITHUB_STEP_SUMMARY")
 
@@ -103,21 +105,39 @@ runs:
             )
             raise SystemExit(gate_exit or 2)
 
+        # Values below are copied from a claim record, which in an adopter
+        # repository is controlled by whoever opened the pull request. A static
+        # heredoc delimiter would let a record close the block and append its own
+        # output lines (GITHUB_OUTPUT is last-write-wins, so a later status= wins).
+        delimiter = f"ghadelim_{secrets.token_hex(16)}"
+
         def write(fh, key, value):
             value = "" if value is None else str(value)
-            if "\n" in value:
-                delim = "ghadelim_claim_gate"
-                fh.write(f"{key}<<{delim}\n{value}\n{delim}\n")
+            if delimiter in value:
+                raise SystemExit(f"::error::claim record contains the output delimiter; refusing to write outputs")
+            if "\n" in value or "\r" in value:
+                fh.write(f"{key}<<{delimiter}\n{value}\n{delimiter}\n")
             else:
                 fh.write(f"{key}={value}\n")
 
+        def scalar(value):
+            """Collapse whitespace in single-line outputs.
+
+            `asserted-claim-level` and friends are echoed straight from the record
+            and have no legitimate newline, so flattening them removes the
+            injection surface entirely rather than relying on the delimiter alone.
+            """
+            if value is None:
+                return ""
+            return " ".join(str(value).split())
+
         status = result.get("status", "")
         pairs = {
-            "status": status,
-            "target-decision": result.get("targetDecision"),
-            "decision-label": result.get("decisionLabel"),
-            "required-claim-level": result.get("requiredClaimLevel"),
-            "asserted-claim-level": result.get("assertedClaimLevel"),
+            "status": scalar(status),
+            "target-decision": scalar(result.get("targetDecision")),
+            "decision-label": scalar(result.get("decisionLabel")),
+            "required-claim-level": scalar(result.get("requiredClaimLevel")),
+            "asserted-claim-level": scalar(result.get("assertedClaimLevel")),
             "claim-mismatch": "true" if result.get("claimMismatch") else "false",
             "failed-check-count": len(result.get("failedChecks") or []),
             "unknown-check-count": len(result.get("unknownChecks") or []),

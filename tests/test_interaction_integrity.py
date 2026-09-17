@@ -100,6 +100,47 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn("fail-on-block", action.get("inputs") or {})
         self.assertEqual(action["inputs"]["fail-on-block"]["default"], "true")
 
+    def test_action_output_writer_resists_claim_record_injection(self):
+        """A claim record is attacker-controlled in an adopter's pull request.
+
+        GITHUB_OUTPUT is last-write-wins, so a record that can close the heredoc
+        and append `status=PASS` turns a BLOCKED verdict green for any consumer
+        branching on the output.
+        """
+        source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        self.assertIn("secrets.token_hex", source)
+        self.assertNotIn('delim = "ghadelim_claim_gate"', source)
+        self.assertIn("if delimiter in value:", source)
+        # Single-line outputs are flattened, so a newline cannot start a new pair.
+        self.assertIn("def scalar(value):", source)
+        for output in ("status", "target-decision", "asserted-claim-level"):
+            with self.subTest(output=output):
+                self.assertIn(f'"{output}": scalar(', source)
+
+    def test_action_fail_on_block_fails_closed(self):
+        """Only an explicit 'false' may disable failure; a typo must not."""
+        source = (ROOT / "action.yml").read_text(encoding="utf-8")
+        self.assertIn('!= "false"', source)
+        self.assertNotIn('== "true"', source)
+
+    def test_workflows_do_not_interpolate_outputs_into_shell(self):
+        """Step outputs carry claim-record text; pass them through env instead."""
+        import yaml as _yaml
+
+        for path in sorted((ROOT / ".github" / "workflows").glob("*.yml")):
+            document = _yaml.safe_load(path.read_text(encoding="utf-8"))
+            for job in (document.get("jobs") or {}).values():
+                for step in job.get("steps") or []:
+                    script = step.get("run")
+                    if not script:
+                        continue
+                    with self.subTest(workflow=path.name, step=step.get("name")):
+                        self.assertNotIn(
+                            "${{",
+                            script,
+                            f"{path.name}: '{step.get('name')}' interpolates an expression into the shell",
+                        )
+
     def test_mcp_package_does_not_claim_unselected_public_licence(self):
         source = (ROOT / "packages" / "mcp" / "package.json").read_text(encoding="utf-8")
         self.assertIn('"private": true', source)
