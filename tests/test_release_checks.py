@@ -94,6 +94,13 @@ class ReleaseCheckTests(unittest.TestCase):
         self.write_yaml(self.root / "data" / "claims.yml", data)
         self.assert_fails_with("release-published claim cannot opt out")
 
+    def test_release_scope_cannot_be_bypassed_with_equivalent_path_spelling(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["launch_critical"] = False
+        data["claims"][0]["published_in"][0]["file"] = "./content/guide.md"
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("release-published claim cannot opt out")
+
     def test_working_only_noncritical_claim_can_remain_exempt(self):
         data = self.read_yaml("claims.yml")
         claim = data["claims"][0]
