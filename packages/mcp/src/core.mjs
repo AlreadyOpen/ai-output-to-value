@@ -5,15 +5,13 @@ import addFormats from "ajv-formats";
 
 export const DEFAULT_PUBLICATION_URL = "https://alreadyopen.github.io/ai-output-to-value/";
 
-const claimSchema = JSON.parse(
-  readFileSync(new URL("../../../schemas/v1/claim.schema.json", import.meta.url), "utf8")
+const bundledClaimSchema = JSON.parse(
+  readFileSync(new URL("../schemas/v1/claim.schema.json", import.meta.url), "utf8")
 );
 const bundledGates = JSON.parse(
-  readFileSync(new URL("../../../schemas/v1/decision-gates.json", import.meta.url), "utf8")
+  readFileSync(new URL("../schemas/v1/decision-gates.json", import.meta.url), "utf8")
 );
-const ajv = new Ajv2020({ allErrors: true, strict: false });
-addFormats(ajv);
-const validateClaim = ajv.compile(claimSchema);
+const validatorCache = new WeakMap();
 
 export async function fetchJson(baseUrl, path) {
   const url = new URL(path, baseUrl).href;
@@ -26,11 +24,45 @@ export function loadBundledGates() {
   return bundledGates;
 }
 
+export function loadBundledClaimSchema() {
+  return bundledClaimSchema;
+}
+
+export async function loadGateContract({ liveRules = false, publicationUrl = DEFAULT_PUBLICATION_URL } = {}) {
+  if (liveRules) {
+    const [gates, claimSchema] = await Promise.all([
+      fetchJson(publicationUrl, "api/v1/gates.json"),
+      fetchJson(publicationUrl, "schemas/v1/claim.schema.json")
+    ]);
+    return { gates, claimSchema, rulesSource: "live-publication" };
+  }
+
+  return {
+    gates: bundledGates,
+    claimSchema: bundledClaimSchema,
+    rulesSource: "bundled"
+  };
+}
+
 const REQUIRED_TEXT_FIELDS = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
 
-function schemaErrors(record) {
-  validateClaim(record);
-  return (validateClaim.errors ?? []).map((error) => {
+function validatorFor(claimSchema) {
+  if (!claimSchema || typeof claimSchema !== "object") return null;
+  let validate = validatorCache.get(claimSchema);
+  if (!validate) {
+    const ajv = new Ajv2020({ allErrors: true, strict: false });
+    addFormats(ajv);
+    validate = ajv.compile(claimSchema);
+    validatorCache.set(claimSchema, validate);
+  }
+  return validate;
+}
+
+function schemaErrors(record, claimSchema = bundledClaimSchema) {
+  const validate = validatorFor(claimSchema);
+  if (!validate) return ["claim.schema.json <root>: claim schema is unavailable"];
+  validate(record);
+  return (validate.errors ?? []).map((error) => {
     const location = error.instancePath ? error.instancePath.replace(/^\//, "") : "<root>";
     return `claim.schema.json ${location}: ${error.message}`;
   });
@@ -45,10 +77,10 @@ function resultMetadata(gates) {
   };
 }
 
-export function evaluateClaim(record, gates) {
+export function evaluateClaim(record, gates, claimSchema = bundledClaimSchema) {
   const decisionId = record?.targetDecision;
   const rule = typeof decisionId === "string" ? gates?.decisions?.[decisionId] : undefined;
-  const structuralErrors = schemaErrors(record);
+  const structuralErrors = schemaErrors(record, claimSchema);
   const missingFields = [];
 
   if (!rule) {
