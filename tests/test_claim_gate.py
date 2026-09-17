@@ -41,6 +41,9 @@ class ClaimGateTests(unittest.TestCase):
     def test_complete_required_gate_passes(self):
         result = evaluate(self.base_record(), self.gates)
         self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["gateVersion"], "1.0")
+        self.assertEqual(result["principle"], self.gates["principle"])
+        self.assertEqual(result["rule"], result["principle"])
 
     def test_failed_required_check_blocks(self):
         record = self.base_record()
@@ -62,19 +65,40 @@ class ClaimGateTests(unittest.TestCase):
         self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
         self.assertEqual(result["unknownChecks"][0]["state"], "not-applicable")
 
-    def test_missing_required_text_is_insufficient_not_blocked(self):
+    def test_empty_required_text_is_schema_blocked(self):
         record = self.base_record()
         record["authority"] = ""
         result = evaluate(record, self.gates)
-        self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
-        self.assertEqual(result["missingFields"], ["authority"])
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertIn("authority", " ".join(result["structuralErrors"]))
 
-    def test_missing_actor_is_insufficient_not_silently_inferred(self):
+    def test_empty_actor_list_is_schema_blocked(self):
         record = self.base_record()
         record["actors"] = []
         result = evaluate(record, self.gates)
-        self.assertEqual(result["status"], "INSUFFICIENT_EVIDENCE")
-        self.assertIn("actors", result["missingFields"])
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertIn("actors", " ".join(result["structuralErrors"]))
+
+    def test_non_string_required_fields_are_schema_blocked(self):
+        record = self.base_record()
+        record.update({
+            "authority": [],
+            "accountability": False,
+            "stopRule": 0,
+            "intendedUse": {},
+        })
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "BLOCKED")
+        errors = " ".join(result["structuralErrors"])
+        for field in ("authority", "accountability", "stopRule", "intendedUse"):
+            self.assertIn(field, errors)
+
+    def test_invalid_gate_check_state_is_schema_blocked(self):
+        record = self.base_record()
+        record["gateChecks"]["acceptance-criteria-met"] = "maybe"
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertIn("gateChecks", " ".join(result["structuralErrors"]))
 
     def test_asserted_claim_mismatch_is_insufficient(self):
         record = self.base_record()
@@ -88,7 +112,7 @@ class ClaimGateTests(unittest.TestCase):
         record["requiredClaimLevel"] = "02-output"
         result = evaluate(record, self.gates)
         self.assertEqual(result["status"], "BLOCKED")
-        self.assertIn("requiredClaimLevel must be", " ".join(result["structuralErrors"]))
+        self.assertIn("requiredClaimLevel", " ".join(result["structuralErrors"]))
 
     def test_unsupported_schema_version_blocks(self):
         record = self.base_record()
@@ -96,6 +120,14 @@ class ClaimGateTests(unittest.TestCase):
         result = evaluate(record, self.gates)
         self.assertEqual(result["status"], "BLOCKED")
         self.assertTrue(any("schemaVersion" in error for error in result["structuralErrors"]))
+
+    def test_non_string_target_decision_returns_structured_block(self):
+        record = self.base_record()
+        record["targetDecision"] = []
+        result = evaluate(record, self.gates)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertEqual(result["targetDecision"], [])
+        self.assertTrue(result["structuralErrors"])
 
     def test_producer_identity_does_not_change_gate(self):
         ai_record = self.base_record()
