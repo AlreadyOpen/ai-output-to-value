@@ -32,6 +32,7 @@ class ReleaseCheckTests(unittest.TestCase):
         self.write_yaml(self.root / "data" / "claims.yml", {"claims": [{
             "id": "critical-claim",
             "launch_critical": True,
+            "published_in": [{"file": "content/guide.md", "locator": "Claim"}],
             "independent_review_status": "completed",
             "reviewer": "Independent review process",
             "reviewed": "2026-09-14",
@@ -44,9 +45,9 @@ class ReleaseCheckTests(unittest.TestCase):
             },
         }]})
         self.write_yaml(self.root / "data" / "articles.yml", {"articles": [
-            {"id": "guide", "slug": "guide", "release_scope": "guide", "status": "ready"},
-            {"id": "policy", "slug": "policy", "release_scope": "policy", "status": "active_policy"},
-            {"id": "working", "slug": "working", "release_scope": "working", "status": "draft"},
+            {"id": "guide", "slug": "guide", "source": "content/guide.md", "release_scope": "guide", "status": "ready"},
+            {"id": "policy", "slug": "policy", "source": "content/policy.md", "release_scope": "policy", "status": "active_policy"},
+            {"id": "working", "slug": "working", "source": "content/working.md", "release_scope": "working", "status": "draft"},
         ]})
         (self.root / "site" / "articles" / "guide.html").write_text("guide", encoding="utf-8")
         (self.root / "site" / "articles" / "policy.html").write_text("policy", encoding="utf-8")
@@ -86,6 +87,24 @@ class ReleaseCheckTests(unittest.TestCase):
         data["claims"][0]["independent_review_status"] = "pending"
         self.write_yaml(self.root / "data" / "claims.yml", data)
         self.assert_fails_with("has not completed independent review")
+
+    def test_release_published_claim_cannot_opt_out_of_review(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["launch_critical"] = False
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("release-published claim cannot opt out")
+
+    def test_working_only_noncritical_claim_can_remain_exempt(self):
+        data = self.read_yaml("claims.yml")
+        claim = data["claims"][0]
+        claim["launch_critical"] = False
+        claim["published_in"] = [{"file": "content/working.md", "locator": "Claim"}]
+        claim["independent_review_status"] = "pending"
+        claim["reviewer"] = ""
+        claim.pop("review_record")
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        result = self.run_checker()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_missing_criticality_is_blocked(self):
         data = self.read_yaml("claims.yml")
