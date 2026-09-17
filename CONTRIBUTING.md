@@ -127,6 +127,18 @@ For publication UI changes, preserve keyboard accessibility, readable contrast, 
 
 Do not validate only an intermediate HTML generator. The supported publication artifact includes the Python publication layer **plus** the React/shadcn/Base UI/Tailwind enhancement, generated machine surfaces, WebMCP scope refinement, and pdfcn/Takumi PDF output.
 
+## Workflow and Action dependencies
+
+Every third-party `uses:` in `action.yml` and `.github/workflows/` is pinned to a commit SHA, with the version it corresponds to in a trailing comment. A version tag can be repointed at new code; a commit SHA cannot. This matters most for `action.yml`, because adopter repositories execute that action in their own CI.
+
+`tests/test_interaction_integrity.py::test_third_party_actions_are_pinned_to_commit_shas` enforces this; local `./` references are exempt.
+
+To refresh a pin, resolve the tag and update both the SHA and the comment:
+
+```bash
+gh api repos/actions/setup-python/git/ref/tags/v5 -q '.object.sha'
+```
+
 ## Publication checks
 
 Before submitting, run the same finished-artifact path used by CI and Pages:

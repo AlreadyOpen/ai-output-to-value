@@ -102,6 +102,42 @@ For governed use, replace `@main` with a reviewed release/tag or commit SHA.
 
 The Action evaluates the supplied `claim.json`. It does **not** add extra requirements merely because code was AI-generated.
 
+By default the step fails when the gate does not return `PASS`. Set `fail-on-block: 'false'` to read the result and let the calling workflow decide. A missing or malformed claim record always fails the step, because there is no result to report.
+
+The Action exposes the gate result as step outputs, so a caller can branch on the verdict instead of parsing stdout:
+
+```yaml
+- name: AI Output to Value decision gate
+  id: gate
+  uses: AlreadyOpen/ai-output-to-value@main
+  with:
+    claim: governance/claim.json
+    fail-on-block: 'false'
+
+- name: Require Operating capability before release
+  if: steps.gate.outputs.status != 'PASS'
+  run: |
+    echo "Gate returned ${{ steps.gate.outputs.status }} for ${{ steps.gate.outputs.decision-label }}"
+    echo "Required claim: ${{ steps.gate.outputs.required-claim-level }}"
+    echo "${{ steps.gate.outputs.failed-check-count }} failed, ${{ steps.gate.outputs.unknown-check-count }} unknown"
+    exit 1
+```
+
+| Output | Meaning |
+| --- | --- |
+| `status` | `PASS`, `BLOCKED` or `INSUFFICIENT_EVIDENCE` |
+| `target-decision` | Identifier of the decision evaluated |
+| `decision-label` | Human-facing label for that decision |
+| `required-claim-level` | Weakest claim level sufficient for the decision |
+| `asserted-claim-level` | Claim level asserted by the record |
+| `claim-mismatch` | `true` when the asserted level does not match the required one |
+| `failed-check-count` / `unknown-check-count` / `passed-check-count` | Check tallies |
+| `result-json` | The complete result as compact JSON |
+
+The step also writes a short verdict to the job summary.
+
+**Gate ≠ truth.** A `PASS` output reports that the *supplied record* satisfies the deterministic checks for the selected decision. It is not an audit of the underlying system, measurement, people, or evidence references.
+
 ## 8. Add the pull-request questions
 
 This repository's [pull request template](../.github/pull_request_template.md) is intentionally actor-neutral. Adapt the same sections in adopter repositories:
