@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import sys
 import unittest
@@ -15,28 +16,37 @@ class ClaimGateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.gates = json.loads((REPO_ROOT / "schemas" / "v1" / "decision-gates.json").read_text(encoding="utf-8"))
+        cls.conformance = json.loads(
+            (REPO_ROOT / "tests" / "fixtures" / "claim-gate-conformance.json").read_text(encoding="utf-8")
+        )
 
     def base_record(self):
-        return {
-            "schemaVersion": "1.0",
-            "project": "example",
-            "targetDecision": "rely",
-            "requiredClaimLevel": "03-deliverable",
-            "assertedClaimLevel": "03-deliverable",
-            "intendedUse": "Named use",
-            "actors": [{"type": "ai-agent", "role": "Draft"}],
-            "authority": "Bounded",
-            "accountability": "Organisation",
-            "gateChecks": {
-                "intended-use-defined": "pass",
-                "acceptance-criteria-defined": "pass",
-                "acceptance-criteria-met": "pass",
-                "failure-modes-tested": "pass",
-                "limitations-stated": "pass",
-            },
-            "nextEvidence": "Fresh evaluation",
-            "stopRule": "Stop if threshold fails",
-        }
+        return copy.deepcopy(self.conformance["baseRecord"])
+
+    def patched_record(self, patch):
+        record = self.base_record()
+        for key, replacement in (patch or {}).items():
+            if key == "gateChecks" and isinstance(replacement, dict):
+                record["gateChecks"].update(replacement)
+            else:
+                record[key] = copy.deepcopy(replacement)
+        return record
+
+    def test_shared_conformance_fixture(self):
+        for item in self.conformance["cases"]:
+            with self.subTest(item=item["name"]):
+                result = evaluate(self.patched_record(item.get("patch", {})), self.gates)
+                self.assertEqual(result["status"], item["expectedStatus"])
+                self.assertEqual(result["gateVersion"], self.gates["version"])
+                self.assertEqual(result["principle"], self.gates["principle"])
+                self.assertEqual(result["rule"], self.gates["principle"])
+                if "expectedClaimMismatch" in item:
+                    self.assertEqual(result["claimMismatch"], item["expectedClaimMismatch"])
+                if "expectedMissingFields" in item:
+                    self.assertEqual(result["missingFields"], item["expectedMissingFields"])
+                errors = " ".join(result["structuralErrors"]).lower()
+                for needle in item.get("errorContains", []):
+                    self.assertIn(str(needle).lower(), errors)
 
     def test_complete_required_gate_passes(self):
         result = evaluate(self.base_record(), self.gates)
