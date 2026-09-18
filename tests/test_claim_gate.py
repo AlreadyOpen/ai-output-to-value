@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -152,6 +154,31 @@ class ClaimGateTests(unittest.TestCase):
         self.assertEqual(result["status"], "BLOCKED")
         self.assertEqual(result["targetDecision"], [])
         self.assertTrue(result["structuralErrors"])
+
+    def test_cli_non_string_target_decision_returns_json_without_traceback(self):
+        for decision_id in ([], {}, False, 0, None):
+            with self.subTest(targetDecision=decision_id), tempfile.TemporaryDirectory() as temp_dir:
+                record = self.base_record()
+                record["targetDecision"] = decision_id
+                claim_path = Path(temp_dir) / "claim.json"
+                claim_path.write_text(json.dumps(record), encoding="utf-8")
+
+                result = subprocess.run(
+                    [sys.executable, str(REPO_ROOT / "scripts" / "claim_gate.py"), str(claim_path), "--json"],
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertNotIn("Traceback", result.stderr)
+                payload = json.loads(result.stdout)
+                self.assertEqual(payload["status"], "BLOCKED")
+                self.assertEqual(payload["targetDecision"], decision_id)
+                self.assertTrue(
+                    any("targetDecision" in error for error in payload["structuralErrors"]),
+                    payload,
+                )
 
     def test_producer_identity_does_not_change_gate(self):
         ai_record = self.base_record()
