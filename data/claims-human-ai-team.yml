@@ -1,0 +1,51 @@
+claims:
+  - id: ibm-1401-business-automation-1959
+    claim_text: IBM introduced the 1401 Data Processing System in 1959, and IBM's historical account says it was used for business data-processing functions including accounting, inventory control, billing, and payroll, with payroll processing capable of being automated through cheque printing.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: ibm-1401-business-automation
+        source_version: IBM History page checked 2026-09-18
+        locator: "Small business computing; Instant popularity"
+        relevant_finding: IBM states that the 1401 was introduced in 1959, that businesses were performing labour-intensive accounting, inventory, billing, and payroll work, and that the 1401 could automate payroll processing through printing cheques.
+        qualification: The source is IBM's corporate history. The article uses it as a concrete historical example of business computerisation, not as proof that all computerisation had identical organisational effects.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Computerisation already moved work into machines"
+    reviewer: AI-assisted source check against IBM's current history page
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: visicalc-automated-recalculation-1979
+    claim_text: The Computer History Museum records VisiCalc as a 1979 development that automated spreadsheet recalculation and helped turn the personal computer into a business machine.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: chm-visicalc-1979
+        source_version: Computer History Museum 1979 timeline checked 2026-09-18
+        locator: "VisiCalc is developed"
+        relevant_finding: The museum says Dan Bricklin and Bob Frankston developed VisiCalc in 1979, that it automated spreadsheet recalculation, and that it helped turn the personal computer into a business machine.
+        qualification: This supports the historical example and does not by itself quantify VisiCalc's total economic impact or the broader effects of office computerisation.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## The spreadsheet repeated the pattern"
+    reviewer: AI-assisted source check against the Computer History Museum timeline
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: nist-cad-cam-evolution-1970s-1990s
+    claim_text: A 1997 NIST publication describes CAD/CAM as progressing from two-dimensional wireframe drafting systems in the 1970s to parametric and feature-based solid modellers in the 1990s.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: nist-cad-cam-history-1997
+        source_version: NIST publication page checked 2026-09-18
+        locator: Abstract
+        relevant_finding: NIST's abstract explicitly describes CAD/CAM progression from two-dimensional wireframe drafting systems of the 1970s to parametric and feature-based solid modellers of the 1990s.
+        qualification: The source is historical and stops in the 1990s; the article uses it only to establish that engineering work had already undergone substantial digitalisation before modern generative AI.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Engineering already moved from manual drafting to digital systems"
+    reviewer: AI-assisted source check against the NIST publication page
+    reviewed: 2026-09-18
+    independent_review_status: pending
