@@ -152,7 +152,7 @@ Law can require AI-related disclosure for reasons that are different from author
 
 U.S. copyright doctrine, for example, does not treat the machine itself as an author. In *Thaler v. Perlmutter*, the D.C. Circuit upheld the rejection of a registration application that listed an AI system as the sole author of an autonomously generated image.
 
-The U.S. Copyright Office separately requires applicants to disclose AI-generated material in works submitted for registration so that copyrightable human authorship can be assessed.
+The U.S. Copyright Office separately requires applicants to disclose AI-generated material in works submitted for copyright registration.
 
 Likewise, Article 50 of the EU AI Act creates context-specific transparency duties, including informing people in certain circumstances that they are interacting with an AI system and disclosing certain AI-generated or manipulated content.
 
@@ -231,7 +231,7 @@ That is already true of large digital organisations.
 
 AI adds new capabilities and new failure modes, but it does not eliminate the organisational abstraction.
 
-For adjacent questions about legal identity, instruments, delegation, and recourse, see [Company actors are not the same as company instruments](company-actors-vs-instruments.md) and [Non-human does not mean non-accountable](non-human-actors-and-accountability.md).
+For the related question of what AI can actually analyse, judge, communicate, or do inside that organisation, see [AI can do business work too](ai-business-capability-and-judgement.md). For adjacent questions about legal identity, instruments, delegation, and recourse, see [Company actors are not the same as company instruments](company-actors-vs-instruments.md) and [Non-human does not mean non-accountable](non-human-actors-and-accountability.md).
 
 ## The better question
 
