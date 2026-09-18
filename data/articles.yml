@@ -221,6 +221,18 @@ articles:
     reviewed: 2026-09-16
     status: research_draft
 
+  - id: human-ai-team-attribution
+    title: Treat human + AI as a team, not an academic paper
+    source: content/human-ai-team-and-attribution.md
+    slug: human-ai-team-and-attribution
+    section: advanced
+    release_scope: working
+    order: 205
+    summary: Why ordinary organisational attribution, decades of computerisation, and the distinction between attribution, provenance, and accountability provide a better baseline for human-AI work than academic-style coauthorship.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-18
+    status: research_draft
+
   - id: company-actors-instruments
     title: Company actors are not the same as company instruments
     source: content/company-actors-vs-instruments.md
