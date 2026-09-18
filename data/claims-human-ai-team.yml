@@ -45,42 +45,8 @@ claims:
         qualification: The source is historical and stops in the 1990s; the article uses it only to establish that engineering work had already undergone substantial digitalisation before modern generative AI.
     published_in:
       - file: content/human-ai-team-and-attribution.md
-        locator: "## Engineering already moved from manual drafting to digital systems"
+        locator: "## Engineering already made the same transition"
     reviewer: AI-assisted source check against the NIST publication page
-    reviewed: 2026-09-18
-    independent_review_status: pending
-
-  - id: usco-ai-registration-disclosure-2023
-    claim_text: The U.S. Copyright Office's registration guidance requires applicants to disclose the inclusion of AI-generated content in works submitted for copyright registration.
-    status: supported
-    launch_critical: false
-    evidence:
-      - source_id: usco-ai-registration-guidance-2023
-        source_version: U.S. Copyright Office NewsNet page checked 2026-09-18
-        locator: "Copyright Office Launches New Artificial Intelligence Initiative"
-        relevant_finding: The Office states that its registration guidance makes clear that applicants have a duty to disclose AI-generated content in works submitted for registration.
-        qualification: This is a copyright-registration requirement, not a general public-facing obligation to label every AI-assisted work.
-    published_in:
-      - file: content/human-ai-team-and-attribution.md
-        locator: "## Copyright is a separate question from public attribution"
-    reviewer: AI-assisted source check against U.S. Copyright Office guidance
-    reviewed: 2026-09-18
-    independent_review_status: pending
-
-  - id: usco-ai-human-authorship-2025
-    claim_text: The U.S. Copyright Office's 2025 Part 2 report says use of AI as an assistive tool does not itself bar copyright protection, but purely AI-generated material or material lacking sufficient human control over expressive elements is not protected under its current analysis.
-    status: supported
-    launch_critical: false
-    evidence:
-      - source_id: usco-ai-copyrightability-2025
-        source_version: U.S. Copyright Office NewsNet summary checked 2026-09-18
-        locator: "Copyright Office Releases Part 2 of Artificial Intelligence Report"
-        relevant_finding: The Office says generative-AI outputs can be protected only where a human author has determined sufficient expressive elements, while AI assistance or inclusion of AI-generated material in a larger human-generated work does not by itself bar copyrightability.
-        qualification: Copyrightability is fact-specific and this is U.S.-specific analysis; it does not decide ownership questions such as work made for hire or assignment.
-    published_in:
-      - file: content/human-ai-team-and-attribution.md
-        locator: "## Copyright is a separate question from public attribution"
-    reviewer: AI-assisted source check against U.S. Copyright Office Part 2 summary
     reviewed: 2026-09-18
     independent_review_status: pending
 
@@ -96,46 +62,41 @@ claims:
         qualification: The court expressly did not reach Thaler's separate argument that he was author by virtue of making and using the system because that argument had been waived before the agency.
     published_in:
       - file: content/human-ai-team-and-attribution.md
-        locator: "## Copyright is a separate question from public attribution"
+        locator: "## Legal disclosure is not the same as giving the tool credit"
     reviewer: AI-assisted source check against the D.C. Circuit opinion
     reviewed: 2026-09-18
     independent_review_status: pending
 
-  - id: eu-ai-act-article-50-transparency-2026
-    claim_text: As of September 2026, Article 50 of the EU AI Act applies from 2 August 2026 and creates role- and context-specific transparency obligations, including informing people when they directly interact with certain AI systems, machine-readable marking of certain generated or manipulated content, and disclosure for deepfakes and some AI-generated public-interest text.
+  - id: usco-ai-registration-disclosure-2023
+    claim_text: The U.S. Copyright Office's registration guidance requires applicants to disclose the inclusion of AI-generated content in works submitted for copyright registration.
     status: supported
     launch_critical: false
     evidence:
-      - source_id: eu-ai-act-article-50-consolidated-2026
-        source_version: EUR-Lex consolidated text dated 2026-07-27, checked 2026-09-18
-        locator: "Article 50; Article 113"
-        relevant_finding: Article 50 sets the listed transparency obligations and Article 113 states that the Regulation applies from 2 August 2026 except for specified provisions with different dates.
-        qualification: The obligations have exceptions and depend on provider/deployer role and use case; Article 50 is not a universal requirement to identify every model used in every AI-assisted output.
-      - source_id: eu-commission-article-50-guidelines-2026
-        source_version: European Commission guidance published 2026-07-20, checked 2026-09-18
-        locator: "Guidelines on transparency obligations for providers and deployers of AI systems"
-        relevant_finding: The Commission states that Article 50 transparency obligations apply from 2 August 2026 and concern interactive AI systems and AI-generated content.
-        qualification: Commission guidance supports implementation but the Regulation is the controlling legislative text.
+      - source_id: usco-ai-registration-guidance-2023
+        source_version: U.S. Copyright Office NewsNet page checked 2026-09-18
+        locator: "Copyright Office Launches New Artificial Intelligence Initiative"
+        relevant_finding: The Office states that its registration guidance makes clear that applicants have a duty to disclose AI-generated content in works submitted for registration.
+        qualification: This is a copyright-registration requirement, not a general public-facing obligation to label every AI-assisted work.
     published_in:
       - file: content/human-ai-team-and-attribution.md
-        locator: "## Transparency can be required for reasons other than credit"
-    reviewer: AI-assisted source check against current EUR-Lex text and European Commission guidance
+        locator: "## Legal disclosure is not the same as giving the tool credit"
+    reviewer: AI-assisted source check against U.S. Copyright Office guidance
     reviewed: 2026-09-18
     independent_review_status: pending
 
-  - id: eu-ai-act-article-50-limited-transition-2026
-    claim_text: For AI systems placed on the EU market before 2 August 2026, the current consolidated AI Act provides a limited transition until 2 December 2026 for compliance with Article 50(2)'s marking and detection obligation; that transition does not postpone Article 50 as a whole.
+  - id: eu-ai-act-article-50-transparency
+    claim_text: Article 50 of the EU AI Act creates role- and context-specific transparency obligations, including informing people in certain circumstances when they directly interact with an AI system and requiring disclosure or marking for specified AI-generated or manipulated content.
     status: supported
     launch_critical: false
     evidence:
       - source_id: eu-ai-act-article-50-consolidated-2026
         source_version: EUR-Lex consolidated text dated 2026-07-27, checked 2026-09-18
-        locator: "Article 111(4); Article 113"
-        relevant_finding: Article 111(4) gives providers of relevant systems placed on the market before 2 August 2026 until 2 December 2026 to comply with Article 50(2), while Article 113 keeps the Regulation's general application date at 2 August 2026.
-        qualification: This is a narrow transition for Article 50(2), not a general delay of all Article 50 transparency duties.
+        locator: "Article 50"
+        relevant_finding: Article 50 sets transparency obligations for specified providers and deployers involving direct AI interaction, synthetic content, deepfakes, and certain public-interest text.
+        qualification: The obligations contain exceptions and depend on provider/deployer role and use case; Article 50 is not a universal requirement to identify every model used in every AI-assisted output.
     published_in:
       - file: content/human-ai-team-and-attribution.md
-        locator: "## Transparency can be required for reasons other than credit"
-    reviewer: AI-assisted source check against current EUR-Lex consolidated text
+        locator: "## Legal disclosure is not the same as giving the tool credit"
+    reviewer: AI-assisted source check against the current EUR-Lex consolidated text
     reviewed: 2026-09-18
     independent_review_status: pending
