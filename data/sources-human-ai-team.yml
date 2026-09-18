@@ -1,0 +1,41 @@
+sources:
+  - id: ibm-1401-business-automation
+    title: The IBM 1401
+    publisher: IBM
+    url: https://www.ibm.com/history/1401
+    evidence_type: vendor_history
+    supports:
+      - ibm_1401_introduced_in_1959
+      - business_data_processing_included_accounting_inventory_billing_and_payroll
+      - payroll_processing_could_be_automated_through_cheque_printing
+    scope: IBM's historical account of the IBM 1401 Data Processing System, its 1959 introduction, adoption in business data processing, and examples of automated business functions.
+    limitations: This is IBM's own corporate history rather than an independent academic history. It is used here for narrow factual claims about the product and described uses, not for a broad evaluation of the social effects of computerisation.
+    reviewed: 2026-09-18
+
+  - id: chm-visicalc-1979
+    title: 1979 — VisiCalc is developed
+    publisher: Computer History Museum
+    url: https://www.computerhistory.org/timeline/1979/
+    evidence_type: museum_history
+    supports:
+      - visicalc_developed_in_1979
+      - visicalc_automated_spreadsheet_recalculation
+      - visicalc_helped_turn_the_personal_computer_into_a_business_machine
+    scope: Computer History Museum timeline entry describing VisiCalc's 1979 development, spreadsheet recalculation, and role in business adoption of personal computers.
+    limitations: This is a concise museum timeline entry rather than a comprehensive economic history of spreadsheets or office computerisation.
+    reviewed: 2026-09-18
+
+  - id: nist-cad-cam-history-1997
+    title: Chapter 6 — Virtual Environments for Design and Manufacture
+    publisher: National Institute of Standards and Technology
+    authors:
+      - Kevin W. Lyons
+      - Scott Angster
+      - Sankar Jayaram
+    url: https://www.nist.gov/publications/chapter-6-virtual-environments-design-and-manufacture
+    evidence_type: government_technical_publication
+    supports:
+      - cad_cam_progressed_from_2d_wireframe_systems_to_parametric_feature_based_solid_modelling
+    scope: NIST publication describing the progression of CAD/CAM from two-dimensional wireframe drafting systems of the 1970s to parametric and feature-based solid modellers of the 1990s.
+    limitations: Published in 1997, so it is used only as historical evidence for the evolution of CAD/CAM up to that period, not as a description of present-day engineering software.
+    reviewed: 2026-09-18
