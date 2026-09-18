@@ -8,7 +8,7 @@ sources:
       - ibm_1401_introduced_in_1959
       - smaller_businesses_still_used_manual_methods_for_accounting_inventory_billing_and_payroll
       - ibm_says_1401_automated_payroll_through_cheque_printing
-    scope: IBM's historical account of the IBM 1401 Data Processing System, its 1959 introduction, the manual business-processing context it entered, and examples of 1401 use including automated payroll.
+    scope: IBM's historical account of the IBM 1401 Data Processing System, its 1959 introduction, the manual business-processing context it entered, and the explicit example of automated payroll.
     limitations: IBM lists accounting, inventory control, billing, and payroll as labour-intensive tasks that many smaller businesses still performed manually; the page explicitly attributes full automation by the 1401 only to the payroll example in that list. This is IBM's corporate history, not an independent social history of computerisation.
     reviewed: 2026-09-18
 
@@ -48,20 +48,7 @@ sources:
     supports:
       - copyright_registration_applicants_must_disclose_ai_generated_content
     scope: U.S. Copyright Office announcement of its March 2023 registration guidance for works containing AI-generated material, including the applicant's duty to disclose AI-generated content in works submitted for registration.
-    limitations: This is U.S. copyright-registration guidance. It does not establish a general public-facing duty to label all AI-assisted works, and it should not be generalised to other jurisdictions.
-    reviewed: 2026-09-18
-
-  - id: usco-ai-copyrightability-2025
-    title: Copyright Office Releases Part 2 of Artificial Intelligence Report
-    publisher: U.S. Copyright Office
-    url: https://www.copyright.gov/newsnet/2025/1060.html
-    evidence_type: government_legal_policy_report
-    supports:
-      - ai_assistance_does_not_by_itself_bar_copyright
-      - copyright_requires_sufficient_human_authorship_of_protected_expression
-      - purely_ai_generated_material_is_not_protected_under_current_usco_interpretation
-    scope: U.S. Copyright Office summary of Part 2 of its Copyright and Artificial Intelligence report on copyrightability of generative-AI outputs.
-    limitations: U.S.-specific Copyright Office analysis. Copyrightability is fact-specific, and ownership can also depend on work-made-for-hire, assignment, and other legal rules.
+    limitations: This is U.S. copyright-registration guidance. It is not a general public-facing requirement to label every AI-assisted work and should not be generalised to other jurisdictions.
     reviewed: 2026-09-18
 
   - id: thaler-v-perlmutter-dc-circuit-2025
@@ -87,20 +74,6 @@ sources:
       - article_50_direct_ai_interaction_disclosure
       - article_50_machine_readable_marking_for_generated_or_manipulated_content
       - article_50_deepfake_and_certain_public_interest_text_disclosure
-      - article_50_applies_from_2_august_2026
-      - limited_transition_for_pre_august_2026_systems_under_article_50_2_until_2_december_2026
-    scope: Consolidated EU Artificial Intelligence Act text after the July 2026 amendment, including Article 50 transparency obligations, Article 111(4) transition for certain pre-existing systems, and Article 113 application dates.
+    scope: Consolidated EU Artificial Intelligence Act text after the July 2026 amendment, including Article 50 transparency obligations for specified providers and deployers.
     limitations: Article 50 contains scope conditions, exceptions, and role-specific obligations. It is not a universal requirement to label every AI-assisted work or publicly identify every model used.
-    reviewed: 2026-09-18
-
-  - id: eu-commission-article-50-guidelines-2026
-    title: Guidelines on transparency obligations for providers and deployers of AI systems
-    publisher: European Commission
-    url: https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems
-    evidence_type: government_guidance
-    supports:
-      - article_50_transparency_obligations_apply_from_2_august_2026
-      - transparency_rules_address_interactive_ai_and_ai_generated_content
-    scope: European Commission guidance published in July 2026 on the scope and implementation of Article 50 transparency obligations.
-    limitations: Guidance assists interpretation and compliance but does not replace the Regulation itself.
     reviewed: 2026-09-18
