@@ -32,7 +32,7 @@ The same transition happened when personal computers entered ordinary office wor
 
 The Computer History Museum records VisiCalc as a 1979 development that automated spreadsheet recalculation. Its timeline describes it as the program that "turned the personal computer into a business machine."
 
-Before electronic spreadsheets, people could spend substantial time manually recalculating financial models. Afterwards, software performed much of that mechanical calculation.
+VisiCalc's automated recalculation moved that repeated arithmetic into the software: when worksheet values changed, the program recalculated the dependent results.
 
 We do not normally add:
 
