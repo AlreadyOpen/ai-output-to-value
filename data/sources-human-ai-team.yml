@@ -1,0 +1,79 @@
+sources:
+  - id: ibm-1401-business-automation
+    title: The IBM 1401
+    publisher: IBM
+    url: https://www.ibm.com/history/1401
+    evidence_type: vendor_history
+    supports:
+      - ibm_1401_introduced_in_1959
+      - smaller_businesses_still_used_manual_methods_for_accounting_inventory_billing_and_payroll
+      - ibm_says_1401_automated_payroll_through_cheque_printing
+    scope: IBM's historical account of the IBM 1401 Data Processing System, its 1959 introduction, the manual business-processing context it entered, and the explicit example of automated payroll.
+    limitations: IBM lists accounting, inventory control, billing, and payroll as labour-intensive tasks that many smaller businesses still performed manually; the page explicitly attributes full automation by the 1401 only to the payroll example in that list. This is IBM's corporate history, not an independent social history of computerisation.
+    reviewed: 2026-09-18
+
+  - id: chm-visicalc-1979
+    title: 1979 — VisiCalc is developed
+    publisher: Computer History Museum
+    url: https://www.computerhistory.org/timeline/1979/
+    evidence_type: museum_history
+    supports:
+      - visicalc_developed_in_1979
+      - visicalc_automated_spreadsheet_recalculation
+      - chm_describes_visicalc_as_turning_the_personal_computer_into_a_business_machine
+    scope: Computer History Museum timeline entry describing VisiCalc's 1979 development, automated spreadsheet recalculation, and its role in business adoption of personal computers.
+    limitations: This is a concise museum timeline entry rather than a comprehensive economic history of spreadsheets or office computerisation.
+    reviewed: 2026-09-18
+
+  - id: nist-cad-cam-history-1997
+    title: Chapter 6 — Virtual Environments for Design and Manufacture
+    publisher: National Institute of Standards and Technology
+    authors:
+      - Kevin W. Lyons
+      - Scott Angster
+      - Sankar Jayaram
+    url: https://www.nist.gov/publications/chapter-6-virtual-environments-design-and-manufacture
+    evidence_type: government_technical_publication
+    supports:
+      - cad_cam_progressed_from_2d_wireframe_systems_to_parametric_feature_based_solid_modelling
+    scope: NIST publication describing the progression of CAD/CAM from two-dimensional wireframe drafting systems of the 1970s to parametric and feature-based solid modellers of the 1990s.
+    limitations: Published in 1997, so it is used only as historical evidence for the evolution of CAD/CAM up to that period, not as a description of present-day engineering software.
+    reviewed: 2026-09-18
+
+  - id: usco-ai-registration-guidance-2023
+    title: Copyright Office Launches New Artificial Intelligence Initiative
+    publisher: U.S. Copyright Office
+    url: https://www.copyright.gov/newsnet/2023/1004.html
+    evidence_type: government_guidance
+    supports:
+      - copyright_registration_applicants_must_disclose_ai_generated_content
+    scope: U.S. Copyright Office announcement of its March 2023 registration guidance for works containing AI-generated material, including the applicant's duty to disclose AI-generated content in works submitted for registration.
+    limitations: This is U.S. copyright-registration guidance. It is not a general public-facing requirement to label every AI-assisted work and should not be generalised to other jurisdictions.
+    reviewed: 2026-09-18
+
+  - id: thaler-v-perlmutter-dc-circuit-2025
+    title: Thaler v. Perlmutter, No. 23-5233
+    publisher: U.S. Court of Appeals for the District of Columbia Circuit
+    authors:
+      - Patricia A. Millett
+    url: https://media.cadc.uscourts.gov/opinions/docs/2025/03/23-5233.pdf
+    evidence_type: court_opinion
+    supports:
+      - dc_circuit_affirmed_denial_of_registration_for_autonomously_ai_generated_work
+      - copyright_act_requires_eligible_work_to_be_authored_in_first_instance_by_human
+    scope: D.C. Circuit opinion decided 18 March 2025 affirming the Copyright Office's denial of Stephen Thaler's application for an artwork whose sole listed author was the Creativity Machine.
+    limitations: The court expressly did not decide whether Thaler could be author by virtue of making or using the system because that argument had been waived. The holding should not be generalised into a rule that any use of AI defeats copyright.
+    reviewed: 2026-09-18
+
+  - id: eu-ai-act-article-50-consolidated-2026
+    title: Regulation (EU) 2024/1689 — consolidated text as of 27 July 2026
+    publisher: EUR-Lex
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng
+    evidence_type: legislation
+    supports:
+      - article_50_direct_ai_interaction_disclosure
+      - article_50_machine_readable_marking_for_generated_or_manipulated_content
+      - article_50_deepfake_and_certain_public_interest_text_disclosure
+    scope: Consolidated EU Artificial Intelligence Act text after the July 2026 amendment, including Article 50 transparency obligations for specified providers and deployers.
+    limitations: Article 50 contains scope conditions, exceptions, and role-specific obligations. It is not a universal requirement to label every AI-assisted work or publicly identify every model used.
+    reviewed: 2026-09-18

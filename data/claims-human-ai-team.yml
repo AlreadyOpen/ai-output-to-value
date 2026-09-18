@@ -1,0 +1,102 @@
+claims:
+  - id: ibm-1401-business-automation-1959
+    claim_text: IBM introduced the 1401 Data Processing System in 1959. Its history page says many smaller businesses were still doing accounting, inventory control, billing, and payroll manually, and separately says the 1401 could completely automate payroll processing through cheque printing.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: ibm-1401-business-automation
+        source_version: IBM History page checked 2026-09-18
+        locator: "Small business computing; Instant popularity"
+        relevant_finding: IBM describes accounting, inventory control, billing, and payroll as labour-intensive tasks that many smaller businesses still handled with adding machines and paper ledgers; later on the same page it explicitly says the 1401 could completely automate payroll processing through cheque printing.
+        qualification: The source does not say the 1401 itself automated every task in the earlier list, so the article uses payroll as the explicit automation example and the broader list only as historical context.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Computerisation already moved work into machines"
+    reviewer: AI-assisted source check against IBM's current history page
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: visicalc-automated-recalculation-1979
+    claim_text: The Computer History Museum says VisiCalc was developed in 1979, automated spreadsheet recalculation, and "turned the personal computer into a business machine."
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: chm-visicalc-1979
+        source_version: Computer History Museum 1979 timeline checked 2026-09-18
+        locator: "VisiCalc is developed"
+        relevant_finding: The museum says Dan Bricklin and Bob Frankston developed VisiCalc, calls it the program that "turned the personal computer into a business machine," and says it automated spreadsheet recalculation.
+        qualification: This supports the museum's historical characterisation and does not by itself quantify VisiCalc's total economic impact or the broader effects of office computerisation.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## The spreadsheet repeated the pattern"
+    reviewer: AI-assisted source check against the Computer History Museum timeline
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: nist-cad-cam-evolution-1970s-1990s
+    claim_text: A 1997 NIST publication describes CAD/CAM as progressing from two-dimensional wireframe drafting systems in the 1970s to parametric and feature-based solid modellers in the 1990s.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: nist-cad-cam-history-1997
+        source_version: NIST publication page checked 2026-09-18
+        locator: Abstract
+        relevant_finding: NIST's abstract explicitly describes CAD/CAM progression from two-dimensional wireframe drafting systems of the 1970s to parametric and feature-based solid modellers of the 1990s.
+        qualification: The source is historical and stops in the 1990s; the article uses it only to establish that engineering work had already undergone substantial digitalisation before modern generative AI.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Engineering already made the same transition"
+    reviewer: AI-assisted source check against the NIST publication page
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: thaler-human-authorship-dc-circuit-2025
+    claim_text: In Thaler v. Perlmutter, decided 18 March 2025, the D.C. Circuit affirmed denial of copyright registration for an autonomously generated image whose sole listed author was an AI system, holding that the Copyright Act requires eligible work to be authored in the first instance by a human being.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: thaler-v-perlmutter-dc-circuit-2025
+        source_version: D.C. Circuit opinion No. 23-5233, decided 2025-03-18
+        locator: "Opinion pp. 2-3; Part III"
+        relevant_finding: The court affirmed denial of Thaler's application and held that the Creativity Machine could not be the recognised author because the Copyright Act requires human authorship in the first instance.
+        qualification: The court expressly did not reach Thaler's separate argument that he was author by virtue of making and using the system because that argument had been waived before the agency.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Legal disclosure is not the same as giving the tool credit"
+    reviewer: AI-assisted source check against the D.C. Circuit opinion
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: usco-ai-registration-disclosure-2023
+    claim_text: The U.S. Copyright Office's registration guidance requires applicants to disclose the inclusion of AI-generated content in works submitted for copyright registration.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: usco-ai-registration-guidance-2023
+        source_version: U.S. Copyright Office NewsNet page checked 2026-09-18
+        locator: "Copyright Office Launches New Artificial Intelligence Initiative"
+        relevant_finding: The Office states that its registration guidance makes clear that applicants have a duty to disclose AI-generated content in works submitted for registration.
+        qualification: This is a copyright-registration requirement, not a general public-facing obligation to label every AI-assisted work.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Legal disclosure is not the same as giving the tool credit"
+    reviewer: AI-assisted source check against U.S. Copyright Office guidance
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: eu-ai-act-article-50-transparency
+    claim_text: Article 50 of the EU AI Act creates role- and context-specific transparency obligations, including informing people in certain circumstances when they directly interact with an AI system and requiring disclosure or marking for specified AI-generated or manipulated content.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: eu-ai-act-article-50-consolidated-2026
+        source_version: EUR-Lex consolidated text dated 2026-07-27, checked 2026-09-18
+        locator: "Article 50"
+        relevant_finding: Article 50 sets transparency obligations for specified providers and deployers involving direct AI interaction, synthetic content, deepfakes, and certain public-interest text.
+        qualification: The obligations contain exceptions and depend on provider/deployer role and use case; Article 50 is not a universal requirement to identify every model used in every AI-assisted output.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Legal disclosure is not the same as giving the tool credit"
+    reviewer: AI-assisted source check against the current EUR-Lex consolidated text
+    reviewed: 2026-09-18
+    independent_review_status: pending
