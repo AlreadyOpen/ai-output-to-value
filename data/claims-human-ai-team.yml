@@ -1,14 +1,14 @@
 claims:
   - id: ibm-1401-business-automation-1959
-    claim_text: IBM introduced the 1401 Data Processing System in 1959, and IBM's historical account says it was used for business data-processing functions including accounting, inventory control, billing, and payroll, with payroll processing capable of being automated through cheque printing.
+    claim_text: IBM introduced the 1401 Data Processing System in 1959. Its history page says many smaller businesses were still doing accounting, inventory control, billing, and payroll manually, and separately says the 1401 could completely automate payroll processing through cheque printing.
     status: supported
     launch_critical: false
     evidence:
       - source_id: ibm-1401-business-automation
         source_version: IBM History page checked 2026-09-18
         locator: "Small business computing; Instant popularity"
-        relevant_finding: IBM states that the 1401 was introduced in 1959, that businesses were performing labour-intensive accounting, inventory, billing, and payroll work, and that the 1401 could automate payroll processing through printing cheques.
-        qualification: The source is IBM's corporate history. The article uses it as a concrete historical example of business computerisation, not as proof that all computerisation had identical organisational effects.
+        relevant_finding: IBM describes accounting, inventory control, billing, and payroll as labour-intensive tasks that many smaller businesses still handled with adding machines and paper ledgers; later on the same page it explicitly says the 1401 could completely automate payroll processing through cheque printing.
+        qualification: The source does not say the 1401 itself automated every task in the earlier list, so the article uses payroll as the explicit automation example and the broader list only as historical context.
     published_in:
       - file: content/human-ai-team-and-attribution.md
         locator: "## Computerisation already moved work into machines"
@@ -17,15 +17,15 @@ claims:
     independent_review_status: pending
 
   - id: visicalc-automated-recalculation-1979
-    claim_text: The Computer History Museum records VisiCalc as a 1979 development that automated spreadsheet recalculation and helped turn the personal computer into a business machine.
+    claim_text: The Computer History Museum says VisiCalc was developed in 1979, automated spreadsheet recalculation, and "turned the personal computer into a business machine."
     status: supported
     launch_critical: false
     evidence:
       - source_id: chm-visicalc-1979
         source_version: Computer History Museum 1979 timeline checked 2026-09-18
         locator: "VisiCalc is developed"
-        relevant_finding: The museum says Dan Bricklin and Bob Frankston developed VisiCalc in 1979, that it automated spreadsheet recalculation, and that it helped turn the personal computer into a business machine.
-        qualification: This supports the historical example and does not by itself quantify VisiCalc's total economic impact or the broader effects of office computerisation.
+        relevant_finding: The museum says Dan Bricklin and Bob Frankston developed VisiCalc, calls it the program that "turned the personal computer into a business machine," and says it automated spreadsheet recalculation.
+        qualification: This supports the museum's historical characterisation and does not by itself quantify VisiCalc's total economic impact or the broader effects of office computerisation.
     published_in:
       - file: content/human-ai-team-and-attribution.md
         locator: "## The spreadsheet repeated the pattern"
@@ -47,5 +47,95 @@ claims:
       - file: content/human-ai-team-and-attribution.md
         locator: "## Engineering already moved from manual drafting to digital systems"
     reviewer: AI-assisted source check against the NIST publication page
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: usco-ai-registration-disclosure-2023
+    claim_text: The U.S. Copyright Office's registration guidance requires applicants to disclose the inclusion of AI-generated content in works submitted for copyright registration.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: usco-ai-registration-guidance-2023
+        source_version: U.S. Copyright Office NewsNet page checked 2026-09-18
+        locator: "Copyright Office Launches New Artificial Intelligence Initiative"
+        relevant_finding: The Office states that its registration guidance makes clear that applicants have a duty to disclose AI-generated content in works submitted for registration.
+        qualification: This is a copyright-registration requirement, not a general public-facing obligation to label every AI-assisted work.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Copyright is a separate question from public attribution"
+    reviewer: AI-assisted source check against U.S. Copyright Office guidance
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: usco-ai-human-authorship-2025
+    claim_text: The U.S. Copyright Office's 2025 Part 2 report says use of AI as an assistive tool does not itself bar copyright protection, but purely AI-generated material or material lacking sufficient human control over expressive elements is not protected under its current analysis.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: usco-ai-copyrightability-2025
+        source_version: U.S. Copyright Office NewsNet summary checked 2026-09-18
+        locator: "Copyright Office Releases Part 2 of Artificial Intelligence Report"
+        relevant_finding: The Office says generative-AI outputs can be protected only where a human author has determined sufficient expressive elements, while AI assistance or inclusion of AI-generated material in a larger human-generated work does not by itself bar copyrightability.
+        qualification: Copyrightability is fact-specific and this is U.S.-specific analysis; it does not decide ownership questions such as work made for hire or assignment.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Copyright is a separate question from public attribution"
+    reviewer: AI-assisted source check against U.S. Copyright Office Part 2 summary
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: thaler-human-authorship-dc-circuit-2025
+    claim_text: In Thaler v. Perlmutter, decided 18 March 2025, the D.C. Circuit affirmed denial of copyright registration for an autonomously generated image whose sole listed author was an AI system, holding that the Copyright Act requires eligible work to be authored in the first instance by a human being.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: thaler-v-perlmutter-dc-circuit-2025
+        source_version: D.C. Circuit opinion No. 23-5233, decided 2025-03-18
+        locator: "Opinion pp. 2-3; Part III"
+        relevant_finding: The court affirmed denial of Thaler's application and held that the Creativity Machine could not be the recognised author because the Copyright Act requires human authorship in the first instance.
+        qualification: The court expressly did not reach Thaler's separate argument that he was author by virtue of making and using the system because that argument had been waived before the agency.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Copyright is a separate question from public attribution"
+    reviewer: AI-assisted source check against the D.C. Circuit opinion
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: eu-ai-act-article-50-transparency-2026
+    claim_text: As of September 2026, Article 50 of the EU AI Act applies from 2 August 2026 and creates role- and context-specific transparency obligations, including informing people when they directly interact with certain AI systems, machine-readable marking of certain generated or manipulated content, and disclosure for deepfakes and some AI-generated public-interest text.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: eu-ai-act-article-50-consolidated-2026
+        source_version: EUR-Lex consolidated text dated 2026-07-27, checked 2026-09-18
+        locator: "Article 50; Article 113"
+        relevant_finding: Article 50 sets the listed transparency obligations and Article 113 states that the Regulation applies from 2 August 2026 except for specified provisions with different dates.
+        qualification: The obligations have exceptions and depend on provider/deployer role and use case; Article 50 is not a universal requirement to identify every model used in every AI-assisted output.
+      - source_id: eu-commission-article-50-guidelines-2026
+        source_version: European Commission guidance published 2026-07-20, checked 2026-09-18
+        locator: "Guidelines on transparency obligations for providers and deployers of AI systems"
+        relevant_finding: The Commission states that Article 50 transparency obligations apply from 2 August 2026 and concern interactive AI systems and AI-generated content.
+        qualification: Commission guidance supports implementation but the Regulation is the controlling legislative text.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Transparency can be required for reasons other than credit"
+    reviewer: AI-assisted source check against current EUR-Lex text and European Commission guidance
+    reviewed: 2026-09-18
+    independent_review_status: pending
+
+  - id: eu-ai-act-article-50-limited-transition-2026
+    claim_text: For AI systems placed on the EU market before 2 August 2026, the current consolidated AI Act provides a limited transition until 2 December 2026 for compliance with Article 50(2)'s marking and detection obligation; that transition does not postpone Article 50 as a whole.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: eu-ai-act-article-50-consolidated-2026
+        source_version: EUR-Lex consolidated text dated 2026-07-27, checked 2026-09-18
+        locator: "Article 111(4); Article 113"
+        relevant_finding: Article 111(4) gives providers of relevant systems placed on the market before 2 August 2026 until 2 December 2026 to comply with Article 50(2), while Article 113 keeps the Regulation's general application date at 2 August 2026.
+        qualification: This is a narrow transition for Article 50(2), not a general delay of all Article 50 transparency duties.
+    published_in:
+      - file: content/human-ai-team-and-attribution.md
+        locator: "## Transparency can be required for reasons other than credit"
+    reviewer: AI-assisted source check against current EUR-Lex consolidated text
     reviewed: 2026-09-18
     independent_review_status: pending
