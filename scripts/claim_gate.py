@@ -67,8 +67,15 @@ def evaluate(record: dict, gates: dict) -> dict:
     missing_fields: list[str] = []
 
     decision_id = record.get("targetDecision")
-    decisions = gates.get("decisions", {})
-    rule = decisions.get(decision_id) if isinstance(decision_id, str) else None
+    decisions = gates.get("decisions")
+    # Do not use untrusted claim data as a mapping key until its type is known.
+    # This guard is independent of schema validation so malformed input still
+    # produces a structured BLOCKED result rather than an exception.
+    rule = (
+        decisions.get(decision_id)
+        if isinstance(decisions, dict) and isinstance(decision_id, str)
+        else None
+    )
 
     if not isinstance(rule, dict):
         structural_errors.append(f"unknown targetDecision: {decision_id!r}")
