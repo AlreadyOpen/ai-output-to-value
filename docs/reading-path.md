@@ -44,8 +44,9 @@ A team may revisit them iteratively rather than follow them as a waterfall.
 - [`content/source-code-open-source-and-ai.md`](../content/source-code-open-source-and-ai.md)
 - [`content/assess-every-layer-of-the-company.md`](../content/assess-every-layer-of-the-company.md)
 
-### How should a company think about humans, agents, authority, and instruments?
+### How should a company think about attribution, humans, agents, authority, and instruments?
 
+- [`content/human-ai-team-and-attribution.md`](../content/human-ai-team-and-attribution.md) — why human + AI can be treated as an organisational system; includes the historical path from business computing and spreadsheets to CAD and modern AI, plus the distinction between public attribution, internal provenance, and accountability.
 - [`content/company-actors-vs-instruments.md`](../content/company-actors-vs-instruments.md)
 - [`content/non-human-actors-and-accountability.md`](../content/non-human-actors-and-accountability.md)
 
