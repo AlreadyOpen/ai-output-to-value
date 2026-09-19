@@ -10,13 +10,15 @@
 
 ## Start here
 
-For a first-time business reader or review meeting:
+For a first-time business reader or review meeting, use the human kit first:
 
-1. **[Start here — five-minute guide](START-HERE.md)**
-2. **[Interactive Claim Gate](https://alreadyopen.github.io/ai-output-to-value/tools/claim-gate.html)** — decision → required claim → `PASS` / `BLOCKED` / `INSUFFICIENT EVIDENCE`.
-3. **[Filled sample claim records](toolkit/samples/README.md)** — see the same website pass Explore and block Operate.
-4. **[Worked decisions](content/worked-cases.md)** — including software measurement and option value.
-5. **[One-page meeting brief](content/meeting-brief.md)**.
+1. **[Run the 15-minute decision discussion](START-HERE.md#run-the-15-minute-decision-discussion)** — decision → eight questions.
+2. **[Open / print the Claim Card](content/claim-card.md)** or **[one-page meeting brief](content/meeting-brief.md)**.
+3. **Inspect the evidence** needed for the next decision.
+4. **[Use the interactive Claim Gate](https://alreadyopen.github.io/ai-output-to-value/tools/claim-gate.html)** when a structured record or handoff is useful.
+5. **Export/import `claim.json`** only when portability across browser, CLI, CI, MCP, WebMCP, or another tool adds value.
+
+No schema, MCP/WebMCP, or JSON knowledge is required to begin. Filled teaching records and worked decisions remain available under **[samples](toolkit/samples/README.md)** and **[worked decisions](content/worked-cases.md)**.
 
 For confidential organisational use, copy the **[private workbook](toolkit/private-workbook/README.md)** instead of publishing a client case. The built site also provides `downloads/ai-output-to-value-private-workbook.zip`.
 
