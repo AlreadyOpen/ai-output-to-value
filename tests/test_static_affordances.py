@@ -65,6 +65,39 @@ class StaticAffordanceTests(unittest.TestCase):
         self.assertIn("website-explore-pass.claim.json", source)
         self.assertIn("Gate ≠ truth.", source)
 
+    def test_homepage_prioritizes_the_human_decision_kit(self):
+        source = (ROOT / "index.html").read_text(encoding="utf-8")
+        hero = source.split('<section class="hero"', 1)[1].split("</section>", 1)[0]
+        self.assertIn("Run the eight questions", hero)
+        self.assertIn("Open / print the Claim Card", hero)
+        self.assertIn("printable meeting brief", hero)
+        self.assertIn("optional structured record", hero)
+        self.assertLess(hero.index("Run the eight questions"), hero.index("interactive Claim Gate"))
+
+    def test_start_here_runs_the_human_kit_before_the_taxonomy(self):
+        source = (ROOT / "START-HERE.md").read_text(encoding="utf-8")
+        self.assertIn("## Run the 15-minute decision discussion", source)
+        self.assertIn("Decision → eight questions → Claim Card / printable brief → evidence → optional structured record", source)
+        self.assertLess(
+            source.index("## Run the 15-minute decision discussion"),
+            source.index("## Six different claims, not six mandatory steps"),
+        )
+        self.assertIn("not the conceptual front door", source)
+
+    def test_claim_gate_static_fallback_sends_first_meetings_to_the_human_kit(self):
+        source = (ROOT / "tools" / "claim-gate.html").read_text(encoding="utf-8")
+        first_meeting = source.index("Starting a first meeting?")
+        machine_contract = source.index("Optional machine-readable contract")
+        self.assertLess(first_meeting, machine_contract)
+        self.assertIn("../index.html#questions", source)
+        self.assertIn("../articles/claim-card.html", source)
+        self.assertIn("../downloads/ai-output-to-value-meeting-brief.pdf", source)
+
+    def test_homepage_builder_does_not_promote_webmcp_into_primary_navigation(self):
+        source = (ROOT / "scripts" / "build_site.py").read_text(encoding="utf-8")
+        self.assertIn("progressive enhancement", source)
+        self.assertNotIn("'<a href=\\"#interfaces\\">AI access</a>", source)
+
 
 if __name__ == "__main__":
     unittest.main()
