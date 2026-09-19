@@ -35,7 +35,7 @@ A source logo or citation is not itself independent review.
 - [ ] The generated PDF meeting brief receives a real print/render check.
 - [ ] External links and source dates are reviewed.
 - [ ] The dedicated social-preview image is present.
-- [ ] A small reader test covers Start Here, Claim Gate, Claim Card, worked decisions, and the meeting brief.
+- [ ] At least one non-technical sponsor completes the [human-kit reader test](human-kit-reader-test.md) using only Start Here, the eight questions, Claim Card / meeting brief, and evidence; the test does not require Claim Gate, schema, MCP/WebMCP, or JSON.
 - [ ] Working/research essays remain visibly separated from the release guide and do not leak into the reviewed artifact.
 
 ## Governance and reuse
