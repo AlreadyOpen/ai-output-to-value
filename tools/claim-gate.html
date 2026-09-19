@@ -15,19 +15,20 @@
     <div class="shell header-inner">
       <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="https://github.com/AlreadyOpen/ai-output-to-value/tree/main/packages/mcp">AI access</a>
-        <a href="../articles/index.html">Articles</a>
+        <a href="../index.html#questions">Eight questions</a>
+        <a href="../articles/claim-card.html">Claim Card</a>
         <a href="../evidence/index.html">Evidence</a>
-        <a href="https://github.com/AlreadyOpen/ai-output-to-value">GitHub</a>
+        <a href="../articles/index.html">Articles</a>
       </nav>
     </div>
   </header>
   <div id="claim-gate-root">
     <main class="article-shell" style="display:block;max-width:920px;margin:0 auto;padding:3rem 1rem 5rem">
       <article class="article-body">
-        <p class="eyebrow">Decision tool · static fallback</p>
+        <p class="eyebrow">Optional structured instrument · static fallback</p>
         <h1>Claim gate</h1>
-        <p><strong>Use the ladder as a stop rule, not a score.</strong> Start with the decision, then require the weakest claim that is sufficient for that decision. Do not average strength at one claim level into another.</p>
+        <p><strong>Starting a first meeting?</strong> You do not need this tool, a schema, or JSON. Start with the <a href="../index.html#questions">eight questions</a>, then record the discussion on the <a href="../articles/claim-card.html">Claim Card</a> or <a href="../downloads/ai-output-to-value-meeting-brief.pdf">printable meeting brief</a>.</p>
+        <p><strong>Use the Claim Gate when a structured record or handoff is useful.</strong> It applies the same decision-first stop rule and can import/export <code>claim.json</code> for portable use across tools.</p>
         <p><strong>Gate ≠ truth.</strong> A gate result evaluates the supplied decision record. It is not an independent audit of the underlying system, measurement, or evidence.</p>
 
         <table>
@@ -41,13 +42,6 @@
           </tbody>
         </table>
 
-        <h2>Machine-readable contract</h2>
-        <p>The interactive UI, CLI, WebMCP, native MCP and CI use the same files:</p>
-        <ul>
-          <li><a href="../schemas/v1/claim.schema.json">claim.schema.json</a></li>
-          <li><a href="../schemas/v1/decision-gates.json">decision-gates.json</a></li>
-        </ul>
-
         <h2>Filled teaching records</h2>
         <ul>
           <li><a href="../samples/website-explore-pass.claim.json">Website prototype — Explore PASS</a></li>
@@ -56,7 +50,14 @@
           <li><a href="../samples/killed-idea-outcome-pass.claim.json">Killed idea — Outcome PASS</a></li>
         </ul>
 
-        <p>The editable form requires JavaScript. AI and terminal/IDE clients can instead evaluate the same <code>claim.json</code> through the native MCP server or deterministic CLI.</p>
+        <h2>Optional machine-readable contract</h2>
+        <p>After or alongside the human record, the interactive UI, CLI, WebMCP, native MCP and CI can use the same versioned files:</p>
+        <ul>
+          <li><a href="../schemas/v1/claim.schema.json">claim.schema.json</a></li>
+          <li><a href="../schemas/v1/decision-gates.json">decision-gates.json</a></li>
+        </ul>
+
+        <p>The editable form requires JavaScript. The human decision path above does not. AI and terminal/IDE clients can evaluate the same <code>claim.json</code> through the native MCP server or deterministic CLI when structured handoff is useful.</p>
         <p><a href="https://github.com/AlreadyOpen/ai-output-to-value/tree/main/packages/mcp">Native MCP package source</a> · <a href="https://github.com/AlreadyOpen/ai-output-to-value/tree/main/toolkit">Adopter toolkit</a></p>
       </article>
     </main>
