@@ -30,8 +30,9 @@ class PublicationCheckTests(unittest.TestCase):
         claim = {"claims": [{
             "id": "claim-1", "claim_text": "Evidence statement.", "status": "supported",
             "launch_critical": False,
-            "evidence": [{"source_id": "source-1", "locator": "Section 1",
-                          "relevant_finding": "Finding", "qualification": "Qualification"}],
+            "evidence": [{"source_id": "source-1", "source_version": "fixture source v1",
+                          "locator": "Section 1", "relevant_finding": "Finding",
+                          "qualification": "Qualification"}],
             "published_in": [{"file": "content/article.md", "locator": "## Section"}],
             "reviewer": "Independent review process", "reviewed": "2026-09-14",
             "independent_review_status": "completed",
@@ -92,6 +93,12 @@ class PublicationCheckTests(unittest.TestCase):
         ev["locator"] = ev["relevant_finding"] = ev["qualification"] = ""
         self.write_yaml(self.root / "data" / "claims.yml", data)
         self.assert_fails_with("field 'locator' must be a non-empty string")
+
+    def test_missing_source_version_fails(self):
+        data = self.read_yaml("claims.yml")
+        data["claims"][0]["evidence"][0].pop("source_version")
+        self.write_yaml(self.root / "data" / "claims.yml", data)
+        self.assert_fails_with("missing fields: source_version")
 
     def test_completed_review_requires_reviewer_and_date(self):
         data = self.read_yaml("claims.yml")

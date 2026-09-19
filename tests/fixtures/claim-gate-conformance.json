@@ -1,0 +1,104 @@
+{
+  "version": "1.0",
+  "baseRecord": {
+    "schemaVersion": "1.0",
+    "project": "example",
+    "targetDecision": "rely",
+    "requiredClaimLevel": "03-deliverable",
+    "assertedClaimLevel": "03-deliverable",
+    "intendedUse": "Named use",
+    "actors": [{ "type": "ai-agent", "role": "Draft" }],
+    "authority": "Bounded",
+    "accountability": "Organisation",
+    "gateChecks": {
+      "intended-use-defined": "pass",
+      "acceptance-criteria-defined": "pass",
+      "acceptance-criteria-met": "pass",
+      "failure-modes-tested": "pass",
+      "limitations-stated": "pass"
+    },
+    "nextEvidence": "Fresh evaluation",
+    "stopRule": "Stop if threshold fails"
+  },
+  "cases": [
+    {
+      "name": "complete rely record passes",
+      "patch": {},
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "failed required check blocks",
+      "patch": {
+        "gateChecks": { "acceptance-criteria-met": "fail" }
+      },
+      "expectedStatus": "BLOCKED"
+    },
+    {
+      "name": "unknown required check is insufficient",
+      "patch": {
+        "gateChecks": { "acceptance-criteria-met": "unknown" }
+      },
+      "expectedStatus": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "name": "non-string required fields are structurally blocked",
+      "patch": {
+        "authority": [],
+        "accountability": false,
+        "stopRule": 0,
+        "intendedUse": {}
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": ["authority", "accountability", "stopRule", "intendedUse"]
+    },
+    {
+      "name": "invalid gate check state is structurally blocked",
+      "patch": {
+        "gateChecks": { "acceptance-criteria-met": "maybe" }
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": ["gateChecks"]
+    },
+    {
+      "name": "required claim mapping mismatch is structurally blocked",
+      "patch": {
+        "requiredClaimLevel": "02-output"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": ["requiredClaimLevel"]
+    },
+    {
+      "name": "asserted claim mismatch is insufficient",
+      "patch": {
+        "assertedClaimLevel": "02-output"
+      },
+      "expectedStatus": "INSUFFICIENT_EVIDENCE",
+      "expectedClaimMismatch": true
+    },
+    {
+      "name": "empty actors list is structurally blocked",
+      "patch": {
+        "actors": []
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": ["actors"],
+      "expectedMissingFields": ["actors"]
+    },
+    {
+      "name": "non-string target decision returns structured block",
+      "patch": {
+        "targetDecision": []
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": ["targetDecision"]
+    },
+    {
+      "name": "undeclared top-level property is structurally blocked",
+      "patch": {
+        "unexpectedField": "not in claim.schema.json"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": ["Additional properties", "additional properties"]
+    }
+  ]
+}

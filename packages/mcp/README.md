@@ -2,7 +2,7 @@
 
 Native Model Context Protocol access to the **AI Output to Value** decision framework.
 
-This package is the practical agent interface for IDE, desktop and terminal workflows. It uses the same published `/api/v1` framework, gate, article, claim, template, and working failure-mode data as the browser implementation. WebMCP remains a progressive browser enhancement; native MCP does not depend on `document.modelContext`.
+This package is the practical agent interface for IDE, desktop and terminal workflows. Gate evaluation is pinned to the contract bundled with the checked-out package by default; publication/search tools still read the selected public publication surface. WebMCP remains a progressive browser enhancement; native MCP does not depend on `document.modelContext`.
 
 ## Status
 
@@ -20,21 +20,38 @@ npm install
 npm start
 ```
 
-By default it reads the public publication API from:
+The gate tools `get_stop_rule` and `evaluate_claim_record` use the bundled copies of:
+
+- `schemas/v1/decision-gates.json`
+- `schemas/v1/claim.schema.json`
+
+This means pinning an MCP checkout to a commit also pins its gate semantics. Each gate result reports `gateVersion` and `rulesSource`; the default source is `bundled`.
+
+Other read-only publication tools use the public publication API at:
 
 `https://alreadyopen.github.io/ai-output-to-value/`
 
-Override that for another preview/release host:
+Override that publication host with:
 
 ```bash
 AIOV_PUBLICATION_URL=https://example.test/ npm start
 ```
 
+`AIOV_PUBLICATION_URL` by itself does **not** replace the bundled gate contract. To explicitly evaluate against the current gate rules and claim schema from that publication host, opt in with:
+
+```bash
+AIOV_PUBLICATION_URL=https://example.test/ AIOV_LIVE_RULES=true npm start
+```
+
+With that opt-in, gate results report `rulesSource: "live-publication"`. This mode is intentionally explicit because mutable publication rules would otherwise defeat a commit-pinned MCP checkout.
+
+The package test suite compares the bundled schemas with the canonical repository copies and runs the same conformance fixture used by the Python CLI/Action evaluator. A contract change therefore requires the copies and both evaluator expectations to move together.
+
 ## Tools
 
 - `get_stop_rule(decision_type)` — minimum sufficient claim and required checks.
-- `evaluate_claim_record(claim)` — deterministic evaluation of a structured claim record. It checks the supplied evidence state; it does not independently verify the underlying facts.
-- `get_framework()` — current six-claim framework and actor-neutral rule.
+- `evaluate_claim_record(claim)` — validates the supplied record against `claim.schema.json`, then performs deterministic evaluation of the selected gate. It checks the supplied evidence state; it does not independently verify the underlying facts.
+- `get_framework()` — current six-claim framework and actor-neutral rule from the selected publication surface.
 - `get_software_outcome_template()` — DORA-based software-delivery Outcome measurement pack plus optional AI-specific leading indicators; it marks no check PASS automatically.
 - `list_articles(section?)` — articles included in the currently published artifact.
 - `search_claims(query, limit?)` — canonical claim records from the current publication artifact.

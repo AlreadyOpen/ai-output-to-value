@@ -8,10 +8,14 @@ from __future__ import annotations
 
 import argparse
 import json
+from functools import lru_cache
 from pathlib import Path
+
+from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 GATES_PATH = ROOT / "schemas" / "v1" / "decision-gates.json"
+CLAIM_SCHEMA_PATH = ROOT / "schemas" / "v1" / "claim.schema.json"
 
 REQUIRED_TEXT_FIELDS = (
     "project",
@@ -30,16 +34,48 @@ def load_json(path: Path) -> dict:
     return data
 
 
-def evaluate(record: dict, gates: dict) -> dict:
-    decision_id = record.get("targetDecision")
-    decisions = gates.get("decisions", {})
-    rule = decisions.get(decision_id)
+@lru_cache(maxsize=1)
+def claim_validator() -> Draft202012Validator:
+    schema = load_json(CLAIM_SCHEMA_PATH)
+    return Draft202012Validator(schema, format_checker=FormatChecker())
 
-    structural_errors: list[str] = []
+
+def schema_errors(record: dict) -> list[str]:
+    errors = sorted(
+        claim_validator().iter_errors(record),
+        key=lambda error: (list(error.path), error.message),
+    )
+    rendered: list[str] = []
+    for error in errors:
+        location = "/".join(map(str, error.path)) or "<root>"
+        rendered.append(f"claim.schema.json {location}: {error.message}")
+    return rendered
+
+
+def result_metadata(gates: dict) -> dict:
+    principle = gates.get("principle")
+    return {
+        "gateVersion": gates.get("version"),
+        "principle": principle,
+        # Backward-compatible alias while all consumers migrate to `principle`.
+        "rule": principle,
+    }
+
+
+def evaluate(record: dict, gates: dict) -> dict:
+    structural_errors: list[str] = schema_errors(record)
     missing_fields: list[str] = []
 
-    if record.get("schemaVersion") != "1.0":
-        structural_errors.append("schemaVersion must be '1.0'")
+    decision_id = record.get("targetDecision")
+    decisions = gates.get("decisions")
+    # Do not use untrusted claim data as a mapping key until its type is known.
+    # This guard is independent of schema validation so malformed input still
+    # produces a structured BLOCKED result rather than an exception.
+    rule = (
+        decisions.get(decision_id)
+        if isinstance(decisions, dict) and isinstance(decision_id, str)
+        else None
+    )
 
     if not isinstance(rule, dict):
         structural_errors.append(f"unknown targetDecision: {decision_id!r}")
@@ -53,20 +89,22 @@ def evaluate(record: dict, gates: dict) -> dict:
             "failedChecks": [],
             "unknownChecks": [],
             "passedChecks": [],
+            **result_metadata(gates),
         }
 
     expected_claim = rule.get("requiredClaimLevel")
     if record.get("requiredClaimLevel") != expected_claim:
-        structural_errors.append(
-            f"requiredClaimLevel must be {expected_claim!r} for targetDecision {decision_id!r}"
-        )
+        message = f"requiredClaimLevel must be {expected_claim!r} for targetDecision {decision_id!r}"
+        if message not in structural_errors:
+            structural_errors.append(message)
 
     for field in REQUIRED_TEXT_FIELDS:
-        if not str(record.get(field, "")).strip():
+        value = record.get(field)
+        if isinstance(value, str) and not value.strip():
             missing_fields.append(field)
 
     actors = record.get("actors")
-    if not isinstance(actors, list) or not actors:
+    if isinstance(actors, list) and not actors:
         missing_fields.append("actors")
 
     claim_mismatch = record.get("assertedClaimLevel") != expected_claim
@@ -111,7 +149,7 @@ def evaluate(record: dict, gates: dict) -> dict:
         "failedChecks": failed,
         "unknownChecks": unknown,
         "passedChecks": passed,
-        "rule": gates.get("principle"),
+        **result_metadata(gates),
     }
 
 
