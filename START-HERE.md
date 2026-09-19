@@ -14,14 +14,30 @@ The stable machine identifier for the fourth claim remains `04-capability`; **Op
 
 The arrows are a memory aid, not a mandatory project lifecycle.
 
+> **Do not assign one claim-level status to an entire project.** A summary such as **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown”** is still a maturity-ladder reading, even without numbers. A claim result belongs to a **decision + intended use + subject/scope**.
+
 | Claim | Question |
 | --- | --- |
 | **Access** | Do we have the model, agent, API, subscription or tool? |
 | **Output** | Did it generate something useful-looking or functional? |
 | **Deliverable** | Is the result fit for its intended use and acceptance criteria? |
-| **Operating capability** | Can the organisation repeatedly verify, operate, support, maintain and improve it? |
+| **Operating capability** | Can the organisation repeatedly verify, operate, support, maintain and improve the named use within the stated scope? |
 | **Outcome** | What actually changed: time, quality, service, throughput, risk, learning or another meaningful measure? |
 | **Value** | Was that outcome worth the full cost, risk and trade-offs? |
+
+## Same project, different decisions
+
+The same website prototype can legitimately produce different gate results because the decisions are different:
+
+| Decision | Intended use + subject/scope | Required claim | Example result |
+| --- | --- | --- | --- |
+| **Keep exploring** | Internal UX learning on the current staging build | **Output** | **PASS** — the prototype is reproducible and inspectable enough to learn from. |
+| **Permit client reliance** | Receive real client enquiries through the production contact workflow | **Deliverable** | **INSUFFICIENT EVIDENCE** — the page exists, but delivery of enquiries has not yet been verified. |
+| **Operate repeatedly** | Public lead intake in production, including monitoring, recovery and support | **Operating capability** | **BLOCKED** — a decision-critical operating requirement such as ownership or recovery is known to be absent. |
+
+These are **not three statuses for the project**. They are three decision records with different intended uses and scopes. Whenever **Operating capability** is discussed, ask: **Operating capability for what repeated use, in which environment and workflow boundary?** The relevant controls follow from that answer; there is no universal checklist that proves Operating capability independently of context.
+
+Repository stars, forks, downloads, mentions, or user counts can be evidence about **adoption or reach**. They are not readiness evidence unless the decision being evaluated is explicitly about adoption or reach.
 
 A disposable prototype can create a valuable learning outcome without becoming an operational service. A useful reverse-planning question is:
 

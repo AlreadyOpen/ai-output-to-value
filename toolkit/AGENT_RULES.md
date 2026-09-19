@@ -8,9 +8,11 @@ Use these rules in coding agents, IDE agents, terminal agents, or repository gui
 
 Do not assume work must progress through every claim level.
 
+**Never assign one claim-level status to an entire project.** Do not produce a ladder such as **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown.”** If a user explicitly asks for a descriptive inventory across claims, treat it only as an inventory: every entry must identify a separate **decision + intended use + subject/scope + required claim + evidence**, and the entries must not be aggregated into a readiness or maturity verdict.
+
 - **02 Output** can be enough for exploration or learning.
 - **03 Deliverable** is required before someone may rely on the result for a named use.
-- **04 Operating capability** is required before the organisation claims it can operate, support, sell, or staff the workflow repeatedly. The stable machine identifier remains `04-capability`.
+- **04 Operating capability** is required before the organisation claims it can operate, support, sell, or staff the **named use within the stated scope** repeatedly. Ask **“Operating capability for what?”** The stable machine identifier remains `04-capability`.
 - **05 Outcome** is required before claiming the initiative changed a measured result.
 - **06 Value** is required before claiming the evidenced outcome justified the full relevant cost, risk, alternatives, and trade-offs.
 
@@ -19,17 +21,18 @@ Do not assume work must progress through every claim level.
 ## Before declaring work complete
 
 1. State the **decision being requested**.
-2. State the **claim level being asserted**.
-3. Separate **demonstrated facts** from **inference or assumptions**.
-4. Name the **intended use** and important limits.
-5. Map the **workflow boundary**: trigger/input, local task or product, downstream handoffs/verification, execution/delivery, unhappy path/recovery, and what counts as complete.
-6. State where the **bottleneck may move** if this task becomes faster.
-7. Provide evidence appropriate to the target claim.
-8. Record the **assurance mechanism**. It may be human, AI, deterministic, specialist-tool, or hybrid.
-9. State the **authority boundary** separately from evaluation quality.
-10. State where **accountability / recourse** sits.
-11. State the **next evidence** that would change the decision.
-12. State a **stop or restrict rule**.
+2. Name the **intended use**.
+3. State the **subject / scope**: artefact or system version, users, environment, workflow boundary, time period, and important exclusions as relevant.
+4. State the **claim level being asserted**.
+5. Separate **demonstrated facts** from **inference or assumptions**.
+6. Map the **workflow boundary**: trigger/input, local task or product, downstream handoffs/verification, execution/delivery, unhappy path/recovery, and what counts as complete.
+7. State where the **bottleneck may move** if this task becomes faster.
+8. Provide evidence appropriate to the target claim.
+9. Record the **assurance mechanism**. It may be human, AI, deterministic, specialist-tool, or hybrid.
+10. State the **authority boundary** separately from evaluation quality.
+11. State where **accountability / recourse** sits.
+12. State the **next evidence** that would change the decision.
+13. State a **stop or restrict rule**.
 
 ## Do not accept management vocabulary as evidence
 
@@ -54,7 +57,7 @@ For exploration, a reproducible artefact plus explicit assumptions may be enough
 
 For a relied-upon Deliverable, include relevant acceptance criteria and evidence such as tests, contract checks, integration checks, error handling, known failure modes, intended-use boundaries, and the downstream workflow needed for the result to reach its intended user or system.
 
-For Operating capability, add the controls that matter to the actual failure modes: ownership, monitoring, recovery/rollback where warranted, maintenance/debugging responsibility, support/escalation, and relevant operating cost.
+For Operating capability, first ask **Operating capability for what repeated use, under which scope and boundary?** Then add only the controls that matter to the actual failure modes: ownership, monitoring, recovery/rollback where warranted, maintenance/debugging responsibility, support/escalation, and relevant operating cost. Do not apply a universal checklist independently of context.
 
 When AI accelerates one software task, do not infer that the development workflow accelerated by the same amount. Check whether the constraint moved into review, integration testing, security review, deployment, support, or another downstream stage.
 
@@ -68,10 +71,13 @@ Do not say:
 - "The code works locally, therefore the organisation can operate it."
 - "More code was produced, therefore the end-to-end delivery workflow improved."
 - "Management called it a KPI/productivity/teamwork problem, therefore the term is already well defined."
+- "The repository has many stars, forks, downloads, or users, therefore it is ready to rely on or operate."
 
 Instead ask:
 
-> **What decision is being made, what claim is sufficient for that decision, what is the end-to-end workflow boundary, what do the management terms mean operationally, and what evidence establishes the claim across that boundary?**
+> **What decision is being made, for what intended use and subject/scope, what claim is sufficient for that decision, what is the end-to-end workflow boundary, what do the management terms mean operationally, and what evidence establishes the claim across that boundary?**
+
+Treat stars, forks, downloads, mentions, and user counts as **adoption/reach evidence only**. They are readiness evidence only when the target decision itself is explicitly about adoption or reach.
 
 ## Machine-readable record
 
