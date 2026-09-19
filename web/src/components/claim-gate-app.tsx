@@ -482,7 +482,7 @@ export function ClaimGateApp() {
     const rows = rule.requiredChecks
       .map((check) => `- **${(item.gateChecks[check.id] || "unknown").toUpperCase()}** — ${check.label}`)
       .join("\n")
-    return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n> Gate status evaluates this record only. It is not an audit of the underlying system or evidence.\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Workflow boundary\n\n**Start / boundary:** ${item.workflowBoundary || "(not supplied)"}\n\n**What counts as complete:** ${item.workflowCompletion || "(not supplied)"}\n\n**Downstream handoffs:**\n${item.downstreamHandoffs.length ? item.downstreamHandoffs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n**Where could the bottleneck move?** ${item.movedBottleneck || "(not supplied)"}\n\n**Unhappy path:** ${item.unhappyPath || "(not supplied)"}\n\n## Measurement\n\n**Outcome measure:** ${item.outcomeMeasure || "(not supplied)"}\n\n**Baseline:** ${item.baseline || "(not supplied)"}\n\n**Full relevant cost boundary:** ${item.fullRelevantCostBoundary || "(not supplied)"}\n\n**Option / learning value:** ${item.optionValue || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
+    return `# AI Output to Value — decision gate\n\n**Project:** ${item.project || "(not supplied)"}\n\n**Target decision:** ${rule.label}\n\n**Required claim:** ${claimLabels[item.requiredClaimLevel]}\n\n**Asserted claim:** ${claimLabels[item.assertedClaimLevel]}\n\n**Gate status:** ${status.replaceAll("_", " ")}\n\n> Gate status evaluates this scoped decision record only. It is not an audit of the underlying system or evidence and not a project maturity status.\n\n## Intended use\n\n${item.intendedUse || "(not supplied)"}\n\n## Workflow boundary\n\n**Start / boundary:** ${item.workflowBoundary || "(not supplied)"}\n\n**What counts as complete:** ${item.workflowCompletion || "(not supplied)"}\n\n**Downstream handoffs:**\n${item.downstreamHandoffs.length ? item.downstreamHandoffs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n**Where could the bottleneck move?** ${item.movedBottleneck || "(not supplied)"}\n\n**Unhappy path:** ${item.unhappyPath || "(not supplied)"}\n\n## Measurement\n\n**Outcome measure:** ${item.outcomeMeasure || "(not supplied)"}\n\n**Baseline:** ${item.baseline || "(not supplied)"}\n\n**Full relevant cost boundary:** ${item.fullRelevantCostBoundary || "(not supplied)"}\n\n**Option / learning value:** ${item.optionValue || "(not supplied)"}\n\n## Required checks\n\n${rows}\n\n## Authority\n\n${item.authority || "(not supplied)"}\n\n## Accountability / recourse\n\n${item.accountability || "(not supplied)"}\n\n## Evidence references\n\n${item.evidenceRefs.length ? item.evidenceRefs.map((x) => `- ${x}`).join("\n") : "(none supplied)"}\n\n## Next evidence\n\n${item.nextEvidence || "(not supplied)"}\n\n## Stop rule\n\n${item.stopRule || "(not supplied)"}\n`
   }
 
   async function copyMarkdown() {
@@ -554,8 +554,8 @@ export function ClaimGateApp() {
           <strong>{status.replaceAll("_", " ")}</strong>
           <p>
             {status === "PASS"
-              ? "Record complete for this decision. Not an audit of the underlying system."
-              : "This gate evaluates the supplied record; it does not independently verify the underlying facts."}
+              ? "Record complete for this decision. Not an audit of the underlying system. Not a project-wide maturity status."
+              : "This gate evaluates only this scoped decision record; it does not independently verify the underlying facts or rate the whole project."}
           </p>
         </div>
 
@@ -642,7 +642,7 @@ export function ClaimGateApp() {
         </section>
 
         <footer className="aiov-print-footer">
-          Generated from the AI Output to Value Claim Gate. Gate status evaluates the supplied decision record only; it is not independent verification of the underlying system or evidence.
+          Generated from the AI Output to Value Claim Gate. Gate status evaluates the supplied scoped decision record only; it is not independent verification of the underlying system or evidence and not a project-wide maturity status.
         </footer>
       </section>
 
@@ -650,10 +650,10 @@ export function ClaimGateApp() {
         <Badge className="mb-3">Interactive decision tool</Badge>
         <h1 className="font-serif text-4xl font-semibold tracking-tight md:text-5xl">Claim gate</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Choose the decision you are trying to make. The target decision selects the minimum claim and required checks. <strong className="text-foreground">This is a stop rule, not a maturity score.</strong>
+          Choose the decision you are trying to make. The target decision selects the minimum claim and required checks. <strong className="text-foreground">This is a stop rule, not a maturity score.</strong> Every result applies only to the named decision, intended use, and assessed subject/scope—not to the project as a whole.
         </p>
         <p className="mt-2 text-sm text-muted-foreground">The evaluator is actor-neutral: human, AI, automated and hybrid work use the same gate for the same intended decision.</p>
-        <p className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">Gate ≠ truth.</strong> A PASS means the supplied record is complete for this decision. It is not an audit of the underlying system, measurement, or evidence.</p>
+        <p className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">Gate ≠ truth.</strong> A PASS means the supplied record is complete for this decision. It is not an audit of the underlying system, measurement, or evidence, and it is never a project-wide maturity status.</p>
       </div>
 
       <Card className="mb-6 border-primary/25 bg-card">
@@ -706,10 +706,10 @@ export function ClaimGateApp() {
         <Card>
           <CardHeader>
             <CardTitle>Decision record</CardTitle>
-            <CardDescription>Record only the evidence needed for the decision you are actually making.</CardDescription>
+            <CardDescription>Record the decision, intended use, and assessed subject/scope before interpreting any claim result.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-5 md:grid-cols-2">
-            <Field label="Project / initiative">
+            <Field label="Assessed subject / project">
               <Input value={state.project} onChange={(event) => setState({ ...state, project: event.target.value })} placeholder="e.g. auto-triage-bot" />
             </Field>
             <Field label="Decision sought">
@@ -729,8 +729,8 @@ export function ClaimGateApp() {
             </Field>
 
             <div className="md:col-span-2 mt-2 rounded-lg border border-border bg-muted/30 p-4">
-              <h2 className="text-lg font-semibold">Workflow boundary <span className="text-sm font-normal text-muted-foreground">(optional; not another gate score)</span></h2>
-              <p className="mt-1 text-sm text-muted-foreground">Describe the end-to-end process when local task or product completion is not the same as business delivery.</p>
+              <h2 className="text-lg font-semibold">Subject / scope and workflow boundary <span className="text-sm font-normal text-muted-foreground">(not another gate score)</span></h2>
+              <p className="mt-1 text-sm text-muted-foreground">Make the assessed scope explicit: version/environment/users as relevant, plus the end-to-end process when local task or product completion is not the same as business delivery. For Operating capability, ask “Operating capability for what repeated use?”</p>
             </div>
             <Field label="Where does the workflow start?" full>
               <Textarea value={state.workflowBoundary} onChange={(event) => setState({ ...state, workflowBoundary: event.target.value })} placeholder="Trigger, request, input, customer need, incident, order…" />
@@ -829,7 +829,7 @@ export function ClaimGateApp() {
                 : isUntouched
                   ? "Nothing is wrong. This decision is not justified yet. Load a filled example, or complete only the fields this decision actually requires."
                   : status === "PASS"
-                    ? `The supplied record satisfies every check required for ${rule?.label}.`
+                    ? `The supplied record satisfies every check required for ${rule?.label} for the named intended use and scope; it does not rate the whole project.`
                     : status === "BLOCKED"
                       ? "At least one decision-critical check explicitly failed. Strength at other claim levels does not offset it."
                       : "No decision-critical check is recorded as failed, but the record is not sufficient to justify this decision."}
@@ -845,7 +845,7 @@ export function ClaimGateApp() {
                 <span className="mt-1 block text-muted-foreground">{state.nextEvidence}</span>
               </div>
             ) : null}
-            <p className="mt-4 text-sm text-muted-foreground">Strong Access or Output cannot compensate for a failed decision-critical check.</p>
+            <p className="mt-4 text-sm text-muted-foreground">Strong Access or Output cannot compensate for a failed decision-critical check. Gate status belongs to this decision record, not to the project as a whole.</p>
             <div className="mt-5 flex flex-wrap gap-2" data-aiov-interactive-only>
               <Button size="sm" onClick={() => void copyMarkdown()}>Copy Markdown</Button>
               <Button size="sm" variant="outline" onClick={downloadJson}>Download JSON</Button>
