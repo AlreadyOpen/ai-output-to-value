@@ -177,10 +177,11 @@ class InteractionIntegrityTests(unittest.TestCase):
                             f"{path.name}: '{step.get('name')}' interpolates an expression into the shell",
                         )
 
-    def test_mcp_package_does_not_claim_unselected_public_licence(self):
+    def test_mcp_package_declares_apache_licence_and_stays_private(self):
         source = (ROOT / "packages" / "mcp" / "package.json").read_text(encoding="utf-8")
         self.assertIn('"private": true', source)
-        self.assertIn('"license": "UNLICENSED"', source)
+        self.assertIn('"license": "Apache-2.0"', source)
+        self.assertNotIn("UNLICENSED", source)
 
     def test_machine_framework_publishes_operating_capability_label(self):
         source = (ROOT / "scripts" / "augment_site.py").read_text(encoding="utf-8")

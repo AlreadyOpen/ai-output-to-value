@@ -188,4 +188,19 @@ The remaining bar is maintained in [`docs/first-reviewed-release.md`](docs/first
 
 ## Licence
 
-A final code/content licensing model has not yet been selected. Code and editorial/reference content may ultimately use different licences. Selecting and publishing those licences is a required item before the first reviewed release.
+This repository uses two licences, split by what a path contains.
+
+**Code and machine-readable instruments: Apache-2.0** (see [`LICENSE`](LICENSE)). This covers:
+
+- `scripts/`, `tests/` (including `tests/fixtures/`), `tools/`, `web/`, `packages/`, `.github/` and `action.yml`;
+- `schemas/`, including the claim schema and the decision-gates JSON that the claim gate reads;
+- the root-level site assets (`index.html`, `*.js`, `*.css`) and `requirements-dev.txt`;
+- the JSON files under `toolkit/` (`claim.example.json`, `samples/`, `templates/`, `private-workbook/claim.json`).
+
+**Guide content: CC BY 4.0** (see [`LICENSE-CONTENT`](LICENSE-CONTENT)). This covers:
+
+- `content/`, `docs/`, `drafts/`, `research/` and `data/` (the articles, the claim and source registers);
+- the prose in `README.md`, `START-HERE.md` and `CONTRIBUTING.md`;
+- the Markdown files under `toolkit/` (the operating kit, agent rules, ledger, workbook and skill text).
+
+Where a path is not listed, it takes the licence of the folder it sits in. Third-party sources cited in the guide keep their own terms; the guide's licence covers only its own text.
