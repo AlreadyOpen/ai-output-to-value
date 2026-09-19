@@ -2,11 +2,11 @@
 
 The six-claim model is a **claim filter**, not a maturity score and not a checklist that every project must complete.
 
-Use this card before a review meeting, pilot decision, customer commitment, merge/release decision, or scale decision.
+Use this card on paper or screen before a review meeting, pilot decision, customer commitment, merge/release decision, or scale decision. No schema, MCP/WebMCP, or JSON knowledge is required.
 
 > **What decision are we trying to make, and what is the weakest claim that would be sufficient for that decision?**
 
-For a live version, use the [interactive claim gate](../tools/claim-gate.html). It produces a deterministic **PASS / BLOCKED / INSUFFICIENT EVIDENCE** result and can export Markdown or `claim.json`.
+If this is the first discussion, run the [eight meeting questions](../START-HERE.md#run-the-15-minute-decision-discussion), then capture only the evidence and next action that matter for the decision. The [interactive Claim Gate](../tools/claim-gate.html) is an optional structured instrument for teams that later want deterministic checks or a portable `claim.json` record.
 
 ## Start with the decision
 
@@ -155,7 +155,7 @@ Confidentiality does not require pretending evidence does not exist. It requires
 
 **Stop rule:** If this evidence is not reached by the agreed review point—or if a named risk/metric crosses the limit—what do we stop or restrict?
 
-## Machine-readable claim record
+## Optional machine-readable claim record
 
 The same decision record can be expressed as JSON using the versioned schema:
 
