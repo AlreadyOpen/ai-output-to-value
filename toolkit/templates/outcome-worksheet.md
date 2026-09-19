@@ -65,7 +65,7 @@ Attribution can be qualified. State what the evidence supports and what it does 
 
 **Stop / reversal rule:**
 
-A positive Outcome does not by itself establish **06 Value**. Cost, labour movement, risk, alternatives, opportunity cost, and option value belong in the separate [Value cost ledger](../value-cost-ledger.md).
+A positive Outcome does not by itself establish **06 Value**. Cost, labour movement, risk, alternatives, opportunity cost, and option value belong in the separate Value cost ledger (`toolkit/value-cost-ledger.md`, also published as `/templates/value-cost-ledger.md`).
 
 ## Worked numeric example — Outcome without Value
 
