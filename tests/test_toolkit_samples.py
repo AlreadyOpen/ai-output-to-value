@@ -35,6 +35,44 @@ class ToolkitSampleTests(unittest.TestCase):
     def test_killed_idea_outcome_passes(self):
         self.assertEqual(self.evaluate_sample("killed-idea-outcome-pass.claim.json")["status"], "PASS")
 
+    def test_cross_domain_false_promotion_pack_statuses(self):
+        expected = {
+            "customer-support-outcome-insufficient.claim.json": "INSUFFICIENT_EVIDENCE",
+            "report-factory-rely-blocked.claim.json": "BLOCKED",
+            "system-of-record-operate-blocked.claim.json": "BLOCKED",
+            "professional-deliverable-rely-insufficient.claim.json": "INSUFFICIENT_EVIDENCE",
+            "coding-assistant-outcome-pass.claim.json": "PASS",
+            "time-saved-value-insufficient.claim.json": "INSUFFICIENT_EVIDENCE",
+            "killed-idea-outcome-pass.claim.json": "PASS",
+        }
+
+        observed = {}
+        for name, status in expected.items():
+            with self.subTest(name=name):
+                observed[name] = self.evaluate_sample(name)["status"]
+                self.assertEqual(observed[name], status)
+
+        self.assertEqual(set(observed.values()), {"PASS", "BLOCKED", "INSUFFICIENT_EVIDENCE"})
+
+    def test_cross_domain_pack_preserves_key_claim_boundaries(self):
+        report = json.loads((self.samples / "report-factory-rely-blocked.claim.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["assertedClaimLevel"], "02-output")
+        self.assertEqual(report["requiredClaimLevel"], "03-deliverable")
+        report_result = self.evaluate_sample("report-factory-rely-blocked.claim.json")
+        self.assertTrue(any(item["id"] == "acceptance-criteria-met" for item in report_result["failedChecks"]))
+
+        time_saved = json.loads((self.samples / "time-saved-value-insufficient.claim.json").read_text(encoding="utf-8"))
+        self.assertEqual(time_saved["assertedClaimLevel"], "05-outcome")
+        self.assertEqual(time_saved["requiredClaimLevel"], "06-value")
+
+        professional = json.loads((self.samples / "professional-deliverable-rely-insufficient.claim.json").read_text(encoding="utf-8"))
+        self.assertIn("does not establish", professional["authority"].lower())
+        self.assertEqual(self.evaluate_sample("professional-deliverable-rely-insufficient.claim.json")["status"], "INSUFFICIENT_EVIDENCE")
+
+        killed = json.loads((self.samples / "killed-idea-outcome-pass.claim.json").read_text(encoding="utf-8"))
+        self.assertEqual(killed["requiredClaimLevel"], "05-outcome")
+        self.assertEqual(self.evaluate_sample("killed-idea-outcome-pass.claim.json")["status"], "PASS")
+
     def test_software_outcome_pack_is_a_plan_not_a_pass_record(self):
         pack = json.loads((REPO_ROOT / "toolkit" / "templates" / "software-outcome-pack.json").read_text(encoding="utf-8"))
         self.assertEqual(pack["targetDecision"], "measure-outcome")
