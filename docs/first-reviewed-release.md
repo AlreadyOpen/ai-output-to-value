@@ -36,6 +36,8 @@ A source logo or citation is not itself independent review.
 - [ ] External links and source dates are reviewed.
 - [ ] The dedicated social-preview image is present.
 - [ ] A small reader test covers Start Here, Claim Gate, Claim Card, worked decisions, and the meeting brief.
+  - Give the reader this deliberately misleading summary: **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown.”** Ask: **“What is wrong with this assessment, and how would you rewrite it?”**
+  - A passing response must reject one project-wide ladder and restate separate **decision + intended use + subject/scope + required claim/evidence** records. It should recognise that the same project can legitimately receive different gate results for different decisions.
 - [ ] Working/research essays remain visibly separated from the release guide and do not leak into the reviewed artifact.
 
 ## Governance and reuse
