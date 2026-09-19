@@ -42,6 +42,39 @@ class ToolkitSampleTests(unittest.TestCase):
         self.assertIn("deployment rework rate", pack["instabilityMetrics"])
         self.assertNotIn("gateChecks", pack)
 
+    def test_outcome_and_value_instruments_cover_decision_boundaries(self):
+        outcome = (REPO_ROOT / "toolkit" / "templates" / "outcome-worksheet.md").read_text(encoding="utf-8")
+        value = (REPO_ROOT / "toolkit" / "value-cost-ledger.md").read_text(encoding="utf-8")
+
+        for phrase in (
+            "Decision / intervention being assessed",
+            "Baseline and comparison",
+            "Elapsed time",
+            "Labour hours",
+            "Material confounders",
+            "Adverse effects / quality regressions",
+            "Attribution strength / qualification",
+            "Result that would reverse",
+            "Outcome without Value",
+        ):
+            with self.subTest(instrument="outcome", phrase=phrase):
+                self.assertIn(phrase, outcome)
+
+        for phrase in (
+            "Labour displaced / removed",
+            "Labour moved into review / checking",
+            "Model / API / tool / vendor cost",
+            "Infrastructure",
+            "Testing / evaluation / assurance / security",
+            "Incident / error / risk cost",
+            "Opportunity cost / alternative not taken",
+            "Option value of information",
+            "positive option value from stopping a bad idea",
+            "Attribution qualification",
+        ):
+            with self.subTest(instrument="value", phrase=phrase):
+                self.assertIn(phrase, value)
+
     def test_private_workbook_contains_core_files(self):
         workbook = REPO_ROOT / "toolkit" / "private-workbook"
         for relative in ("README.md", "decision.md", "claim.json", "evidence/README.md"):
