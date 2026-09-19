@@ -6,15 +6,25 @@ Use this when reviewing an AI-enabled proposal, prototype, deliverable, service,
 
 Which decision are we trying to make?
 
+Before naming a claim level, write down all three:
+
+- **Decision sought:** what choice will be made now?
+- **Intended use:** what will someone rely on, operate, measure, or scale?
+- **Subject / scope:** which artefact or system version, users, environment, workflow boundary, and time period are actually being assessed?
+
 | Decision sought | Claim that normally matters |
 | --- | --- |
 | **Keep exploring?** | **Output** — enough to learn from a reproducible artefact or action. |
 | **May someone rely on it for the named use?** | **Deliverable** — fit against explicit acceptance criteria. |
-| **May we sell, operate or support it repeatedly?** | **Capability** — owners, controls, fallback and operating process exist. |
+| **May we sell, operate or support it repeatedly?** | **Operating capability** — for the named repeated use and scope, the relevant owners, controls, fallback/recovery and operating process exist. Ask **“Operating capability for what?”** |
 | **Did it change the result we care about?** | **Outcome** — the named measure moved versus a baseline. |
 | **Should we scale, renew or stop?** | **Value** — the outcome is worth full relevant cost, risk and alternatives. |
 
 The six claims are not a maturity score. Strong **Access** and **Output** do not average into partial **Deliverable**.
+
+Do not leave a meeting with one project-wide ladder such as **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown.”** Rewrite it as separate decisions, each with its own intended use, subject/scope, required claim and evidence. The same project can therefore PASS an exploration decision while a reliance decision has INSUFFICIENT EVIDENCE and a repeated-operation decision is BLOCKED.
+
+Stars, forks, downloads, mentions, or user counts are adoption/reach signals, not readiness evidence unless adoption or reach is the decision under review.
 
 ## Eight questions
 
@@ -100,6 +110,12 @@ Track the unit you actually mean: labour hours, elapsed time, external spend, re
 Do not turn a reduction in one metric into a claim about another without evidence.
 
 ## Decision record
+
+**Decision sought:** What choice is being made now?
+
+**Intended use:** What will someone rely on, operate, measure, or scale?
+
+**Subject / scope:** Which artefact/system version, users, environment, workflow boundary, and time period are in scope?
 
 **Evidence character:** public measured / public documented / internal / illustrative / editorial synthesis
 
