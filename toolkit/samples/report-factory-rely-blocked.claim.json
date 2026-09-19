@@ -1,0 +1,61 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative proposal and report factory",
+  "targetDecision": "rely",
+  "requiredClaimLevel": "03-deliverable",
+  "assertedClaimLevel": "02-output",
+  "intendedUse": "Permit a named project team to rely on the generated proposal as the submission-ready response for a client procurement process.",
+  "workflowBoundary": "Source material and requirements are supplied; the system drafts the proposal; factual claims, calculations, obligations, and requirement coverage are verified; an authorised submission decision is made.",
+  "workflowCompletion": "The proposal is complete only when all mandatory requirements are covered, factual and quantitative statements are traceable, exceptions are resolved, and the authorised submitter accepts it for the named procurement.",
+  "downstreamHandoffs": [
+    "Source and calculation verification",
+    "Commercial and contractual review",
+    "Authorised submission decision"
+  ],
+  "movedBottleneck": "Near-instant drafting moves the constraint to evidence traceability, requirement coverage, commercial review, and correction rather than document production.",
+  "unhappyPath": "The document is polished and apparently complete, but a source check finds unsupported capability claims or stale figures that would matter to the submission.",
+  "evidenceCharacter": [
+    "illustrative"
+  ],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "AI-assisted drafting with human verification and submission authority.",
+      "interactionChannel": "hybrid"
+    }
+  ],
+  "assurance": [
+    "Requirement-by-requirement coverage check",
+    "Source traceability for factual and quantitative claims",
+    "Independent calculation and commercial review where relevant"
+  ],
+  "authority": "The generator has no submission authority. The named human submitter controls the external commitment.",
+  "accountability": "The proposal owner is accountable for evidence traceability, corrections, and the final submission decision.",
+  "demonstrated": "A polished proposal with the requested sections, formatting, and a coherent narrative was generated reproducibly.",
+  "inferredOrAssumed": "Visual completeness was initially treated as evidence that the proposal was submission-ready, but that inference failed verification.",
+  "knownLimitations": [
+    "A spot check found at least one unsupported capability statement.",
+    "Not all quantitative claims have completed source traceability."
+  ],
+  "acceptanceCriteria": [
+    "Every mandatory requirement is explicitly covered or marked as an exception.",
+    "Material factual and quantitative claims are traceable to approved sources.",
+    "Commercial obligations and qualifications are reviewed before submission.",
+    "The authorised submitter records acceptance for the named procurement."
+  ],
+  "evidenceRefs": [
+    "Illustrative generated proposal",
+    "Illustrative requirement coverage matrix",
+    "Illustrative spot-check record showing an unsupported claim"
+  ],
+  "gateChecks": {
+    "intended-use-defined": "pass",
+    "acceptance-criteria-defined": "pass",
+    "acceptance-criteria-met": "fail",
+    "failure-modes-tested": "unknown",
+    "limitations-stated": "pass"
+  },
+  "nextEvidence": "Correct the unsupported claim, complete requirement and source traceability, run the named verification checks, and record authorised submission acceptance.",
+  "stopRule": "Treat the artefact as draft Output only. Do not submit or permit reliance until the Deliverable acceptance criteria pass."
+}
