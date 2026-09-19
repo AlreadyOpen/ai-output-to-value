@@ -96,7 +96,7 @@ class StaticAffordanceTests(unittest.TestCase):
     def test_homepage_builder_does_not_promote_webmcp_into_primary_navigation(self):
         source = (ROOT / "scripts" / "build_site.py").read_text(encoding="utf-8")
         self.assertIn("progressive enhancement", source)
-        self.assertNotIn("'<a href=\\"#interfaces\\">AI access</a>", source)
+        self.assertNotIn('<a href="#interfaces">AI access</a>', source)
 
 
 if __name__ == "__main__":
