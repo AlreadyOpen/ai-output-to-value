@@ -192,28 +192,15 @@ def render_homepage(articles: list[dict]) -> str:
     notes so the release artifact cannot point at pages it intentionally omits.
     """
     source = (ROOT / "index.html").read_text(encoding="utf-8")
-    if "WebMCP enabled" not in source:
-        source = source.replace(
-            '<a href="articles/index.html">Articles</a>',
-            '<a href="#interfaces">AI access</a>\n        <a href="articles/index.html">Articles</a>',
-            1,
-        )
-        source = source.replace(
-            '<a href="#interfaces">Human / AI interfaces</a>',
-            '<a href="#interfaces">AI access / WebMCP</a>',
-            1,
-        )
-        source = source.replace(
-            '<p class="project-line"><a href="https://github.com/AlreadyOpen">An AlreadyOpen project</a><span class="status-label">Working preview</span></p>',
-            '<p class="project-line"><a href="https://github.com/AlreadyOpen">An AlreadyOpen project</a><span class="status-label">Working preview</span><a class="status-label" href="#interfaces" title="This site exposes read-only WebMCP tools for compatible AI agents">WebMCP enabled</a></p>',
-            1,
-        )
-        interface_intro = '<p>A human can use visible controls. An agent can use a structured tool surface. A hybrid workflow can use both. Actor-neutral evaluation means applying the same intended-use, authority, evidence, failure-handling and outcome standards—not forcing every actor through the same user interface.</p>'
-        source = source.replace(
-            interface_intro,
-            interface_intro + '\n          <p><strong>This site is WebMCP-enabled.</strong> Compatible agents can use six read-only tools to read the framework, list and read articles, search evidence, inspect claims, and retrieve the meeting guide. Browser/runtime support is reported below.</p>',
-            1,
-        )
+    # Keep machine interfaces as progressive enhancement rather than making
+    # WebMCP/MCP the conceptual front door for first-time business readers.
+    # The maintained homepage owns the human-first navigation and CTAs.
+    interface_intro = '<p>A human can use visible controls. An agent can use a structured tool surface. A hybrid workflow can use both. Actor-neutral evaluation means applying the same intended-use, authority, evidence, failure-handling and outcome standards—not forcing every actor through the same user interface.</p>'
+    source = source.replace(
+        interface_intro,
+        interface_intro + '\n          <p><strong>This site is WebMCP-enabled.</strong> Compatible agents can use six read-only tools to read the framework, list and read articles, search evidence, inspect claims, and retrieve the meeting guide. Browser/runtime support is reported below.</p>',
+        1,
+    )
     if "webmcp.js" not in source:
         source = source.replace("</body>", '<script src="webmcp.js" defer></script>\n</body>')
     if PUBLICATION_MODE != "release":
