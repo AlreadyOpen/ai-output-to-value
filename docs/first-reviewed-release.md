@@ -2,10 +2,20 @@
 
 The public site remains a **working preview** until this checklist is satisfied. Passing CI or rendering a green Claim Gate result is not the same as approving the publication.
 
+## Scope boundary — reviewed method ≠ tool distribution
+
+This checklist approves the **reviewed method/publication artefact**. **Tooling publication is not a prerequisite** unless a specific checked requirement below genuinely depends on a tool surface that is part of the reviewed artefact.
+
+In particular, npm publication, native MCP packaging, broad WebMCP/browser-agent compatibility, GitHub Action tagging/marketplace distribution, and installable agent-skill/wrapper distribution are tracked separately in [`tooling-distribution.md`](tooling-distribution.md).
+
+The Claim Gate, schema, example records, and rendered browser/PDF artefacts may still be required here because they are part of the reviewed publication. That requirement does **not** mean every wrapper, package, transport, host, or distribution channel is operationally supported.
+
+The reverse boundary matters too: publishing or tagging a tool does **not** mean the cited empirical claims, terminology, examples, or reviewed publication artefact have completed independent review.
+
 ## Required core instrument
 
 - [ ] The six-claim stop-rule framework is stable enough for the release.
-- [ ] The deterministic Claim Gate, schema, and example records are internally consistent.
+- [ ] The deterministic Claim Gate, schema, and example records included in the reviewed artefact are internally consistent; no separate package/registry publication is implied.
 - [ ] The Claim Gate clearly states that `PASS` evaluates the supplied record and is **not an audit of the underlying system or evidence**.
 - [ ] The one-page meeting brief renders and prints correctly.
 - [ ] The private workbook is available for confidential organisational use.
@@ -55,6 +65,8 @@ A source logo or citation is not itself independent review.
 - [ ] Provenance, corrections, confidentiality, and evidence policy are included.
 - [ ] The release commit/tag is explicit and reproducible.
 - [ ] The manual release approval gate passes before deployment.
+
+Tooling/distribution milestones remain in [`tooling-distribution.md`](tooling-distribution.md) and do not become publication blockers merely because a surface exists in the repository.
 
 ## Release statement
 
