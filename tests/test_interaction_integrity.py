@@ -46,6 +46,18 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn('fetch("../templates/software-outcome-pack.json"', source)
         self.assertNotIn("DORA throughput: change lead time", source)
 
+    def test_claim_gate_links_to_outcome_and_value_instruments(self):
+        app = (ROOT / "web" / "src" / "components" / "claim-gate-app.tsx").read_text(encoding="utf-8")
+        fallback = (ROOT / "tools" / "claim-gate.html").read_text(encoding="utf-8")
+        publisher = (ROOT / "scripts" / "publish_toolkit_assets.py").read_text(encoding="utf-8")
+        for path in ("../templates/outcome-worksheet.md", "../templates/value-cost-ledger.md"):
+            with self.subTest(path=path):
+                self.assertIn(path, app)
+                self.assertIn(path, fallback)
+        self.assertIn('ROOT / "toolkit" / "value-cost-ledger.md"', publisher)
+        self.assertIn('SITE / "templates" / "value-cost-ledger.md"', publisher)
+        self.assertIn("auto-populates PASS", app)
+
     def test_reusable_action_owns_its_python_dependency(self):
         source = (ROOT / "action.yml").read_text(encoding="utf-8")
         workflow = (ROOT / ".github" / "workflows" / "publication-gate.yml").read_text(encoding="utf-8")

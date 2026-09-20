@@ -750,7 +750,7 @@ export function ClaimGateApp() {
 
             <div className="md:col-span-2 mt-2 rounded-lg border border-border bg-muted/30 p-4">
               <h2 className="text-lg font-semibold">Measurement and economics</h2>
-              <p className="mt-1 text-sm text-muted-foreground">These fields become especially important for Outcome and Value decisions. The software pack supplies a plan, not evidence.</p>
+              <p className="mt-1 text-sm text-muted-foreground">These fields become especially important for Outcome and Value decisions. Use the <a className="underline underline-offset-4" href="../templates/outcome-worksheet.md" target="_blank" rel="noreferrer">Outcome worksheet</a> for baseline/after, confounds, adverse effects and attribution, and the <a className="underline underline-offset-4" href="../templates/value-cost-ledger.md" target="_blank" rel="noreferrer">Value cost ledger</a> for labour movement, elapsed time, full cost, alternatives and option value. The software pack supplies a plan, not evidence; none of these instruments auto-populates PASS.</p>
             </div>
             <Field label="Outcome measure" full>
               <Textarea value={state.outcomeMeasure} onChange={(event) => setState({ ...state, outcomeMeasure: event.target.value })} placeholder="What meaningful result should change?" />

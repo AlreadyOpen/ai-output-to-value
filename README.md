@@ -115,6 +115,8 @@ Use [`toolkit/private-workbook/`](toolkit/private-workbook/) for real work. The 
 
 [`toolkit/operating-kit.md`](toolkit/operating-kit.md) points to classes of instrument that can inspect a claim: evaluation/trace, contract/e2e testing, operational evidence, DORA-capable delivery telemetry, usage inventories, and cost/value records.
 
+For the two upper decision claims, use the fillable [Outcome worksheet](toolkit/templates/outcome-worksheet.md) and [Value cost ledger](toolkit/value-cost-ledger.md). They keep baseline/after evidence, elapsed time, labour movement, confounds, adverse effects, attribution, full cost boundaries, and option value explicit without auto-populating Claim Gate PASS states.
+
 MCP servers, skills, repository tools, documentation connectors and log access are **context pipes**. They can improve Access, Output and evidence retrieval; they do not mint Value merely because they are connected.
 
 ## Evidence model
@@ -165,10 +167,11 @@ GitHub Pages runs the same relevant evidence, interaction, Action, MCP, UI and a
 ├── schemas/v1/                     # claim.json and decision-gate contracts
 ├── toolkit/
 │   ├── samples/                    # Filled teaching claim records
-│   ├── templates/                  # Software Outcome pack
+│   ├── templates/                  # General + software Outcome instruments
 │   ├── private-workbook/           # Confidential-use folder template
 │   ├── AGENT_RULES.md
-│   └── operating-kit.md
+│   ├── operating-kit.md
+│   └── value-cost-ledger.md        # Fillable Value decision workbook
 ├── packages/mcp/                   # Native stdio MCP server
 ├── web/                            # shadcn/Base UI + Tailwind + pdfcn
 ├── scripts/                        # Build / validation / publication tooling
