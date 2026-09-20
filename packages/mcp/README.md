@@ -8,6 +8,12 @@ This package is the practical agent interface for IDE, desktop and terminal work
 
 Early package source inside the main repository. It is **not yet published to npm**. The package source is licensed under Apache-2.0 (see the repository `LICENSE`); `package.json` still sets `private: true` until a publishing decision is made.
 
+- **Version identity:** source package version `0.1.0`, plus the repository tag/commit containing this package and the method/contract revision it consumes.
+- **Intended use:** local stdio MCP access for IDE, desktop, and terminal agents that need to query the framework or evaluate a supplied claim record.
+- **Support / compatibility boundary:** Node.js 20+ and stdio are the current source boundary. Host-specific MCP behaviour, future Streamable HTTP deployment, npm/package-manager distribution, and broader compatibility claims require their own tooling release evidence. For governed use, pin a reviewed tag or commit rather than `main`.
+
+Publishing this package later would be a **tooling/distribution release**, not proof that the method or its cited evidence completed independent review. Conversely, a reviewed method release would not make every MCP host or transport supported. See [`../../docs/tooling-distribution.md`](../../docs/tooling-distribution.md).
+
 ## Transport
 
 The first supported transport is **stdio**, suitable for local MCP hosts such as IDEs and terminal agents. A remote Streamable HTTP deployment can use the same server factory later.

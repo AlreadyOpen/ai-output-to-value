@@ -133,6 +133,17 @@ Independent review is actor-neutral. A completed review may be performed by a hu
 
 Evidence character is explicit where useful: public measured evidence, public documented evidence, internal evidence, illustrative material, or editorial synthesis. See [`docs/evidence-policy.md`](docs/evidence-policy.md).
 
+## Two release tracks
+
+The project keeps two readiness claims separate:
+
+- **Reviewed method/publication** — terminology, release-scope content, evidence dispositions, examples, policy, licensing/reuse terms, reader/render checks, and explicit approval of a reproducible release artefact.
+- **Tooling/distribution** — packaging, versioning, host/runtime compatibility, cross-surface conformance, and maintenance expectations for the CLI, GitHub Action, native MCP/npm, browser WebMCP, web build package, and agent skill/wrappers.
+
+A published or tagged tool does **not** mean the method has completed independent review. A reviewed method release does **not** mean every package, browser integration, runner, MCP host, or agent wrapper is operationally supported.
+
+See [`docs/tooling-distribution.md`](docs/tooling-distribution.md) for the per-surface version, intended-use, compatibility, and support boundaries. The reviewed-method acceptance bar remains [`docs/first-reviewed-release.md`](docs/first-reviewed-release.md).
+
 ## Working preview versus reviewed release
 
 The public GitHub Pages site currently deploys the **working preview** from `main`. It includes the core guide plus deeper and advanced working material, with publication and evidence-review states kept visible.
@@ -185,9 +196,10 @@ The initial maintainer is **Helen Kwok**. Evidence-based corrections and counter
 
 ## Current status
 
-**Public working preview / labelled pilot.** The repository is under AlreadyOpen and the GitHub Pages preview is live.
+- **Reviewed method/publication:** public working preview / labelled pilot. The reviewed release has not yet been approved; its remaining bar is maintained in [`docs/first-reviewed-release.md`](docs/first-reviewed-release.md), rather than being implied by a green CI build.
+- **Tooling/distribution:** mixed preview/source-only status. The native MCP source package is version `0.1.0`, private, and not published to npm; the GitHub Action, WebMCP surface, web build package, and agent skill are currently identified by repository revision rather than an independent support promise. See [`docs/tooling-distribution.md`](docs/tooling-distribution.md).
 
-The remaining bar is maintained in [`docs/first-reviewed-release.md`](docs/first-reviewed-release.md), rather than being implied by a green CI build.
+These statuses are deliberately independent: package publication does not establish method review, and method review does not establish support for every tool surface.
 
 ## Licence
 
