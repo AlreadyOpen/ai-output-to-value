@@ -37,6 +37,16 @@ Use a real or safely fictional proposal and ask the participant to:
 
 Stop after 20 minutes even if the record is incomplete. The point is to expose friction rather than coach around it.
 
+### Misleading-summary probe
+
+After the main task, and outside the 20 minutes, give the participant this deliberately misleading summary, with no explanation:
+
+> **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown.”**
+
+Ask: **“What is wrong with this assessment, and how would you rewrite it?”**
+
+Use the same materials as above. Do not point the participant to the Claim Gate or hint at the answer.
+
 ## Pass conditions
 
 Record whether the participant could, without tooling help:
@@ -47,6 +57,12 @@ Record whether the participant could, without tooling help:
 - name the business outcome or learning objective;
 - state what evidence would change the decision;
 - leave with a clear continue / restrict / rely / operate / scale / renew / stop action or an explicit statement that evidence is insufficient.
+
+For the probe, the participant must:
+
+- reject the idea that one project can be given one overall rating across the claims;
+- rewrite it as separate decisions, each with what the result is for, which version or scope it covers, and the evidence it needs;
+- recognise that the same project can be fine for one decision (for example, keep exploring) and not for another (for example, run it repeatedly for customers).
 
 A reader test is not passed merely because the participant can repeat the six claim names.
 
@@ -63,7 +79,9 @@ Complete this section after an actual session.
 - **Could state the decision?** yes / no
 - **Could separate established vs assumed?** yes / no
 - **Could identify next evidence / stop rule?** yes / no
+- **Rejected the one-rating summary and rewrote it as separate decisions?** yes / no
 - **Where did the participant hesitate or misread the method?**
+- **What did the participant say about the misleading summary?**
 - **What should change in Start Here / Claim Card / meeting brief?**
 - **Result:** pass / revise and retest
 
