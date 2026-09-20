@@ -117,6 +117,8 @@ Use [`toolkit/private-workbook/`](toolkit/private-workbook/) for real work. The 
 
 [`toolkit/operating-kit.md`](toolkit/operating-kit.md) points to classes of instrument that can inspect a claim: evaluation/trace, contract/e2e testing, operational evidence, DORA-capable delivery telemetry, usage inventories, and cost/value records.
 
+For the two upper decision claims, use the fillable [Outcome worksheet](toolkit/templates/outcome-worksheet.md) and [Value cost ledger](toolkit/value-cost-ledger.md). They keep baseline/after evidence, elapsed time, labour movement, confounds, adverse effects, attribution, full cost boundaries, and option value explicit without auto-populating Claim Gate PASS states.
+
 MCP servers, skills, repository tools, documentation connectors and log access are **context pipes**. They can improve Access, Output and evidence retrieval; they do not mint Value merely because they are connected.
 
 ## Evidence model
@@ -132,6 +134,17 @@ Independent review is actor-neutral. A completed review may be performed by a hu
 `rejected` is a valid review disposition. A launch-critical claim can pass release approval only with an accepting disposition: `accepted`, `accepted_with_qualification`, or `revised_and_accepted`.
 
 Evidence character is explicit where useful: public measured evidence, public documented evidence, internal evidence, illustrative material, or editorial synthesis. See [`docs/evidence-policy.md`](docs/evidence-policy.md).
+
+## Two release tracks
+
+The project keeps two readiness claims separate:
+
+- **Reviewed method/publication** — terminology, release-scope content, evidence dispositions, examples, policy, licensing/reuse terms, reader/render checks, and explicit approval of a reproducible release artefact.
+- **Tooling/distribution** — packaging, versioning, host/runtime compatibility, cross-surface conformance, and maintenance expectations for the CLI, GitHub Action, native MCP/npm, browser WebMCP, web build package, and agent skill/wrappers.
+
+A published or tagged tool does **not** mean the method has completed independent review. A reviewed method release does **not** mean every package, browser integration, runner, MCP host, or agent wrapper is operationally supported.
+
+See [`docs/tooling-distribution.md`](docs/tooling-distribution.md) for the per-surface version, intended-use, compatibility, and support boundaries. The reviewed-method acceptance bar remains [`docs/first-reviewed-release.md`](docs/first-reviewed-release.md).
 
 ## Working preview versus reviewed release
 
@@ -167,10 +180,11 @@ GitHub Pages runs the same relevant evidence, interaction, Action, MCP, UI and a
 ├── schemas/v1/                     # claim.json and decision-gate contracts
 ├── toolkit/
 │   ├── samples/                    # Filled teaching claim records
-│   ├── templates/                  # Software Outcome pack
+│   ├── templates/                  # General + software Outcome instruments
 │   ├── private-workbook/           # Confidential-use folder template
 │   ├── AGENT_RULES.md
-│   └── operating-kit.md
+│   ├── operating-kit.md
+│   └── value-cost-ledger.md        # Fillable Value decision workbook
 ├── packages/mcp/                   # Native stdio MCP server
 ├── web/                            # shadcn/Base UI + Tailwind + pdfcn
 ├── scripts/                        # Build / validation / publication tooling
@@ -184,10 +198,34 @@ The initial maintainer is **Helen Kwok**. Evidence-based corrections and counter
 
 ## Current status
 
-**Public working preview / labelled pilot.** The repository is under AlreadyOpen and the GitHub Pages preview is live.
+- **Reviewed method/publication:** public working preview / labelled pilot. The reviewed release has not yet been approved; its remaining bar is maintained in [`docs/first-reviewed-release.md`](docs/first-reviewed-release.md), rather than being implied by a green CI build.
+- **Tooling/distribution:** mixed preview/source-only status. The native MCP source package is version `0.1.0`, private, and not published to npm; the GitHub Action, WebMCP surface, web build package, and agent skill are currently identified by repository revision rather than an independent support promise. See [`docs/tooling-distribution.md`](docs/tooling-distribution.md).
 
-The remaining bar is maintained in [`docs/first-reviewed-release.md`](docs/first-reviewed-release.md), rather than being implied by a green CI build.
+These statuses are deliberately independent: package publication does not establish method review, and method review does not establish support for every tool surface.
 
 ## Licence
 
-A final code/content licensing model has not yet been selected. Code and editorial/reference content may ultimately use different licences. Selecting and publishing those licences is a required item before the first reviewed release.
+This repository uses two licences, split by what a path contains.
+
+**Code and machine-readable instruments: Apache-2.0** (see [`LICENSE`](LICENSE)). This covers:
+
+- `scripts/`, `tests/` (including `tests/fixtures/`), `tools/`, `web/`, `packages/`, `.github/` and `action.yml`;
+- `schemas/`, including the claim schema and the decision-gates JSON that the claim gate reads;
+- the root-level site assets (`index.html`, `*.js`, `*.css`) and `requirements-dev.txt`;
+- the JSON files under `toolkit/` (`claim.example.json`, `samples/`, `templates/`, `private-workbook/claim.json`).
+
+**Guide content: CC BY 4.0** (see [`LICENSE-CONTENT`](LICENSE-CONTENT)). This covers:
+
+- `content/`, `docs/`, `drafts/`, `research/` and `data/` (the articles, the claim and source registers);
+- the prose in `README.md`, `START-HERE.md` and `CONTRIBUTING.md`;
+- the Markdown files under `toolkit/` (the operating kit, agent rules, ledger, workbook and skill text).
+
+A path that is not listed above is licensed by what it is, in this order:
+
+1. **Code, configuration and other machine-readable files** are Apache-2.0 wherever they sit, including at the repository root: `.py`, `.mjs`, `.js`, `.ts`, `.tsx`, `.css`, `.html`, `.json`, `.yml`, `.yaml`, `.toml`, `.txt`, lockfiles and dotfiles such as `.gitignore` (so `requirements-*.txt` is Apache-2.0).
+2. **Markdown prose** is CC BY 4.0 wherever it sits, except Markdown that documents or ships with a code package (`packages/`, `web/`, `.github/`, including the issue and pull request templates), which is Apache-2.0 with that package.
+3. **Generated files** take the licence of what they are generated from.
+
+The licence of the folder a file sits in is never the deciding factor on its own, because `toolkit/` and the repository root mix both kinds.
+
+`LICENSE` holds only the Apache-2.0 text. Copying files from a CC BY path (guide content) into another project needs [`LICENSE-CONTENT`](LICENSE-CONTENT) alongside it; copying only Apache-2.0 paths needs `LICENSE` alone. Third-party sources cited in the guide keep their own terms, and components fetched at build time rather than stored here (for example the pdf components synced by `npm run pdfcn:sync`) keep the terms of their own source; the guide's licence covers only its own text.

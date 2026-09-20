@@ -17,17 +17,23 @@ The stable machine identifier for Operating capability is `04-capability`.
 
 These are different claims, not a maturity score and not six mandatory lifecycle stages.
 
+**Never assign one claim-level status to an entire project.** A summary such as **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown”** is a maturity-ladder misuse even without a numeric score.
+
 ## Select the decision first
 
 Use the lowest claim sufficient for the next decision:
 
 - keep exploring → `02-output`
 - permit reliance for a named use → `03-deliverable`
-- sell, operate, support, or staff repeatedly → `04-capability`
+- sell, operate, support, or staff the named use within the stated scope repeatedly → `04-capability`
 - determine whether the initiative changed the result → `05-outcome`
 - scale, renew, expand, or stop → `06-value`
 
 Do not let strong Access or Output compensate for a missing decision-critical Deliverable, Operating capability, Outcome, or Value claim.
+
+If the user explicitly asks for a descriptive inventory across several claim levels, do not turn it into a project verdict. Represent each entry as a separate **decision + intended use + subject/scope + required claim + evidence**. The same project may legitimately PASS an exploration decision, have INSUFFICIENT EVIDENCE for a reliance decision, and be BLOCKED for a repeated-operation decision.
+
+Treat repository stars, forks, downloads, mentions, or user counts as **adoption/reach signals**, not readiness evidence, unless the target decision itself is explicitly about adoption or reach.
 
 ## Work from the machine contract
 
@@ -42,15 +48,17 @@ If the native MCP server is available, use `get_stop_rule` and `evaluate_claim_r
 
 For the selected decision:
 
-1. State the project / initiative and intended use.
-2. Identify the required claim from the target decision.
-3. Describe the end-to-end workflow boundary when local task completion is not the same as delivery.
-4. Record actors and interaction channels separately from authority and accountability. Do not silently infer an actor when none is supplied.
-5. Evaluate each required gate check from supplied evidence as `pass`, `fail`, `unknown`, or `not-applicable` where the schema allows it.
-6. Treat `unknown` and `not-applicable` on a **required** check as insufficient evidence; do not infer PASS from confidence, plausibility, or convenience.
-7. Name evidence references, next evidence that would change the decision, and the stop rule.
-8. For Outcome, define the measure, baseline/comparison, and material confounds.
-9. For Value, include the full relevant cost/risk/alternative boundary rather than local task cost alone.
+1. State the project / initiative.
+2. State the intended use.
+3. State the **subject / scope**: artefact or system version, users, environment, workflow boundary, time period, and relevant exclusions.
+4. Identify the required claim from the target decision.
+5. Describe the end-to-end workflow boundary when local task completion is not the same as delivery.
+6. Record actors and interaction channels separately from authority and accountability. Do not silently infer an actor when none is supplied.
+7. Evaluate each required gate check from supplied evidence as `pass`, `fail`, `unknown`, or `not-applicable` where the schema allows it.
+8. Treat `unknown` and `not-applicable` on a **required** check as insufficient evidence; do not infer PASS from confidence, plausibility, or convenience.
+9. Name evidence references, next evidence that would change the decision, and the stop rule.
+10. For Outcome, define the measure, baseline/comparison, and material confounds.
+11. For Value, include the full relevant cost/risk/alternative boundary rather than local task cost alone.
 
 ## Gate ≠ truth
 
@@ -65,6 +73,8 @@ A PASS is **not** an independent audit of the underlying system, measurement, so
 ## When working with software
 
 Before claiming Deliverable or Operating capability, consider relevant failure modes such as environment/configuration gaps, authorization boundaries, retry duplicate side effects, schema migration loss, concurrency races, observability gaps, rollback/recovery gaps, hidden manual steps, and scale/cost/latency cliffs.
+
+For Operating capability, explicitly ask **“Operating capability for what repeated use, under which scope and boundary?”** Select controls from the material failure modes for that use; do not treat any universal checklist as sufficient independently of context.
 
 If the native MCP server is available, use `search_failure_modes`.
 
@@ -83,6 +93,7 @@ Do not claim that a human approval click proves quality. Do not claim that an AI
 When asked to apply the method, return:
 
 - target decision;
+- intended use and subject/scope;
 - required claim;
 - gate status;
 - decision-critical PASS / FAIL / UNKNOWN / NOT-APPLICABLE checks;
@@ -93,4 +104,4 @@ When asked to apply the method, return:
 - stop rule;
 - a `claim.json` record when structured output is useful.
 
-Keep the conclusion bounded to the supplied evidence and intended decision.
+Keep the conclusion bounded to the supplied evidence, intended use, subject/scope, and target decision. Do not emit one six-level status ladder for the project.

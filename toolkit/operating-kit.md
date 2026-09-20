@@ -9,8 +9,8 @@ Choose instruments according to the failure mode and the decision being made.
 | **Access → Output** | Confirm the tool can actually produce or perform the bounded task | usage inventory, reproducible fixture, tool/API log | organisation usage inventory; API/tool logs; a saved reproducible prompt/fixture |
 | **Output → Deliverable** | Test the named acceptance criteria and important failure modes | eval/trace system, deterministic fixture, contract test, end-to-end test | Promptfoo, Langfuse, Braintrust, or in-house fixtures; API contract tests; browser/e2e tests; the enquiry actually arriving at the intended business process |
 | **Deliverable → Operating capability** | Show the organisation can repeatedly operate, detect, recover, support, and change the workflow | CI/CD controls, observability, runbooks, rollback/recovery tests, ownership records | existing CI/CD platform; service telemetry; incident/runbook system; recovery rehearsal |
-| **Operating capability → Outcome** | Measure whether the end-to-end result changed against a baseline | product/operations measurement, DORA-capable delivery telemetry, experimental or quasi-experimental comparison | application/service delivery telemetry; baseline/after measurement; DORA software-delivery metrics for software work |
-| **Outcome → Value** | Account for relevant cost, risk, alternatives and trade-offs | finance/cost records, incident cost, support effort, customer/business measure, decision log | internal cost data; cloud/model/tool spend; support and rework effort; business outcome and decision records |
+| **Operating capability → Outcome** | Measure whether the end-to-end result changed against a baseline | product/operations measurement, DORA-capable delivery telemetry, experimental or quasi-experimental comparison | [Outcome worksheet](templates/outcome-worksheet.md); application/service delivery telemetry; baseline/after measurement; DORA software-delivery metrics for software work |
+| **Outcome → Value** | Account for relevant cost, labour movement, risk, alternatives and trade-offs | finance/cost records, incident cost, support effort, customer/business measure, decision log | [Value cost ledger](value-cost-ledger.md); internal cost data; cloud/model/tool spend; support and rework effort; business outcome and decision records |
 
 The stable machine identifier for **Operating capability** remains `04-capability`.
 
@@ -40,7 +40,7 @@ For a software-delivery initiative, the project provides a [software Outcome pac
 
 When AI-assisted delivery is the intervention, also consider leading indicators such as the share of AI-touched changes, review wait time for those changes, and revert/rollback rate for those changes.
 
-These are measurement suggestions, not automatic evidence that AI caused the result or that the result created business Value.
+Use the [general Outcome worksheet](templates/outcome-worksheet.md) to record baseline/after values, definition consistency, confounds, adverse effects, attribution qualification, evidence sources, and the reversal rule. These are measurement suggestions, not automatic evidence that AI caused the result or that the result created business Value.
 
 ## Keep the operating kit proportionate
 

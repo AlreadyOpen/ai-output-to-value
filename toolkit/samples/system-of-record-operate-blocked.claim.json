@@ -1,0 +1,70 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative agent with write access to a system of record",
+  "targetDecision": "operate",
+  "requiredClaimLevel": "04-capability",
+  "assertedClaimLevel": "03-deliverable",
+  "intendedUse": "Operate an agent that can update approved customer-status fields in the organisation's system of record without a human approving each individual write.",
+  "workflowBoundary": "An approved change request is interpreted; the intended record is selected; the update is written; the result is verified; erroneous or ambiguous writes can be detected, reversed, reconciled, and escalated.",
+  "workflowCompletion": "The workflow is complete when the correct record has the approved state, the write is attributable, and any failed or incorrect update can be recovered through the defined recourse path.",
+  "downstreamHandoffs": [
+    "System-of-record audit trail",
+    "Exception and reconciliation queue",
+    "Operational support and incident response"
+  ],
+  "movedBottleneck": "Once writing records is easy, the binding constraints become delegated authority, exception detection, recourse, rollback, reconciliation, and support ownership.",
+  "unhappyPath": "The agent writes a syntactically valid update to the wrong eligible customer record and there is no tested bulk reversal or reconciliation procedure.",
+  "evidenceCharacter": [
+    "illustrative"
+  ],
+  "actors": [
+    {
+      "type": "ai-agent",
+      "role": "Interpret approved requests and prepare or execute bounded system-of-record updates.",
+      "interactionChannel": "api"
+    },
+    {
+      "type": "human",
+      "role": "Own policy, exception handling, and operational recourse.",
+      "interactionChannel": "human-ui"
+    }
+  ],
+  "assurance": [
+    "Schema and field validation",
+    "Record-identity checks",
+    "Write audit trail",
+    "Supervised test-set verification"
+  ],
+  "authority": "The service credential can technically write the fields, but credential capability is not treated as proof of delegated authority for unsupervised production writes. Autonomous write authority remains bounded pending the operating decision.",
+  "accountability": "A named operations owner is accountable for policy, exceptions, reconciliation, and suspension of the agent.",
+  "demonstrated": "Under supervised tests the agent selected the intended records and produced updates that met the bounded Deliverable acceptance criteria.",
+  "inferredOrAssumed": "The current record does not establish that the organisation can reliably reverse or reconcile harmful writes at production scale.",
+  "knownLimitations": [
+    "A tested rollback or reconciliation procedure is absent.",
+    "The recourse path for a wrong but syntactically valid production write is not yet complete.",
+    "Long-term support and operating-cost boundaries are incomplete."
+  ],
+  "acceptanceCriteria": [
+    "Only approved fields may be changed.",
+    "The target record identity must be verified before write.",
+    "Every write must be attributable to the originating request and actor.",
+    "Ambiguous requests must not be written automatically."
+  ],
+  "evidenceRefs": [
+    "Illustrative supervised write test set",
+    "Illustrative audit-log extract",
+    "Rollback and reconciliation exercise not yet completed"
+  ],
+  "gateChecks": {
+    "deliverable-gate-passed": "pass",
+    "operational-owner-assigned": "pass",
+    "assurance-defined": "pass",
+    "fallback-defined": "fail",
+    "recovery-tested": "fail",
+    "support-maintenance-defined": "unknown",
+    "operating-cost-known": "unknown"
+  },
+  "nextEvidence": "Define and exercise rollback/reconciliation and recourse for wrong writes, complete support ownership, and establish the relevant operating-cost boundary before autonomous production operation.",
+  "stopRule": "Keep production use in supervised or approval-required mode. Do not treat possession of a write credential as operating authority or Operating capability."
+}

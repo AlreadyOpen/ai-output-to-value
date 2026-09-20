@@ -78,6 +78,10 @@ A claim record should resemble:
 
 `launch_critical` must be an explicit Boolean. Omission must not silently exempt a claim from release review.
 
+For release approval, publication scope is authoritative: **any claim published in an article whose `release_scope` is `guide` or `policy` is review-critical by construction**. A self-set `launch_critical: false` cannot exempt such a claim and is a release blocker. `launch_critical: false` can exempt only claims that remain outside the release artifact (for example, working-only material).
+
+Every evidence item must record `source_version`. Use the inspected version, revision, publication date, retrieval/review date, or another stable identifier appropriate to the source. This is especially important for mutable web pages: the evidence record must make it possible to reconstruct which source state supported the claim.
+
 ## 5. Independent review is actor-neutral
 
 > **Independent review is a property of the process, not the identity of the reviewer.**
@@ -207,7 +211,9 @@ The builder uses the same selected-article manifest when generating the release 
 
 The separate release approval gate then checks that:
 
-- every launch-critical claim completed independent review with an inspectable record;
+- every claim published in a `guide` or `policy` source is review-critical by construction, regardless of its self-set `launch_critical` value;
+- any working-only claim explicitly marked `launch_critical: true` is also review-critical;
+- every review-critical claim completed independent review with an inspectable record;
 - the operative review disposition accepts the claim for release;
 - every `guide` article is marked `ready`;
 - every included `policy` article is release-ready;
