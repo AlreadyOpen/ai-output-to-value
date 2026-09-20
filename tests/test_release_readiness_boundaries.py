@@ -74,7 +74,7 @@ class ReleaseReadinessBoundaryTests(unittest.TestCase):
     def test_mcp_readme_matches_package_version_and_support_boundary(self):
         readme = self.read("packages/mcp/README.md")
         package = json.loads(self.read("packages/mcp/package.json"))
-        self.assertIn(f"source package version \`{package['version']}\`", readme)
+        self.assertIn(f"source package version `{package['version']}`", readme)
         self.assertIn("**Intended use:**", readme)
         self.assertIn("**Support / compatibility boundary:**", readme)
         self.assertIn("../../docs/tooling-distribution.md", readme)
@@ -82,7 +82,7 @@ class ReleaseReadinessBoundaryTests(unittest.TestCase):
     def test_web_readme_matches_package_version_and_support_boundary(self):
         readme = self.read("web/README.md")
         package = json.loads(self.read("web/package.json"))
-        self.assertIn(f"version \`{package['version']}\`", readme)
+        self.assertIn(f"version `{package['version']}`", readme)
         self.assertIn("**Intended use:**", readme)
         self.assertIn("**Support / compatibility boundary:**", readme)
         self.assertIn("../docs/tooling-distribution.md", readme)
