@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Evaluate one claim record against the AI Output to Value decision gate.
 
 This checker is intentionally actor-neutral. The target decision selects the

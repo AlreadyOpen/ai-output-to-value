@@ -78,6 +78,12 @@ class ClaimGateTests(unittest.TestCase):
             with self.subTest(format=name):
                 self.assertIn(name, checker.checkers)
 
+    def test_gate_files_carry_an_spdx_licence_header(self):
+        for relative in ("scripts/claim_gate.py", "packages/mcp/src/core.mjs"):
+            with self.subTest(file=relative):
+                head = (REPO_ROOT / relative).read_text(encoding="utf-8").splitlines()[:3]
+                self.assertIn("SPDX-License-Identifier: Apache-2.0", "\n".join(head))
+
     def test_complete_required_gate_passes(self):
         result = evaluate(self.base_record(), self.gates)
         self.assertEqual(result["status"], "PASS")

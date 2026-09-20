@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 import { readFileSync } from "node:fs";
 
 import Ajv2020 from "ajv/dist/2020.js";
