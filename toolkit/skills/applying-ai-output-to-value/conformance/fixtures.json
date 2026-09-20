@@ -149,7 +149,7 @@
         "schemaVersion": "1.0",
         "project": "coding-assistant",
         "targetDecision": "scale-renew-stop",
-        "requirdClaimLevel": "06-value",
+        "requiredClaimLevel": "06-value",
         "assertedClaimLevel": "06-value",
         "intendedUse": "Decide whether to renew and expand the coding assistant.",
         "actors": [
@@ -195,7 +195,7 @@
         "schemaVersion": "1.0",
         "project": "assured-deliverable",
         "targetDecision": "rely",
-        "requirdClaimLevel": "03-deliverable",
+        "requiredClaimLevel": "03-deliverable",
         "assertedClaimLevel": "03-deliverable",
         "intendedUse": "Permit reliance on the deliverable for the named use.",
         "actors": [
@@ -240,7 +240,7 @@
         "schemaVersion": "1.0",
         "project": "workflow-change",
         "targetDecision": "scale-renew-stop",
-        "requirdClaimLevel": "06-value",
+        "requiredClaimLevel": "06-value",
         "assertedClaimLevel": "06-value",
         "intendedUse": "Decide whether to scale the workflow change.",
         "actors": [
