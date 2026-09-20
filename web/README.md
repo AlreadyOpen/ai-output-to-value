@@ -2,6 +2,14 @@
 
 The publication keeps its existing Markdown/YAML/Python evidence and release-control pipeline as the canonical content layer. The `web/` package is the presentation layer built on top of the generated publication data.
 
+## Distribution status
+
+- **Version identity:** source package `@alreadyopen/ai-output-to-value-web` version `0.1.0`, plus the repository tag/commit used to build the publication artefact. The package is private source, not a published npm surface.
+- **Intended use:** build the interactive publication UI and the generated meeting-brief PDF from the canonical publication data.
+- **Support / compatibility boundary:** support is the tested React/TypeScript/Tailwind/pdfcn/Takumi toolchain in the pinned repository revision. Rendered UI/PDF checks may be part of the reviewed-method acceptance bar because those artefacts are in the publication; publishing this package to npm is not required and would be a separate tooling decision.
+
+Browser WebMCP is also versioned by the publication tag/commit rather than this package version, and remains progressive enhancement where the required browser API exists. See [`../docs/tooling-distribution.md`](../docs/tooling-distribution.md) for the separate release track and browser compatibility boundary.
+
 ## UI stack
 
 - **React + TypeScript** for interactive UI islands.

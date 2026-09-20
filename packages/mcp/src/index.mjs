@@ -3,9 +3,16 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import * as z from "zod/v4";
 
-import { DEFAULT_PUBLICATION_URL, evaluateClaim, fetchJson, getStopRule } from "./core.mjs";
+import {
+  DEFAULT_PUBLICATION_URL,
+  evaluateClaim,
+  fetchJson,
+  getStopRule,
+  loadGateContract
+} from "./core.mjs";
 
 const publicationUrl = process.env.AIOV_PUBLICATION_URL || DEFAULT_PUBLICATION_URL;
+const liveRules = process.env.AIOV_LIVE_RULES?.trim().toLowerCase() === "true";
 
 function text(payload) {
   return {
@@ -30,15 +37,15 @@ function buildServer() {
     "get_stop_rule",
     {
       title: "Get decision stop rule",
-      description: "Return the minimum sufficient claim and deterministic checks for a target decision.",
+      description: "Return the minimum sufficient claim and deterministic checks for a target decision. By default the gate contract is bundled with this checkout; set AIOV_LIVE_RULES=true to opt into the publication contract.",
       inputSchema: z.object({
         decision_type: z.enum(["explore", "rely", "operate", "measure-outcome", "scale-renew-stop"])
       })
     },
     async ({ decision_type }) => {
       try {
-        const gates = await fetchJson(publicationUrl, "api/v1/gates.json");
-        return text(getStopRule(gates, decision_type));
+        const { gates, rulesSource } = await loadGateContract({ liveRules, publicationUrl });
+        return text({ ...getStopRule(gates, decision_type), rulesSource });
       } catch (error) {
         return fail(error instanceof Error ? error.message : String(error));
       }
@@ -49,13 +56,13 @@ function buildServer() {
     "evaluate_claim_record",
     {
       title: "Evaluate claim record",
-      description: "Evaluate a structured claim record against the stop-rule gate selected by its targetDecision. This checks supplied evidence state; it does not independently verify the underlying facts.",
+      description: "Evaluate a structured claim record against the stop-rule gate selected by its targetDecision. The bundled claim.schema.json and gate rules are used by default; set AIOV_LIVE_RULES=true to opt into the publication contract. This checks supplied evidence state; it does not independently verify the underlying facts.",
       inputSchema: z.object({ claim: z.record(z.string(), z.unknown()) })
     },
     async ({ claim }) => {
       try {
-        const gates = await fetchJson(publicationUrl, "api/v1/gates.json");
-        return text(evaluateClaim(claim, gates));
+        const { gates, claimSchema, rulesSource } = await loadGateContract({ liveRules, publicationUrl });
+        return text({ ...evaluateClaim(claim, gates, claimSchema), rulesSource });
       } catch (error) {
         return fail(error instanceof Error ? error.message : String(error));
       }
@@ -150,7 +157,7 @@ function buildServer() {
     "search_failure_modes",
     {
       title: "Search software and architecture failure modes",
-      description: "Search the working failure-mode catalogue for patterns that can invalidate Deliverable or Operating capability claims. The catalogue is editorial operational synthesis, not a prevalence ranking, and may be excluded from reviewed release artifacts.",
+      description: "Search the working software/architecture failure-mode catalogue for patterns that can invalidate Deliverable or Operating capability claims. The catalogue is editorial operational synthesis, not a prevalence ranking, and may be excluded from reviewed release artifacts.",
       inputSchema: z.object({
         query: z.string().min(2).max(200),
         limit: z.number().int().min(1).max(20).default(8)

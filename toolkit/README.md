@@ -46,27 +46,37 @@ Human, AI and hybrid workflows operate on the same `claim.json` contract:
 
 The tool can copy Markdown/JSON, download JSON, and print a compact decision record. Its HTML also contains a readable static fallback, schema links, decision thresholds and teaching records for no-JavaScript clients and crawlers.
 
-## 4. Use the software Outcome pack when the decision is 05 Outcome
+## 4. Fill the Outcome worksheet when the decision is 05 Outcome
 
-[`templates/software-outcome-pack.json`](templates/software-outcome-pack.json) supplies a measurement plan for software-delivery initiatives using DORA's five current metric names:
+Use [`templates/outcome-worksheet.md`](templates/outcome-worksheet.md) for the general Outcome decision. It requires the decision/intervention, workflow or population, outcome measure, baseline period/value, after or comparison period/value, consistent-definition check, material confounds, adverse effects, attribution qualification, evidence source, and the result that would reverse the conclusion.
 
-- change lead time;
-- deployment frequency;
-- failed deployment recovery time;
-- change fail rate;
-- deployment rework rate.
+When time is relevant, **elapsed time and labour hours are recorded separately**. Faster elapsed time is not automatically labour saved.
 
-For AI-assisted delivery, the template also suggests leading indicators such as AI-touched share, review wait on AI-touched changes, and revert/rollback rate on those changes.
+For software-delivery initiatives, [`templates/software-outcome-pack.json`](templates/software-outcome-pack.json) supplies DORA's five current metric names plus AI-specific leading indicators. It now points back to the general worksheet so DORA telemetry can supply evidence without becoming a competing scoring framework.
 
-The template marks **no gate check PASS automatically**. It helps define what to measure; it does not prove the outcome or causal attribution.
+The worksheet includes a numeric worked example where review elapsed time improves while reviewer labour rises. That supports an Outcome claim without automatically establishing Value.
 
-## 5. Count full relevant cost for 06 Value
+Neither instrument marks a Claim Gate check PASS automatically.
+
+## 5. Fill the Value workbook when the decision is 06 Value
 
 Use [`value-cost-ledger.md`](value-cost-ledger.md) when the decision is scale, renew, expand, or stop.
 
-The ledger keeps local task savings separate from total value by making the decision-relevant boundary explicit: model/API cost, licences, compute, review/correction, integration, testing/assurance, deployment, monitoring, support, rework/recovery, training/change management, procurement overhead, opportunity cost, and other material trade-offs.
+The ledger requires users to distinguish:
 
-Do not force unlike quantities into one total unless the conversion is explicit and defensible.
+- elapsed time from labour hours;
+- labour removed from labour shifted into review, rework, support, maintenance, or incident handling;
+- model/API/tool/vendor cost;
+- infrastructure cost;
+- integration, testing, evaluation, assurance, and security cost;
+- support/maintenance and incident/risk cost;
+- opportunity cost and the alternative not taken;
+- option value of information, including a justified stop;
+- attribution qualification and evidence sources.
+
+Do not force unlike quantities into one total unless the conversion is explicit and defensible. The worked stop example treats decision-changing information as a positive result without booking avoided planned spend as automatic realised profit.
+
+Completing the ledger supports a Value decision record; it does not independently validate the underlying measurements or auto-populate PASS checks.
 
 ## 6. Keep real evidence private with the workbook
 
@@ -197,7 +207,9 @@ The public site generates:
 - `/api/v1/claims.json`
 - `/api/v1/sources.json`
 - `/api/v1/failure-modes.json` in the working preview;
+- `/templates/outcome-worksheet.md`;
 - `/templates/software-outcome-pack.json`;
+- `/templates/value-cost-ledger.md`;
 - `/samples/*.claim.json`.
 
 WebMCP, native MCP and the interactive UI should consume the same published contract rather than re-encoding the framework independently.
