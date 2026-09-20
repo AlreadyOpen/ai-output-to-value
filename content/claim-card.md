@@ -6,6 +6,8 @@ Use this card before a review meeting, pilot decision, customer commitment, merg
 
 > **What decision are we trying to make, and what is the weakest claim that would be sufficient for that decision?**
 
+Before selecting a claim, state the **decision**, **intended use**, and **subject/scope** being assessed. A gate result applies to that combination, not to the project as a whole.
+
 For a live version, use the [interactive claim gate](../tools/claim-gate.html). It produces a deterministic **PASS / BLOCKED / INSUFFICIENT EVIDENCE** result and can export Markdown or `claim.json`.
 
 ## Start with the decision
@@ -14,7 +16,7 @@ For a live version, use the [interactive claim gate](../tools/claim-gate.html). 
 | --- | --- | --- |
 | **Keep exploring?** | **02 Output** | Reproducible/inspectable output plus important assumptions and inferences made visible. |
 | **May someone rely on this for the named use?** | **03 Deliverable** | Intended use, acceptance criteria, evidence they were met, relevant failure/fallback checks, and stated limitations. |
-| **May we sell, operate, support, or staff this repeatedly?** | **04 Operating capability** | Deliverable gate plus ownership, assurance, fallback/recovery, support/maintenance, and relevant operating-cost boundary. |
+| **May we sell, operate, support, or staff this repeatedly?** | **04 Operating capability** | Deliverable gate plus evidence for the **named repeated use and scope**: the ownership, assurance, fallback/recovery, support/maintenance, and operating-cost controls relevant to its material failure modes. Ask **“Operating capability for what?”** |
 | **Did the initiative change the result we care about?** | **05 Outcome** | Defined outcome measure, comparable baseline, after measurement, consistent definitions, and material confounds named. |
 | **Should we scale, renew, expand, or stop?** | **06 Value** | Outcome evidence plus full relevant cost, risk/trade-offs, alternatives, and an explicit value decision rule. |
 
@@ -31,6 +33,27 @@ The decision gate has three states:
 - **INSUFFICIENT EVIDENCE** — no required check is recorded as failed, but one or more required checks or decision-record fields are missing or unknown, or the asserted claim does not match the decision.
 
 A project with excellent **Access** and **Output** but no evidence of **Deliverable** is not "one-third complete". A failed or unknown decision-critical claim cannot be cancelled out by strength somewhere else.
+
+### Anti-pattern: six project statuses
+
+Do **not** summarise one project as:
+
+- Output: strong
+- Deliverable: almost
+- Operating capability: not yet
+- Outcome / Value: unknown
+
+That turns the six claims back into a maturity ladder. Instead write separate decision records. For the **same website prototype**, for example:
+
+| Decision | Intended use + subject/scope | Required claim | Result |
+| --- | --- | --- | --- |
+| Keep exploring | Internal UX learning on the current staging build | **Output** | **PASS** |
+| Permit client reliance | Receive real enquiries through the production contact workflow | **Deliverable** | **INSUFFICIENT EVIDENCE** if delivery has not been verified |
+| Operate repeatedly | Public production lead intake including monitoring, recovery and support | **Operating capability** | **BLOCKED** if a decision-critical operating requirement is known to be absent |
+
+The project did not move between three maturity states. Three different decisions were evaluated against three different scopes.
+
+Repository stars, forks, downloads, mentions, or user counts are evidence about adoption/reach. They do not establish Deliverable or Operating capability unless the decision itself is explicitly about adoption or reach.
 
 ## Workflow is the process boundary, not another score
 
@@ -86,6 +109,8 @@ Confidentiality does not require pretending evidence does not exist. It requires
 **Claim being asserted:**
 
 **Intended use:**
+
+**Subject / scope:** artefact/system version, users, environment, workflow boundary, time period
 
 **Decision date or review point:**
 
@@ -163,7 +188,7 @@ The same decision record can be expressed as JSON using the versioned schema:
 - [`decision-gates.json`](../schemas/v1/decision-gates.json)
 - [example claim record](https://github.com/AlreadyOpen/ai-output-to-value/blob/main/toolkit/claim.example.json)
 
-The schema deliberately separates **actor**, **assurance**, **authority**, and **accountability**. The deterministic gate is selected by `targetDecision`, not by whether the producer was human or AI.
+The schema deliberately separates **actor**, **assurance**, **authority**, and **accountability**. The deterministic gate is selected by `targetDecision`, not by whether the producer was human or AI. In the current machine record, `project`, `intendedUse`, and the workflow-boundary fields together identify the assessed subject/scope; do not interpret a gate result as a status for everything sharing the same project name.
 
 A repository or CI process can evaluate a record with:
 
