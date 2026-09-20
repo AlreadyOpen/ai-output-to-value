@@ -46,6 +46,18 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn('fetch("../templates/software-outcome-pack.json"', source)
         self.assertNotIn("DORA throughput: change lead time", source)
 
+    def test_claim_gate_links_to_outcome_and_value_instruments(self):
+        app = (ROOT / "web" / "src" / "components" / "claim-gate-app.tsx").read_text(encoding="utf-8")
+        fallback = (ROOT / "tools" / "claim-gate.html").read_text(encoding="utf-8")
+        publisher = (ROOT / "scripts" / "publish_toolkit_assets.py").read_text(encoding="utf-8")
+        for path in ("../templates/outcome-worksheet.md", "../templates/value-cost-ledger.md"):
+            with self.subTest(path=path):
+                self.assertIn(path, app)
+                self.assertIn(path, fallback)
+        self.assertIn('ROOT / "toolkit" / "value-cost-ledger.md"', publisher)
+        self.assertIn('SITE / "templates" / "value-cost-ledger.md"', publisher)
+        self.assertIn("auto-populates PASS", app)
+
     def test_reusable_action_owns_its_python_dependency(self):
         source = (ROOT / "action.yml").read_text(encoding="utf-8")
         workflow = (ROOT / ".github" / "workflows" / "publication-gate.yml").read_text(encoding="utf-8")
@@ -177,10 +189,19 @@ class InteractionIntegrityTests(unittest.TestCase):
                             f"{path.name}: '{step.get('name')}' interpolates an expression into the shell",
                         )
 
-    def test_mcp_package_does_not_claim_unselected_public_licence(self):
+    def test_mcp_package_declares_apache_licence_and_stays_private(self):
         source = (ROOT / "packages" / "mcp" / "package.json").read_text(encoding="utf-8")
         self.assertIn('"private": true', source)
-        self.assertIn('"license": "UNLICENSED"', source)
+        self.assertIn('"license": "Apache-2.0"', source)
+        self.assertNotIn("UNLICENSED", source)
+
+    def test_readme_licence_map_defines_a_fallback_for_unlisted_paths(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        section = readme.split("## Licence", 1)[1]
+        self.assertIn("licensed by what it is", section)
+        self.assertIn("never the deciding factor on its own", section)
+        self.assertIn("needs [`LICENSE-CONTENT`](LICENSE-CONTENT) alongside it", section)
+        self.assertNotIn("takes the licence of the folder it sits in", section)
 
     def test_machine_framework_publishes_operating_capability_label(self):
         source = (ROOT / "scripts" / "augment_site.py").read_text(encoding="utf-8")

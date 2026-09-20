@@ -77,6 +77,18 @@ articles:
     reviewed: 2026-09-15
     status: draft
 
+  - id: cross-domain-worked-cases
+    title: Cross-domain worked cases — common false claim promotions
+    source: content/cross-domain-worked-cases.md
+    slug: cross-domain-worked-cases
+    section: core
+    release_scope: guide
+    order: 52
+    summary: Seven fictional cases showing how local metrics, polished outputs, write access, human review, task speed, time savings, and killed pilots can be falsely promoted into stronger claims.
+    maintainer: Helen Kwok
+    reviewed: 2026-09-20
+    status: draft
+
   - id: claim-card
     title: Claim card — decide what evidence is enough
     source: content/claim-card.md

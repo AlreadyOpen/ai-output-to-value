@@ -1,0 +1,57 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative customer-support containment pilot",
+  "targetDecision": "measure-outcome",
+  "requiredClaimLevel": "05-outcome",
+  "assertedClaimLevel": "05-outcome",
+  "intendedUse": "Determine whether the support-agent pilot improved the customer support outcome, rather than only reducing the number of conversations handed to human agents.",
+  "workflowBoundary": "A customer starts a support conversation; the AI answers or hands off; the issue is resolved, reopened, repeated, or escalated; the customer's post-interaction experience is recorded.",
+  "workflowCompletion": "The support workflow is complete when the issue is resolved or escalated under the existing support policy and the defined recurrence window has elapsed.",
+  "downstreamHandoffs": [
+    "Human support queue for unsupported, uncertain, or high-consequence cases",
+    "Repeat-contact and reopening analysis",
+    "Customer satisfaction measurement"
+  ],
+  "movedBottleneck": "Higher containment can move work from the visible human queue into repeat contacts, escalations, corrections, or customer effort that the containment metric does not capture.",
+  "unhappyPath": "A conversation is counted as contained because no human handoff occurred, but the customer returns later because the issue was not actually resolved.",
+  "evidenceCharacter": [
+    "illustrative"
+  ],
+  "actors": [
+    {
+      "type": "ai-agent",
+      "role": "Answer bounded support requests or hand off when the request is unsupported or uncertain.",
+      "interactionChannel": "human-ui"
+    },
+    {
+      "type": "human",
+      "role": "Resolve escalated cases and own support-policy decisions.",
+      "interactionChannel": "human-ui"
+    }
+  ],
+  "authority": "The AI may answer only within the pilot categories and may not change account entitlements or policies. Human support staff retain escalation and exception authority.",
+  "accountability": "The support operations owner defines the outcome measures, reviews recurrence and complaints, and decides whether the pilot continues.",
+  "demonstrated": "Containment increased from the illustrative baseline while the number of immediate human handoffs fell.",
+  "inferredOrAssumed": "The current record assumes, but has not yet demonstrated, that higher containment corresponds to durable resolution, lower recurrence, or acceptable customer satisfaction.",
+  "knownLimitations": [
+    "Containment and deflection are local workflow measures, not direct evidence of durable resolution.",
+    "The post-interaction recurrence window and customer-satisfaction measure have not yet been completed for the pilot."
+  ],
+  "outcomeMeasure": "Durable support resolution for the named categories, measured with no-repeat resolution over the agreed recurrence window and a stable customer-satisfaction measure.",
+  "baseline": "A pre-pilot baseline exists for the same support categories, but the comparable post-pilot durable-resolution and satisfaction measures are incomplete.",
+  "evidenceRefs": [
+    "Illustrative containment dashboard",
+    "Illustrative pre-pilot support baseline",
+    "Post-pilot recurrence and satisfaction extract not yet complete"
+  ],
+  "gateChecks": {
+    "outcome-measure-defined": "pass",
+    "baseline-defined": "pass",
+    "outcome-measured": "unknown",
+    "measurement-definition-consistent": "unknown",
+    "important-confounds-named": "pass"
+  },
+  "nextEvidence": "Complete the same-category post-pilot no-repeat-resolution, recurrence, escalation, and customer-satisfaction measures using the pre-agreed definitions.",
+  "stopRule": "Do not promote containment or deflection alone into an Outcome claim. Keep the pilot bounded until the end-to-end support measures are available."
+}
