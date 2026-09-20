@@ -32,7 +32,7 @@ class ClaimSchemaTests(unittest.TestCase):
 
     def test_all_teaching_samples_are_schema_valid(self):
         samples = sorted((ROOT / "toolkit" / "samples").glob("*.claim.json"))
-        self.assertGreaterEqual(len(samples), 4)
+        self.assertGreaterEqual(len(samples), 10)
         for path in samples:
             with self.subTest(path=path.name):
                 self.assert_valid_claim(path)
