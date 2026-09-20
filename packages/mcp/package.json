@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "node src/index.mjs",
-    "test": "node --test test/core.test.mjs test/uri-grammar.test.mjs && node --check src/index.mjs"
+    "test": "node --test && node --check src/index.mjs"
   },
   "engines": {
     "node": ">=20"
