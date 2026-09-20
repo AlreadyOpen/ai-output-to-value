@@ -42,8 +42,8 @@ A source logo or citation is not itself independent review.
 
 ## Governance and reuse
 
-- [ ] Code licence is selected and published.
-- [ ] Editorial/reference-content licence is selected and published; it may differ from the code licence.
+- [x] Code licence is selected and published (Apache-2.0, `LICENSE`).
+- [x] Editorial/reference-content licence is selected and published; it may differ from the code licence (CC BY 4.0, `LICENSE-CONTENT`).
 - [ ] Provenance, corrections, confidentiality, and evidence policy are included.
 - [ ] The release commit/tag is explicit and reproducible.
 - [ ] The manual release approval gate passes before deployment.
