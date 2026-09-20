@@ -4,18 +4,25 @@
   "description": "Actor-neutral AI Output to Value decision gates over Model Context Protocol.",
   "type": "module",
   "private": true,
+  "files": [
+    "src",
+    "schemas",
+    "README.md"
+  ],
   "bin": {
     "ai-output-to-value-mcp": "src/index.mjs"
   },
   "scripts": {
     "start": "node src/index.mjs",
-    "test": "node --test test/core.test.mjs && node --check src/index.mjs"
+    "test": "node --test && node --check src/index.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.0.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "zod": "^4.2.0"
   },
   "license": "Apache-2.0"
