@@ -1,0 +1,53 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative four-hours-saved-per-person observation",
+  "targetDecision": "scale-renew-stop",
+  "requiredClaimLevel": "06-value",
+  "assertedClaimLevel": "05-outcome",
+  "intendedUse": "Decide whether to expand or renew an AI tool across the organisation based on a reported average of four hours saved per person per week.",
+  "workflowBoundary": "The tool changes selected knowledge-work tasks; time use, transferred review work, output volume or quality, downstream effects, full costs, risks, and alternatives are considered in the scale decision.",
+  "workflowCompletion": "The scale decision is complete when the observed time change is connected to a defined organisational benefit and compared with the full relevant cost, risk, and reasonable alternatives.",
+  "downstreamHandoffs": [
+    "Managerial redeployment or additional output",
+    "Review and correction work",
+    "Finance/procurement scale or renewal decision"
+  ],
+  "movedBottleneck": "Time removed from one task may reappear as review, coordination, waiting, or simply unused capacity; the conversion from saved time to realised benefit is the critical boundary.",
+  "unhappyPath": "The organisation multiplies four hours by salary and headcount and calls the result Value even though the saved time was not redeployed, output did not increase, and review/support costs were omitted.",
+  "evidenceCharacter": [
+    "illustrative"
+  ],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "Employees use the tool for bounded knowledge-work tasks and report or record time changes.",
+      "interactionChannel": "human-ui"
+    }
+  ],
+  "authority": "Managers may decide how saved capacity is used; the local time observation does not itself authorise an enterprise-scale purchase.",
+  "accountability": "The scale decision owner must connect the outcome evidence to realised benefit, full cost, risk, and alternatives.",
+  "demonstrated": "A bounded illustrative measurement observed an average reduction of four hours per person per week on the selected tasks.",
+  "inferredOrAssumed": "It is not yet established that those hours became additional useful output, reduced spend, shorter cycle time, better quality, or another realised benefit.",
+  "knownLimitations": [
+    "Transferred review and coordination work is incomplete.",
+    "The full licence, integration, support, assurance, and change-management cost boundary is incomplete.",
+    "Reasonable alternatives and the status quo have not been compared on the same decision basis."
+  ],
+  "outcomeMeasure": "Average time spent on the selected tasks per person per week under the defined measurement method.",
+  "baseline": "The same selected tasks were measured before adoption using the same illustrative time-use definition.",
+  "fullRelevantCostBoundary": "Enterprise licensing, integration, support, assurance, training/change effort, transferred review work, incident/recovery cost, and any material displacement effects.",
+  "evidenceRefs": [
+    "Illustrative before/after time-use record",
+    "Full-cost and alternative comparison not yet complete"
+  ],
+  "gateChecks": {
+    "outcome-evidence-available": "pass",
+    "full-cost-accounted": "unknown",
+    "risk-tradeoffs-assessed": "unknown",
+    "alternatives-compared": "unknown",
+    "value-rule-explicit": "pass"
+  },
+  "nextEvidence": "Measure what the saved capacity became, complete the full relevant cost and risk boundary, compare reasonable alternatives, and apply the pre-agreed scale/renew rule.",
+  "stopRule": "Do not convert saved hours directly into monetary Value by multiplying by salary and headcount unless the mechanism from time saved to realised benefit is evidenced."
+}

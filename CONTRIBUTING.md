@@ -62,7 +62,9 @@ Important factual claims should also be registered under `data/claims*.yml`:
   independent_review_status: pending
 ```
 
-`launch_critical` must be an explicit Boolean. Omission is not a way to bypass review.
+`launch_critical` must be an explicit Boolean. Omission is not a way to bypass review. Claims published in a `guide` or `policy` article are review-critical by construction, so `launch_critical: false` cannot exempt them from release review. Use `false` only for claims that remain outside the reviewed release unless there is a separate reason to require review.
+
+Every evidence item must include a non-empty `source_version` identifying the source state actually inspected (for example, a publication version/date, revision, or review/retrieval date for mutable web material).
 
 ## Independent review
 
@@ -182,4 +184,4 @@ If evidence is genuinely contested, prefer showing the disagreement over forcing
 
 ## Licence
 
-The repository has not yet selected its final code/content licensing model. Avoid contributing material that cannot legally be redistributed under an eventual open licence.
+Contributions are accepted under the licence of the paths they change: Apache-2.0 for code, schemas and other machine-readable instruments, and CC BY 4.0 for guide content. The full path map is in the [`README.md`](README.md#licence). Avoid contributing material that cannot legally be redistributed under those licences.

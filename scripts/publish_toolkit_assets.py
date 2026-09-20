@@ -20,6 +20,11 @@ def main() -> None:
     copy_tree(ROOT / "toolkit" / "samples", SITE / "samples")
     copy_tree(ROOT / "toolkit" / "templates", SITE / "templates")
 
+    value_ledger = ROOT / "toolkit" / "value-cost-ledger.md"
+    if value_ledger.exists():
+        (SITE / "templates").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(value_ledger, SITE / "templates" / "value-cost-ledger.md")
+
     private_source = ROOT / "toolkit" / "private-workbook"
     downloads = SITE / "downloads"
     downloads.mkdir(parents=True, exist_ok=True)
@@ -32,7 +37,7 @@ def main() -> None:
     if private_source.exists():
         shutil.make_archive(str(archive_base), "zip", root_dir=private_source)
 
-    print("Published Claim Gate samples, software Outcome template, and private workbook")
+    print("Published Claim Gate samples, Outcome/Value instruments, and private workbook")
 
 
 if __name__ == "__main__":

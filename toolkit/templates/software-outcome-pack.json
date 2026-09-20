@@ -1,10 +1,11 @@
 {
-  "templateVersion": "1.0",
+  "templateVersion": "1.1",
   "name": "Software delivery Outcome pack",
   "targetDecision": "measure-outcome",
   "requiredClaimLevel": "05-outcome",
   "evidenceCharacter": "template / editorial synthesis with DORA metric names",
   "purpose": "Suggested measurement pack for software-delivery initiatives, including AI-assisted delivery. It does not prove AI caused a change; it defines a useful set of outcome measures and leading indicators to inspect.",
+  "generalWorksheet": "outcome-worksheet.md",
   "throughputMetrics": [
     "change lead time",
     "deployment frequency",
@@ -20,10 +21,19 @@
     "revert or rollback rate for AI-touched changes"
   ],
   "recommendedRecordFields": {
+    "decisionOrIntervention": "Name the intervention and the decision this evidence will inform.",
+    "workflowPopulation": "Define the application/service, workflow, population, observation unit, important exclusions, and comparison boundary.",
     "outcomeMeasure": "Track the five DORA software-delivery metrics for the selected application/service. Add AI-touched share, review wait, and revert/rollback rate as leading indicators when AI-assisted delivery is the intervention being assessed.",
-    "baseline": "Use a comparable pre-intervention period with the same metric definitions and service boundary.",
-    "fullRelevantCostBoundary": "Include model/tool licences or inference, review and correction, CI/test infrastructure, deployment/operations, support, and material incident/rework cost relevant to the decision.",
-    "nextEvidence": "Collect the same measures after the agreed observation window and name material confounds such as staffing, release policy, architecture, workload mix, or major platform changes."
+    "baselinePeriodAndValue": "Use a comparable pre-intervention period with the same metric definitions and service boundary.",
+    "comparisonPeriodAndValue": "Collect the same measures after the agreed observation window or for the defined comparison cohort.",
+    "consistentDefinitionCheck": "Record yes, no, or qualified and explain any metric, service-boundary, or population change.",
+    "materialConfounders": "Name staffing, release policy, architecture, workload mix, platform, seasonality, or other concurrent changes that could affect the result.",
+    "adverseEffectsOrQualityRegressions": "Record instability, rework, reliability, support, quality, or distributional regressions rather than hiding them behind an aggregate improvement.",
+    "attributionQualification": "State how strongly the evidence supports attribution to the intervention and what it does not establish.",
+    "evidenceSource": "Reference the telemetry, experiment, repository record, or other source used for the comparison.",
+    "reversalResult": "Pre-state the result that would reverse or materially weaken the Outcome conclusion.",
+    "fullRelevantCostBoundary": "For a later Value decision, include model/tool licences or inference, review and correction, CI/test infrastructure, deployment/operations, support, incident/rework cost, alternatives, and opportunity cost relevant to the decision.",
+    "nextEvidence": "Name the next observation or comparison that could change the decision."
   },
-  "qualification": "DORA metrics describe software delivery performance for an application or service. They do not by themselves establish customer value, AI ROI, causal attribution, or total business profitability."
+  "qualification": "DORA metrics describe software delivery performance for an application or service. They do not by themselves establish customer value, AI ROI, causal attribution, or total business profitability. Use the general Outcome worksheet to record baseline/after values, confounds, adverse effects, attribution qualification, evidence source, and reversal rule. No gate check is marked PASS automatically."
 }

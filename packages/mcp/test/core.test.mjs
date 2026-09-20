@@ -4,105 +4,146 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
-import { evaluateClaim, getStopRule } from "../src/core.mjs";
+import {
+  evaluateClaim,
+  getStopRule,
+  loadBundledClaimSchema,
+  loadBundledGates,
+  loadGateContract
+} from "../src/core.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const gates = JSON.parse(await readFile(resolve(here, "../../../schemas/v1/decision-gates.json"), "utf8"));
+const canonicalGates = JSON.parse(await readFile(resolve(here, "../../../schemas/v1/decision-gates.json"), "utf8"));
+const canonicalClaimSchema = JSON.parse(await readFile(resolve(here, "../../../schemas/v1/claim.schema.json"), "utf8"));
+const conformance = JSON.parse(await readFile(resolve(here, "../../../tests/fixtures/claim-gate-conformance.json"), "utf8"));
+const gates = loadBundledGates();
+const claimSchema = loadBundledClaimSchema();
 
 function record() {
-  return {
-    schemaVersion: "1.0",
-    project: "example",
-    targetDecision: "rely",
-    requiredClaimLevel: "03-deliverable",
-    assertedClaimLevel: "03-deliverable",
-    intendedUse: "Named use",
-    actors: [{ type: "ai-agent", role: "Draft" }],
-    authority: "Bounded",
-    accountability: "Organisation",
-    gateChecks: {
-      "intended-use-defined": "pass",
-      "acceptance-criteria-defined": "pass",
-      "acceptance-criteria-met": "pass",
-      "failure-modes-tested": "pass",
-      "limitations-stated": "pass"
-    },
-    nextEvidence: "Fresh evaluation",
-    stopRule: "Stop if threshold fails"
-  };
+  return structuredClone(conformance.baseRecord);
 }
 
-test("complete gate passes", () => {
-  assert.equal(evaluateClaim(record(), gates).status, "PASS");
+function patchedRecord(patch, remove = []) {
+  const value = record();
+  for (const [key, replacement] of Object.entries(patch ?? {})) {
+    if (key === "gateChecks" && replacement && typeof replacement === "object" && !Array.isArray(replacement)) {
+      value.gateChecks = { ...value.gateChecks, ...replacement };
+    } else {
+      value[key] = replacement;
+    }
+  }
+  for (const key of remove) delete value[key];
+  return value;
+}
+
+function evaluate(value) {
+  return evaluateClaim(value, gates, claimSchema);
+}
+
+test("bundled decision rules match canonical repository rules", () => {
+  assert.deepEqual(gates, canonicalGates);
 });
 
-test("failed check blocks", () => {
-  const value = record();
-  value.gateChecks["acceptance-criteria-met"] = "fail";
-  assert.equal(evaluateClaim(value, gates).status, "BLOCKED");
+test("bundled claim schema matches canonical repository schema", () => {
+  assert.deepEqual(claimSchema, canonicalClaimSchema);
 });
 
-test("unknown evidence remains insufficient", () => {
-  const value = record();
-  value.gateChecks["acceptance-criteria-met"] = "unknown";
-  assert.equal(evaluateClaim(value, gates).status, "INSUFFICIENT_EVIDENCE");
+test("default gate contract is bundled and performs no publication fetch", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => {
+    throw new Error("default gate contract must not fetch publication rules");
+  };
+  try {
+    const contract = await loadGateContract({ publicationUrl: "https://example.invalid/" });
+    assert.equal(contract.rulesSource, "bundled");
+    assert.deepEqual(contract.gates, canonicalGates);
+    assert.deepEqual(contract.claimSchema, canonicalClaimSchema);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("live publication gate contract requires explicit opt-in", async () => {
+  const originalFetch = globalThis.fetch;
+  const requested = [];
+  globalThis.fetch = async (url) => {
+    requested.push(String(url));
+    return {
+      ok: true,
+      async json() {
+        return String(url).includes("claim.schema.json") ? canonicalClaimSchema : canonicalGates;
+      }
+    };
+  };
+  try {
+    const contract = await loadGateContract({ liveRules: true, publicationUrl: "https://example.test/base/" });
+    assert.equal(contract.rulesSource, "live-publication");
+    assert.equal(requested.length, 2);
+    assert.ok(requested.some((url) => url.endsWith("/base/api/v1/gates.json")));
+    assert.ok(requested.some((url) => url.endsWith("/base/schemas/v1/claim.schema.json")));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("shared conformance fixture matches the MCP evaluator", async (t) => {
+  for (const item of conformance.cases) {
+    await t.test(item.name, () => {
+      const input = "record" in item ? structuredClone(item.record) : patchedRecord(item.patch, item.remove);
+      const result = evaluate(input);
+      assert.equal(result.status, item.expectedStatus);
+      assert.equal(result.gateVersion, gates.version);
+      assert.equal(result.principle, gates.principle);
+      assert.equal(result.rule, gates.principle);
+      if (Object.hasOwn(item, "expectedClaimMismatch")) {
+        assert.equal(result.claimMismatch, item.expectedClaimMismatch);
+      }
+      if (item.expectedMissingFields) {
+        assert.deepEqual(result.missingFields, item.expectedMissingFields);
+      }
+      const errors = result.structuralErrors.join(" ").toLowerCase();
+      for (const needle of item.errorContains ?? []) {
+        assert.ok(errors.includes(String(needle).toLowerCase()), `${item.name}: ${needle}`);
+      }
+    });
+  }
 });
 
 test("not-applicable required evidence remains insufficient and is preserved", () => {
   const value = record();
   value.gateChecks["acceptance-criteria-met"] = "not-applicable";
-  const result = evaluateClaim(value, gates);
+  const result = evaluate(value);
   assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
   assert.equal(result.unknownChecks[0].state, "not-applicable");
 });
 
-test("missing decision-record text is insufficient rather than blocked", () => {
+test("empty decision-record text is structurally blocked by schema", () => {
   const value = record();
   value.authority = "";
-  const result = evaluateClaim(value, gates);
-  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
+  const result = evaluate(value);
+  assert.equal(result.status, "BLOCKED");
   assert.deepEqual(result.missingFields, ["authority"]);
+  assert.ok(result.structuralErrors.some((message) => message.includes("authority")));
 });
 
-test("missing actors is insufficient rather than silently inferred", () => {
+test("schema enforces field length constraints", () => {
   const value = record();
-  value.actors = [];
-  const result = evaluateClaim(value, gates);
-  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
-  assert.ok(result.missingFields.includes("actors"));
-});
-
-test("asserted claim mismatch is insufficient", () => {
-  const value = record();
-  value.assertedClaimLevel = "02-output";
-  const result = evaluateClaim(value, gates);
-  assert.equal(result.status, "INSUFFICIENT_EVIDENCE");
-  assert.equal(result.claimMismatch, true);
-});
-
-test("required claim mapping mismatch is structurally blocked", () => {
-  const value = record();
-  value.requiredClaimLevel = "02-output";
-  const result = evaluateClaim(value, gates);
+  value.authority = "x".repeat(1001);
+  const result = evaluate(value);
   assert.equal(result.status, "BLOCKED");
-  assert.ok(result.structuralErrors.length > 0);
-});
-
-test("unsupported schema version is structurally blocked", () => {
-  const value = record();
-  value.schemaVersion = "2.0";
-  const result = evaluateClaim(value, gates);
-  assert.equal(result.status, "BLOCKED");
-  assert.ok(result.structuralErrors.some((message) => message.includes("schemaVersion")));
+  assert.ok(result.structuralErrors.some((message) => message.includes("authority")));
 });
 
 test("actor identity does not change the gate", () => {
   const ai = record();
   const human = record();
   human.actors = [{ type: "human", role: "Author" }];
-  assert.equal(evaluateClaim(ai, gates).status, evaluateClaim(human, gates).status);
+  assert.equal(evaluate(ai).status, evaluate(human).status);
 });
 
-test("stop rule comes from target decision", () => {
-  assert.equal(getStopRule(gates, "operate").requiredClaimLevel, "04-capability");
+test("stop rule comes from target decision and records contract version", () => {
+  const result = getStopRule(gates, "operate");
+  assert.equal(result.requiredClaimLevel, "04-capability");
+  assert.equal(result.gateVersion, gates.version);
+  assert.equal(result.principle, gates.principle);
 });

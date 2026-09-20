@@ -1,0 +1,52 @@
+{
+  "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json",
+  "schemaVersion": "1.0",
+  "project": "Illustrative coding-assistant workflow study",
+  "targetDecision": "measure-outcome",
+  "requiredClaimLevel": "05-outcome",
+  "assertedClaimLevel": "05-outcome",
+  "intendedUse": "Determine whether introducing coding assistance improved the end-to-end software delivery outcome for one stable service workflow.",
+  "workflowBoundary": "Work is selected; code is produced; review waits and review work occur; tests and deployment run; failed changes are recovered or reworked; the change reaches production.",
+  "workflowCompletion": "A change is complete when it reaches production successfully or is abandoned under the same workflow definition used for the baseline.",
+  "downstreamHandoffs": [
+    "Code review",
+    "Test and release pipeline",
+    "Production recovery or rework where required"
+  ],
+  "movedBottleneck": "Faster local code generation moved more work into the review queue and increased rework, so code-writing time stopped being the dominant constraint.",
+  "unhappyPath": "Generated code is produced faster, but reviewers receive larger or more numerous changes, wait time rises, and rework offsets the local task-speed gain.",
+  "evidenceCharacter": [
+    "illustrative"
+  ],
+  "actors": [
+    {
+      "type": "hybrid",
+      "role": "Developers use coding assistance inside the existing review, test, release, and recovery workflow.",
+      "interactionChannel": "ide-agent"
+    }
+  ],
+  "authority": "Developers may use the assistant to produce code, but existing review and deployment authorities remain unchanged.",
+  "accountability": "The engineering lead owns the workflow measurement and decides whether to redesign or continue the pilot.",
+  "demonstrated": "Illustrative median code-production time fell from 120 minutes to 45 minutes, while median review wait rose from 3.5 hours to 7.8 hours, deployment rework rose from 6% to 12%, and median issue-to-production lead time rose from 26 hours to 29 hours.",
+  "inferredOrAssumed": "A local coding-speed improvement does not imply an end-to-end delivery improvement. The measured end-to-end result in this case moved in the opposite direction.",
+  "knownLimitations": [
+    "The case measures one service workflow and does not establish organisation-wide productivity or economic Value.",
+    "Customer outcome and full cost are outside this Outcome decision."
+  ],
+  "outcomeMeasure": "Median issue-to-successful-production lead time for the defined service workflow, with deployment rework rate as a guardrail.",
+  "baseline": "Eight illustrative pre-pilot weeks for the same service and workflow definition, compared with eight post-introduction weeks using the same measurement definitions.",
+  "evidenceRefs": [
+    "Illustrative pre-pilot workflow extract",
+    "Illustrative post-introduction workflow extract",
+    "Illustrative review-wait and rework measures"
+  ],
+  "gateChecks": {
+    "outcome-measure-defined": "pass",
+    "baseline-defined": "pass",
+    "outcome-measured": "pass",
+    "measurement-definition-consistent": "pass",
+    "important-confounds-named": "pass"
+  },
+  "nextEvidence": "Redesign the review and change-size workflow, then repeat the same Outcome measurement before any separate scale or Value decision.",
+  "stopRule": "Do not report local generation speed as software-delivery productivity. Pause expansion if end-to-end lead time and rework remain worse than baseline."
+}
