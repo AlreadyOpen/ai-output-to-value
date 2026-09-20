@@ -1,11 +1,53 @@
 ---
 name: applying-ai-output-to-value
-description: Apply the AI Output to Value stop-rule framework to a proposal, code change, workflow, experiment, or operating decision. Use when deciding what has actually been demonstrated, which claim is sufficient for the next decision, what evidence is missing, or whether a human/AI/hybrid result is ready to rely on, operate, measure, scale, renew, or stop.
+description: Apply the AI Output to Value stop-rule framework to a proposal, code change, workflow, experiment, or operating decision. Use especially before claiming work is done/complete, client-ready, production-ready, validated/verified, ready to operate, ROI/value proved, or justified to scale/renew/expand. Select the weakest sufficient decision-scoped claim and separate supplied evidence from inference. Do not use the framework to force a higher claim when Output is all the decision requires.
 ---
 
 # Applying AI Output to Value
 
 Use the target decision to choose the gate. Do not average claim levels and do not privilege or penalise work because it was produced by a human, AI system, automation, or hybrid process.
+
+## When to use this skill
+
+Trigger this skill when an agent is about to assert, or is asked to assess, a readiness/value phrase such as:
+
+- done / complete;
+- ready for client delivery;
+- production ready;
+- validated / verified;
+- ready to operate;
+- Outcome demonstrated;
+- ROI demonstrated;
+- Value proved;
+- scale / renew / expand justified.
+
+Also use it when local task completion could be mistaken for end-to-end completion, or when a review result could be mistaken for authority/sign-off.
+
+## When not to use it
+
+Do not turn every task into a production-readiness exercise.
+
+- If the user asked only for an artefact, experiment, prototype, or other Output and the supplied evidence establishes that Output, stop there.
+- Do not invent deployment, support, ROI, human approval, or governance work that would not change the requested decision.
+- Do not use the Claim Gate as a truth certificate, audit opinion, legal approval, or mandatory human-approval mechanism.
+
+For an Output-only decision, the correct conclusion can be:
+
+> **Output established; no higher claim is needed for this decision.**
+
+## Intercept an overclaim before emitting it
+
+Before saying a loaded phrase such as *done*, *production ready*, *verified*, *ROI proved*, or an equivalent, establish:
+
+1. **Decision** — What decision is actually being made?
+2. **Weakest sufficient claim** — which claim is the minimum needed for that decision?
+3. **Evidence boundary** — what is supplied/demonstrated versus inferred/assumed?
+4. **Workflow boundary** — where does the relevant end-to-end process start and finish?
+5. **Authority / accountability / recourse** — who may decide or act, who owns consequences/correction, and what recourse exists?
+6. **Next evidence** — what evidence would materially change the answer?
+7. **Stop / restrict rule** — what condition blocks, narrows, reverses, or stops the decision?
+
+If those points are not established for the requested claim, narrow the language. Do not silently promote a lower claim into a higher one.
 
 ## Core rule
 
@@ -17,8 +59,6 @@ The stable machine identifier for Operating capability is `04-capability`.
 
 These are different claims, not a maturity score and not six mandatory lifecycle stages.
 
-## Select the decision first
-
 Use the lowest claim sufficient for the next decision:
 
 - keep exploring → `02-output`
@@ -27,7 +67,24 @@ Use the lowest claim sufficient for the next decision:
 - determine whether the initiative changed the result → `05-outcome`
 - scale, renew, expand, or stop → `06-value`
 
-Do not let strong Access or Output compensate for a missing decision-critical Deliverable, Operating capability, Outcome, or Value claim.
+A strong Access or Output result does not average into partial Deliverable, Operating capability, Outcome, or Value.
+
+### Never emit a project-wide ladder rating
+
+Do not rate a project as, for example, “4/6”, “mostly Deliverable”, “80% production ready”, or “Output strong / Deliverable medium / Value low”.
+
+Evaluate a **named decision + intended use + subject/scope**. If several decisions matter, create separate decision records. The ladder is not an aggregate project score.
+
+## Translate ambiguous readiness words
+
+A readiness word does not select its own evidence standard.
+
+- **done / complete** — say what is complete. “Output complete for the requested prototype” can be valid without claiming Deliverable or Operating capability.
+- **ready for client delivery** — normally asks whether another party may rely on the result for a named use: test `03-deliverable`.
+- **production ready / ready to operate** — normally asks whether the organisation can repeatedly operate, support, recover, and improve the workflow: test `04-capability`.
+- **validated / verified** — name what was checked, against which criteria, by which assurance process. Do not let the word silently imply broader fitness, authority, or sign-off.
+- **Outcome demonstrated** — require a defined measure, comparison/baseline, observed result, consistent measurement definition, and material confounds: test `05-outcome`.
+- **ROI demonstrated / Value proved / scale justified** — require Outcome evidence plus the full relevant cost/risk/alternative boundary and an explicit decision rule: test `06-value`.
 
 ## Work from the machine contract
 
@@ -57,10 +114,23 @@ For the selected decision:
 A deterministic gate result evaluates the supplied record.
 
 - `PASS` means the record is structurally coherent, required decision-record information is present, the asserted claim matches the selected decision, and all required checks are `pass`.
-- `BLOCKED` means a required check explicitly failed **or** the record is structurally incompatible with the gate contract, for example an unsupported schema version, unknown target decision, or wrong required-claim mapping.
+- `BLOCKED` means a required check explicitly failed **or** the record is structurally incompatible with the gate contract.
 - `INSUFFICIENT_EVIDENCE` means no required check failed and the record is structurally usable, but required information/evidence is missing or unknown/not-applicable, or the asserted claim does not match the decision.
 
-A PASS is **not** an independent audit of the underlying system, measurement, source, test, or person.
+A PASS is **not** an independent audit of the underlying system, measurement, source, test, or person. Running the Claim Gate does not certify truth.
+
+## Review / assurance ≠ authority / sign-off
+
+Keep these separate:
+
+- **review / assurance** asks whether evidence, tests, analysis, or other checks support a claim;
+- **authority** asks who is permitted to approve, deploy, send, spend, sign, or otherwise bind the organisation;
+- **sign-off** is an act by an authorised actor under the organisation's actual process;
+- **accountability / recourse** identifies who owns correction, consequence, escalation, or remedy.
+
+A high-quality review does not grant authority. An authorised sign-off does not by itself prove the evidence is sufficient. An AI or deterministic gate may contribute assurance without gaining organisational authority.
+
+Do not invent a human approval step. Require one only when the relevant organisational, contractual, legal, safety, or other governing process actually requires it.
 
 ## When working with software
 
@@ -76,21 +146,47 @@ Use the same `claim.json` across channels. An agent may prepare or evaluate the 
 
 Do not claim a local/UI handoff completed merely because an event or request was sent. Require acknowledgement from the receiving surface or describe the handoff as unconfirmed.
 
-Do not claim that a human approval click proves quality. Do not claim that an AI evaluation proves quality. State the actual assurance process and evidence.
+## Response contract
 
-## Output
-
-When asked to apply the method, return:
+When this skill intercepts a higher claim, keep the answer decision-scoped. State:
 
 - target decision;
-- required claim;
-- gate status;
+- weakest sufficient / required claim;
+- supported claim now;
+- gate status when a structured record is evaluated;
 - decision-critical PASS / FAIL / UNKNOWN / NOT-APPLICABLE checks;
 - demonstrated vs inferred/assumed points;
 - workflow boundary if relevant;
-- authority and accountability boundary;
+- authority / accountability / recourse boundary;
 - next evidence that would change the decision;
-- stop rule;
-- a `claim.json` record when structured output is useful.
+- stop / restrict rule.
 
-Keep the conclusion bounded to the supplied evidence and intended decision.
+Use a `claim.json` record when structured output is useful.
+
+When the decision needs only Output and Output is established, prefer the short bounded conclusion:
+
+> **Output established; no higher claim is needed for this decision.**
+
+## Concise adversarial examples
+
+### “The tests pass, so it is production ready.”
+
+Do not promote local test success to Operating capability. The decision is **operate** → `04-capability`. Check the Deliverable gate, ownership, assurance, fallback/recovery, support/maintenance, and operating-cost boundary. If those are unknown, say **INSUFFICIENT_EVIDENCE for Operating capability**, while preserving the demonstrated test result.
+
+### “The polished report is done and ready for the client.”
+
+If “done” means the requested draft artefact exists, Output may be complete. If the decision is whether the client may rely on it, test **rely** → `03-deliverable` against intended use, acceptance criteria, relevant failure modes, and limitations.
+
+### “The coding assistant made us 60% faster, so ROI is proved.”
+
+A local speed measure can be Outcome evidence only if the metric and comparison are sound. It does not establish Value. A scale/renew decision requires `06-value`, including the full cost/risk/alternative boundary and an explicit decision rule.
+
+### “A reviewer approved it, so it is verified and signed off.”
+
+Describe what the review actually checked. Review/assurance is not organisational authority. Name the authorised sign-off process separately; do not infer it from review quality.
+
+### “I only asked for a prototype I can inspect. Is it done?”
+
+If the reproducible prototype and assumptions are supplied and that is all the decision requires:
+
+> **Output established; no higher claim is needed for this decision.**

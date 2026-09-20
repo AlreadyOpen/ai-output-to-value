@@ -105,6 +105,8 @@ Same standard does not require the same interface.
 
 The practical IDE/terminal integration is the local MCP package under [`packages/mcp/`](packages/mcp/). Its README includes current Claude Code, Cursor and VS Code/GitHub Copilot examples. WebMCP remains progressive enhancement when the browser exposes `document.modelContext`.
 
+For coding agents that need a claim-language guardrail before saying **done**, **production ready**, **validated/verified**, or **ROI/Value proved**, install the canonical [`applying-ai-output-to-value` agent skill](toolkit/skills/applying-ai-output-to-value/README.md). It ships with thin Cursor, Copilot and `AGENTS.md` wrappers that point back to one `SKILL.md` rather than duplicating the framework.
+
 ## Private evidence can stay private
 
 Rigour does not require publishing client names, contracts, production metrics, personal data or proprietary workflows. Internal evidence can remain private while the authorised decision record stays inspectable inside the organisation.
@@ -167,6 +169,7 @@ GitHub Pages runs the same relevant evidence, interaction, Action, MCP, UI and a
 │   ├── samples/                    # Filled teaching claim records
 │   ├── templates/                  # Software Outcome pack
 │   ├── private-workbook/           # Confidential-use folder template
+│   ├── skills/                     # Canonical agent skill + thin wrappers/fixtures
 │   ├── AGENT_RULES.md
 │   └── operating-kit.md
 ├── packages/mcp/                   # Native stdio MCP server
