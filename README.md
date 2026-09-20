@@ -203,4 +203,12 @@ This repository uses two licences, split by what a path contains.
 - the prose in `README.md`, `START-HERE.md` and `CONTRIBUTING.md`;
 - the Markdown files under `toolkit/` (the operating kit, agent rules, ledger, workbook and skill text).
 
-Where a path is not listed, it takes the licence of the folder it sits in. Third-party sources cited in the guide keep their own terms; the guide's licence covers only its own text.
+A path that is not listed above is licensed by what it is, in this order:
+
+1. **Code, configuration and other machine-readable files** are Apache-2.0 wherever they sit, including at the repository root: `.py`, `.mjs`, `.js`, `.ts`, `.tsx`, `.css`, `.html`, `.json`, `.yml`, `.yaml`, `.toml`, `.txt`, lockfiles and dotfiles such as `.gitignore` (so `requirements-*.txt` is Apache-2.0).
+2. **Markdown prose** is CC BY 4.0 wherever it sits, except Markdown that documents or ships with a code package (`packages/`, `web/`, `.github/`, including the issue and pull request templates), which is Apache-2.0 with that package.
+3. **Generated files** take the licence of what they are generated from.
+
+The licence of the folder a file sits in is never the deciding factor on its own, because `toolkit/` and the repository root mix both kinds.
+
+`LICENSE` holds only the Apache-2.0 text. Copying files from a CC BY path (guide content) into another project needs [`LICENSE-CONTENT`](LICENSE-CONTENT) alongside it; copying only Apache-2.0 paths needs `LICENSE` alone. Third-party sources cited in the guide keep their own terms, and components fetched at build time rather than stored here (for example the pdf components synced by `npm run pdfcn:sync`) keep the terms of their own source; the guide's licence covers only its own text.

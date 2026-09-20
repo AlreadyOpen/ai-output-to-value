@@ -183,6 +183,14 @@ class InteractionIntegrityTests(unittest.TestCase):
         self.assertIn('"license": "Apache-2.0"', source)
         self.assertNotIn("UNLICENSED", source)
 
+    def test_readme_licence_map_defines_a_fallback_for_unlisted_paths(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        section = readme.split("## Licence", 1)[1]
+        self.assertIn("licensed by what it is", section)
+        self.assertIn("never the deciding factor on its own", section)
+        self.assertIn("needs [`LICENSE-CONTENT`](LICENSE-CONTENT) alongside it", section)
+        self.assertNotIn("takes the licence of the folder it sits in", section)
+
     def test_machine_framework_publishes_operating_capability_label(self):
         source = (ROOT / "scripts" / "augment_site.py").read_text(encoding="utf-8")
         self.assertIn('{"level": "04-capability", "name": "Operating capability"', source)
