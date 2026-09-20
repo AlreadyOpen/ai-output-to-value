@@ -240,6 +240,168 @@
           "assumptions-catalogued": "pass"
         }
       }
+    },
+    {
+      "name": "$schema URI passes: authority with userinfo, port, query and fragment",
+      "patch": {
+        "$schema": "https://user:pw@example.com:8080/a/b?q=1&r=2#frag"
+      },
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "$schema URI passes: IPv6 literal host",
+      "patch": {
+        "$schema": "http://[2001:db8::7]:80/x"
+      },
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "$schema URI passes: urn with no authority",
+      "patch": {
+        "$schema": "urn:isbn:0451450523"
+      },
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "$schema URI passes: upper-case scheme and host",
+      "patch": {
+        "$schema": "HTTPS://EXAMPLE.COM"
+      },
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "$schema is not a URI: scheme with nothing after the colon",
+      "patch": {
+        "$schema": "a:"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema URI passes: percent-encoded path",
+      "patch": {
+        "$schema": "https://example.com/%41"
+      },
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "$schema is not a URI: leading space",
+      "patch": {
+        "$schema": " https://example.com"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: embedded space",
+      "patch": {
+        "$schema": "https://example.com/a b"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: trailing newline",
+      "patch": {
+        "$schema": "https://example.com\n"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: scheme starting with a digit",
+      "patch": {
+        "$schema": "1http://example.com"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: no scheme",
+      "patch": {
+        "$schema": "//example.com/x"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: relative reference",
+      "patch": {
+        "$schema": "/relative/path"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: malformed percent escape",
+      "patch": {
+        "$schema": "https://example.com/%zz"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: non-ASCII host",
+      "patch": {
+        "$schema": "https://exämple.com"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: backslash in path",
+      "patch": {
+        "$schema": "https://example.com\\x"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema is not a URI: unclosed IPv6 literal",
+      "patch": {
+        "$schema": "http://[::1/"
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema URI passes: non-numeric port (ajv-formats' grammar is lenient here; both gates must agree)",
+      "patch": {
+        "$schema": "http://example.com:port/"
+      },
+      "expectedStatus": "PASS"
+    },
+    {
+      "name": "$schema is not a URI: empty string",
+      "patch": {
+        "$schema": ""
+      },
+      "expectedStatus": "BLOCKED",
+      "errorContains": [
+        "$schema"
+      ]
     }
   ],
   "notes": "Optional case keys: 'record' replaces the whole record (any JSON value); 'remove' lists top-level keys to delete after 'patch' is applied."

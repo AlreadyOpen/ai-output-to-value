@@ -34,8 +34,24 @@ BLANK_CHARS = (
 )
 
 # `uri` is enforced here, not left to optional jsonschema extras, so the verdict
-# does not depend on which packages the host environment happens to have.
-_URI = re.compile(r"^[A-Za-z][A-Za-z0-9+.\-]*:[^\s<>\"\\^`{|}]*$")
+# does not depend on which packages the host environment happens to have. This is
+# the check ajv-formats 3.0.1 applies in its default "full" mode (used by
+# packages/mcp/src/core.mjs): the URI must contain "/" or ":" and match the RFC 3986
+# grammar below. The pattern is taken verbatim from ajv-formats (MIT licensed,
+# src/formats.ts, itself derived from http://jmrware.com/articles/2009/uri_regexp/URI_regex.html).
+# Python needs ASCII-only case folding and \Z: str \d is Unicode and "$" matches
+# before a trailing newline, neither of which the JavaScript regex does.
+_URI_RFC3986 = re.compile(
+    r"""\A(?:[a-z][a-z0-9+\-.]*:)(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\?(?:[a-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?\Z""",
+    re.IGNORECASE | re.ASCII,
+)
+
+
+def _is_uri(value: object) -> bool:
+    if not isinstance(value, str):
+        return True  # format only constrains strings
+    return ("/" in value or ":" in value) and _URI_RFC3986.match(value) is not None
+
 
 REQUIRED_TEXT_FIELDS = (
     "project",
@@ -58,7 +74,7 @@ def load_json(path: Path) -> dict:
 def claim_validator() -> Draft202012Validator:
     schema = load_json(CLAIM_SCHEMA_PATH)
     formats = FormatChecker(formats=())
-    formats.checks("uri")(lambda value: not isinstance(value, str) or bool(_URI.match(value)))
+    formats.checks("uri")(_is_uri)
     return Draft202012Validator(schema, format_checker=formats)
 
 
