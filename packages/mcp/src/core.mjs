@@ -44,6 +44,19 @@ export async function loadGateContract({ liveRules = false, publicationUrl = DEF
   };
 }
 
+// The exact characters that make a required text field "blank". Explicit rather
+// than String.trim()/str.strip(), whose sets differ. Keep identical to BLANK_CHARS
+// in scripts/claim_gate.py; the conformance fixture checks both.
+const BLANK_CHARS = new Set(
+  "\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006" +
+    "\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"
+);
+
+function isBlank(value) {
+  for (const char of value) if (!BLANK_CHARS.has(char)) return false;
+  return true;
+}
+
 const REQUIRED_TEXT_FIELDS = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
 
 function validatorFor(claimSchema) {
@@ -79,7 +92,10 @@ function resultMetadata(gates) {
 
 export function evaluateClaim(record, gates, claimSchema = bundledClaimSchema) {
   const decisionId = record?.targetDecision;
-  const rule = typeof decisionId === "string" ? gates?.decisions?.[decisionId] : undefined;
+  const rule =
+    typeof decisionId === "string" && gates?.decisions && Object.hasOwn(gates.decisions, decisionId)
+      ? gates.decisions[decisionId]
+      : undefined;
   const structuralErrors = schemaErrors(record, claimSchema);
   const missingFields = [];
 
@@ -105,7 +121,7 @@ export function evaluateClaim(record, gates, claimSchema = bundledClaimSchema) {
   }
 
   for (const field of REQUIRED_TEXT_FIELDS) {
-    if (typeof record?.[field] === "string" && !record[field].trim()) missingFields.push(field);
+    if (typeof record?.[field] === "string" && isBlank(record[field])) missingFields.push(field);
   }
   if (Array.isArray(record?.actors) && record.actors.length === 0) missingFields.push("actors");
 

@@ -11,6 +11,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
+import claim_gate  # noqa: E402
 from claim_gate import evaluate  # noqa: E402
 
 
@@ -25,19 +26,25 @@ class ClaimGateTests(unittest.TestCase):
     def base_record(self):
         return copy.deepcopy(self.conformance["baseRecord"])
 
-    def patched_record(self, patch):
+    def patched_record(self, patch, remove=()):
         record = self.base_record()
         for key, replacement in (patch or {}).items():
             if key == "gateChecks" and isinstance(replacement, dict):
                 record["gateChecks"].update(replacement)
             else:
                 record[key] = copy.deepcopy(replacement)
+        for key in remove:
+            record.pop(key, None)
         return record
 
     def test_shared_conformance_fixture(self):
         for item in self.conformance["cases"]:
             with self.subTest(item=item["name"]):
-                result = evaluate(self.patched_record(item.get("patch", {})), self.gates)
+                if "record" in item:
+                    record = copy.deepcopy(item["record"])
+                else:
+                    record = self.patched_record(item.get("patch", {}), item.get("remove", ()))
+                result = evaluate(record, self.gates)
                 self.assertEqual(result["status"], item["expectedStatus"])
                 self.assertEqual(result["gateVersion"], self.gates["version"])
                 self.assertEqual(result["principle"], self.gates["principle"])
@@ -50,10 +57,31 @@ class ClaimGateTests(unittest.TestCase):
                 for needle in item.get("errorContains", []):
                     self.assertIn(str(needle).lower(), errors)
 
+    def test_every_schema_format_is_enforced_by_the_python_gate(self):
+        schema = json.loads((REPO_ROOT / "schemas" / "v1" / "claim.schema.json").read_text(encoding="utf-8"))
+        formats: set[str] = set()
+
+        def walk(node):
+            if isinstance(node, dict):
+                if isinstance(node.get("format"), str):
+                    formats.add(node["format"])
+                for child in node.values():
+                    walk(child)
+            elif isinstance(node, list):
+                for child in node:
+                    walk(child)
+
+        walk(schema)
+        checker = claim_gate.claim_validator().format_checker
+        self.assertTrue(formats)
+        for name in sorted(formats):
+            with self.subTest(format=name):
+                self.assertIn(name, checker.checkers)
+
     def test_complete_required_gate_passes(self):
         result = evaluate(self.base_record(), self.gates)
         self.assertEqual(result["status"], "PASS")
-        self.assertEqual(result["gateVersion"], "1.0")
+        self.assertEqual(result["gateVersion"], "1.1")
         self.assertEqual(result["principle"], self.gates["principle"])
         self.assertEqual(result["rule"], result["principle"])
 

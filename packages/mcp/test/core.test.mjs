@@ -23,7 +23,7 @@ function record() {
   return structuredClone(conformance.baseRecord);
 }
 
-function patchedRecord(patch) {
+function patchedRecord(patch, remove = []) {
   const value = record();
   for (const [key, replacement] of Object.entries(patch ?? {})) {
     if (key === "gateChecks" && replacement && typeof replacement === "object" && !Array.isArray(replacement)) {
@@ -32,6 +32,7 @@ function patchedRecord(patch) {
       value[key] = replacement;
     }
   }
+  for (const key of remove) delete value[key];
   return value;
 }
 
@@ -88,7 +89,8 @@ test("live publication gate contract requires explicit opt-in", async () => {
 test("shared conformance fixture matches the MCP evaluator", async (t) => {
   for (const item of conformance.cases) {
     await t.test(item.name, () => {
-      const result = evaluate(patchedRecord(item.patch));
+      const input = "record" in item ? structuredClone(item.record) : patchedRecord(item.patch, item.remove);
+      const result = evaluate(input);
       assert.equal(result.status, item.expectedStatus);
       assert.equal(result.gateVersion, gates.version);
       assert.equal(result.principle, gates.principle);
