@@ -8,14 +8,33 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 
-from jsonschema import Draft202012Validator, FormatChecker
+try:
+    from jsonschema import Draft202012Validator, FormatChecker
+except ImportError as exc:  # fail closed: never evaluate a claim without schema validation
+    raise ImportError(
+        "claim_gate.py requires the pinned dependency in requirements-claim-gate.txt "
+        "(jsonschema); it does not evaluate claims without schema validation"
+    ) from exc
 
 ROOT = Path(__file__).resolve().parents[1]
 GATES_PATH = ROOT / "schemas" / "v1" / "decision-gates.json"
 CLAIM_SCHEMA_PATH = ROOT / "schemas" / "v1" / "claim.schema.json"
+
+# The exact characters that make a required text field "blank". Explicit rather
+# than str.strip()/String.trim(), whose sets differ. Keep identical to BLANK_CHARS
+# in packages/mcp/src/core.mjs; the conformance fixture checks both.
+BLANK_CHARS = (
+    "\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006"
+    "\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"
+)
+
+# `uri` is enforced here, not left to optional jsonschema extras, so the verdict
+# does not depend on which packages the host environment happens to have.
+_URI = re.compile(r"^[A-Za-z][A-Za-z0-9+.\-]*:[^\s<>\"\\^`{|}]*$")
 
 REQUIRED_TEXT_FIELDS = (
     "project",
@@ -37,7 +56,9 @@ def load_json(path: Path) -> dict:
 @lru_cache(maxsize=1)
 def claim_validator() -> Draft202012Validator:
     schema = load_json(CLAIM_SCHEMA_PATH)
-    return Draft202012Validator(schema, format_checker=FormatChecker())
+    formats = FormatChecker(formats=())
+    formats.checks("uri")(lambda value: not isinstance(value, str) or bool(_URI.match(value)))
+    return Draft202012Validator(schema, format_checker=formats)
 
 
 def schema_errors(record: dict) -> list[str]:
@@ -65,6 +86,11 @@ def result_metadata(gates: dict) -> dict:
 def evaluate(record: dict, gates: dict) -> dict:
     structural_errors: list[str] = schema_errors(record)
     missing_fields: list[str] = []
+
+    if not isinstance(record, dict):
+        # Non-object input is already reported by schema_errors above; evaluate it
+        # as an empty record so the caller gets a structured BLOCKED result.
+        record = {}
 
     decision_id = record.get("targetDecision")
     decisions = gates.get("decisions")
@@ -100,7 +126,7 @@ def evaluate(record: dict, gates: dict) -> dict:
 
     for field in REQUIRED_TEXT_FIELDS:
         value = record.get(field)
-        if isinstance(value, str) and not value.strip():
+        if isinstance(value, str) and not value.strip(BLANK_CHARS):
             missing_fields.append(field)
 
     actors = record.get("actors")

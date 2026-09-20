@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "baseRecord": {
     "schemaVersion": "1.0",
     "project": "example",
@@ -7,7 +7,12 @@
     "requiredClaimLevel": "03-deliverable",
     "assertedClaimLevel": "03-deliverable",
     "intendedUse": "Named use",
-    "actors": [{ "type": "ai-agent", "role": "Draft" }],
+    "actors": [
+      {
+        "type": "ai-agent",
+        "role": "Draft"
+      }
+    ],
     "authority": "Bounded",
     "accountability": "Organisation",
     "gateChecks": {
@@ -29,14 +34,18 @@
     {
       "name": "failed required check blocks",
       "patch": {
-        "gateChecks": { "acceptance-criteria-met": "fail" }
+        "gateChecks": {
+          "acceptance-criteria-met": "fail"
+        }
       },
       "expectedStatus": "BLOCKED"
     },
     {
       "name": "unknown required check is insufficient",
       "patch": {
-        "gateChecks": { "acceptance-criteria-met": "unknown" }
+        "gateChecks": {
+          "acceptance-criteria-met": "unknown"
+        }
       },
       "expectedStatus": "INSUFFICIENT_EVIDENCE"
     },
@@ -49,15 +58,24 @@
         "intendedUse": {}
       },
       "expectedStatus": "BLOCKED",
-      "errorContains": ["authority", "accountability", "stopRule", "intendedUse"]
+      "errorContains": [
+        "authority",
+        "accountability",
+        "stopRule",
+        "intendedUse"
+      ]
     },
     {
       "name": "invalid gate check state is structurally blocked",
       "patch": {
-        "gateChecks": { "acceptance-criteria-met": "maybe" }
+        "gateChecks": {
+          "acceptance-criteria-met": "maybe"
+        }
       },
       "expectedStatus": "BLOCKED",
-      "errorContains": ["gateChecks"]
+      "errorContains": [
+        "gateChecks"
+      ]
     },
     {
       "name": "required claim mapping mismatch is structurally blocked",
@@ -65,7 +83,9 @@
         "requiredClaimLevel": "02-output"
       },
       "expectedStatus": "BLOCKED",
-      "errorContains": ["requiredClaimLevel"]
+      "errorContains": [
+        "requiredClaimLevel"
+      ]
     },
     {
       "name": "asserted claim mismatch is insufficient",
@@ -81,8 +101,12 @@
         "actors": []
       },
       "expectedStatus": "BLOCKED",
-      "errorContains": ["actors"],
-      "expectedMissingFields": ["actors"]
+      "errorContains": [
+        "actors"
+      ],
+      "expectedMissingFields": [
+        "actors"
+      ]
     },
     {
       "name": "non-string target decision returns structured block",
@@ -90,7 +114,9 @@
         "targetDecision": []
       },
       "expectedStatus": "BLOCKED",
-      "errorContains": ["targetDecision"]
+      "errorContains": [
+        "targetDecision"
+      ]
     },
     {
       "name": "undeclared top-level property is structurally blocked",
@@ -98,7 +124,123 @@
         "unexpectedField": "not in claim.schema.json"
       },
       "expectedStatus": "BLOCKED",
-      "errorContains": ["Additional properties", "additional properties"]
+      "errorContains": [
+        "Additional properties",
+        "additional properties"
+      ]
+    },
+    {
+      "name": "non-object record (array) is structurally blocked",
+      "expectedStatus": "BLOCKED",
+      "record": [],
+      "errorContains": [
+        "object"
+      ]
+    },
+    {
+      "name": "non-object record (null) is structurally blocked",
+      "expectedStatus": "BLOCKED",
+      "record": null,
+      "errorContains": [
+        "object"
+      ]
+    },
+    {
+      "name": "absent required key is structurally blocked",
+      "expectedStatus": "BLOCKED",
+      "patch": {},
+      "remove": [
+        "authority"
+      ],
+      "errorContains": [
+        "authority"
+      ]
+    },
+    {
+      "name": "$schema that is not a URI is structurally blocked",
+      "expectedStatus": "BLOCKED",
+      "patch": {
+        "$schema": "not a URI"
+      },
+      "errorContains": [
+        "$schema"
+      ]
+    },
+    {
+      "name": "$schema that is a URI passes",
+      "expectedStatus": "PASS",
+      "patch": {
+        "$schema": "https://alreadyopen.github.io/ai-output-to-value/schemas/v1/claim.schema.json"
+      }
+    },
+    {
+      "name": "space-only required field is missing",
+      "expectedStatus": "INSUFFICIENT_EVIDENCE",
+      "patch": {
+        "authority": "   "
+      },
+      "expectedMissingFields": [
+        "authority"
+      ]
+    },
+    {
+      "name": "BOM-only required field is blank in both gates",
+      "expectedStatus": "INSUFFICIENT_EVIDENCE",
+      "patch": {
+        "authority": "﻿"
+      },
+      "expectedMissingFields": [
+        "authority"
+      ]
+    },
+    {
+      "name": "no-break-space-only required field is blank in both gates",
+      "expectedStatus": "INSUFFICIENT_EVIDENCE",
+      "patch": {
+        "authority": " "
+      },
+      "expectedMissingFields": [
+        "authority"
+      ]
+    },
+    {
+      "name": "NEL is not blank in either gate",
+      "expectedStatus": "PASS",
+      "patch": {
+        "authority": ""
+      }
+    },
+    {
+      "name": "unit separator is not blank in either gate",
+      "expectedStatus": "PASS",
+      "patch": {
+        "authority": "\u001f"
+      }
+    },
+    {
+      "name": "inherited object key is an unknown decision",
+      "expectedStatus": "BLOCKED",
+      "patch": {
+        "targetDecision": "constructor"
+      },
+      "errorContains": [
+        "unknown targetdecision"
+      ],
+      "expectedClaimMismatch": false
+    },
+    {
+      "name": "non-rely decision passes with its own claim level and checks",
+      "expectedStatus": "PASS",
+      "patch": {
+        "targetDecision": "explore",
+        "requiredClaimLevel": "02-output",
+        "assertedClaimLevel": "02-output",
+        "gateChecks": {
+          "output-reproducible": "pass",
+          "assumptions-catalogued": "pass"
+        }
+      }
     }
-  ]
+  ],
+  "notes": "Optional case keys: 'record' replaces the whole record (any JSON value); 'remove' lists top-level keys to delete after 'patch' is applied."
 }
