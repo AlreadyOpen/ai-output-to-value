@@ -1,1 +1,2 @@
-# SPDX-License-Identifier: Apache-2.0\n\n
+# SPDX-License-Identifier: Apache-2.0
+
