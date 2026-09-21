@@ -37,6 +37,14 @@ Use a real or safely fictional proposal and ask the participant to:
 
 Stop after 20 minutes even if the record is incomplete. The point is to expose friction rather than coach around it.
 
+### Watch Questions 4 and 6
+
+Two of the eight questions pack several ideas into one sentence, and an outside review predicted they would stall a 15-minute meeting. Treat that as a hypothesis to test, not a fact. For **Question 4** (what work disappeared or moved, and where the bottleneck goes next) and **Question 6** (who decides, who is accountable, and who verifies, runs and supports it), note without coaching:
+
+- how long the participant takes to give a first answer;
+- whether they answer every part, only one part, or skip it;
+- whether the facilitator prompt beside the question changed what they said.
+
 ### Misleading-summary probe
 
 After the main task, and outside the 20 minutes, give the participant this deliberately misleading summary, with no explanation:
@@ -79,11 +87,18 @@ Complete this section after an actual session.
 - **Could state the decision?** yes / no
 - **Could separate established vs assumed?** yes / no
 - **Could identify next evidence / stop rule?** yes / no
+- **Question 4:** answered fully / one part only / stalled / skipped; seconds to first answer: ___; what they asked or misread:
+- **Question 6:** answered fully / one part only / stalled / skipped; seconds to first answer: ___; what they asked or misread:
+- **Did the facilitator prompt help on Question 4 or 6?** yes / no
 - **Rejected the one-rating summary and rewrote it as separate decisions?** yes / no
 - **Where did the participant hesitate or misread the method?**
 - **What did the participant say about the misleading summary?**
 - **What should change in Start Here / Claim Card / meeting brief?**
 - **Result:** pass / revise and retest
+
+## What would change the wording of Questions 4 and 6
+
+Do not reword either question from a single session. If **two or more** participants stall on, or answer only part of, the same question, revise it: split it, or move more of it into the prompt, and retest. If participants answer both fully, keep them as written and record that.
 
 ## Evidence rule
 

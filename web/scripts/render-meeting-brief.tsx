@@ -12,11 +12,11 @@ const questions = [
   "What exactly have we demonstrated?",
   "What did the AI know, and what did it infer?",
   "What remains before the intended use?",
-  "Where did work move, and what is the next bottleneck?",
+  "What work disappeared or moved, and where does the bottleneck go next?",
   "Which actor or combination performs this task or decision best?",
-  "Where do authority, accountability, verification, operation and support sit?",
+  "Who decides, who is accountable, and who verifies, runs and supports it?",
   "Which business outcome are we trying to change?",
-  "What evidence justifies the next decision, and when should we stop?",
+  "What evidence would justify the next decision, and when should we stop?",
 ]
 
 const thresholds = [

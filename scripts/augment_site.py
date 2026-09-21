@@ -159,12 +159,6 @@ def inject_workflow_homepage(text: str) -> str:
     if old_intro in text:
         text = text.replace(old_intro, new_intro, 1)
 
-    text = text.replace(
-        '<li><span>4</span><p><strong>Which work disappeared, and which work moved elsewhere?</strong><br>Look beyond generation time.</p></li>',
-        '<li><span>4</span><p><strong>Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?</strong><br>Look beyond local generation speed to the end-to-end flow.</p></li>',
-        1,
-    )
-
     hbr_workflow_card = '''          <a class="source-card" href="https://hbr.org/2026/09/stop-automating-old-processes-design-new-ones-instead">
             <span>Management / process source · registered claims pending independent review</span>
             <strong>Harvard Business Review — redesign the workflow, not only the task</strong>
