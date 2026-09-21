@@ -16,9 +16,9 @@ Start with the decision you need to make, then ask:
 1. **What exactly have we demonstrated?**
 2. **What did the AI know, and what did it infer?**
 3. **What remains before the intended use?**
-4. **Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?**
-5. **Which actor or combination performs the decision or task best?**
-6. **Where do authority, accountability, approval, operation and support sit?**
+4. **What work disappeared or moved, and where does the bottleneck go next?**
+5. **Which actor or combination performs this task or decision best?**
+6. **Who decides, who is accountable, and who verifies, runs and supports it?**
 7. **Which business outcome are we trying to change?**
 8. **What evidence would justify the next decision, and when should we stop?**
 

@@ -1,0 +1,15 @@
+# The eight meeting questions, defined once.
+#
+# Every surface that shows them (START-HERE.md, the executive guide, the meeting brief,
+# the home page, the printable brief renderer and WebMCP) must use this exact wording, in
+# this order. tests/test_meeting_questions.py fails if any copy differs. Detail that would
+# make a question long belongs in the facilitator prompt beside it, not in the question.
+questions:
+  - "What exactly have we demonstrated?"
+  - "What did the AI know, and what did it infer?"
+  - "What remains before the intended use?"
+  - "What work disappeared or moved, and where does the bottleneck go next?"
+  - "Which actor or combination performs this task or decision best?"
+  - "Who decides, who is accountable, and who verifies, runs and supports it?"
+  - "Which business outcome are we trying to change?"
+  - "What evidence would justify the next decision, and when should we stop?"

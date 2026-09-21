@@ -17,10 +17,10 @@
     "What exactly have we demonstrated?",
     "What did the AI know, and what did it infer?",
     "What remains before the intended use?",
-    "Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?",
-    "Which actor or combination performs this task or decision best: human, AI, automated system, or hybrid?",
-    "Where do authority, accountability, verification, approval, operation, and support sit?",
-    "Which business outcome are we trying to change, including learning or uncertainty removed?",
+    "What work disappeared or moved, and where does the bottleneck go next?",
+    "Which actor or combination performs this task or decision best?",
+    "Who decides, who is accountable, and who verifies, runs and supports it?",
+    "Which business outcome are we trying to change?",
     "What evidence would justify the next decision, and when should we stop?"
   ];
 
