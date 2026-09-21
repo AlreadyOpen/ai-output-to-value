@@ -2,7 +2,7 @@
 
 **Project / initiative:**
 
-**Decision sought:** explore / rely / operate / measure outcome / scale-renew-stop
+**Decision sought:** access / explore / rely / operate / measure outcome / scale-renew-stop
 
 **Decision date / review point:**
 

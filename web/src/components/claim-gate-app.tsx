@@ -252,7 +252,8 @@ export function ClaimGateApp() {
     ])
       .then(([payload, schema]) => {
         setClaimSchema(schema)
-        const firstDecision = Object.keys(payload.decisions)[0]
+        // Open on "Keep exploring": the everyday starting point, not the lowest rung of the ladder.
+        const firstDecision = "explore" in payload.decisions ? "explore" : Object.keys(payload.decisions)[0]
         const firstRule = payload.decisions[firstDecision]
         setGates(payload)
         setState((previous) => ({

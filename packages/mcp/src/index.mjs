@@ -8,6 +8,7 @@ import {
   evaluateClaim,
   fetchJson,
   getStopRule,
+  loadBundledGates,
   loadGateContract
 } from "./core.mjs";
 
@@ -39,7 +40,7 @@ function buildServer() {
       title: "Get decision stop rule",
       description: "Return the minimum sufficient claim and deterministic checks for a target decision. By default the gate contract is bundled with this checkout; set AIOV_LIVE_RULES=true to opt into the publication contract.",
       inputSchema: z.object({
-        decision_type: z.enum(["explore", "rely", "operate", "measure-outcome", "scale-renew-stop"])
+        decision_type: z.enum(Object.keys(loadBundledGates().decisions))
       })
     },
     async ({ decision_type }) => {

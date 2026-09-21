@@ -46,6 +46,7 @@ These are six different claims, not mandatory lifecycle stages and not a maturit
 
 The ladder is a **claim filter**. Start with the decision and require the weakest claim sufficient for that decision:
 
+- **get access to try it?** → Access — and no more than trying it;
 - **keep exploring?** → Output may be enough;
 - **may someone rely on it?** → Deliverable;
 - **may we sell, operate or support it repeatedly?** → Operating capability;

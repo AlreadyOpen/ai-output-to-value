@@ -14,11 +14,14 @@ Before naming a claim level, write down all three:
 
 | Decision sought | Claim that normally matters |
 | --- | --- |
+| **Get access to try it?** | **Access** — enough to start trying it; it says nothing about what the tool produces. |
 | **Keep exploring?** | **Output** — enough to learn from a reproducible artefact or action. |
 | **May someone rely on it for the named use?** | **Deliverable** — fit against explicit acceptance criteria. |
 | **May we sell, operate or support it repeatedly?** | **Operating capability** — for the named repeated use and scope, the relevant owners, controls, fallback/recovery and operating process exist. Ask **“Operating capability for what?”** |
 | **Did it change the result we care about?** | **Outcome** — the named measure moved versus a baseline. |
 | **Should we scale, renew or stop?** | **Value** — the outcome is worth full relevant cost, risk and alternatives. |
+
+**An Access decision only justifies trying the tool.** Having access never licenses relying on what it produces, operating it, or claiming an outcome; each of those needs its own decision and a higher claim.
 
 The six claims are not a maturity score. Strong **Access** and **Output** do not average into partial **Deliverable**.
 
