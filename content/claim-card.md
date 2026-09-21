@@ -14,11 +14,14 @@ If this is the first discussion, run the [eight meeting questions](../START-HERE
 
 | Decision sought | Minimum claim that normally matters | Gate logic |
 | --- | --- | --- |
+| **Get access to try it?** | **01 Access** | The tool is named, the people who would try it can use it now, and its terms and your rules allow the intended trial. |
 | **Keep exploring?** | **02 Output** | Reproducible/inspectable output plus important assumptions and inferences made visible. |
 | **May someone rely on this for the named use?** | **03 Deliverable** | Intended use, acceptance criteria, evidence they were met, relevant failure/fallback checks, and stated limitations. |
 | **May we sell, operate, support, or staff this repeatedly?** | **04 Operating capability** | Deliverable gate plus evidence for the **named repeated use and scope**: the ownership, assurance, fallback/recovery, support/maintenance, and operating-cost controls relevant to its material failure modes. Ask **“Operating capability for what?”** |
 | **Did the initiative change the result we care about?** | **05 Outcome** | Defined outcome measure, comparable baseline, after measurement, consistent definitions, and material confounds named. |
 | **Should we scale, renew, expand, or stop?** | **06 Value** | Outcome evidence plus full relevant cost, risk/trade-offs, alternatives, and an explicit value decision rule. |
+
+**An Access decision only justifies trying the tool.** Having access never licenses relying on what it produces, operating it, or claiming an outcome; each of those needs its own decision and a higher claim.
 
 The stable machine identifier for **04 Operating capability** remains `04-capability`.
 
@@ -102,9 +105,9 @@ Confidentiality does not require pretending evidence does not exist. It requires
 
 ### Decision
 
-**Decision sought:** explore / rely / operate / measure outcome / scale-renew-stop
+**Decision sought:** access / explore / rely / operate / measure outcome / scale-renew-stop
 
-**Required claim:** 02 Output / 03 Deliverable / 04 Operating capability / 05 Outcome / 06 Value
+**Required claim:** 01 Access / 02 Output / 03 Deliverable / 04 Operating capability / 05 Outcome / 06 Value
 
 **Claim being asserted:**
 

@@ -65,6 +65,7 @@ These are different claims, not a maturity score and not six mandatory lifecycle
 
 Use the lowest claim sufficient for the next decision:
 
+- obtain access to try it → `01-access` (it justifies trying the tool only, never reliance, operation, or an outcome claim)
 - keep exploring → `02-output`
 - permit reliance for a named use → `03-deliverable`
 - sell, operate, support, or staff the named use within the stated scope repeatedly → `04-capability`

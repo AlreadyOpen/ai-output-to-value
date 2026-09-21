@@ -243,7 +243,8 @@ export function ClaimGateApp() {
         return (await response.json()) as GateRules
       })
       .then((payload) => {
-        const firstDecision = Object.keys(payload.decisions)[0]
+        // Open on "Keep exploring": the everyday starting point, not the lowest rung of the ladder.
+        const firstDecision = "explore" in payload.decisions ? "explore" : Object.keys(payload.decisions)[0]
         const firstRule = payload.decisions[firstDecision]
         setGates(payload)
         setState((previous) => ({
