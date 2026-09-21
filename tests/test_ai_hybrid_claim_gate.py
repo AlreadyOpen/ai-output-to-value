@@ -14,6 +14,22 @@ class AiHybridClaimGateTests(unittest.TestCase):
         self.assertIn('scope: "local-browser-form-only"', source)
         self.assertIn('new CustomEvent("aiov:load-claim-record"', source)
 
+    def test_webmcp_delegates_evaluation_to_the_shared_gate(self):
+        """The evaluator must not be copied back into webmcp.js (issue #8)."""
+        source = (ROOT / "webmcp.js").read_text(encoding="utf-8")
+        self.assertIn('import(siteUrl("ui/gate-core.js"))', source)
+        self.assertIn("core.evaluateClaim(record, gates, claimSchema)", source)
+        for copied in ("requiredTextFields", "REQUIRED_TEXT_FIELDS", "requiredClaimLevel must be", ".trim()) missingFields"):
+            with self.subTest(copied=copied):
+                self.assertNotIn(copied, source)
+
+    def test_web_build_checks_the_gate_bundle_and_webmcp_against_the_fixture(self):
+        import json
+
+        scripts = json.loads((ROOT / "web" / "package.json").read_text(encoding="utf-8"))["scripts"]
+        self.assertIn("check-gate-conformance.mjs", scripts["build"])
+        self.assertIn("check-webmcp-conformance.mjs", scripts["build"])
+
     def test_claim_gate_accepts_agent_and_file_handoffs(self):
         source = (ROOT / "web" / "src" / "components" / "claim-gate-app.tsx").read_text(encoding="utf-8")
         self.assertIn('window.addEventListener("aiov:load-claim-record"', source)

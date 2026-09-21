@@ -191,11 +191,6 @@ def inject_discovery_links() -> None:
     text = homepage.read_text(encoding="utf-8")
     if 'tools/claim-gate.html' not in text:
         text = text.replace(
-            '<a href="articles/index.html">Articles</a>',
-            '<a href="tools/claim-gate.html">Claim gate</a>\n        <a href="articles/index.html">Articles</a>',
-            1,
-        )
-        text = text.replace(
             '<p><a href="articles/claim-card.html">Open the copyable claim card →</a></p>',
             '<p><a href="tools/claim-gate.html"><strong>Run the interactive claim gate →</strong></a> · <a href="articles/claim-card.html">Open the copyable claim card</a></p>',
             1,
@@ -207,20 +202,6 @@ def inject_discovery_links() -> None:
         1,
     )
     homepage.write_text(text, encoding="utf-8")
-
-    for path in (SITE / "articles").glob("*.html"):
-        article = path.read_text(encoding="utf-8")
-        if '../tools/claim-gate.html' in article:
-            continue
-        article = article.replace(
-            '<a href="../index.html#interfaces">AI access</a><a href="../articles/index.html">Articles</a>',
-            '<a href="../index.html#interfaces">AI access</a><a href="../tools/claim-gate.html">Claim gate</a><a href="../articles/index.html">Articles</a>',
-        )
-        article = article.replace(
-            '<a href="../index.html#interfaces">AI access / WebMCP</a><a href="../articles/index.html">All articles</a>',
-            '<a href="../index.html#interfaces">AI access / WebMCP</a><a href="../tools/claim-gate.html">Interactive claim gate</a><a href="../articles/index.html">All articles</a>',
-        )
-        path.write_text(article, encoding="utf-8")
 
 
 def augment() -> None:

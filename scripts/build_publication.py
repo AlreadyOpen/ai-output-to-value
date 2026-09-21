@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import build_site
+from apply_site_nav import main as apply_site_nav
 from augment_site import augment
 from fix_article_open_links import main as fix_article_open_links
 from publish_failure_modes import main as publish_failure_modes
@@ -21,6 +22,7 @@ def main() -> None:
     publish_toolkit_assets()
     refine_agent_access()
     refine_review_language()
+    apply_site_nav()
 
 
 if __name__ == "__main__":

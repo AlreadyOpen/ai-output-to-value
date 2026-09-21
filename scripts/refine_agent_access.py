@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from site_nav import MCP_URL
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-MCP_URL = "https://github.com/AlreadyOpen/ai-output-to-value/tree/main/packages/mcp"
 
 
 def replace_obsolete_interface_links(text: str) -> str:
