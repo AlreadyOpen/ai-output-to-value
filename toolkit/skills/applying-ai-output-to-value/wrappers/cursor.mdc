@@ -1,0 +1,9 @@
+---
+description: Apply the canonical AI Output to Value skill before readiness, verification, outcome, ROI, value, scale, renew, or completion claims.
+globs:
+alwaysApply: true
+---
+
+Before making a readiness/value claim, read and apply @.ai-output-to-value/SKILL.md.
+
+That file is the canonical contract. Do not restate or fork its claim definitions, decision mapping, gate semantics, or examples in this rule.

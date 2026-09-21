@@ -173,9 +173,15 @@ This repository's [pull request template](../.github/pull_request_template.md) i
 - evidence and measurement;
 - next evidence and stop rule.
 
-## 9. Give agents the same rules
+## 9. Install the agent skill / give agents the same rules
 
-Copy [`AGENT_RULES.md`](AGENT_RULES.md) into the repository guidance used by coding or terminal agents. The rules explicitly allow exploration to stop at Output while preventing an agent from declaring a higher claim without the evidence required for that decision.
+The canonical agent contract is [`skills/applying-ai-output-to-value/SKILL.md`](skills/applying-ai-output-to-value/SKILL.md). Use it when an agent is about to say work is done/complete, client-ready, production-ready, validated/verified, ready to operate, has demonstrated Outcome/ROI/Value, or is justified to scale/renew/expand.
+
+For Claude Code installation, a one-copy multi-agent layout, thin Cursor/Copilot/`AGENTS.md` wrappers, and conformance fixtures, see the [agent-skill package README](skills/applying-ai-output-to-value/README.md).
+
+The skill deliberately preserves the lower-bound rule: if the next decision needs only Output and Output is established, the correct answer can be **“Output established; no higher claim is needed for this decision.”**
+
+[`AGENT_RULES.md`](AGENT_RULES.md) remains as a compatibility pointer for earlier adopters; do not fork the claim definitions or gate semantics into wrapper files.
 
 For native MCP setup, see [`../packages/mcp/README.md`](../packages/mcp/README.md).
 
