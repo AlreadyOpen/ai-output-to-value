@@ -21,12 +21,13 @@ Possible gate states are `PASS`, `BLOCKED`, and `INSUFFICIENT_EVIDENCE`. There i
 
 ## 2. Learn from filled samples before starting blank
 
-The [`samples/`](samples/) folder contains three fictional teaching cases represented by four records:
+The [`samples/`](samples/) folder contains ten fictional `claim.json` records: three original teaching cases (four records) and a cross-domain pack of six more.
 
 - website prototype — **Explore → PASS**;
 - the same website — **Operate → BLOCKED**;
 - internal incident-summary tool — **Rely → PASS**;
-- killed idea — **Outcome → PASS** on decision-changing learning.
+- killed idea — **Outcome → PASS** on decision-changing learning;
+- the cross-domain pack — six records showing false claim promotions, described in [`samples/README.md`](samples/README.md).
 
 The website pair deliberately keeps the artefact conceptually the same while changing the requested decision. This demonstrates why the decision selects the gate.
 
