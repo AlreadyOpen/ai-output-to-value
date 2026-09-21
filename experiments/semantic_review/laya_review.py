@@ -143,7 +143,7 @@ def main() -> int:
                 {
                     "schemaVersion": "0.1",
                     "kind": "semantic-evidence-review",
-                    "status": "NOT_RUN",
+                    "runStatus": "NOT_RUN",
                     "reason": "TRUNCATION_RISK",
                     "advisoryOnly": True,
                     "reviewId": request["reviewId"],
