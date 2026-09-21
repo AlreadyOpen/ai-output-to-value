@@ -4,6 +4,29 @@ Generative AI can create useful software, reports, research, designs and automat
 
 > **Access is not operating capability. Output is not completion. Apparent completeness is not proof of substance. Activity is not business value.**
 
+
+## Run the 15-minute decision discussion
+
+You do **not** need to read schema documentation, understand MCP/WebMCP, or create JSON before using this method in a meeting.
+
+**Default path: Decision → eight questions → Claim Card / printable brief → evidence → optional structured record.**
+
+Start with the decision you need to make, then ask:
+
+1. **What exactly have we demonstrated?**
+2. **What did the AI know, and what did it infer?**
+3. **What remains before the intended use?**
+4. **Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?**
+5. **Which actor or combination performs the decision or task best?**
+6. **Where do authority, accountability, approval, operation and support sit?**
+7. **Which business outcome are we trying to change?**
+8. **What evidence would justify the next decision, and when should we stop?**
+
+Record the discussion with either the **[Claim Card](content/claim-card.md)** or the **[one-page meeting brief](content/meeting-brief.md)**. Then inspect the evidence that matters for the decision.
+
+If a portable machine-readable handoff is useful **after or alongside the human record**, use the [interactive Claim Gate](https://alreadyopen.github.io/ai-output-to-value/tools/claim-gate.html) to import or export `claim.json`. That structured record is optional; it is not the conceptual front door.
+
+
 ## Six different claims, not six mandatory steps
 
 This project uses a decision framework:
@@ -142,17 +165,6 @@ The point of an evidence-led framework is not to collect only studies with the s
 Together these studies support a more disciplined question than “does AI improve productivity?”:
 
 > **For this task, workflow, population, tool, and decision, what outcome changed under a comparable definition?**
-
-## Eight questions for a meeting
-
-1. **What exactly have we demonstrated?**
-2. **What did the AI know, and what did it infer?**
-3. **What remains before the intended use?**
-4. **Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?**
-5. **Which actor or combination performs the decision or task best?**
-6. **Where do authority, accountability, approval, operation and support sit?**
-7. **Which business outcome are we trying to change?**
-8. **What evidence would justify the next decision?**
 
 ## What this guide is not saying
 

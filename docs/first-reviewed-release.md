@@ -53,9 +53,9 @@ A source logo or citation is not itself independent review.
 - [ ] The generated PDF meeting brief receives a real print/render check.
 - [ ] External links and source dates are reviewed.
 - [ ] The dedicated social-preview image is present.
-- [ ] A small reader test covers Start Here, Claim Gate, Claim Card, worked decisions, and the meeting brief.
+- [ ] At least one non-technical sponsor completes the [human-kit reader test](human-kit-reader-test.md) using only Start Here, the eight questions, Claim Card / meeting brief, and evidence; the test does not require Claim Gate, the schema, MCP tooling, or JSON.
   - Give the reader this deliberately misleading summary: **“Output: strong; Deliverable: almost; Operating capability: not yet; Outcome / Value: unknown.”** Ask: **“What is wrong with this assessment, and how would you rewrite it?”**
-  - A passing response must reject one project-wide ladder and restate separate **decision + intended use + subject/scope + required claim/evidence** records. It should recognise that the same project can legitimately receive different gate results for different decisions.
+  - A passing response must reject one project-wide ladder and restate separate **decision + intended use + subject/scope + required claim/evidence** records. It should recognise that the same project can legitimately reach different conclusions for different decisions. The probe and pass criteria are in the [human-kit reader test](human-kit-reader-test.md#misleading-summary-probe).
 - [ ] Working/research essays remain visibly separated from the release guide and do not leak into the reviewed artifact.
 
 ## Governance and reuse
