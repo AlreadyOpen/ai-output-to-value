@@ -1,0 +1,85 @@
+claims:
+  - id: kellogg-logic-model-five-components-2004
+    claim_text: The W.K. Kellogg Foundation Logic Model Development Guide defines a basic logic model as five components read from left to right (resources or inputs, activities, outputs, outcomes and impact), and notes that a logic model is often used interchangeably with program theory.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: kellogg-logic-model-guide-2004
+        source_version: PDF "Updated January 2004"; reviewed 2026-09-21
+        locator: Chapter 1, the definitions of the Basic Logic Model components (page 2) and the note on "program theory".
+        relevant_finding: The guide lists resources, activities, outputs (the direct products of program activities), outcomes (specific changes in participants' behaviour, knowledge, skills, status and level of functioning) and impact (the fundamental intended or unintended change in organisations, communities or systems), and says the term logic model is frequently used interchangeably with program theory.
+        qualification: A funder's evaluation guide for programs, not AI-assisted work. It defines impact as change, not as whether the change justified its cost.
+    published_in:
+      - file: docs/framework-crosswalk.md
+        locator: "## Logic models and theory of change"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-21
+    independent_review_status: pending
+
+  - id: magenta-book-theory-of-change-2020
+    claim_text: The UK Treasury's Magenta Book describes a Theory of Change as documenting how an intervention is expected to work, and presents a linear version running from inputs through to the expected outputs and outcomes.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: hmt-magenta-book-2020
+        source_version: HTML edition; reviewed 2026-09-21
+        locator: Section 2.2.1 "Understand the Theory of Change" and Figure 2.2.
+        relevant_finding: The section describes a Theory of Change as capturing the problem addressed, the intended change, the causal sequence leading to it, the actors involved and the conditions for success, and Figure 2.2 shows a linear Theory of Change from inputs through expected outputs and outcomes.
+        qualification: UK public-sector evaluation guidance. Only this section and figure were read; the guidance also treats logic models and other mapping tools and discusses non-linear change.
+    published_in:
+      - file: docs/framework-crosswalk.md
+        locator: "## Logic models and theory of change"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-21
+    independent_review_status: pending
+
+  - id: teal-book-benefits-management-chapter-19
+    claim_text: The UK Government Teal Book chapter on benefits management defines a benefit as measurable value or other positive impact from an outcome that stakeholders see as an advantage and that contributes to objectives, expects a baseline to be set before work starts, gives each benefit a named owner, and says realisation usually needs continuing action once the solution is in operational use.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: uk-teal-book-benefits-management
+        source_version: web edition; reviewed 2026-09-21
+        locator: Sections 19.4 (what is benefits management), 19.5 (who manages benefits), 19.6.3.5 (identify and categorise a benefit) and 19.6.3.8 (realise the benefit).
+        relevant_finding: The chapter defines a benefit, requires the current performance level to be established before work starts as the baseline for measuring realisation, assigns each benefit a named owner, and says realisation usually continues after delivery, when the solution is in operational use.
+        qualification: UK public-sector project-delivery guidance for portfolios, programmes and projects, not guidance on AI-assisted work. The chapter's linked guides and templates were not read.
+    published_in:
+      - file: docs/framework-crosswalk.md
+        locator: "## Benefits realisation management"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-21
+    independent_review_status: pending
+
+  - id: iso-15026-2-assurance-case-structure-2022
+    claim_text: ISO/IEC/IEEE 15026-2:2022 specifies minimum requirements for the structure and meaning of assurance cases and does not require a particular notation.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: iso-iec-ieee-15026-2-2022
+        source_version: published 2022-11-07, listed as an active standard; reviewed 2026-09-21
+        locator: The scope statement on the catalogue page.
+        relevant_finding: The catalogue scope says the standard specifies minimum requirements for the structure and its meaning of assurance cases, describes the structure precisely to avoid inconsistent and subjective use of terms, and does not require a particular concrete representation.
+        qualification: Only the catalogue scope was read; the standard is paywalled. This claim says nothing about the content of the standard's requirements.
+    published_in:
+      - file: docs/framework-crosswalk.md
+        locator: "## Assurance cases"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-21
+    independent_review_status: pending
+
+  - id: gsn-community-standard-v3-purpose
+    claim_text: The Safety-Critical Systems Club publishes the Goal Structuring Notation Community Standard, version 3 (SCSC-141C), which aims to give an authoritative definition of the notation and guidance on its use for developing and evaluating engineering arguments.
+    status: supported
+    launch_critical: false
+    evidence:
+      - source_id: scsc-gsn-community-standard-v3
+        source_version: standard landing page; reviewed 2026-09-21
+        locator: The GSN Standard page, statement of purpose.
+        relevant_finding: The page identifies the standard as version 3, document SCSC-141C, and says it seeks to provide a comprehensive, authoritative definition of GSN and clear guidance on best practice for those developing and evaluating engineering arguments.
+        qualification: Only the landing page was read. It gives no publication date for version 3 and this claim does not describe the notation's elements.
+    published_in:
+      - file: docs/framework-crosswalk.md
+        locator: "## Assurance cases"
+    reviewer: AI-assisted initial source check
+    reviewed: 2026-09-21
+    independent_review_status: pending

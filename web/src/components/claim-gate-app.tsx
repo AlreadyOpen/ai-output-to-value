@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
+import { formVerdict } from "@/lib/verdict"
+import { evaluateClaim } from "@gate-core"
 
 type CheckState = "unknown" | "pass" | "fail" | "not-applicable"
 type GateCheck = { id: string; label: string }
@@ -231,18 +233,25 @@ function blankState(): FormState {
 
 export function ClaimGateApp() {
   const [gates, setGates] = React.useState<GateRules | null>(null)
+  const [claimSchema, setClaimSchema] = React.useState<unknown>(null)
   const [loadError, setLoadError] = React.useState<string | null>(null)
   const [handoffMessage, setHandoffMessage] = React.useState<string | null>(null)
   const importRef = React.useRef<HTMLInputElement>(null)
   const [state, setState] = React.useState<FormState>(blankState)
 
   React.useEffect(() => {
-    fetch("../schemas/v1/decision-gates.json")
-      .then(async (response) => {
+    Promise.all([
+      fetch("../schemas/v1/decision-gates.json").then(async (response) => {
         if (!response.ok) throw new Error(`Gate rules returned HTTP ${response.status}`)
         return (await response.json()) as GateRules
-      })
-      .then((payload) => {
+      }),
+      fetch("../schemas/v1/claim.schema.json").then(async (response) => {
+        if (!response.ok) throw new Error(`Claim schema returned HTTP ${response.status}`)
+        return (await response.json()) as unknown
+      }),
+    ])
+      .then(([payload, schema]) => {
+        setClaimSchema(schema)
         // Open on "Keep exploring": the everyday starting point, not the lowest rung of the ladder.
         const firstDecision = "explore" in payload.decisions ? "explore" : Object.keys(payload.decisions)[0]
         const firstRule = payload.decisions[firstDecision]
@@ -280,6 +289,10 @@ export function ClaimGateApp() {
       }),
     ) as Record<string, CheckState>
 
+    // Loading into the form is deliberately forgiving (an agent may hand over a draft for a
+    // person to finish), but say what the shared gate would reject rather than coerce it away.
+    const problems = claimSchema ? evaluateClaim(input, gates, claimSchema).structuralErrors : []
+
     setState({
       project: textValue(item.project),
       decision,
@@ -303,7 +316,11 @@ export function ClaimGateApp() {
       stopRule: textValue(item.stopRule),
       checks,
     })
-    setHandoffMessage(`${source} loaded into the local form. Review or edit it before relying on the result.`)
+    setHandoffMessage(
+      problems.length
+        ? `${source} loaded into the local form with ${problems.length} problem${problems.length === 1 ? "" : "s"} the gate would reject: ${problems.slice(0, 3).join("; ")}${problems.length > 3 ? "; …" : ""}. Fix them before relying on the result.`
+        : `${source} loaded into the local form. Review or edit it before relying on the result.`,
+    )
   }
 
   React.useEffect(() => {
@@ -411,13 +428,18 @@ export function ClaimGateApp() {
   }) ?? []
   const gaps = metadataGaps()
   const claimMismatch = Boolean(rule && state.assertedClaim !== rule.requiredClaimLevel)
+  // Once the form is complete, its verdict is the shared gate's verdict for the exported record.
+  const gate = gates && claimSchema && rule && !gaps.length ? evaluateClaim(record(), gates, claimSchema) : null
   const status = loadError
     ? "TOOL_ERROR"
-    : failed.length
-      ? "BLOCKED"
-      : unknown.length || gaps.length || claimMismatch || !rule
-        ? "INSUFFICIENT_EVIDENCE"
-        : "PASS"
+    : formVerdict({
+        failedCount: failed.length,
+        unknownCount: unknown.length,
+        gapCount: gaps.length,
+        claimMismatch,
+        hasRule: Boolean(rule),
+        gateStatus: gate?.status ?? null,
+      })
 
   const isUntouched = !state.project.trim()
     && !state.intendedUse.trim()
@@ -435,6 +457,7 @@ export function ClaimGateApp() {
         : `Missing/unknown evidence: ${check.label}`
     }),
     ...gaps,
+    ...(gate?.structuralErrors ?? []).map((error) => `Record problem: ${error}`),
     ...(claimMismatch && rule
       ? [`The asserted claim (${claimLabels[state.assertedClaim]}) does not match the claim required by this target decision (${claimLabels[rule.requiredClaimLevel]}).`]
       : []),

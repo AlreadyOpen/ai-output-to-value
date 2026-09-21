@@ -1,0 +1,60 @@
+sources:
+  - id: kellogg-logic-model-guide-2004
+    title: Logic Model Development Guide
+    publisher: W.K. Kellogg Foundation
+    url: https://wkkf.issuelab.org/resources/10124/10124.pdf
+    evidence_type: official_guidance
+    supports:
+      - logic_model_components_inputs_activities_outputs_outcomes_impact
+      - logic_model_is_used_interchangeably_with_program_theory
+    scope: A foundation's guide to building a program logic model for planning and evaluation, updated January 2004.
+    limitations: A funder's guide to program evaluation in the nonprofit and community sector, not guidance on AI-assisted work; it defines impact as intended or unintended change, not as whether the change was worth its cost.
+    reviewed: 2026-09-21
+
+  - id: hmt-magenta-book-2020
+    title: The Magenta Book — Central Government guidance on evaluation
+    publisher: HM Treasury (UK Government)
+    url: https://www.gov.uk/government/publications/the-magenta-book/magenta-book-central-government-guidance-on-evaluation-html
+    evidence_type: official_guidance
+    supports:
+      - theory_of_change_documents_how_an_intervention_is_expected_to_produce_change
+      - linear_theory_of_change_runs_from_inputs_to_outputs_and_outcomes
+    scope: UK central government guidance on planning, designing and using evaluation, including mapping an intervention's programme theory.
+    limitations: UK public-sector evaluation guidance, not guidance on AI-assisted work. Only section 2.2.1 and Figure 2.2 were read for this crosswalk; the guidance also discusses non-linear change.
+    reviewed: 2026-09-21
+
+  - id: uk-teal-book-benefits-management
+    title: "Teal Book, Part E, Chapter 19: Benefits management"
+    publisher: UK Government Project Delivery
+    url: https://projectdelivery.gov.uk/teal-book/home/part-e-planning-and-control/chapter-19-benefits-management/
+    evidence_type: official_guidance
+    supports:
+      - benefit_defined_as_measurable_value_or_positive_impact_contributing_to_objectives
+      - benefits_baseline_established_before_work_starts
+      - benefits_have_a_named_owner
+      - benefit_realisation_continues_in_operational_use
+    scope: UK Government guidance on identifying, valuing, planning, realising and reviewing benefits across portfolios, programmes and projects.
+    limitations: UK public-sector project-delivery guidance, not guidance on AI-assisted work. Read through the chapter's section numbering; the linked guides and templates were not read.
+    reviewed: 2026-09-21
+
+  - id: iso-iec-ieee-15026-2-2022
+    title: "ISO/IEC/IEEE 15026-2-2022 — Systems and software engineering — Systems and software assurance — Part 2: Assurance case"
+    publisher: IEEE Standards Association (joint ISO/IEC/IEEE standard)
+    url: https://standards.ieee.org/ieee/15026-2/10236/
+    evidence_type: technical_standard
+    supports:
+      - assurance_case_standard_specifies_structure_and_meaning_without_a_required_notation
+    scope: The catalogue page of the international standard on assurance cases, published November 2022 and listed as an active standard.
+    limitations: The standard itself is paywalled and was not read; only the catalogue scope statement was checked. The ISO catalogue page could not be retrieved.
+    reviewed: 2026-09-21
+
+  - id: scsc-gsn-community-standard-v3
+    title: Goal Structuring Notation Community Standard, version 3 (SCSC-141C)
+    publisher: Safety-Critical Systems Club, Assurance Case Working Group
+    url: https://scsc.uk/gsn-standard
+    evidence_type: technical_standard
+    supports:
+      - gsn_standard_defines_a_notation_for_engineering_arguments
+    scope: The club's page for the community standard that defines the Goal Structuring Notation and gives guidance on its use.
+    limitations: Only the standard's landing page was read, so the notation's elements are not described here; no publication date for version 3 is shown on that page.
+    reviewed: 2026-09-21

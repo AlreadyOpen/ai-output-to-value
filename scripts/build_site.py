@@ -9,6 +9,7 @@ import shutil
 from pathlib import Path
 
 import markdown
+import site_nav
 from publication_data import claims as load_claims
 from publication_data import load_yaml, source_map
 
@@ -19,6 +20,14 @@ UMBRELLA_URL = os.environ.get("PUBLICATION_UMBRELLA_URL", "https://github.com/Al
 SOURCE_REF = os.environ.get("PUBLICATION_SOURCE_REF") or os.environ.get("GITHUB_SHA") or "main"
 PUBLICATION_MODE = os.environ.get("PUBLICATION_MODE", "preview").strip().lower()
 RELEASE_SCOPES = {"guide", "policy"}
+# Repository files that the site publishes as pages. An article link to one of these
+# must point at the published copy, not fall back to the GitHub source blob. Values are
+# relative to articles/.
+PUBLISHED_FILES = {
+    "tools/claim-gate.html": "../tools/claim-gate.html",
+    "schemas/v1/claim.schema.json": "../schemas/v1/claim.schema.json",
+    "schemas/v1/decision-gates.json": "../schemas/v1/decision-gates.json",
+}
 STATUS = {
     "draft": "Draft",
     "research_draft": "Research draft",
@@ -117,9 +126,9 @@ def page_shell(title: str, body: str, source: str | None = None, meta: str = "",
 <title>{escaped_title} — AI Output to Value</title>
 <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="../publication.css"></head><body>
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a><nav class="nav" aria-label="Primary navigation"><a href="../index.html#interfaces">AI access</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></div></header>
-<details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../index.html#interfaces">AI access / WebMCP</a><a href="../articles/index.html">Articles</a><a href="../evidence/index.html">Evidence</a><a href="{REPO_URL}">GitHub</a><a href="{UMBRELLA_URL}">AlreadyOpen</a></nav></details>
-<main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{tools_html}{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../index.html#interfaces">AI access / WebMCP</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/provenance.html">Provenance</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
+<header class="site-header"><div class="shell header-inner"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">O→V</span><span>AI Output to Value</span></a>{site_nav.primary("../")}</div></header>
+{site_nav.mobile("../")}
+<main id="main" class="article-shell"><article class="article-body"><div class="article-meta"><span class="review-scope">{mode_label}</span><br>{meta}</div>{tools_html}{body}</article><aside class="article-aside" aria-label="Article links"><strong>AI Output to Value</strong><a href="../index.html">Home</a><a href="../tools/claim-gate.html">Interactive claim gate</a><a href="{site_nav.MCP_URL}">AI access</a><a href="../articles/index.html">All articles</a><a href="../evidence/index.html">Evidence</a>{source_link}<a href="{UMBRELLA_URL}">AlreadyOpen umbrella</a><a href="../articles/provenance.html">Provenance</a><a href="../articles/corrections.html">Report a correction</a></aside></main>
 <footer class="site-footer"><div class="shell footer-inner"><p><strong>AI Output to Value</strong> · <a href="{UMBRELLA_URL}">An AlreadyOpen project</a></p><p><a href="../articles/provenance.html">Provenance</a> · <a href="{REPO_URL}">GitHub</a> · <a href="../articles/corrections.html">Corrections</a></p></div></footer>
 <script src="../webmcp.js" defer></script>
 <script src="../article-tools.js" defer></script>
@@ -139,6 +148,8 @@ def rewrite_links(rendered: str, mapping: dict[str, str], source_path: Path) -> 
             return match.group(0)
         if rel in mapping:
             return f'href="{mapping[rel]}{("#" + fragment) if sep else ""}"'
+        if rel in PUBLISHED_FILES:
+            return f'href="{PUBLISHED_FILES[rel]}{("#" + fragment) if sep else ""}"'
         if resolved.exists():
             return f'href="{REPO_URL}/blob/{SOURCE_REF}/{rel}{("#" + fragment) if sep else ""}"'
         return match.group(0)

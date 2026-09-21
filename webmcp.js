@@ -17,10 +17,10 @@
     "What exactly have we demonstrated?",
     "What did the AI know, and what did it infer?",
     "What remains before the intended use?",
-    "Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?",
-    "Which actor or combination performs this task or decision best: human, AI, automated system, or hybrid?",
-    "Where do authority, accountability, verification, approval, operation, and support sit?",
-    "Which business outcome are we trying to change, including learning or uncertainty removed?",
+    "What work disappeared or moved, and where does the bottleneck go next?",
+    "Which actor or combination performs this task or decision best?",
+    "Who decides, who is accountable, and who verifies, runs and supports it?",
+    "Which business outcome are we trying to change?",
     "What evidence would justify the next decision, and when should we stop?"
   ];
 
@@ -60,78 +60,27 @@
     node.textContent = message;
   }
 
-  function evaluateClaimRecord(record, gates) {
-    const decisionId = record?.targetDecision;
-    const rule = gates?.decisions?.[decisionId];
-    const structuralErrors = [];
-    const missingFields = [];
-
-    if (record?.schemaVersion !== "1.0") {
-      structuralErrors.push("schemaVersion must be '1.0'");
+  // The gate is not reimplemented here. It is the same module the native MCP server runs,
+  // built into ui/gate-core.js, so WebMCP cannot return a different verdict from MCP, the
+  // CLI or the Claim Gate page. It is loaded on demand because most pages never evaluate.
+  let gateCore = null;
+  function loadGateCore() {
+    if (!gateCore) {
+      gateCore = import(siteUrl("ui/gate-core.js")).catch((err) => {
+        gateCore = null;
+        throw new Error(`Could not load the claim gate (ui/gate-core.js): ${err instanceof Error ? err.message : String(err)}`);
+      });
     }
+    return gateCore;
+  }
 
-    if (!rule) {
-      structuralErrors.push(`Unknown targetDecision: ${String(decisionId)}`);
-      return {
-        status: "BLOCKED",
-        targetDecision: decisionId ?? null,
-        errors: structuralErrors,
-        structuralErrors,
-        missingFields,
-        claimMismatch: false,
-        failedChecks: [],
-        unknownChecks: [],
-        passedChecks: [],
-        interactiveClaimGate: siteUrl("tools/claim-gate.html")
-      };
-    }
-
-    if (record?.requiredClaimLevel !== rule.requiredClaimLevel) {
-      structuralErrors.push(`requiredClaimLevel must be ${rule.requiredClaimLevel} for ${decisionId}`);
-    }
-
-    const checks = record?.gateChecks && typeof record.gateChecks === "object" && !Array.isArray(record.gateChecks)
-      ? record.gateChecks
-      : {};
-    const failedChecks = [];
-    const unknownChecks = [];
-    const passedChecks = [];
-
-    for (const check of rule.requiredChecks ?? []) {
-      const state = checks[check.id] ?? "unknown";
-      const item = { id: check.id, label: check.label, state };
-      if (state === "fail") failedChecks.push(item);
-      else if (state === "pass") passedChecks.push(item);
-      else unknownChecks.push(item);
-    }
-
-    const requiredTextFields = ["project", "intendedUse", "authority", "accountability", "nextEvidence", "stopRule"];
-    for (const field of requiredTextFields) {
-      if (!String(record?.[field] ?? "").trim()) missingFields.push(field);
-    }
-    if (!Array.isArray(record?.actors) || record.actors.length === 0) missingFields.push("actors");
-
-    const claimMismatch = record?.assertedClaimLevel !== rule.requiredClaimLevel;
-    let status = "PASS";
-    if (structuralErrors.length || failedChecks.length) status = "BLOCKED";
-    else if (unknownChecks.length || missingFields.length || claimMismatch) status = "INSUFFICIENT_EVIDENCE";
-
-    return {
-      status,
-      targetDecision: decisionId,
-      decisionLabel: rule.label,
-      requiredClaimLevel: rule.requiredClaimLevel,
-      assertedClaimLevel: record?.assertedClaimLevel ?? null,
-      errors: structuralErrors,
-      structuralErrors,
-      missingFields,
-      claimMismatch,
-      failedChecks,
-      unknownChecks,
-      passedChecks,
-      principle: gates?.principle ?? null,
-      interactiveClaimGate: siteUrl("tools/claim-gate.html")
-    };
+  async function evaluateClaimRecord(record) {
+    const [core, gates, claimSchema] = await Promise.all([
+      loadGateCore(),
+      fetchJson("schemas/v1/decision-gates.json"),
+      fetchJson("schemas/v1/claim.schema.json")
+    ]);
+    return { ...core.evaluateClaim(record, gates, claimSchema), interactiveClaimGate: siteUrl("tools/claim-gate.html") };
   }
 
   function requestClaimGateHandoff(claim) {
@@ -343,8 +292,7 @@
       },
       async execute({ claim }) {
         try {
-          const gates = await fetchJson("api/v1/gates.json");
-          return result(evaluateClaimRecord(claim, gates));
+          return result(await evaluateClaimRecord(claim));
         } catch (err) { return error(err instanceof Error ? err.message : String(err)); }
       }
     },
