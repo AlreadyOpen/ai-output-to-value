@@ -3,14 +3,18 @@ from __future__ import annotations
 
 import copy
 import unittest
+from pathlib import Path
 
 from experiments.semantic_review.core import (
     QUESTIONS,
     advisory_record,
     build_state,
     evidence_descriptors,
+    load_request,
     validate_request,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 class SemanticReviewExperimentTests(unittest.TestCase):
@@ -43,6 +47,15 @@ class SemanticReviewExperimentTests(unittest.TestCase):
                 payload["evidence"][0][field] = ""
                 with self.assertRaises(ValueError):
                     validate_request(payload)
+
+    def test_checked_in_example_request_is_valid(self):
+        payload = load_request(
+            REPO_ROOT / "experiments" / "semantic_review" / "example.request.json"
+        )
+        self.assertEqual(
+            payload["reviewId"],
+            "recovery-test-planned-vs-completed",
+        )
 
     def test_state_contains_claim_and_supplied_evidence(self):
         state = build_state(self.request())
