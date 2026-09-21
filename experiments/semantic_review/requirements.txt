@@ -1,1 +1,2 @@
-# Optional dependency for this experiment only.\nlaya==0.3.3\n
+# Optional dependency for this experiment only.
+laya==0.3.3
