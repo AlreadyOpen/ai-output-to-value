@@ -15,6 +15,8 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+import site_nav
+
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 ROOT = Path(os.environ.get("PUBLICATION_ROOT", str(DEFAULT_ROOT))).resolve()
 SITE = ROOT / "site"
@@ -75,6 +77,14 @@ def check_local_target(page: Path, raw: str, *, kind: str, site_root: Path, erro
         errors.append(f"{page.relative_to(ROOT)}: missing fragment target: {raw}")
 
 
+def check_navigation(page: Path, text: str, *, site_root: Path, errors: list[str]) -> None:
+    """Every page carries the one site navigation (site_nav.py), so the navs cannot drift."""
+    prefix = site_nav.prefix_for(len(page.relative_to(site_root).parts) - 1)
+    for name, expected in (("primary", site_nav.primary(prefix)), ("mobile", site_nav.mobile(prefix))):
+        if expected not in text:
+            errors.append(f"{page.relative_to(ROOT)}: {name} navigation differs from the site navigation")
+
+
 def main() -> int:
     errors: list[str] = []
     if not SITE.exists():
@@ -93,6 +103,8 @@ def main() -> int:
         except UnicodeDecodeError:
             errors.append(f"{page.relative_to(ROOT)}: not valid UTF-8")
             continue
+
+        check_navigation(page, text, site_root=site_root, errors=errors)
 
         if PROVIDER_PLACEHOLDER_RE.search(text):
             errors.append(f"{page.relative_to(ROOT)}: open-in provider still uses href=\"#\"")

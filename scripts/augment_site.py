@@ -159,12 +159,6 @@ def inject_workflow_homepage(text: str) -> str:
     if old_intro in text:
         text = text.replace(old_intro, new_intro, 1)
 
-    text = text.replace(
-        '<li><span>4</span><p><strong>Which work disappeared, and which work moved elsewhere?</strong><br>Look beyond generation time.</p></li>',
-        '<li><span>4</span><p><strong>Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?</strong><br>Look beyond local generation speed to the end-to-end flow.</p></li>',
-        1,
-    )
-
     hbr_workflow_card = '''          <a class="source-card" href="https://hbr.org/2026/09/stop-automating-old-processes-design-new-ones-instead">
             <span>Management / process source · registered claims pending independent review</span>
             <strong>Harvard Business Review — redesign the workflow, not only the task</strong>
@@ -191,11 +185,6 @@ def inject_discovery_links() -> None:
     text = homepage.read_text(encoding="utf-8")
     if 'tools/claim-gate.html' not in text:
         text = text.replace(
-            '<a href="articles/index.html">Articles</a>',
-            '<a href="tools/claim-gate.html">Claim gate</a>\n        <a href="articles/index.html">Articles</a>',
-            1,
-        )
-        text = text.replace(
             '<p><a href="articles/claim-card.html">Open the copyable claim card →</a></p>',
             '<p><a href="tools/claim-gate.html"><strong>Run the interactive claim gate →</strong></a> · <a href="articles/claim-card.html">Open the copyable claim card</a></p>',
             1,
@@ -207,20 +196,6 @@ def inject_discovery_links() -> None:
         1,
     )
     homepage.write_text(text, encoding="utf-8")
-
-    for path in (SITE / "articles").glob("*.html"):
-        article = path.read_text(encoding="utf-8")
-        if '../tools/claim-gate.html' in article:
-            continue
-        article = article.replace(
-            '<a href="../index.html#interfaces">AI access</a><a href="../articles/index.html">Articles</a>',
-            '<a href="../index.html#interfaces">AI access</a><a href="../tools/claim-gate.html">Claim gate</a><a href="../articles/index.html">Articles</a>',
-        )
-        article = article.replace(
-            '<a href="../index.html#interfaces">AI access / WebMCP</a><a href="../articles/index.html">All articles</a>',
-            '<a href="../index.html#interfaces">AI access / WebMCP</a><a href="../tools/claim-gate.html">Interactive claim gate</a><a href="../articles/index.html">All articles</a>',
-        )
-        path.write_text(article, encoding="utf-8")
 
 
 def augment() -> None:

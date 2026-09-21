@@ -4,6 +4,8 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
+import { caseInput, checkCase } from "../../../tests/conformance-harness.mjs";
+
 import {
   evaluateClaim,
   getStopRule,
@@ -21,19 +23,6 @@ const claimSchema = loadBundledClaimSchema();
 
 function record() {
   return structuredClone(conformance.baseRecord);
-}
-
-function patchedRecord(patch, remove = []) {
-  const value = record();
-  for (const [key, replacement] of Object.entries(patch ?? {})) {
-    if (key === "gateChecks" && replacement && typeof replacement === "object" && !Array.isArray(replacement)) {
-      value.gateChecks = { ...value.gateChecks, ...replacement };
-    } else {
-      value[key] = replacement;
-    }
-  }
-  for (const key of remove) delete value[key];
-  return value;
 }
 
 function evaluate(value) {
@@ -89,22 +78,7 @@ test("live publication gate contract requires explicit opt-in", async () => {
 test("shared conformance fixture matches the MCP evaluator", async (t) => {
   for (const item of conformance.cases) {
     await t.test(item.name, () => {
-      const input = "record" in item ? structuredClone(item.record) : patchedRecord(item.patch, item.remove);
-      const result = evaluate(input);
-      assert.equal(result.status, item.expectedStatus);
-      assert.equal(result.gateVersion, gates.version);
-      assert.equal(result.principle, gates.principle);
-      assert.equal(result.rule, gates.principle);
-      if (Object.hasOwn(item, "expectedClaimMismatch")) {
-        assert.equal(result.claimMismatch, item.expectedClaimMismatch);
-      }
-      if (item.expectedMissingFields) {
-        assert.deepEqual(result.missingFields, item.expectedMissingFields);
-      }
-      const errors = result.structuralErrors.join(" ").toLowerCase();
-      for (const needle of item.errorContains ?? []) {
-        assert.ok(errors.includes(String(needle).toLowerCase()), `${item.name}: ${needle}`);
-      }
+      assert.equal(checkCase(item, evaluate(caseInput(conformance, item)), gates), null);
     });
   }
 });

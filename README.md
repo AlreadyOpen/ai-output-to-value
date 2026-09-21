@@ -75,12 +75,13 @@ AI may genuinely improve all three, but a gain in one metric should not silently
 
 ## Learn from samples before starting blank
 
-The Claim Gate ships with three fictional teaching cases represented by four `claim.json` records:
+The Claim Gate ships with ten fictional `claim.json` records: three original teaching cases (four records) and a cross-domain pack of six more.
 
 - website prototype — **Explore → PASS**;
 - the same website — **Operate → BLOCKED**;
 - internal tool — **Rely → PASS**;
-- killed idea — **Outcome → PASS** on learning/option value.
+- killed idea — **Outcome → PASS** on learning/option value;
+- the cross-domain pack — six records showing false claim promotions, described in [`toolkit/samples/README.md`](toolkit/samples/README.md).
 
 The samples are under [`toolkit/samples/`](toolkit/samples/). They are teaching records, not disguised client incidents.
 

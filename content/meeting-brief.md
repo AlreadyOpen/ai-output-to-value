@@ -34,11 +34,15 @@ Stars, forks, downloads, mentions, or user counts are adoption/reach signals, no
 1. **What exactly have we demonstrated?**
 2. **What did the AI know, and what did it infer?**
 3. **What remains before the intended use?**
-4. **Which work disappeared, which work moved elsewhere, and where will the workflow bottleneck move?**
-5. **Which actor or combination performs this task or decision best: human, AI, automated system, or hybrid?**
-6. **Where do authority, accountability, verification, approval, operation and support sit?**
-7. **Which business outcome are we trying to change—including learning or uncertainty removed?**
-8. **What evidence would justify the next decision?**
+4. **What work disappeared or moved, and where does the bottleneck go next?**
+   *Name the work that disappeared, the work that moved to someone or somewhere else, and the next bottleneck.*
+5. **Which actor or combination performs this task or decision best?**
+   *Compare human, AI, automated system and hybrid options rather than assuming the answer.*
+6. **Who decides, who is accountable, and who verifies, runs and supports it?**
+   *Name who holds authority, accountability, approval, verification, operation and support, and where recourse sits.*
+7. **Which business outcome are we trying to change?**
+   *Include learning or uncertainty removed when that is the purpose.*
+8. **What evidence would justify the next decision, and when should we stop?**
 
 ## Workflow test
 
