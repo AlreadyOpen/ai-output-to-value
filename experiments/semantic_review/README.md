@@ -120,7 +120,7 @@ question/options head budget. The runner estimates the remaining state budget
 from the loaded model config and exits with:
 
 ```text
-status: NOT_RUN
+runStatus: NOT_RUN
 reason: TRUNCATION_RISK
 ```
 
