@@ -46,6 +46,16 @@ python scripts/build_with_ui.py
 
 GitHub Actions runs the same flow for both the working preview and proposed release artifact.
 
+## One claim gate on every surface
+
+The Claim Gate page, WebMCP and the native MCP server all run `packages/mcp/src/gate-core.mjs`; the Python CLI and Action run `scripts/claim_gate.py`, and the conformance fixture (`tests/fixtures/claim-gate-conformance.json`) holds the two together. The build emits the shared module as `site/ui/gate-core.js`, and `npm run build` fails if any of these disagree with the fixture:
+
+- `scripts/check-gate-conformance.mjs` runs the built browser bundle;
+- `scripts/check-webmcp-conformance.mjs` runs the real `webmcp.js` through its `aiov_evaluate_claim_record` tool (it uses Node's experimental `vm` module loader);
+- `scripts/check-ui-verdict.ts` checks that the page can show PASS only when the shared gate returns PASS.
+
+A complete form takes the shared gate's verdict for the record it exports. An incomplete form shows INSUFFICIENT_EVIDENCE and lists what is missing, because an unfilled field is not a malformed record.
+
 ## pdfcn
 
 `npm run pdfcn:sync` installs the owned source components used by the PDF template:
