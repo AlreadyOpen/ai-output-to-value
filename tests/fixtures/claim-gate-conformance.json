@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "baseRecord": {
     "schemaVersion": "1.0",
     "project": "example",
@@ -401,6 +401,80 @@
       "expectedStatus": "BLOCKED",
       "errorContains": [
         "$schema"
+      ]
+    },
+    {
+      "name": "access decision passes with its own claim level and checks",
+      "expectedStatus": "PASS",
+      "patch": {
+        "targetDecision": "access",
+        "requiredClaimLevel": "01-access",
+        "assertedClaimLevel": "01-access",
+        "gateChecks": {
+          "tool-identified": "pass",
+          "available-to-users": "pass",
+          "trial-use-permitted": "pass"
+        }
+      }
+    },
+    {
+      "name": "access decision with an unknown check is insufficient",
+      "expectedStatus": "INSUFFICIENT_EVIDENCE",
+      "patch": {
+        "targetDecision": "access",
+        "requiredClaimLevel": "01-access",
+        "assertedClaimLevel": "01-access",
+        "gateChecks": {
+          "tool-identified": "pass",
+          "available-to-users": "pass",
+          "trial-use-permitted": "unknown"
+        }
+      }
+    },
+    {
+      "name": "access decision with a failed check is blocked",
+      "expectedStatus": "BLOCKED",
+      "patch": {
+        "targetDecision": "access",
+        "requiredClaimLevel": "01-access",
+        "assertedClaimLevel": "01-access",
+        "gateChecks": {
+          "tool-identified": "pass",
+          "available-to-users": "fail",
+          "trial-use-permitted": "pass"
+        }
+      }
+    },
+    {
+      "name": "access decision asserted at Output is a claim mismatch",
+      "expectedStatus": "INSUFFICIENT_EVIDENCE",
+      "patch": {
+        "targetDecision": "access",
+        "requiredClaimLevel": "01-access",
+        "assertedClaimLevel": "02-output",
+        "gateChecks": {
+          "tool-identified": "pass",
+          "available-to-users": "pass",
+          "trial-use-permitted": "pass"
+        }
+      },
+      "expectedClaimMismatch": true
+    },
+    {
+      "name": "access decision cannot name a higher required claim",
+      "expectedStatus": "BLOCKED",
+      "patch": {
+        "targetDecision": "access",
+        "requiredClaimLevel": "02-output",
+        "assertedClaimLevel": "01-access",
+        "gateChecks": {
+          "tool-identified": "pass",
+          "available-to-users": "pass",
+          "trial-use-permitted": "pass"
+        }
+      },
+      "errorContains": [
+        "requiredClaimLevel"
       ]
     }
   ],

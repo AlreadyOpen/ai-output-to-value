@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "1.1",
+  "version": "1.2",
   "principle": "Use the lowest claim sufficient for the next decision. Do not average claim levels.",
   "statuses": {
     "PASS": "All checks required for this target decision are marked pass.",
@@ -8,6 +8,16 @@
     "INSUFFICIENT_EVIDENCE": "No required check failed, but at least one is missing, unknown, or not-applicable where evidence is required."
   },
   "decisions": {
+    "access": {
+      "label": "Obtain access to try it",
+      "requiredClaimLevel": "01-access",
+      "description": "Enough evidence that the model, agent, API, subscription or tool is available to the people who would try it, and that they may use it for the intended trial. It says nothing about what the tool produces or whether that result can be used.",
+      "requiredChecks": [
+        { "id": "tool-identified", "label": "The model, agent, API, subscription or tool is named, with its version or plan." },
+        { "id": "available-to-users", "label": "The people who would try it can use it now, with their own accounts or credentials." },
+        { "id": "trial-use-permitted", "label": "Its terms and the organisation's rules allow the intended trial, including the data it will touch." }
+      ]
+    },
     "explore": {
       "label": "Keep exploring",
       "requiredClaimLevel": "02-output",

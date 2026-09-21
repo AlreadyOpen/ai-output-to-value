@@ -24,10 +24,10 @@
     "schemaVersion": { "const": "1.0" },
     "project": { "type": "string", "minLength": 1, "maxLength": 160 },
     "targetDecision": {
-      "enum": ["explore", "rely", "operate", "measure-outcome", "scale-renew-stop"]
+      "enum": ["access", "explore", "rely", "operate", "measure-outcome", "scale-renew-stop"]
     },
     "requiredClaimLevel": {
-      "enum": ["02-output", "03-deliverable", "04-capability", "05-outcome", "06-value"]
+      "enum": ["01-access", "02-output", "03-deliverable", "04-capability", "05-outcome", "06-value"]
     },
     "assertedClaimLevel": {
       "enum": ["01-access", "02-output", "03-deliverable", "04-capability", "05-outcome", "06-value"]

@@ -87,7 +87,7 @@ class ClaimGateTests(unittest.TestCase):
     def test_complete_required_gate_passes(self):
         result = evaluate(self.base_record(), self.gates)
         self.assertEqual(result["status"], "PASS")
-        self.assertEqual(result["gateVersion"], "1.1")
+        self.assertEqual(result["gateVersion"], "1.2")
         self.assertEqual(result["principle"], self.gates["principle"])
         self.assertEqual(result["rule"], result["principle"])
 

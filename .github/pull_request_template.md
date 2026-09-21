@@ -2,6 +2,7 @@
 
 <!-- Choose one and delete the others. The target decision determines the evidence gate; producer identity does not. -->
 
+- [ ] Get access to try it — **01 Access**
 - [ ] Keep exploring / prototype only — **02 Output**
 - [ ] Permit reliance for a named use — **03 Deliverable**
 - [ ] Operate / support / sell repeatedly — **04 Capability**
