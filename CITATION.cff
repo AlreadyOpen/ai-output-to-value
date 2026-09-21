@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this guide or its claim gate, please cite it as below."
+title: "AI Output to Value"
+abstract: >-
+  An open, evidence-led guide and decision method for AI-assisted work, client
+  readiness, accountability, and business value, with a deterministic claim gate
+  for checking a decision record against the claim its decision requires.
+type: software
+authors:
+  - family-names: Kwok
+    given-names: Helen
+repository-code: "https://github.com/AlreadyOpen/ai-output-to-value"
+url: "https://alreadyopen.github.io/ai-output-to-value/"
+license:
+  - Apache-2.0
+  - CC-BY-4.0
+version: "0.1.0-rc.1"
+date-released: "2026-09-20"
+keywords:
+  - AI-assisted work
+  - decision method
+  - claim gate
+  - evidence
+  - accountability

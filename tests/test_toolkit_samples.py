@@ -119,5 +119,19 @@ class ToolkitSampleTests(unittest.TestCase):
             self.assertTrue((workbook / relative).is_file(), relative)
 
 
+class SampleCountDocumentationTests(unittest.TestCase):
+    """The READMEs state how many sample records ship; keep that in step with the folder."""
+
+    WORDS = {n: w for n, w in enumerate("zero one two three four five six seven eight nine ten eleven twelve".split())}
+
+    def test_readmes_state_the_number_of_sample_records(self):
+        root = Path(__file__).resolve().parents[1]
+        count = len(list((root / "toolkit" / "samples").glob("*.claim.json")))
+        stated = f"{self.WORDS.get(count, count)} fictional `claim.json` records"
+        for readme in ("README.md", "toolkit/README.md"):
+            with self.subTest(readme=readme):
+                self.assertIn(stated, (root / readme).read_text(encoding="utf-8"))
+
+
 if __name__ == "__main__":
     unittest.main()
