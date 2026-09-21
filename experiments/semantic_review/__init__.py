@@ -1,1 +1,3 @@
-# SPDX-License-Identifier: Apache-2.0\n\n\"\"\"Experimental semantic-review helpers.\"\"\"\n
+# SPDX-License-Identifier: Apache-2.0
+
+"""Experimental semantic-review helpers."""
