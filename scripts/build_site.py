@@ -19,6 +19,14 @@ UMBRELLA_URL = os.environ.get("PUBLICATION_UMBRELLA_URL", "https://github.com/Al
 SOURCE_REF = os.environ.get("PUBLICATION_SOURCE_REF") or os.environ.get("GITHUB_SHA") or "main"
 PUBLICATION_MODE = os.environ.get("PUBLICATION_MODE", "preview").strip().lower()
 RELEASE_SCOPES = {"guide", "policy"}
+# Repository files that the site publishes as pages. An article link to one of these
+# must point at the published copy, not fall back to the GitHub source blob. Values are
+# relative to articles/.
+PUBLISHED_FILES = {
+    "tools/claim-gate.html": "../tools/claim-gate.html",
+    "schemas/v1/claim.schema.json": "../schemas/v1/claim.schema.json",
+    "schemas/v1/decision-gates.json": "../schemas/v1/decision-gates.json",
+}
 STATUS = {
     "draft": "Draft",
     "research_draft": "Research draft",
@@ -139,6 +147,8 @@ def rewrite_links(rendered: str, mapping: dict[str, str], source_path: Path) -> 
             return match.group(0)
         if rel in mapping:
             return f'href="{mapping[rel]}{("#" + fragment) if sep else ""}"'
+        if rel in PUBLISHED_FILES:
+            return f'href="{PUBLISHED_FILES[rel]}{("#" + fragment) if sep else ""}"'
         if resolved.exists():
             return f'href="{REPO_URL}/blob/{SOURCE_REF}/{rel}{("#" + fragment) if sep else ""}"'
         return match.group(0)
