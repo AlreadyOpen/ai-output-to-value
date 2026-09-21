@@ -55,13 +55,19 @@ def _resolve_model(
             "experiments/semantic_review/requirements.txt"
         ) from exc
 
-    model_dir = Path(
-        snapshot_download(
-            repo_id=model,
-            revision=revision,
-            local_files_only=local_files_only,
+    try:
+        model_dir = Path(
+            snapshot_download(
+                repo_id=model,
+                revision=revision,
+                local_files_only=local_files_only,
+            )
         )
-    )
+    except Exception as exc:
+        mode = "local cache" if local_files_only else "Hugging Face"
+        raise RuntimeError(
+            f"could not resolve model {model!r} from {mode}: {exc}"
+        ) from exc
     return model_dir, _snapshot_revision(model_dir, revision), "huggingface-snapshot"
 
 
