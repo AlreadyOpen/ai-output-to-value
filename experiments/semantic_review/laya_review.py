@@ -71,7 +71,7 @@ def _resolve_model(
     return model_dir, _snapshot_revision(model_dir, revision), "huggingface-snapshot"
 
 
-def _load_laya(model_dir: Path, device: str | None):
+def _require_laya():
     try:
         import laya
     except ImportError as exc:
@@ -79,7 +79,11 @@ def _load_laya(model_dir: Path, device: str | None):
             "Laya is unavailable; install "
             "experiments/semantic_review/requirements.txt"
         ) from exc
-    return laya, laya.load(str(model_dir), device=device)
+    return laya
+
+
+def _load_laya(laya, model_dir: Path, device: str | None):
+    return laya.load(str(model_dir), device=device)
 
 
 def _coverage(agent: Any, state: str, evidence_count: int) -> dict[str, Any]:
@@ -124,12 +128,13 @@ def main() -> int:
     try:
         request = load_request(args.request)
         state = build_state(request)
+        laya = _require_laya()
         model_dir, resolved_revision, model_source = _resolve_model(
             args.model,
             args.revision,
             args.local_files_only,
         )
-        laya, agent = _load_laya(model_dir, args.device)
+        agent = _load_laya(laya, model_dir, args.device)
         coverage = _coverage(agent, state, len(request["evidence"]))
 
         model_meta = {
