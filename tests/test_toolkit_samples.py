@@ -94,6 +94,8 @@ class ToolkitSampleTests(unittest.TestCase):
             "Attribution strength / qualification",
             "Result that would reverse",
             "Outcome without Value",
+            "What we predicted before the trial",
+            "What we measured",
         ):
             with self.subTest(instrument="outcome", phrase=phrase):
                 self.assertIn(phrase, outcome)
@@ -112,6 +114,26 @@ class ToolkitSampleTests(unittest.TestCase):
         ):
             with self.subTest(instrument="value", phrase=phrase):
                 self.assertIn(phrase, value)
+
+    def test_decision_register_is_one_row_per_decision(self):
+        register = (REPO_ROOT / "toolkit" / "templates" / "decision-register.md").read_text(encoding="utf-8")
+        for column in (
+            "Decision",
+            "Intended use",
+            "Subject / scope",
+            "Required claim",
+            "Status",
+            "Owner",
+            "Next evidence",
+            "Stop date",
+        ):
+            self.assertIn(column, register)
+        self.assertIn("PASS", register)
+        self.assertIn("BLOCKED", register)
+        self.assertIn("INSUFFICIENT EVIDENCE", register)
+        self.assertIn("The register is not a maturity score.", register)
+        self.assertIn("Do not average the rows.", register)
+        self.assertIn('Do not report a count such as "3 of 6."', register)
 
     def test_private_workbook_contains_core_files(self):
         workbook = REPO_ROOT / "toolkit" / "private-workbook"
