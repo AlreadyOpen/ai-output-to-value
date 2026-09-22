@@ -25,11 +25,12 @@ Use only the subfolders that matter to the decision.
 ## Workflow
 
 1. Copy `decision.md` and `claim.json` into a private project folder.
-2. Name the **decision sought** before collecting more evidence.
-3. Put supporting internal material under `evidence/` or link to the organisation's existing controlled systems.
-4. Evaluate `claim.json` with the interactive Claim Gate, CLI, WebMCP, or native MCP.
-5. Record what would change the decision and the stop/restrict rule.
-6. Keep the evidence private according to your organisation's access, retention, legal, security, and client obligations.
+2. Keep one row per open decision on a copy of [`../templates/decision-register.md`](../templates/decision-register.md). Status is only `PASS`, `BLOCKED`, or `INSUFFICIENT EVIDENCE`. Do not average the rows.
+3. Name the **decision sought** before collecting more evidence.
+4. Put supporting internal material under `evidence/` or link to the organisation's existing controlled systems.
+5. Evaluate `claim.json` with the interactive Claim Gate, CLI, WebMCP, or native MCP.
+6. Record what would change the decision and the stop/restrict rule.
+7. Keep the evidence private according to your organisation's access, retention, legal, security, and client obligations.
 
 A `PASS` means the supplied record satisfies the deterministic gate for the selected decision. It is **not an audit of the underlying system or evidence**.
 
